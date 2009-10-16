@@ -1,0 +1,6 @@
+{% load images_extras %}
+{% load i18n %}
+<dd style="cursor: pointer; width: 148px;padding-top: 155px; text-align: center;">
+<div id="{{album.album_identifier}}-pageLeft" title="{% trans 'Page album left' %}"  class="images-album-pager left" onclick="albums._page('{{album.album_identifier}}', 'left')"><img src="/s/_img_interface/ln-pageables-left.png" border="0" width="21" height="21" alt="Ln Pageables Left" /></div>
+<div id="{{album.album_identifier}}-pageRight" title="{% trans 'Page album right' %}" class="images-album-pager right" onclick="albums._page('{{album.album_identifier}}', 'right')"><img src="/s/_img_interface/ln-pageables-right.png" border="0" width="21" height="21" alt="Ln Pageables Right" /></div>
+</dd>

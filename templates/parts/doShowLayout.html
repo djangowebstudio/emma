@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="author" content="nznl.com | nznl.net | nznl.org Internet Productions, Geert Dekkers Web Studio, 2008" />
+	<meta name="robots" content="noindex, nofollow" />
+	<meta name="robots" content="none, noarchive" />
+	<title>{{title}}</title>
+	<link rel="shortcut icon" href="/s/_img_interface/favicon.ico" />
+	<link rel="stylesheet" href="/s/_css/_common.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+</head>
+<body>
+
+{% load images_extras %}
+
+<div style="margin-top: 42px">
+	<div style="float: left; border: 1px solid #ddccdd">
+		<img src="/gallery/images/{{item}}.jpg" width="350" border="0" />
+	</div>
+	<div style="float: right; width: 297px; overflow: auto;">
+	
+	{% for mdict in dataDict %}
+
+
+	{% if mdict.subject %}
+	<div class="content_news_header">Titel</div>
+	<div class="content_news_body"> {{ mdict.subject|safe }}</div>
+	{% endif %}
+
+
+	{% if mdict.description %}
+	{% ifequal i 1 %}
+	<div class="content_news_header">Beschrijving</div>
+	<div class="content_news_body"> {{ mdict.description|safe }}</div>
+	{% endifequal %}
+	{% endif %}
+
+	{% if mdict.location %}
+	<div class="content_news_header">Lokatie</div>
+	<div class="content_news_body"> {{ mdict.location|safe }}</div>
+	{% endif %}
+
+	{% if mdict.source %}
+	<div class="content_news_header">Bron</div>
+	<div class="content_news_body"> {{ mdict.source|safe }}</div>
+	{% endif %}
+
+	{% if mdict.datetimeoriginal %}
+	<div class="content_news_header">Aanmaakdatum</div>
+	<div class="content_news_body"> {{ mdict.datetimeoriginal|safe }}</div>
+	{% else %}
+	{% if mdict.softdate %}
+	<div class="content_news_header">Aanmaakdatum</div>
+	<div class="content_news_body"> {{ mdict.softdate|safe }}</div>
+	{% endif %}
+	{% endif %}
+
+
+	{% if mdict.instructions %}
+	<div class="content_news_header">Credit</div>
+	<div class="content_news_body"> {{ mdict.instructions|safe }}</div>
+	{% endif %}
+
+	{% if mdict.creator %}
+	<div class="content_news_header">Auteur</div>
+	<div class="content_news_body"> {{ mdict.creator|safe }}</div>
+	{% endif %}
+
+	{% if mdict.credit %}
+	<div class="content_news_header">Instructies</div>
+	<div class="content_news_body"> {{ mdict.credit|safe }}</div>
+	{% endif %}
+
+	{% if mdict.keywords %}
+	<div class="content_news_header">Trefwoorden</div>
+	<div class="content_news_body"> {{ mdict.keywords|safe }}</div>
+	{% endif %}
+
+
+
+	{% endfor %}
+
+	</div>
+</div>
+</body>
+</html>

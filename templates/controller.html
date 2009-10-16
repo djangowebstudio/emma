@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ LANGUAGE_CODE }}" xml:lang="{{ LANGUAGE_CODE }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% load adminmedia %}{% admin_media_prefix %}css/base.css{% endblock %}" />
+{% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% admin_media_prefix %}css/rtl.css{% endblock %}" />{% endif %}
+{% block extrastyle %}{% endblock %}
+{% block extrahead %}{% endblock %}
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+
+<script src="/s/_javascript/prototype.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+
+	window.onload = function(){
+		// Check launchctl status on load
+		$$('input.launchctl').each(function(item){
+			doCheckLaunchctlStatus(item.id.replace('admin-launchctl-',''));	
+		});
+		
+				
+	}
+	
+	Event.observe(window, 'load', function(){
+	
+		$$('span.admin-launchctl-span').each(function(item){
+			Event.observe(item, 'click', viewer.build);
+			Event.observe(item, 'mouseover', viewer.destroy);
+		});
+	
+	});
+
+	function doCheckLaunchctlStatus(item){
+		
+		var mAjax = new Ajax.Request(
+			'/launchctl/check/' + item + '/',
+			{
+				method: 'get', 
+				
+				onSuccess: function(t){	
+					if(t.responseText == 1) {
+						$('admin-launchctl-' + item).checked = true;
+							message = 'running';
+						}else{
+							message = 'not running';
+						}
+						
+					$('admin-launchctl-' + item + '-response').update(message);
+				}
+
+			});
+		
+		
+	}
+	
+	function doLaunchctl(element){
+		
+		element.checked ? action = 'load' : action = 'unload';
+		item = element.id.replace('admin-launchctl-','') 
+		var mAjax = new Ajax.Updater(
+			{success: element + '-response'}, 
+			'/launchctl/do/' + action + '/' + item + '/',
+			{
+				method: 'get', 
+				onSuccess: function(){
+					doCheckLaunchctlStatus(item);
+				}
+			
+			});
+			
+			
+	}
+	
+	
+		
+	var mPeriodicalUpdater;
+	var viewer = {
+		
+		build: function(e){
+			// Build a div, populate with results of PeriodicalUpdater
+			// takes: onclick event
+			var item = e.element().id.replace(e.element().className + '-', '');
+			var right = ($('admin-images-content').getWidth() - Element.cumulativeOffset(e.element())[0]); // get the distance from right edge of window
+			e.element().addClassName('active'); // make tab active
+			var d = new Element('div', {id: 'logcontainer-' + e.element().id, className: 'logcontainer'});
+			right < 666 ? offsetRight =  (690 - right) * -1 : offsetRight = 0; //ah yes, we need to deduce this from e.element()...
+			Element.clonePosition(d, e.element(), {offsetTop: 23, offsetLeft: offsetRight, setHeight: false, setWidth: false});
+			$('admin-images-content').appendChild(d);
+
+			mPeriodicalUpdater = new Ajax.PeriodicalUpdater(d, '/logs/check/' + item + '/', {
+				  method: 'get', frequency: 3, decay: 2
+				});
+
+		},
+		
+		destroy: function(){
+			
+			$$('div.logcontainer').each(function(item){
+				$('admin-images-content').removeChild(item);
+			});
+			
+			$$('span.admin-launchctl-span').each(function(item){
+				item.removeClassName('active');
+			})
+
+			if(mPeriodicalUpdater) mPeriodicalUpdater.stop();
+			
+			
+		}
+		
+		
+	}	
+	
+	
+	
+	
+</script>
+
+<style type="text/css" media="screen">
+	div.admin-launchctl{
+		float: left; border: 1px dashed gray; margin-bottom: 5px; margin-left: 210px; padding: 5px; margin-top: 52px;;
+	}
+	
+	div.admin-launchctl div.admin-launchctl-itemcontainer{
+		
+		float: left;
+		margin-right: 7px;
+	}
+	
+	div.admin-launchctl div.admin-launchctl-response{
+		float: left; width: 74px; height: 16px; background-color:#fffecb; border: 1px solid gray; overflow: hidden; color: #544844; padding-left: 3px;
+	}
+	
+	div.admin-launchctl span{
+		cursor: pointer;
+		padding: 4px;
+	}
+	
+	div.admin-launchctl span:hover{
+		
+		background-color: #544844; 
+		color: #fffecb;
+		
+	}
+	
+	.active{
+		
+		background-color: #544844; 
+		color: #fffecb;
+		
+	}
+	
+	div.admin-launchctl div.admin-launchctl-control{
+		
+		float: left; margin-right: 5px;
+		
+	}
+	
+	div.admin-launchctl-control input{
+		display: inline;
+	}
+	
+	div.logcontainer{
+	
+		background-color: #fffecb;
+		width: 666px;
+		height: 420px;
+		position: absolute;
+		-webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+		border-top: 5px solid #544844;
+		padding: 7px;
+		overflow: auto;
+		
+	}
+	
+	
+	
+</style>
+
+
+</head>
+{% load i18n %}
+
+<body id="admin-images-content" class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+
+<!-- Container -->
+<div id="container">
+
+
+    <div id="header" style="background: #ff2b00;">
+        <div id="branding" style="margin-left: 210px">
+        EAM Controller <a href="/admin/">(back)</a>
+        </div>
+		
+		
+
+
+	</div>		
+
+	<div class="admin-launchctl">
+			<form id="admin-launchctl-form">
+				<div class="admin-launchctl-itemcontainer">
+					<div class="admin-launchctl-control"><input class="launchctl" type="checkbox" id="admin-launchctl-fix" onclick="doLaunchctl(this)" />
+						<span class="admin-launchctl-span" id="admin-launchctl-span-fix"> fix</span>
+					</div> 
+					<div id="admin-launchctl-fix-response" class="admin-launchctl-response"></div>
+				</div>
+				<div class="admin-launchctl-itemcontainer">
+					<div class="admin-launchctl-control"><input class="launchctl" type="checkbox" id="admin-launchctl-watch"  onclick="doLaunchctl(this)" />
+						<span class="admin-launchctl-span"  id="admin-launchctl-span-watch" > watch</span>
+					</div> 
+					<div id="admin-launchctl-watch-response" class="admin-launchctl-response"></div>
+				</div>
+				<div class="admin-launchctl-itemcontainer">
+					<div class="admin-launchctl-control"><input class="launchctl"  type="checkbox" id="admin-launchctl-generatekeywords" onclick="doLaunchctl(this)" />
+						<span class="admin-launchctl-span" id="admin-launchctl-span-generatekeywords"> generate keywords</span>
+					</div> 
+					<div id="admin-launchctl-generatekeywords-response" class="admin-launchctl-response"></div>
+				</div>
+			</form>
+	</div>
+	
+</div>
+
+<!-- END Container -->
+
+</body>
+</html>

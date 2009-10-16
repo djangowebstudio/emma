@@ -1,0 +1,437 @@
+/*
+***************************************************************************************************
+
+  	nznl.com | nznl.net | nznl.org Internet Productions
+	Geert Dekkers Web Studio, 2008 
+	info@nznl.net
+
+	_toolbar.css for BeeldNET
+	
+***************************************************************************************************	
+*/
+
+
+div.toolbar{
+	position: absolute;
+	top: 0px;
+	left: 210px;
+
+	width: 841px;
+	height: 37px;
+
+	color: white;
+	overflow: hidden;
+	padding-top: 0px;
+	padding-bottom: 3px;	
+	
+}
+
+div.toolbar ul {
+	display: inline;
+	text-align: center;
+	margin-left: 11px;
+	margin-right: 11px;
+	margin-top: 7px;
+	margin-bottom: 0px;
+	overflow: auto;
+	padding-left: 0px;
+	padding-right: 3px;
+	padding-bottom: 0px;
+	padding-top: 3px;
+	float: left;
+	height: 21px;
+}
+
+
+div.toolbar ul li{
+	display: inline;
+
+}
+
+ul#LN-toolbar-pager{
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: 13px;
+	font-weight: bold;
+	padding-bottom: 0px;
+	
+}
+
+
+ul#LN-toolbar-pager a {
+	
+	text-decoration: none;
+	color: white;
+	padding: 3px;
+}
+
+ul#LN-toolbar-pager a:hover {
+	
+	text-decoration: none;
+	color: black;
+	background-color: white;
+	padding: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	
+	
+}
+
+
+a.LN-toolbar-pager-number{
+	border: none;
+}
+
+
+
+ul#LN-toolbar-sorter{
+ 	
+}
+
+
+
+ul#LN-toolbar-sorter a{
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+}
+
+ul#LN-toolbar-sorter a:hover{
+	text-decoration: underline;
+	color: black;
+}
+
+ul#LN-toolbar-view{
+ 	padding-left: 5px;
+}
+
+
+ul#LN-toolbar-zoom{
+	padding-left: 5px;
+}
+
+ul#LN-toolbar-zoom ul{
+
+	text-align: center;
+
+}
+
+ul#LN-toolbar-zoom li{
+
+}
+
+ul#LN-toolbar-zoom a{
+
+}
+
+ul#LN-toolbar-zoom a:hover{
+
+}
+
+ul#LN-toolbar-searchbox-container{
+	margin-left: 24px;
+	margin-right: 24px;
+	overflow: visible;
+}
+
+ul#LN-toolbar-searchbox-container input{
+	height: 12px;
+	padding: 0px;
+	margin-left: 5px;
+	margin-bottom: 2px;
+	color: #444;
+	font: 11px helvetica;
+	width: 210px;
+}
+
+
+ul#LN-toolbar-searchselect-container img{
+	border: 1px solid #F35D26;
+	cursor: pointer;
+}
+
+ul#LN-toolbar-searchselect-container img:hover{
+	border-top: 1px solid white;
+	border-left: 1px solid white;
+}
+
+div#LN-toolbar-searchSelectMenu{
+	position: absolute;
+	width: 105px;
+	background-color: white;
+	border: 1px solid #ddccdd;
+	-webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
+div#LN-toolbar-searchSelectMenu div{
+	cursor: pointer;
+}
+
+div#LN-toolbar-searchSelectMenu div:hover{
+	background-color: #ddccdd;
+}
+
+div#LN-toolbar-searchSelectMenu div img{
+	margin-right: 11px;
+	margin-left: 7px;
+	position: relative;
+	top: 3px;
+}
+
+	
+/* calendar icon, and calendar cascadng pulldown */	
+
+li#LN-toolbar-calendar{
+	padding-left: 7px;
+}
+
+ul#LN-toolbar-calendar-pulldown-container{
+
+	width: 74px;
+	background-color: #F35D26;
+	position: absolute;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	padding-top: 21px;
+	padding-right: 7px;
+	padding-bottom: 14px;
+	text-align: right;
+	font-size: 14px;
+	margin-top: 0px;
+	margin-left: 0px;
+}
+ul#LN-toolbar-calendar-pulldown-container a{
+	color: white;
+	text-decoration: none;	
+	font-weight:bold;
+}
+
+ul#LN-toolbar-calendar-pulldown-container a:hover{
+	color: black;
+	text-decoration: none;
+
+}
+
+ul#LN-toolbar-calendar-pulldown-container li{
+	list-style-type: none;
+}
+
+
+ul.LN-toolbar-calendar-pulldown-month-container{
+	width: 74px;
+	background-color: #F35D26;
+	position: absolute;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	padding-top: 11px;
+	padding-right: 7px;
+	padding-bottom: 14px;
+	padding-left: 11px;
+	text-align: left;
+	margin-top: 0px;
+}
+
+ul.LN-toolbar-calendar-pulldown-month-container li{
+	list-style-type: none;
+	
+}
+
+ul.LN-toolbar-calendar-pulldown-month-container a{
+	color: white;
+	text-decoration: none;
+}
+
+ul.LN-toolbar-calendar-pulldown-month-container a:hover{
+	color: black;
+	text-decoration: none;
+}
+
+/* category text, and category pulldown */
+
+li#LN-toolbar-categories{
+	padding-left: 5px;
+}
+
+li#LN-toolbar-categories a{
+	color: white;
+	text-decoration: none;
+}
+
+li#LN-toolbar-categories a:hover{
+	color: white;
+	text-decoration: underline;
+}
+
+ul.LN-toolbar-category-pulldown-container{
+	width: 105px;
+	background-color: white;
+	position: absolute;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	padding-top: 11px;
+	padding-right: 7px;
+	padding-bottom: 14px;
+	padding-left: 5px;
+	text-align: left;
+	margin-top: 0px;
+	border: 1px solid #ddccdd;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	filter:alpha(opacity=90);
+}
+
+ul#LN-toolbar-category-pulldown-container a{
+	color: #444;
+	text-decoration: none;
+	
+}
+
+ul#LN-toolbar-category-pulldown-container a:hover{
+	color: #df3d22;
+	text-decoration: none;
+	
+}
+
+ul#LN-toolbar-category-pulldown-container li{
+		list-style-type: none;
+		list-style-position: outside;
+}
+
+
+
+ul.LN-toolbar-category-pulldown-container li{
+	color: #444;
+	text-decoration: none;
+	list-style-type: none;
+	list-style-position: outside;
+	cursor: pointer;
+	
+}
+
+ul.LN-toolbar-category-pulldown-container li:hover{
+	color: #df3d22;
+	text-decoration: underline;
+	
+}
+
+ul.LN-toolbar-category-pulldown-container fieldset{
+	color: #df3d22;
+	border-top: 1px solid #ddccdd;
+	border-bottom: 1px solid #ddccdd;
+	border-left: none;
+	border-right: none;
+	padding-left: 0px;
+	margin-top: 11px;
+	background-image: url('/s/_img_interface/triangle-orange-go.png');
+	background-repeat: no-repeat;
+	background-position: 52px 18px;
+}
+
+ul.LN-toolbar-category-pulldown-container fieldset input{
+	font-size: 10px;
+	margin-top: 5px;
+	margin-left: 3px;
+}
+
+/* popup / pulldown menu */
+
+ul.images-menu{
+	width: 105px;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	filter:alpha(opacity=90);
+	position: absolute;
+	padding-top: 11px;
+	padding-right: 7px;
+	padding-bottom: 14px;
+	padding-left: 5px;
+	text-align: left;
+	margin-top: 0px;
+	margin-left: 0px;
+	
+	
+}
+
+ul.images-menu li{
+	color: #444;
+	text-decoration: none;
+	list-style-type: none;
+	list-style-position: outside;
+	cursor: pointer;
+	padding-left: 3px;
+	margin-left: 0px;
+	
+}
+
+ul.images-menu li:hover{
+	color: #df3d22;
+	text-decoration: underline;
+	
+}
+
+ul.images-menu fieldset{
+	color: #df3d22;
+	border-top: 1px solid #ddccdd;
+	border-bottom: 1px solid #ddccdd;
+	border-left: none;
+	border-right: none;
+	padding-left: 0px;
+	margin-top: 11px;
+	background-image: url('/s/_img_interface/triangle-orange-go.png');
+	background-repeat: no-repeat;
+	background-position: 52px 18px;
+}
+
+ul.images-menu fieldset input{
+	font-size: 10px;
+	margin-top: 5px;
+	margin-left: 3px;
+}
+
+.pulldown{
+	background-color: white;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border: 1px solid #ddccdd;
+	-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+
+.popup{
+	
+	background-image: url('/s/_img_interface/images-popup-bg.png');
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	background-color: none;
+	border-top: 1px solid #ddccdd;
+	padding-left: 5px;
+	
+
+}
+
+.clean{
+	
+	background-image: url('/s/_img_interface/images-popup.png');
+	
+}
+
+
+/* help, logout */
+
+ul#LN-toolbar-help-logout li{
+	padding-left: 3px;
+}
+
+ul#LN-toolbar-help-logout li a{
+	color: white;
+	text-decoration: none;	text-align: center;
+}
+
+ul#LN-toolbar-help-logout li a:hover{
+	color: white;
+	text-decoration: underline;
+}

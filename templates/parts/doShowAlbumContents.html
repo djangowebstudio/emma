@@ -1,0 +1,43 @@
+{% load i18n %}
+{% load images_extras %}
+<dt style="height: 12px; text-align: center;">
+	<div>
+		{% if perms.interface.can_edit_content %}
+		<input class="album-input" title="{% trans 'Click on text to edit, click anywhere else to save' %} {{album.album_name}}" id="input-{{album.album_identifier}}" type="text" value="{{album.album_name}}" onfocus="this.addClassName('active')" onblur="this.removeClassName('active'); albums._edit('{{album.album_identifier}}')" />
+		{% else %}
+		<div title="{{album.album_name}}" style="float: left; padding-left: 5px; margin-top: 3px; color: #333; font-size: 10px">{{album.album_name|truncate:27}}</div>
+		{% endif %}
+		<div style="float: right; background-color: white; height: 14px;padding-top: 3px; padding-left: 3px">
+			<img title="{% trans 'Add this album to your basket'%}" style="cursor: pointer; margin-left: 5px;" onclick="createEntry('{{album.album_identifier}}')" src="/s/_img_interface/arrow.png" border="0" width="14" height="10" alt="{% trans 'Add this item to your basket'%}" />
+		</div>
+	</div>
+	
+</dt>
+
+
+{% for item in album.content %}
+
+<dd id="dd-{{item.image_LNID}}" class="images-gallery-dd {{album.album_identifier}} {{item.group_status}}" {% if not forloop.first %}style="display: none"{% endif %}>
+
+	{% ifequal div "content" %}
+	<a class="lightwindow" pages="{{album.image.count}}" href="/gallery/images/{{item.image_name}}" rel="lightbox[{{match|cut:" +"}}]" title="{{item.image_LNID}} ({{item.group_status}})"  id="{{item.image_LNID}}">{% endifequal %}
+			<img id="album-item-{{item.image_LNID}}_{{album.album_identifier}}" style="border: 1px solid #ddccdd" class="album-items" src="/gallery/albums/{{item.image_name}}" height="148" width="148" border="0" />
+	{% ifequal div "content" %}
+	</a>
+	{% endifequal %}
+	
+	<div id="{{album.album_identifier}}-{{item.image_LNID}}" style="position: absolute; top: 160px; left: 29px;background-color: white; width: 100px; text-align: center">
+		{% if perms.interface.can_edit_content %}
+			<a title="{% trans 'Click here to edit the album' %}" id="album-admin-{{album.album_identifier}}"{% ifequal div "content" %} class="lightwindow" params="lightwindow_type=external" {% endifequal %} href="/admin/interface/album/{{album.id}}/">...</a>
+		{% endif%}
+		<a title="{{item.image_LNID}}" id="album-a-{{item.image_LNID}}" {% ifequal div "content" %} class="lightwindow" params="lightwindow_type=external" {% endifequal %} {% if perms.interface.can_edit_content %} href="/admin/interface/metadata/{{item.id}}/" {% else %} {% ifequal div "content" %} href="/interface/show/description/{{item.image_LNID}}/1/"{% else %} href="#" {% endifequal %}{% endif %} onmouseout="doHideMDall()" onmouseover="doShowMDall(this,'{{item.image_LNID}}')" >{{item.image_LNID|truncate:14}}</a>
+	</div>
+	
+	{% include 'parts/includeAlbumIcons.html' %}		
+	
+	
+</dd>
+
+{% endfor %}
+
+{% include 'parts/includeAlbumContentControls.html' %}

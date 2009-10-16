@@ -1,0 +1,19 @@
+{% extends 'doShow.html' %}
+{% block content %}
+<div style="height: 21px; padding-top: 2px;">	
+	<ul class="LN-startPage">
+		<li title="Back to the first page" style="font-weight: bold; font-size: 12px; cursor: pointer"  onclick="doShowStartPage('{{cat}}',{{ first_page }})">{{cat|capfirst}}s</li>
+		{% if has_prev %}
+		<li class="active" title="Go to page {{first_page}}" onclick="doShowStartPage('{{cat}}',{{first_page}})"> &lt;&lt; </li>
+		<li class="active" title="Go to page {{previous_page}}" onclick="doShowStartPage('{{cat}}',{{previous_page}})"> &lt; </li>
+		{% else %}
+		<li><img src="/s/_img_interface/bn-transparant.gif" width="32" height="10" alt="Bn Transparant"></li>
+		{% endif %}
+		<li style="color: #666">{{pages|cut:"<"|cut:">"}}</li>
+		{% if has_next %}
+		<li class="active" title="Go to page {{ next_page }}" onclick="doShowStartPage('{{cat}}',{{next_page}})"> &gt; </li>
+		<li class="active" title="Go to page {{ last_page }}"  onclick="doShowStartPage('{{cat}}',{{last_page}})"> &gt;&gt; </li>
+		{% endif %}
+	</ul>
+</div>
+{% endblock %}

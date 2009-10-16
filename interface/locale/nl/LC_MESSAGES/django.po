@@ -1,0 +1,339 @@
+# EAM Template Translations for Dutch.
+# Copyright (C)
+# This file is distributed under the same license as the PACKAGE package.
+# Geert Dekkers, geert@nznl.com, 2009.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-08-03 20:00+0200\n"
+"PO-Revision-Date: 2009-05-23 22:22+0200\n"
+"Last-Translator: Geert Dekkers, geert@nznl.com, 2009\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: views.py:78
+#, python-format
+msgid "Error creating or saving user preferences %s"
+msgstr ""
+
+#: views.py:100
+#, python-format
+msgid "An error has occurred saving your Internet Explorer preferences %s"
+msgstr ""
+
+#: views.py:280
+msgid "Your basket is empty."
+msgstr ""
+
+#: views.py:282
+msgid "An error occurred while emptying you basket."
+msgstr ""
+
+#: views.py:289
+msgid "The item has been removed"
+msgstr ""
+
+#: views.py:291
+msgid "An error occurred. The item was not removed"
+msgstr ""
+
+#: views.py:320
+#, fuzzy, python-format
+msgid "%s is in your basket"
+msgstr "Zet dit onderdeel in je mandje"
+
+#: views.py:320
+#, python-format
+msgid "%s is already in there!"
+msgstr ""
+
+#: views.py:326
+#, python-format
+msgid "%s has already been downloaded"
+msgstr ""
+
+#: views.py:328
+#, python-format
+msgid "%(album)s is already selected %(inst)s"
+msgstr ""
+
+#: views.py:330
+#, python-format
+msgid "An error has occurred -- unable to get album leader %(inst)s %(leader)s"
+msgstr ""
+
+#: views.py:355
+#, fuzzy, python-format
+msgid "%(item)s is in your basket"
+msgstr "Zet dit onderdeel in je mandje"
+
+#: views.py:357
+#, python-format
+msgid "%(item)s already here!"
+msgstr ""
+
+#: views.py:369
+#, python-format
+msgid "%(item)s had been downloaded (more than) once already."
+msgstr ""
+
+#: views.py:371
+#, python-format
+msgid "%(item)s already selected"
+msgstr ""
+
+#: views.py:405
+msgid "Exception"
+msgstr ""
+
+#: views.py:405
+msgid "no information"
+msgstr ""
+
+#: views.py:420
+#, python-format
+msgid "The item seemed to be part of an album, but no album found - %s"
+msgstr ""
+
+#: views.py:596
+msgid "item view"
+msgstr "toon geen albums"
+
+#: views.py:596
+msgid "album view"
+msgstr "toon als albums"
+
+#: views.py:597
+msgid "show oldest first"
+msgstr "toon oudste eerst"
+
+#: views.py:597
+msgid "show newest first"
+msgstr "toon nieuwste eerst"
+
+#: views.py:658
+msgid "De requested album does not exist"
+msgstr ""
+
+#: views.py:730 views.py:766
+msgid "No results"
+msgstr ""
+
+#: views.py:797
+msgid " added to an existing favorite"
+msgstr ""
+
+#: views.py:814
+msgid " added new favorite"
+msgstr ""
+
+#: views.py:894
+msgid "removed"
+msgstr ""
+
+#: views.py:1001
+#, python-format
+msgid "saved pagesize %s"
+msgstr ""
+
+#: views.py:1003
+#, python-format
+msgid "Sorry, something went wrong %s"
+msgstr ""
+
+#: views.py:1012
+msgid "Order by date set to descending (oldest first)"
+msgstr ""
+
+#: views.py:1012
+msgid "Order by date set to ascending (newest first)"
+msgstr ""
+
+#: views.py:1021
+#, python-format
+msgid "Album visibility set to %s"
+msgstr ""
+
+#: views.py:1027
+msgid "new album generated"
+msgstr ""
+
+#: views.py:1037
+#, python-format
+msgid "An error getting the Image object %(inst)s for argument %(item)s"
+msgstr ""
+
+#: views.py:1058
+#, python-format
+msgid "%(item)s entered into album %(album)s"
+msgstr ""
+
+#: views.py:1060 views.py:1071 views.py:1081 views.py:1144
+#, python-format
+msgid "An error occurred %s"
+msgstr ""
+
+#: views.py:1069
+#, python-format
+msgid "Saved %s"
+msgstr ""
+
+#: views.py:1097
+#, python-format
+msgid "%(item)s removed from album %(album)s."
+msgstr ""
+
+#: views.py:1099
+#, python-format
+msgid "Error saving Metadata object for Album follower %s"
+msgstr ""
+
+#: views.py:1115
+#, python-format
+msgid ""
+"%(item)s removed from this album. As this was the leader, %(new)s has now "
+"been made leader"
+msgstr ""
+
+#: views.py:1138
+#, python-format
+msgid ""
+"The last item has been removed, and consequently the album %s has been "
+"deleted."
+msgstr ""
+
+#: views.py:1140
+#, python-format
+msgid "An error occurred removing the last item. %s"
+msgstr ""
+
+msgid "No results found for this keyword"
+msgstr "Geen resultaten gevonden voor dit trefwoord"
+
+msgid "No viewable results at the moment. There might be viewable results "
+msgstr ""
+"Momenteel geen resultaten zichtbaar. Mogelijk zouden er resultaten "
+"zichtbaar zijn "
+
+msgid " if you turned off albums"
+msgstr " als onderdelen niet in albums getoond zouden worden"
+
+msgid "Add this album to your basket"
+msgstr "Zet dit album in je mandje"
+
+msgid "Click here to edit the album"
+msgstr "Klik hier om het album te bewerken"
+
+msgid "categories"
+msgstr "categorieën"
+
+msgid "tags"
+msgstr "trefwoorden"
+
+msgid "list"
+msgstr "lijst"
+
+msgid "cloud"
+msgstr "wolk"
+
+msgid "will not work AT ALL if javascript is turned off!"
+msgstr "werkt helemaal niet als javascript uitgeschakeld is!"
+
+msgid "Click on text to edit, click anywhere else to save"
+msgstr "Klik op de tekst om te bewerken, klik ergens anders om te bewaren"
+
+msgid "drag the items you want to download here"
+msgstr "sleep de onderdelen naar het mandje"
+
+msgid "or click the small grey arrow"
+msgstr "of klik op het grijze pijltje"
+
+msgid "Click to download the contents of your basket."
+msgstr "Klik om je mandje te downloaden."
+
+msgid "Click to drag"
+msgstr "Klik om te slepen."
+
+msgid "Click to remove this item from your basket"
+msgstr "Klik om dit onderdeel uit je mandje te verwijderen"
+
+msgid ""
+"Change resolution of the downloads. HR is High Resolution and a slower "
+"download, LR is Low Resolution and a faster download"
+msgstr ""
+"Verander de resolutie van de download. HR is een hoge resolutie en een "
+"langzamer download, LR is een lagere resolutie en een snellere download"
+
+msgid "Empty your basket"
+msgstr "Maak je mandje leeg"
+
+msgid "Click here to empty your basket completely"
+msgstr "Klik hier om je mandje geheel leeg te maken"
+
+msgid "Prev"
+msgstr "Vorig"
+
+msgid "Next"
+msgstr "Volgende"
+
+msgid "Favorites"
+msgstr "Favorieten"
+
+msgid "expand favorites bar for more options"
+msgstr "vergroot de favorietenbalk voor meer opties"
+
+msgid "Edit your favorites in a new panel"
+msgstr "Bewerk de favorieten in een nieuw paneel"
+
+msgid "Expand"
+msgstr "Vergroot"
+
+msgid "expand"
+msgstr "vergroot"
+
+msgid "Add album to your basket"
+msgstr "Zet dit album in je mandje"
+
+msgid "Remove item "
+msgstr "Verwijder onderdeel"
+
+msgid "Group items in albums"
+msgstr "Groepeer onderdelen in albums"
+
+msgid "No grouping of items in albums"
+msgstr "Laat alle onderdelen los zien (dus niet in albums)"
+
+msgid "Page album left"
+msgstr "Volgende onderdeel laten zien"
+
+msgid "Page album right"
+msgstr "Vorige onderdeel laten zien"
+
+msgid "Remove this item from album"
+msgstr "Verwijder dit onderdeel uit het album"
+
+msgid "Add this pg to your basket"
+msgstr "Zet dit onderdeel in je mandje"
+
+msgid "copyright owed"
+msgstr "copyright verschuldigd"
+
+msgid "copyright settled"
+msgstr "copyright is betaald"
+
+msgid "copyright unknown"
+msgstr "copyright onbekend"
+
+msgid "not yet ready for printing -- this image needs profiling"
+msgstr "niet drukklaar - 4 dagen verwerkingstijd"
+
+msgid "this item contains an attachment"
+msgstr "dit onderdeel beval een attachment"
+
+msgid "basket"
+msgstr "mandje"

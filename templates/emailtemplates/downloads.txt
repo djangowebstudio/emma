@@ -1,0 +1,39 @@
+Beste {{ name }},
+
+Zojuist is het volgende gedownload: 
+{% if not imageList|length_is:"0" %}
+Beelden:
+{% for item in imageList %}
+{{ item.image_LNID }} ({{ item.resolution }}){% ifequal item.cright 1 %}, copyrights: ja{% endifequal %}{% ifequal item.cright 2 %}, copyrights: onbekend{% endifequal %}{% ifequal item.profile 0 %}, drukklaar: nee{% endifequal %}
+{% endfor %}
+{% endif %}
+
+{% if not groupList|length_is:"0" %}
+Onderdelen in albums:
+{% for group in groupList %}
+{% for item in group %}
+{{ item.image_LNID }} ({{ item.resolution }}){% ifequal item.cright 1 %}, copyrights: ja{% endifequal %}{% ifequal item.cright 2 %}, copyrights: onbekend{% endifequal %}{% ifequal item.profile 0 %}, drukklaar: nee{% endifequal %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+Fotocredits
+
+Indien voor (een van) deze beelden betaald moet worden (= rood bolletje links boven het beeld in beeldNET), neem dan contact met ons op. Wij zorgen voor de financiële afhandeling van het beeldmateriaal en checken de benodigde vermelding van de fotocredit(s).
+
+Graag ontvangen wij daarom tijdig een PDF van het (druk)werk of screendump van de internetpagina. Ook indien deze nog niet helemaal definitief is. Wij weten dan dat er eventueel iets aankomt en controleren meteen ook of het beeld niet voor een bepaalde tijd is afgekocht door een andere partij.
+
+ 
+Lithografie
+
+LET OP: staat hierboven achter het beeld: drukklaar: nee? Dan duurt het maximaal 4 dagen om het beeld drukklaar te maken. Wij adviseren dit tijdig te laten doen. Natuurlijk helpen wij daar graag aan mee.
+
+Zoals voorheen blijven wij natuurlijk beschikbaar voor het uitvoeren van speciale zoekopdrachten.
+
+Met vriendelijke groet,
+
+namens het BeeldNET-team,
+
+Claudia Limmen en Bianca Poortman
+E-mail: claudia@schepper.nl, bianca@schepper.nl
+Telefoon: 020 3058813

@@ -1,0 +1,6 @@
+{% load images_extras %}
+<ul>
+{% for currentItem in itemList %}
+<li title="Zoek bron {{currentItem|first}}" onclick="doShowThumbs('{{currentItem|last}}','_SOURCE_',1000,1,true)">{{ currentItem|first|safe|truncate:42 }}</li>
+{% endfor %}
+</ul>

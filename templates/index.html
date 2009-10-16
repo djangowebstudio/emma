@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="author" content="nznl.com | nznl.net | nznl.org Internet Productions, Geert Dekkers Web Studio, 2008" />
+	<meta name="robots" content="noindex, nofollow" />
+	<meta name="robots" content="none, noarchive" />
+	<title>{{title}}</title>
+	<link rel="shortcut icon" href="/s/_img_interface/favicon.ico" />
+	<link rel="stylesheet" href="/s/_css/_common.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+	<link rel="stylesheet" href="/s/_css/lightwindow.css" type="text/css" media="screen" />
+	<script src="/s/_javascript/prototype.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/s/_javascript/scriptaculous.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/s/_javascript/_favorites.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/s/_javascript/_albums.js" type="text/javascript" charset="utf-8"></script>	
+	<script src="/s/_javascript/_do.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/s/_javascript/lightwindow.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/s/_javascript/lightwindow_extended.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/jsi18n/" type="text/javascript" charset="utf-8"></script>
+
+	<script type="text/javascript" charset="utf-8">
+		var commands = $H({
+			'Select All': actions.selectAll,
+			'Deselect All' : actions.deselectAll,
+			'New Album': albums._new
+		});
+
+
+		var albumCommands = $H({
+			'Remove from album': function(element){alert(element.id);},
+			'Copy to other album': function(){alert('copies item to other album');}
+		});
+	</script>
+
+	<!--[if IE 6]>
+
+		<style>
+			
+			div.content_favorites{ position: absolute; bottom: 0px}
+
+		</style>
+
+	<![endif]-->
+	
+
+	
+	
+</head>
+{% load i18n %}
+<body id="content">
+<div class="menubar" id="LN-menubar" onclick="actions.deselectAll()">
+	<div class="header"> </div>
+	<ul class="LN-menubar" id="LN-menubar-show">
+		<li><a title="Show categories"  href="#" onclick="toggleMenuHeaders(this);$('menuContent').update();$('content_crumbs').update();doShowMenu('menuContent','_ALL_')">{% trans 'categories'%}</a> | </li>
+		<li><a title="Show tags"  href="#" onclick="toggleMenuHeaders(this);doShowTags('menuContent','list','all',1)">{% trans 'tags'%}</a></li>
+	</ul>
+	<div id="LN-menubarDivider">
+		<ul class="LN-menubar" id="LN-menubar-view">
+			<li><a title="View as list"  href="#" onclick="toggleMenuHeaders(this);doShowTags('menuContent','list','all',1)">{% trans 'list'%}</a> | </li>
+			<li><a title="View as cloud" href="#" onclick="toggleMenuHeaders(this);doShowTags('menuContent','cloud','all',1)">{% trans 'cloud'%}</a></li>
+		</ul>
+	</div>
+	<div id="menuContent"> </div>
+</div>
+<div class="toolbar" id="LN-toolbar">
+	<ul id="LN-clickableReloadImage">
+		<li><a title="Click to reload {{title}}" href="#" onclick="location.reload()"><img src="/s/_img_interface/bn-transparant.gif" border="0" width="100" height="20" alt="{{title}}" /></a></li>
+	</ul>
+	<ul id="LN-toolbar-searchbox-container" style="margin-right: 0px; padding-right: 0px">
+
+		<li>
+			<input type="text" style="width: 148px" title="" id="LN-toolbar-searchbox" class="autocomplete_input" name="autocomplete_parameter" accesskey="s" value="Voer zoekterm in..." onfocus="this.value=''" />
+		</li>
+
+	</ul>
+	<ul id="LN-toolbar-searchselect-container" style="margin-left: 0px; padding-left: 0px" title="">
+		<li id="LN-toolbar-searchselect-listItem">
+			<img id="LN-toolbar-searchselect-image" title="" onclick="showSearchSelectMenu()" src="/s/_img_interface/ln-search-select.png" width="28" height="14" alt="" />
+		</li>
+	</ul>
+
+
+	<ul id="LN-toolbar-help-logout">
+		<li><a href="/">home</a> | </li>
+		<li><a href="/stock-bureaus/">stockbureau's</a> | </li>
+		<li><a title="Admin" href="/admin">admin</a> | </li>
+		<li><a title="Show help pages" href="/interface/show/help/">help</a> | </li>
+		<li> <a title="Logout" href="/accounts/logout">logout</a></li>
+		
+	</ul>
+
+</div>
+<div id="LN-cartContainer">
+	<ul id="LN-toolbar-cart">
+		<li>
+			<img border="0" src="/s/_img_interface/ln-toolbar-cart.gif" width="15" height="16" alt="Ln Cart" /> 
+	
+		</li>
+		<li style="position: relative; top: -5px">
+			{{username}}'s {% trans 'basket' %}
+		</li>
+	</ul>
+</div>
+<div id="content_crumbs" onclick="actions.deselectAll()"> </div>
+<div id="content_main"><noscript>{{title}} {% trans 'will not work AT ALL if javascript is turned off!'%}</noscript></div>
+<div id="content_search" class="autocomplete" style="background-color: white"> </div>
+<div id="spinner" style="display:none;" ><img alt="spinner" src="/s/_img_interface/spinner.gif" /></div>
+<div id="content_favorites" class="content_favorites"> </div>
+<div id="LN-cartItemsContainer" style="background-color: white"> </div>
+<div id="LN-pageContainer" style="display: none" onclick="this.hide();$('content').removeChild($('pageContainer'))">&nbsp;</div>
+<div id="debug" style="display: none"> </div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{% load images_extras %}
+{% load i18n %}
+<hr>
+{% for char in "123456789abcdefghijklmnopqrstuvwxyz"|make_list %}
+<a class="LN-alphabetTags" href="#" onclick="doShowTags('menuContent','cloud','{{char}}',1)">{{char}}</a>
+{% endfor %}
+<hr />
+{% block content %}
+<div class="LN-tagPager">
+{% if has_prev %}<a class="LN-pageLink" href="#" onclick="doShowTags('menuContent','cloud','{{search}}',{{prev_page}})"> < {% trans 'Prev' %}</a>{% endif %}
+{% if has_next %}<a class="LN-pageLink" href="#" onclick="doShowTags('menuContent','cloud','{{search}}',{{next_page}})">{% trans 'Next' %} > </a>{% endif %}
+</div>
+{% for pg in paginator %}
+<div class="LN-menu-tagContainer-cloud" style="font-size:{{pg|slice:"3:4"|stringformat:"s"}}px;">
+	<a title="{{pg|slice:"1:2"|stringformat:"s"}} - {{pg|slice:"2:3"|stringformat:"s"}} afbeelding{{pg|slice:"2:3"|stringformat:"s"|pluralize:"en"}}" href="#" onclick="doShowThumbs(' +{{pg|first|urlencode}}','_ALL_',1000,1,true,0)">{{pg|slice:"1:2"|stringformat:"s"}}</a>
+</div>
+{% endfor %}
+<hr>
+
+{% endblock %}

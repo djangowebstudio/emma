@@ -1,0 +1,76 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Geert Dekkers, geert@nznl.com, 2009.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-07-14 09:44+0200\n"
+"PO-Revision-Date: 2009-05-23 23:53+0200\n"
+"Last-Translator: Geert Dekkers, geert@nznl.com\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: _javascript/_albums.js:47
+msgid "drag items here..."
+msgstr "Sleep onderdelen hier..."
+
+#: _javascript/_albums.js:69
+msgid ""
+"Click to select the first item, then click this album, then drag the item "
+"in. "
+msgstr ""
+"Klik om het eerste onderdeel te selecteren, klik dan het album, en sleep dan "
+"het onderdeel in het album"
+
+#: _javascript/_albums.js:95
+msgid "Do you really want to remove the item "
+msgstr "Wil je dit onderdeel echt verwijderen "
+
+#: _javascript/_albums.js:95
+msgid " from the album?"
+msgstr " uit het album?"
+
+#: _javascript/_do.js:550
+msgid "Please enter a number. Or choose a value from the list."
+msgstr "Geef een cijfer aan (geen letter). Of kies een waarde uit de lijst."
+
+#: _javascript/_do.js:1091
+msgid "Add to basket"
+msgstr "Zet in je mandje"
+
+#: _javascript/_do.js:1093
+msgid "Already in there!"
+msgstr "Is er al!"
+
+#: _javascript/_do.js:1302
+msgid "First 50 most recently added or changed"
+msgstr "50 meest recent toegevoegd of veranderd"
+
+#: _javascript/_do.js:1587 _javascript/_do.js.py:1588
+msgid "You have chosen for "
+msgstr "Je hebt gekozen voor "
+
+#: _javascript/_favorites.js:236
+msgid "Do you really want to remove this favorite?"
+msgstr "Wil je deze favoriet echt verwijderen?"
+
+msgid "tag"
+msgstr "trefwoord"
+
+msgid "source"
+msgstr "bron"
+
+msgid "image code"
+msgstr "beeldnummer"
+
+msgid "Do your REALLY want to empty your WHOLE basket?"
+msgstr "Wil je echt het HELE mandje leegmaken?"
+
+msgid "close"
+msgstr "sluiten"

@@ -1,0 +1,6 @@
+{% load images_extras %}
+<ul>
+{% for currentItem in itemList %}
+<li title="{{currentItem|first}}" onclick="doShowThumbs('{{currentItem|last}}','_ALL_',1000,1,true,0)">{{ currentItem|first|safe|truncate:42 }}</li>
+{% endfor %}
+</ul>

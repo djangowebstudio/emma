@@ -1,0 +1,35 @@
+{% load images_extras %}
+{% load i18n %}
+<div id="{{pg.album.album_identifier}}-{{pg.image_LNID}}-icons" style="position: absolute; top: 7px; left: 7px; background-color: white; height: 10px; -webkit-border-radius: 5px;-moz-border-radius: 5px; border: 1px solid white">
+	
+	{% ifequal pg.cright 1 %}
+	<img title="{% trans 'copyright owed' %}" style="cursor: help;" src="/s/_img_interface/copyright-yes.png?{{appendix}}" border="0" alt="copyright no" />
+	{% endifequal %}
+
+	{% ifequal pg.cright 0 %}
+	<img title="{% trans 'copyright settled' %}"  style="cursor: help;" src="/s/_img_interface/copyright-no.png?{{appendix}}" border="0" alt="copyright yes" />
+	{% endifequal %}
+
+	{% ifequal pg.cright None %}
+	<img title="{% trans 'copyright unknown' %}"  style="cursor: help;" src="/s/_img_interface/copyright-dontknow.png?{{appendix}}" border="0" alt="copyright don't know" />
+	{% endifequal %}
+
+	{% ifequal pg.profile 0 %}
+	<img title="{% trans 'not yet ready for printing -- this image needs profiling' %}" style="cursor: help;" src="/s/_img_interface/exclamation-mark.png?{{appendix}}" width="10" height="10" alt="niet drukklaar - 4 werkdagen levertijd" />
+	{% endifequal %}
+	
+	{% if pg.document %}
+	<img title="{% trans 'this item has an attachment' %}" src="/s/_img_interface/attachment.png" border="0" width="10" height="10" alt="Attachment" />
+	{% endif %}
+	
+	<img title="{% trans 'Add this item to your basket'%}" style="cursor: pointer" onclick="createEntry('{{pg.image_LNID}}')" src="/s/_img_interface/arrow.png" border="0" width="14" height="10" alt="{% trans 'Add this pg to your basket'%}" />
+	
+	{% if perms.interface.can_edit_content %} 
+
+	<img  style="cursor: pointer" title="{% trans 'Remove this item from album' %} {{pg.album.album_name}} {{pg.album.album_identifier}} {{pg.image_LNID}}" id="dd-{{pg.album.album_identifier}}" onclick="albums._remove(this)" src="/s/_img_interface/images-close/10px.png" border="0" width="10" height="10" alt="Images White Cross On Black Disc" />
+
+	{% endif %}
+	
+	
+</div>
+

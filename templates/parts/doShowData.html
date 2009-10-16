@@ -1,0 +1,61 @@
+{% for mdict in dataDict %}
+
+
+{% if mdict.subject %}
+<div class="content_news_header">Titel</div>
+<div class="content_news_body"> {{ mdict.subject|safe }}</div>
+{% endif %}
+
+
+{% if mdict.description %}
+{% ifequal i 1 %}
+<div class="content_news_header">Beschrijving</div>
+<div class="content_news_body"> {{ mdict.description|safe }}</div>
+{% endifequal %}
+{% endif %}
+
+{% if mdict.location %}
+<div class="content_news_header">Lokatie</div>
+<div class="content_news_body"> {{ mdict.location|safe }}</div>
+{% endif %}
+
+{% if mdict.source %}
+<div class="content_news_header">Bron</div>
+<div class="content_news_body"> {{ mdict.source|safe }}</div>
+{% endif %}
+
+{% if mdict.datetimeoriginal %}
+<div class="content_news_header">Aanmaakdatum</div>
+<div class="content_news_body"> {{ mdict.datetimeoriginal|default:"Geen waarde" }}</div>
+{% else %}
+{% if mdict.softdate %}
+<div class="content_news_header">Aanmaakdatum</div>
+<div class="content_news_body"> {{ mdict.softdate|safe }}</div>
+{% endif %}
+{% endif %}
+
+
+{% if mdict.instructions %}
+<div class="content_news_header">Instructies</div>
+<div class="content_news_body"> {{ mdict.instructions|safe }}</div>
+{% endif %}
+
+{% if mdict.creator %}
+<div class="content_news_header">Auteur</div>
+<div class="content_news_body"> {{ mdict.creator|safe }}</div>
+{% endif %}
+
+{% if mdict.credit %}
+<div class="content_news_header">Credit</div>
+<div class="content_news_body"> {{ mdict.credit|safe }}</div>
+{% endif %}
+
+{% if mdict.keywords %}
+<div class="content_news_header">Trefwoorden</div>
+<div class="content_news_body"> {{ mdict.keywords|safe }}</div>
+{% endif %}
+
+
+
+{% endfor %}
+

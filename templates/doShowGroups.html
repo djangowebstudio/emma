@@ -1,0 +1,49 @@
+{% load images_extras %}
+{% block content %}
+{% endblock %}
+{% for pg in paginator %}
+<dl id="{{pg.image_LNID}}-gallery" class="{% ifnotequal pg.image_pages 0 %}album {% endifnotequal %}gallery" onmouseover="assignDraggable('{{pg.image_LNID}}-gallery')"  onmouseup="myDraggable.destroy()"  >
+	<dt>
+		{% ifequal pg.cright 1 %}
+		<img title="copyright betalen" style="cursor: help;" src="/s/_img_interface/ln-copyright-icon-no.gif" border="0" alt="copyright no" />
+		{% endifequal %}
+
+		{% ifequal pg.cright 0 %}
+		<img title="copyright is betaald"  style="cursor: help;" src="/s/_img_interface/ln-copyright-icon-yes.gif" border="0" alt="copyright yes" />
+		{% endifequal %}
+		
+		{% ifequal pg.cright 2 %}
+		<img title="copyright onbekend"  style="cursor: help;" src="/s/_img_interface/ln-copyright-icon-dontknow.gif" border="0" alt="copyright don't know" />
+		{% endifequal %}
+		
+		{% ifequal pg.profile 0 %}
+		<img title="niet drukklaar - 4 werkdagen levertijd" style="cursor: help;" src="/s/_img_interface/bn-exclamation-mark.png" width="10" height="10" alt="niet drukklaar - 4 werkdagen levertijd" />
+		{% endifequal %}
+		{% ifnotequal pg.image_pages 0 %}<span>{{pg.image_pages}}</span>{% endifnotequal %}
+		
+		{% ifequal pg.image_pages 0 %}
+		<div>
+			<a  title="Klik om een vergroting van deze afbeelding te zien" ProductPart=0  id="{{pg.image_LNID}}" href="/gallery/images/{{pg.image_name}}" rel="lightbox[{{match|cut:" +"}}]">
+				<img id="{{pg.imageLNID}}-thumb" class="LN-thumb" border="0" src="/gallery/thumbs/{{pg.image_name}}" />
+			</a>
+		</div>
+		{% else %}
+		<div style="height:74px; overflow: visible">
+			<a onmouseover="pageThruThumbs('{{pg.image_LNID}}','{{pg.image_LNID}}', 1)" title="Klik om vergrotingen van dit album te zien" ProductPart=0  id="{{pg.image_LNID}}" href="/gallery/images/{{pg.image_name}}" rel="lightbox[{{match|cut:" +"}}]">
+				<img id="{{pg.imageLNID}}-thumb" class="LN-thumb" border="0" src="/gallery/thumbs/{{pg.image_name}}" />
+			</a>
+		</div>	
+		{% endifequal %}
+</dt>
+	<dd id="LN-gallery-dd-{{pg.image_LNID}}">
+		{% ifnotequal pg.image_pages 0 %}
+		<img onclick="pageThruThumbs('{{container}}','{{pg.image_LNID}}', {{prev_page}})" class="LN-pageThruThumbs-innernavigationLeft" src="/s/_img_interface/ln-pageables-left.png" width="24" height="24" alt="Ln Pageables Left">
+		<a id="LN-gallery-dd-a-{{pg.image_LNID}}" href="#" onmouseout="doHideMDall()" onmouseover="doShowMDall('{{pg.image_LNID}}')" >{{pg.image_LNID|truncate:15}}</a>
+		<img onclick="pageThruThumbs('{{pg.image_LNID}}','{{pg.image_LNID}}', 2)" class="LN-pageThruThumbs-innernavigationRight" src="/s/_img_interface/ln-pageables-right.png" width="24" height="24" alt="Ln Pageables Right">
+		{% else %}
+		<a id="LN-gallery-dd-a-{{pg.image_LNID}}" href="#" onmouseout="doHideMDall()" onmouseover="doShowMDall('{{pg.image_LNID}}')" >{{pg.image_LNID|truncate:25}}</a>
+		{% endifnotequal %}
+	</dd>
+</dl>
+
+{% endfor %}

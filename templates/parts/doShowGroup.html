@@ -1,0 +1,38 @@
+{% load images_extras %}
+{% for pg in paginator %}
+	<dt>
+		{% ifequal pg.cright 1 %}
+		<img title="copyright betalen" style="cursor: help;" src="/s/_img_interface/ln-copyright-icon-no.gif" border="0" alt="copyright no" />
+		{% endifequal %}
+
+		{% ifequal pg.cright 0 %}
+		<img title="copyright is betaald"  style="cursor: help;" src="/s/_img_interface/ln-copyright-icon-yes.gif" border="0" alt="copyright yes" />
+		{% endifequal %}
+		
+		{% ifequal pg.cright 2 %}
+		<img title="copyright onbekend"  style="cursor: help;" src="/s/_img_interface/ln-copyright-icon-dontknow.gif" border="0" alt="copyright don't know" />
+		{% endifequal %}
+		
+		{% ifequal pg.profile 0 %}
+		<img title="niet drukklaar - 4 werkdagen levertijd" style="cursor: help;" src="/s/_img_interface/bn-exclamation-mark.png" width="10" height="10" alt="niet drukklaar - 4 werkdagen levertijd" />
+		{% endifequal %}
+		<span style="cursor: help" title="{{group_name|safe}}">{{group_name|safe|truncatewords:1}}</span><span>{{pages|cut:"<"|cut:">"}}</span>
+		<div class="pagables" style="height:74px; overflow: visible">
+			
+			<a ProductPart=0  id="{{pg.image_LNID}}" title="Klik om dit onderdeel te vergroten; klik op de thumbnails hieronder om het album als vergroting te zien" href="/gallery/images/{{pg.image_LNID}}.jpg" rel="lightbox[pagethruThumbs-{{container}}]">
+				<img id="{{pg.image_LNID}}-thumb" class="LN-thumb" border="0" src="/gallery/thumbs/{{pg.image_LNID}}.jpg" />
+			</a>
+
+		</div>	
+	</dt>
+	<dd id="LN-gallery-dd-{{pg.image_LNID}}">
+		<img onclick="pageThruThumbs('{{container}}','{{pg.image_LNID}}', {{prev_page}})" class="LN-pageThruThumbs-innernavigationLeft" src="/s/_img_interface/ln-pageables-left.png" width="24" height="24" alt="Ln Pageables Left">
+		<a id="LN-gallery-dd-a-{{pg.image_LNID}}" href="#" onmouseout="doHideMDall()" onmouseover="doShowMDall('{{pg.image_LNID}}')" >{{pg.image_LNID|truncate:17}}</a>
+		<img onclick="pageThruThumbs('{{container}}','{{pg.image_LNID}}', {{next_page}})" class="LN-pageThruThumbs-innernavigationRight" src="/s/_img_interface/ln-pageables-right.png" width="24" height="24" alt="Ln Pageables Right">
+	</dd>
+{% endfor %}
+<div style="width: 100%; height: 37px; text-align: center">
+{% for i in complete_group %}
+<a ProductPart=0  id="{{i.image_LNID}}" href="/gallery/images/{{i.image_LNID}}.jpg" rel="lightbox[pageThruThumbs-{{container}}]"><img style="max-width: 37px" border="0" src="/gallery/miniThumbs/{{i.image_LNID}}.jpg" width="{% widthratio 123 last_page 1 %}" /></a>
+{% endfor %}
+</div>

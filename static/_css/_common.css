@@ -1,0 +1,833 @@
+/*
+***************************************************************************************************
+
+  	nznl.com | nznl.net | nznl.org Internet Productions
+	Geert Dekkers Web Studio, 2008 
+	info@nznl.net
+
+	_common.css for BeeldNET
+	
+	This file loads all other stylesheets
+	
+	- _toolbar.css: styles relating to the toolbar
+	- _ menu.css: styles relating to the left navigation
+	- _cart.css: styles relating to the right menu (the cart, or basket)
+	- _help.css: styles relating to the help page. This file includes general text styles.
+	
+	In addition, this file also contains styles for the central content field, i.e. thumbs, 
+	favorites, panels, etc.
+	
+***************************************************************************************************	
+*/
+
+@import url('_toolbar.css');
+@import url('_menu.css'); 
+@import url('_cart.css');
+@import url('_text.css');
+@import url('_favorites.css');
+
+html{
+	font: 11px 'helvetica neue', helvetica, geneva, sans-serif;
+}
+
+body#content{
+padding: 0px;
+margin: 0px;
+background-image: url(/s/_img_interface/bn-toolbar.png);
+background-repeat: no-repeat;
+}
+
+div#content_main{
+	position:absolute;
+	top: 74px;
+	left: 210px;
+	width: 64%;
+	
+}
+
+div#content_crumbs{
+	position:absolute;
+	top: 52px;
+	left: 210px;
+	width: 65%;
+	
+}
+
+div#content_crumbs a{
+	color: black;
+}
+
+div#content_crumbs a:hover{
+	background-color: black;
+	text-decoration: none;
+	color: white;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	filter:alpha(opacity=90);
+	width: 297px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	
+}
+/* try to define more generic interface styles */
+a._images_interface{
+	
+	color: black;
+	
+}
+
+a._images_interface:hover{
+	background-color: black;
+	text-decoration: none;
+	color: white;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	filter:alpha(opacity=90);
+	width: 297px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+/*  selected */
+
+._selected{
+	
+	border: 1px solid rgb(35, 145, 140) !important;
+	
+}
+
+._selected:hover{
+
+}
+
+
+#_selected_group{
+	border: 1px dashed rgb(35, 145, 140) !important;
+}
+
+/* action select */
+
+li._action-select{
+	width: 32px;
+	height: 16px;
+	position: relative;
+	top: 5px;
+	margin-left: 11px;
+	cursor: pointer;
+}
+
+li._action-select:hover{
+	background-image: url('/s/_img_interface/images-action-selected.png');
+	background-repeat: no-repeat;
+	background-position: 0px -4px;
+
+}
+
+/* Thumbnail message box */
+
+dd.images-gallery-messageBox{
+	
+	color: white;
+	font-weight: bold;
+	font-size: 14px;
+	background-image: url('/s/_img_interface/images-message.png');
+	background-repeat: no-repeat;
+	height: 19px;
+	width: 19px;
+	position: absolute;
+	bottom: 0px;
+	padding-left: 3px;
+	text-align: center;
+}
+
+
+/* album */
+
+
+input.album-input{
+	width: 105px; 
+	text-align: center; 
+	border: none; 
+	margin: auto;
+	margin-top: 2px;
+	background-color: none;
+}
+
+input.active{
+	
+	width: 148px;
+	
+}
+
+dd.images-album-controls{
+	position: absolute; 	
+	width: 148px; 
+	text-align: right;
+}
+
+div.images-album-removeItem{
+	float: right;
+	cursor: pointer; 
+	opacity: 0.7;
+	-moz-opacity: 0.7;
+	filter:alpha(opacity=70);
+	
+}
+
+div.images-album-removeItem:hover{
+	
+	opacity: 1.0;
+	-moz-opacity: 1.0;
+	filter:alpha(opacity=100);
+	
+}
+
+div.images-album-edit{
+	float: right;
+	cursor: pointer; 
+	opacity: 0.7;
+	-moz-opacity: 0.7;
+	filter:alpha(opacity=70);
+	margin-right: 3px;
+	
+}
+
+div.images-album-edit:hover{
+	opacity: 1.0;
+	-moz-opacity: 1.0;
+	filter:alpha(opacity=100);
+	
+}
+
+div.images-album-pager{
+	
+	opacity: 0.7;
+	-moz-opacity: 0.7;
+	filter:alpha(opacity=70);
+	
+	
+}
+
+div.images-album-pager:hover{
+	
+	opacity: 1.0;
+	-moz-opacity: 1.0;
+	filter:alpha(opacity=100);
+	
+}
+
+div.left{
+	
+	float: left;
+}
+
+div.right{
+	float: right;
+}
+
+div.images-album-message{
+	width: 98px; 
+	text-align: center; 
+	font-weight: 
+	bold; 
+	font-size: 14px; 
+	height: 24px;
+	padding-top: 3px;
+	background-image: url('/s/_img_interface/images-album-messageBox-bg.png');
+	background-repeat: no-repeat;
+	background-position: top center;
+	color: white;
+}
+
+
+dd.images-gallery-dd{
+	
+	position: absolute;
+	
+}
+
+div.images-album-itemName{
+	
+	position: absolute;
+	top: 2px;
+	margin: auto;
+	background-color: black;
+	color: white;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	opacity: 0.7;
+	-moz-opacity: 0.7;
+	filter:alpha(opacity=70);
+	
+}
+
+dd.images-album-editAlbumInAdmin{
+	position: absolute;
+}
+
+/* end album */
+
+
+div.enlargementContainer{
+	
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	background-color: black;
+	padding: 0px 11px 11px 11px;
+	position: absolute;
+	top: 74px;
+	left: 210px;
+	-webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+	
+}
+
+dl.gallery {
+	float: left; 
+	padding: 0; 
+	margin: 11px; 
+	width: 165px;
+	height: 190px;
+	border: 1px dashed white;
+	cursor: move;
+	
+	
+	}
+dl.gallery:hover{
+
+	border: 1px dashed black;
+	background-image: url(/s/_img_interface/grab.png);
+	background-repeat: no-repeat;
+	background-position: bottom right;
+	
+	
+}
+dl.gallery img.LN-thumb{
+	border: 1px solid #ddccdd; 
+	padding: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	
+	}
+
+dl.gallery img.LN-thumb:hover{
+	border: 1px solid black;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+dl.gallery img.LN-CopyrightIcon{
+	border: 0px;
+	display: block;
+	padding: 2px;
+}
+
+dl.gallery img.LN-CopyrightIcon:hover;{
+	border: 1px solid black;
+	display: block;
+}
+
+dl.gallery dt{
+	display: block;
+}
+
+dl.gallery dt div.pagables{
+	min-height: 105px;
+}
+
+dl.gallery dt div img{
+	background-color: white;
+}
+
+
+
+dl.gallery dd {
+	padding: .5em; 
+	margin: 0; 
+	}
+dl.gallery a{
+	color: black;
+}
+
+dl.gallery a:hover{
+	background-color: black;
+	text-decoration: none;
+	color: white;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	filter:alpha(opacity=90);
+	width: 297px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+
+}
+
+a.lightwindow{
+	cursor: N-resize;
+}
+	
+div#MDallContainer{
+	position: absolute;
+	background-color: #ccccca;
+	opacity: 0.9;
+	-moz-opacity: 0.9;
+	filter:alpha(opacity=90);
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	padding: 11px;
+	border: 1px solid #ddccdd;
+	width: 210px;
+	min-height: 24px;
+	overflow: visible;
+	text-align: left;
+	-webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+	
+}
+
+.clear { /* generic container (i.e. div) for floating buttons */
+    overflow: hidden;
+    width: 100%;
+}
+
+a.button {
+    background: transparent url('/s/_img_interface/bg_button_a.gif') no-repeat scroll top right;
+    color: #333;
+    display: block;
+    float: right;
+    font: normal 12px 'helvetica neue', helvetica, arial, sans-serif;
+    height: 24px;
+    margin-right: 6px;
+    padding-right: 18px; /* sliding doors padding */
+    text-decoration: none;
+	
+}
+
+a.button span {
+    background: transparent url('/s/_img_interface/bg_button_span.gif') no-repeat;
+    display: block;
+    line-height: 14px;
+    padding: 5px 0 5px 18px;
+}
+
+a.button:active {
+    background-position: bottom right;
+    color: #000;
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+a.button:active span {
+    background-position: bottom left;
+    padding: 6px 0 4px 18px; /* push text down 1px */
+}
+
+a.button:hover span{
+	color: #ff2b00;
+}
+
+div.lsincart{
+	float: right;
+}
+
+div.LN-showCartIconContainer{
+	float: right;
+	display: inline;
+}
+
+div#spinner{
+	position:absolute;
+	opacity: .85;
+	-moz-opacity: .85;
+	filter:alpha(opacity=85);
+	text-align: center;
+	z-index: 800;
+	}
+	
+div.hidden-controls{
+	opacity: 0.3;
+	-moz-opacity: 0.3;
+	filter:alpha(opacity=30);
+	
+}
+
+div.hidden-controls:hover{
+	opacity: 1.0;
+	-moz-opacity: 1.0;
+	filter:alpha(opacity=100);
+}
+
+
+#LN-login{
+	width: 297px;
+	height: 297px;
+	border: 1px solid black;
+}
+
+/* thumbnail pager */
+
+ul.LN-pager-positioned{
+	position: absolute;
+	top: -33px;
+	left: 25%;
+	color: #555;
+	overflow: visible;
+	padding-right: 5px;
+}
+
+ul.LN-pager-positioned li{
+	display:inline;
+}
+
+ul.LN-pager-positioned li.active{
+	cursor: pointer;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border: 1px solid #ddccdd;
+	padding-left: 2px;
+	padding-right: 2px;
+	color: #777;
+	
+}
+
+
+ul.LN-pager-positioned  li.active:hover {
+	
+	background-color: #666;
+	color: white;
+	
+}
+	
+ul.images-pager-pulldown li{
+	padding-left: 1px;
+	
+}
+
+
+a.LN-pageLink{
+	font-weight: bold;
+}
+
+a.LN-pageLink:hover{
+
+}
+a.LN-pagerLink{
+ 	font-weight: bold; 
+	padding-left: 5px;
+	color: #df3d22;
+	text-decoration: none;
+}
+
+a.LN-pagerLink:hover{
+	color: #22c3df;
+}
+
+
+
+a.info{
+	float: right; 
+	margin-right: 11px; 
+	font-style: italic; 
+	font-weight: bold;
+	padding: 2px;
+
+}
+
+a.info:hover{
+	background-color: black;
+	color: white;
+	
+}
+
+
+
+div.LN-startPage{
+	height: 250px;
+	margin-bottom: 5px;
+	overflow: visible;
+	border: 1px solid #ddccdd;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+	padding-top: 0px;
+}
+
+
+ul.LN-window-control{
+	display: inline;
+	float: right;
+	margin-left: 0px;
+	list-style-type: none;
+	margin-top: 2px;
+	margin-bottom: 0px;
+	padding: 0 0 0 0;
+	
+}
+
+ul.LN-window-control li{
+	list-style-type: none;
+	cursor: pointer;
+	display: inline;
+	background-repeat: no-repeat;
+	height: 17px;
+	width: 17px;
+	
+}
+
+
+li.LN-window-control-plus{
+	background-image: url(/s/_img_interface/ln-window-control-plus.gif);
+}
+
+li.LN-window-control-plus:hover{
+	background-image: url(/s/_img_interface/ln-window-control-plus-over.gif);
+}
+
+li.LN-window-control-close{
+	background-image: url(/s/_img_interface/ln-window-control-close.gif);
+	margin-right: 11px;
+}
+
+li.LN-window-control-close:hover{
+	background-image: url(/s/_img_interface/ln-window-control-close-over.gif);
+}
+
+
+li.LN-window-control-minus{
+	background-image: url(/s/_img_interface/ln-window-control-minus.gif);
+}
+
+li.LN-window-control-minus:hover{
+	background-image: url(/s/_img_interface/ln-window-control-minus-over.gif);
+}
+
+
+
+li.LN-window-control-startpage{
+	float: right; 
+	margin-right: 15px;
+	background-image: url(/s/_img_interface/ln-window-control.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 7px;
+}
+
+li.LN-window-control-startpage a{
+	position: relative;
+	top: 1px;
+	left: -3px;
+}
+
+div#frameTop{
+	background-image: url(/s/_img_interface/bn-startpage-header.png);
+	background-repeat: repeat-x;
+	background-position: 0px 7px;
+}
+
+div#frameBottom{
+	background-image: url(/s/_img_interface/bn-startpage-header.png);
+	background-repeat: repeat-x;
+	background-position: 0px 7px;
+}
+
+ul.LN-startPage{
+	color: #932816;	
+	margin-top: 0px;
+	margin-bottom: 0px;
+	width: 33%;
+	display: inline;
+	list-style: none;
+}
+
+ul.LN-startPage li{
+	display: inline;
+	list-style: none;
+	margin-left: 2px;
+
+}
+
+ul.LN-startPage li.active{
+	cursor: pointer;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border: 1px solid #ddccdd;
+	padding-left: 2px;
+	padding-right: 2px;
+	color: #777;
+
+}
+
+ul.LN-startPage li.active:hover{
+	background-color: #666;
+	color: white;
+}
+
+
+div#debug{
+	position: absolute;
+	top: 5px;
+	left: 3px;
+	width: 180px;
+}
+
+div.debugmessage{
+	-moz-border-radius: 14px;
+	-webkit-border-radius: 14px;
+	background-color: rgb(35, 145, 140);
+	color: white;
+	text-align: center;
+	min-height: 52px;
+	padding-top: 7px;
+	vertical-align: middle;
+}
+
+ul#LN-clickableReloadImage a{
+	overflow: visible;
+	font: 14px bold helvetica, arial, sans-serif;
+	text-decoration: none;
+	color: white;
+}
+
+ul#LN-clickableReloadImage a:hover{
+	text-decoration: underline;
+}
+
+/* Pageable thumbs */
+
+div.LN-pageThruThumbs-container{
+	
+	position: absolute;
+	opacity: 0.7;
+	-moz-opacity: 0.7;
+	filter:alpha(opacity=70);
+	
+	
+}
+
+
+img.LN-pageThruThumbs-innernavigationRight{
+	cursor: pointer;
+	opacity: 0.7;
+	-moz-opacity: 0.7;
+	filter:alpha(opacity=70);
+	
+}
+
+img.LN-pageThruThumbs-innernavigationLeft{
+	cursor: pointer;
+	opacity: 0.7;
+	-moz-opacity: 0.7;
+	filter:alpha(opacity=70);
+	
+}
+
+dl.album{
+	border: 1px solid #ddccdd; 
+	background-image: url(/s/_img_interface/album-icon.png); 
+	background-repeat: no-repeat; 
+	overflow: hidden;
+	
+}
+
+dl.album dt input{
+	
+	color: black;
+}
+
+d.album dt div{
+	margin: auto;
+	padding-top: 2px;
+	border: 1px solid black;
+}
+
+dl.album-active{
+	-webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+
+}
+
+dl.gallery span{
+	font-size: 9px;
+	color: #889988;
+	margin: 0px;
+	padding: 0px;
+	position: relative;
+	top: -1px;
+}
+
+div#LN-pageContainer{
+	position: absolute;
+	background-color: black;
+	width: 100%;
+	height: 2000px;
+	z-index: 999;
+	margin: 0 auto;
+	
+	
+}
+
+div#pageContainer{
+	position:absolute;
+	top: 15%;
+	left: 25%;
+	background-color: white;
+	color: black;
+	min-height: 297px;
+	width: 420px;
+	padding-top: 21px;
+	padding-bottom: 37px;
+	padding-left: 52px;
+	padding-right: 37px;
+	-webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+	z-index: 1100;
+	
+	
+}
+
+/* scriptaculous */
+div.autocomplete {
+    position:absolute;
+    background-color:white;
+    border:1px solid #ddccdd;
+    margin:0px;
+    padding:0px;
+	/*-webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);*/
+  }
+  div.autocomplete ul {
+    list-style-type:none;
+    margin:0px;
+    padding:0px;
+  }
+  div.autocomplete ul li.selected { background-color: #ddccdd;}
+  div.autocomplete ul li {
+    list-style-type:none;
+    display:block;
+    margin:0;
+    padding:2px;
+    cursor:pointer;
+  }
+div.autocomplete ul li a{
+	color: #444;
+	text-decoration: none;
+}
+/* end scriptaculous */
+
+/* Extended lightwindow */
+
+div.LN-lightwindow-thumbnailContainer{
+	z-index: 1500;
+	position: absolute;
+	top: 52px;
+	width: 420px;
+	
+}
+
+div.LN-lightwindow-thumbnailContainer img{
+	border-top: 1px solid white;
+	margin: 7px;
+	border: 7px solid white;
+	-webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+	
+}
+
+div.LN-lightwindow-thumbnailContainer img:hover{
+	border: 7px solid black;
+}
+
+/* end extended lightwindow */

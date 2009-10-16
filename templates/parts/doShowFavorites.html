@@ -1,0 +1,58 @@
+{% load i18n %}
+{% load images_extras %}
+{% block content %}
+
+
+<div style="height: 21px; padding-top: 5px;float: left;">	
+	<ul class="LN-startPage" style="float: left;margin-top: 0px; margin-left: 0px; padding-left: 0px; width: 148px">
+		<li>{% trans 'Favorites' %}</li>
+		<li style="margin-left: 11px">{{page}} / {{pageCount}}  | {{count}} </li>
+		{% if prev %}<li class="LN-pager-prev"><a class="LN-pagerLink" style="color: black" href="#" onclick="favorites.show({{page|add:"-1"}})"> &lt; {% trans 'Prev' %}</a></li>{% endif %}
+		{% if next %}<li class="LN-pager-next"><a class="LN-pagerLink" style="color: black" href="#" onclick="favorites.show({{page|add:"1"}})"> {% trans 'Next' %}&gt; </a></li>{% endif %}
+	</ul>
+</div>
+
+<div style="float: left">
+{% for pg in paginator %}
+{% if pg.album %}
+
+<dl class="favorites-folder-mini"  id="{{pg.album.album_identifier}}">
+	
+	<dt style="height: 14px; width: 37px; font-size: 8px;padding-left: 2px; padding-top: 3px; background-position: 3px -11px; background-repeat: no-repeat; background-image: url('/gallery/miniThumbs/{{pg.image_name}}')" title="Album {{pg.album.album_name}} - {% trans 'expand favorites bar for more options' %}"><span style="background-color: white; width: 100%;">{{pg.album.album_name|truncate:10}}</span></dt>
+	
+	
+</dl>
+
+{% else %}
+
+<dl id="{{pg.image_LNID}}-favorites" class="favoritesItemContainer" >
+	<dt>
+	
+		<img title="{{pg.tag}} {% trans 'expand favorites bar for more options' %}" id="{{pg.image_LNID}}-favorites-img" border="0" title="{{pg.image_LNID}} {{pg.tag}}" alt="{{pg.tag}} {% trans 'expand favorites bar for more options' %}" 
+		
+		{% ifequal pg.image_category "video" %}
+		src="/s/_img_interface/video.png"
+		{% endifequal %}
+		{% ifequal pg.image_category "audio" %}
+		src="/s/_img_interface/audio.png"
+		{% else %}
+		src="/gallery/miniThumbs/{{pg.image_name}}" 
+		{% endifequal %}
+		border="0" />
+
+
+	</dt>
+</dl>
+{% endif %}
+{% endfor %}
+
+</div>
+
+<div class="favoritesEditControlContainer">
+	<div class="favoritesEditControl" title="{% trans 'Edit your favorites in a new panel' %}" class="LN-window-control-plus"  onclick="favorites.explode()">
+		<img src="/s/_img_interface/images-open-panel/24px.png" border="0" width="24" height="24" alt="{% trans 'Expand' %}" /><div>{% trans 'expand' %}</div>
+	</div>
+
+</div>
+
+{% endblock %}

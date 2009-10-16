@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="nznl.com | nznl.net | nznl.org Internet Productions, Geert Dekkers Web Studio, 2008" />
+    <meta name="robots" content="noindex, nofollow" />  
+    <title>Contract</title>
+    <link rel="shortcut icon" href="/s/_img_interface/favicon.ico" />
+    <link rel="stylesheet" href="/s/_css/_common.css" type="text/css" media="screen" title="no title" charset="utf-8" />    
+    <script src="/s/_javascript/prototype.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/s/_javascript/scriptaculous.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/s/_javascript/lightbox.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        Ajax.Responders.register({
+            onCreate: function(){Element.show('spinner');},
+            onComplete: function(){Element.hide('spinner');}
+        });
+        
+        function signContract(val){
+            //Call serverside function to update database
+                    if (val == 'on'){
+                        r = 1;
+                    }else{
+                        r = 0;
+                    }
+
+                    if (r == 1){
+                        $('LN-contract-messageContainer').update('Het persoonlijk contract wordt opgezocht...');
+            
+                        setTimeout(function(){
+                        var mAjax = new Ajax.Updater(
+                            'LN-contract-messageContainer', 
+                            '/interface/sign/contract/',
+                            {
+                                method: 'get'   
+                            });
+                            }, 1000);       
+                    }else{
+                $('LN-contract-messageContainer').update('Vink de checkbox aan aub...');
+            }
+        }
+    </script>
+
+    
+</head>
+
+<body style="padding: 0px; margin: 0px; ">
+<div title="Terug naar BeeldNET" onclick="location.href='/interface/'" style="cursor: pointer; padding: 0px; margin: 0px; height: 52px; background-image: url(/s/_img_interface/bn-toolbar.png); background-repeat: no-repeat">&nbsp;</div>
+    
+<div class="textHeader" style="margin-left: 210px;"> Voorwaarden gebruik van de digitale beeldbank voor {{user.first_name}} {{user.last_name}}</div>
+<div style="margin-left: 210px; width: 650px;margin-bottom: 21px; font-size: 12px">
+
+
+    <p>Nationale Postcode Loterij N.V.; BankGiro Loterij N.V.; Sponsor Bingo Loterij N.V. verlenen je hierbij de toegang tot BeeldNET, de digitale beeldbank van de Loterijen. Deze toegang wordt je verleend vanwege de uitvoering van noodzakelijke werkzaamheden ten behoeve van de Loterijen ten behoeve van de uitvoering van die werkzaamheden dien je met het volgende akkoord te gaan:</p>
+
+    <p>Je erkent dat de (auteurs)rechten op de beelden in deze digitale beeldbank bij de Loterijen of haar licentiegevers liggen. </p>
+
+    <p>Je verklaart hierbij alleen gebruik te maken van (de beelden uit) de digitale beeldbank ten behoeve van de uitvoering van de werkzaamheden voor de Loterijen en voor geen enkel ander doel. </p>
+
+    <p>Eventuele beelden uit de digitale beeldbank die in jouw bezit zijn dienen direct na het beëindigen van de opdracht vernietigd te worden. </p>
+
+    <p>Hierbij ga ik akkoord met bovenstaande</p>
+</div>
+<div id="LN-contract-checkboxContainer" style="margin-left: 210px; height: 100%; width: 650px;">
+    
+    <form action="contract_submit" method="post" accept-charset="utf-8">
+        <p>
+            <input type="checkbox" id="sign" />
+            Checkbox aanvinken a.u.b.
+        </p>
+        <p>
+            <input type="button" name="LN-contract-submit" onclick="signContract($F('sign'))" value="Verder" id="LN-contract-submit" />
+        </p>
+    </form>
+<div id="LN-contract-messageContainer"></div>
+</div>
+
+</body>
+</html>

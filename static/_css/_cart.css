@@ -1,0 +1,227 @@
+/*
+***************************************************************************************************
+
+  	nznl.com | nznl.net | nznl.org Internet Productions
+	Geert Dekkers Web Studio, 2008 
+	info@nznl.net
+
+	_cart.css for BeeldNET
+	
+***************************************************************************************************	
+*/
+
+div#LN-toolbar-cart-pulldown{
+	min-height: 210px;
+	width: 148px;
+	padding: 1px;
+	text-align: right;
+}
+
+div.LN-toolbar-cart-pulldown-item{
+	background-color: gray;
+	border: 1px solid white;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	width: 95%;
+	margin-bottom: 7px;
+}
+
+div.LN-toolbar-cart-pulldown-background{
+	padding-top: 11px;
+	padding-left: 7px;
+	padding-bottom: 1px;
+	
+}
+
+div.LN-toolbar-cart-pulldown-items-background{
+	padding-left: 11px;
+	padding-top: 11px;
+	padding-right: 7px;
+	width: 95%;	
+	padding-bottom: 11px;
+	margin-bottom: 11px;
+}
+
+a#LN-toolbar-cart-pulldown-downloadLink{
+	margin-right: 7px;
+}
+
+div.LN-toolbar-cart-basketItemContainer{
+	border: 1px solid #222222; 
+	padding: 3px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	margin-bottom: 11px;
+	overflow: visible;
+	min-height: 52px;
+	width: 122px;
+	display: block;
+	cursor: move;
+	background-image: url(/s/_img_interface/grab.png);
+	background-repeat: no-repeat;
+	background-position: bottom right;
+	margin-left: 11px;
+	
+}
+
+div.LN-toolbar-cart-basketFolder{ 
+	padding: 3px;
+	margin-bottom: 3px;
+	overflow: visible;
+	min-height: 52px;
+	width: 122px;
+	display: block;
+	cursor: move;
+	background-image: url(/s/_img_interface/folder.png);
+	background-repeat: no-repeat;
+	margin-left: 11px;
+	background-color: none;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border: 1px solid black;
+	
+	
+}
+
+div.LN-toolbar-cart-basketFolder:hover{
+	border: 1px dashed black;
+
+}
+
+
+div.LN-toolbar-cart-basketItemContainer:hover{
+	border: 1px dashed black;
+	
+}
+
+
+div.LN-toolbar-cart-itemPartTop{
+	display: block;
+	width: 100%;
+	height: 37px;
+}
+div.LN-toolbar-cart-removeButtonContainer{
+	float: right;
+}
+
+div.LN-toolbar-cart-imageColumn{
+	float: left;
+}
+
+div.LN-toolbar-cart-itemName{
+	width: 100%;
+	text-align: left;
+	display: block;
+	padding: 0px;
+}
+
+div.LN-toolbar-cart-itemName div{
+	float: left;
+}
+
+div.LN-toolbar-cart-itemName form{
+	display: inline;
+}
+
+div.LN-toolbar-cart-itemName div input{
+	display: inline;
+	cursor: pointer;
+}
+
+
+
+
+div#LN-cartContainer ul li{
+	list-style: none;
+	display: inline;
+	padding-right: 4px;
+	
+}
+
+a.LN-toolbar-cart-closelink{
+	font-size: 14px;
+	margin-right: 11px;
+	margin-bottom: 11px;
+	padding-bottom: 11px;
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+	
+}
+
+a.LN-toolbar-cart-closelink:hover{
+	color: black;
+}
+
+
+
+ul#LN-clickableReloadImage{
+	width: 120px;
+	height: 32px;
+}
+
+ul#LN-toolbar-user{
+	color: black;
+	margin-left: 11px;
+}
+
+div#LN-cartContainer{
+	position: absolute;
+	right: 0px;
+	width: 185px;
+}
+
+div#LN-cartItemsContainer{
+	position: absolute;
+	right: 0px;
+	top: 52px;
+	width: 150px;
+   	height: 841px;
+    overflow: visible;
+	border-left: 1px solid #ddccdd;
+	
+}
+
+div.LN-cartItemsContainer-active{
+	border: 2px dashed black;
+	background-color: #ddccdd;
+}
+
+div.BN-cartEnlargement{
+	position: absolute;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	background-color: white;
+	padding: 7px;
+	top: 42px;
+	right: 183px;
+	border-left: 1px solid #ddccdd;
+	border-top: 1px solid #ddccdd;
+	border-bottom: 1px solid #ddccdd;
+	z-index: 100;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.5) -5px 2px 5px;
+}
+
+ul#LN-toolbar-downloadLink{
+	position: absolute;
+	right: 210px;
+	
+}
+
+div#LN-downloadZipLinkContainer{
+	margin-bottom: 42px;
+	margin-left: 0px;
+	padding: 0px;	
+	text-align: center;
+	width: 148px;
+}
+
+div.LN-toolbar-cart-usermessage{
+	width: 105px; 
+	color: #777; 
+	font-weight: bold; 
+	height:210px;
+	padding-top: 21px;
+	padding-left: 11px;
+	text-align: center
+}

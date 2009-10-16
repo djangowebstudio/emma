@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if form.has_errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<form method="post" action=".">
+<table id="LN-login" align="center">
+<tr><th colspan="2"></th></tr>
+<tr><td><label for="id_username">Username:</label></td><td>{{ form.username }}</td></tr>
+<tr><td><label for="id_password">Password:</label></td><td>{{ form.password }}</td></tr>
+<tr><td colspan="2" align="right"><input type="submit" value="login" /></td></tr></table>
+<div align="center" style="font-size: 10px; margin-top: 11px">Support: 020-3058800<br /> <a href="mailto:beeldnetsupport@schepper.nl?subject=Login probleem">beeldnetsupport@schepper.nl</a></div>
+
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}
