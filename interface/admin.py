@@ -1,5 +1,5 @@
 from django.contrib import admin
-from eam.interface.models import *
+from emma.interface.models import *
 from models import *
 	  	
 class ImageAdmin(admin.ModelAdmin):

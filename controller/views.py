@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context, loader, Template
 from django.shortcuts import render_to_response, get_list_or_404
-import eam.core.utes as utes
+import emma.core.utes as utes
 import time, os, sys, shutil, re
 from django.core.management import setup_environ
 from django.contrib.auth.decorators import login_required
@@ -39,7 +39,7 @@ def launchctl(request, action, item):
 	"""
 	Invoke a launchctl command for an item
 	takes: action (str), item (str)
-	returns: a response by calling eam.utes.Utes().check_status()
+	returns: a response by calling emma.utes.Utes().check_status()
 	"""
 	# Initiate a dict containing launchctl commands
 	actions = {'load': 'load', 'unload': 'unload'}

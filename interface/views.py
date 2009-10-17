@@ -1,7 +1,7 @@
 #**************************************************************************************************
 # Geert Dekkers Web Studio 2008, 2009
 # nznl.com | nznl.net | nznl.org INTERNET PRODUCTIONS
-# views.py - django views for eam.interface
+# views.py - django views for emma.interface
 #
 #**************************************************************************************************
 import zipfile
@@ -15,7 +15,7 @@ from operator import itemgetter
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context, loader, Template
 from django.shortcuts import render_to_response, get_list_or_404
-from eam.interface.models import *
+from emma.interface.models import *
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -26,7 +26,7 @@ from django.views.decorators.cache import never_cache   # are we using this???
 from django.core.management import setup_environ
 import settings
 setup_environ(settings)
-import eam.core.utes as utes
+import emma.core.utes as utes
 import re
 import subprocess
 from django.template import RequestContext
@@ -659,7 +659,7 @@ def doCheckCart(request, item):
     
 @login_required
 def updateSearchSelect(request, mode):
-    """Updates search mode in User (eam.interface.models) """
+    """Updates search mode in User (emma.interface.models) """
     u = request.user.id
     
     try:
@@ -877,12 +877,34 @@ def doRemoveFavorite(request,item):
     return HttpResponse(_('removed'))
 
 @login_required
-def doStartPage(request,pageSize,cat,page):
+def doStartPage(request,pageSize=8,cat='all',page=1):
     """Generates start page content."""
-    itemList = Keyword.objects.filter(image__image_category=cat).exclude(image__group_status__icontains='follower').order_by('-interface_image.date_modified')[:50]
+    if cat == 'all':       
+        # Get user prefs (pagesize, album visibility, order) if groups arg is unchanged
+        try:
+            u = User.objects.get(user=request.user.id)
+            sortpref = u.order
+            pageSize = u.pagesize
+            if not override_user_grp_prefs == 0: 
+                if not u.setting1 == None:
+                    groups = u.setting1
+                else:
+                    groups = 1
+            else:
+                groups = override_user_grp_prefs
+        except Exception, inst: 
+            #print 'error %s' % inst
+            sortpref = 1
+            pageSize = 8
+            groups = 1
+
+        order = 'interface_image.date_modified' if sortpref == 1 else '-interface_image.date_modified'
+        itemList = Keyword.objects.all().exclude(image__group_status__icontains='follower').order_by(order)[:50]
+        
+    else:
+        itemList = Keyword.objects.filter(image__image_category=cat).exclude(image__group_status__icontains='follower').order_by('-interface_image.date_modified')[:50]
         
     for i in itemList:
-    
         a = i.image
         i.image_category = a.image_category
         i.image_pages = a.image_pages

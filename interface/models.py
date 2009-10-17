@@ -1,6 +1,6 @@
 import os, sys, inspect
 from django.db import models
-import eam.core.metadata as metadata
+import emma.core.metadata as metadata
 from django.core.management import setup_environ
 import settings
 setup_environ(settings)

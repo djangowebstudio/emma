@@ -18,7 +18,7 @@ from utes import *
 # from django.core.management import setup_environ
 # import settings
 # setup_environ(settings)
-# from eam.interface.models import *
+# from emma.interface.models import *
 
 class Metadata:
 		
@@ -279,7 +279,7 @@ class Metadata:
 		-filetype									(images_metadata.file_type)
 		-mimetype									(images_metadata.mime_type)
 		-ManagedFromFilePath						(images_metadata.document.path)
-		-documentname								(eam.interface.metadata.documentname) 2)
+		-documentname								(emma.interface.metadata.documentname) 2)
 		
 		The results are returned as dict.
 		
