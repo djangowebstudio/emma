@@ -41,6 +41,10 @@ prefix_LR = settings.GALLERY_ROOT + "/images/"
 @login_required
 def index(request):
     """ Redirects user to first page """
+
+	# Find out if the user is using MSIE
+	msie = False
+	if request.META["HTTP_USER_AGENT"].find('MSIE') > -1: msie = True
     # Redirect IE6 users to help page (todo: a browser detection class)
     if request.META['HTTP_USER_AGENT'].find('MSIE 6.0') > -1: 
         try:
@@ -66,7 +70,7 @@ def index(request):
         except Contract.DoesNotExist:
             return render_to_response('contract.html', {'user': request.user})
             
-    else: return render_to_response('index.html', {'username': request.user.username, 'title': settings.APP_PUBLIC_NAME})
+    else: return render_to_response('index.html', {'username': request.user.username, 'title': settings.APP_PUBLIC_NAME, 'msie': msie})
 
 def ie6(request, action=None): 
     """ Returns a page for internet explorer 6"""
