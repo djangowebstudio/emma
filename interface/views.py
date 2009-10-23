@@ -952,20 +952,18 @@ def doShowMenu(request,requestedDir=''):
     
     # We'll be needing a list to hold the results
     dirlist = []
-    requested_dir = os.path.join(settings.APP_CONTENT_ROOT, requestedDir)
-    if os.path.isdir(requested_dir):    
-        results = os.listdir(requested_dir)
-        for d in results:
-            if d[0:1] != '.':
-                if d[0:2] != '--':
-                    if d[(len(d)-5):(len(d)-4)] != ".":
-                        if d[(len(d)-4):(len(d)-3)] != ".":
-                            if d[(len(d)-3):(len(d)-2)] != ".":
-                                if d.lower()[0:4] != 'icon':
-                                    if not d.endswith('_original'):
-                                    # excludes returns a tuple, so...
-                                        if False in e.excludes(d,settings.APP_MENU_EXCLUDES):
-                                            dirlist.append(d.encode('utf-8'))
+    results = os.listdir(settings.APP_CONTENT_ROOT + requestedDir)
+    for d in results:
+        if d[0:1] != '.':
+            if d[0:2] != '--':
+                if d[(len(d)-5):(len(d)-4)] != ".":
+                    if d[(len(d)-4):(len(d)-3)] != ".":
+                        if d[(len(d)-3):(len(d)-2)] != ".":
+                            if d.lower()[0:4] != 'icon':
+                                if not d.endswith('_original'):
+                                # excludes returns a tuple, so...
+                                    if False in e.excludes(d,settings.APP_MENU_EXCLUDES):
+                                        dirlist.append(d.encode('utf-8'))
     
     return render_to_response('parts/doShowMenu.html', {'dirlist': dirlist, 'mList': requestedDir.replace('/', '_SLASH_') + "_SLASH_", 'crumbs': crumbs, 'user': request.user})
     
