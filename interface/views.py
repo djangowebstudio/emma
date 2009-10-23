@@ -41,9 +41,6 @@ prefix_LR = settings.GALLERY_ROOT + "/images/"
 @login_required
 def index(request):
     """ Redirects user to first page """
-
-
-    print request.META["HTTP_USER_AGENT"].find('MSIE')
     # Redirect IE6 users to help page (todo: a browser detection class)
     if request.META['HTTP_USER_AGENT'].find('MSIE 6.0') > -1: 
         try:
