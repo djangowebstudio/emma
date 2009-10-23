@@ -320,7 +320,7 @@ msgstr "Vorige onderdeel laten zien"
 msgid "Remove this item from album"
 msgstr "Verwijder dit onderdeel uit het album"
 
-msgid "Add this pg to your basket"
+msgid "Add this item to your basket"
 msgstr "Zet dit onderdeel in je mandje"
 
 msgid "copyright owed"

@@ -42,9 +42,8 @@ prefix_LR = settings.GALLERY_ROOT + "/images/"
 def index(request):
     """ Redirects user to first page """
 
-	# Find out if the user is using MSIE
-	msie = False
-	if request.META["HTTP_USER_AGENT"].find('MSIE') > -1: msie = True
+
+    print request.META["HTTP_USER_AGENT"].find('MSIE')
     # Redirect IE6 users to help page (todo: a browser detection class)
     if request.META['HTTP_USER_AGENT'].find('MSIE 6.0') > -1: 
         try:
@@ -70,7 +69,7 @@ def index(request):
         except Contract.DoesNotExist:
             return render_to_response('contract.html', {'user': request.user})
             
-    else: return render_to_response('index.html', {'username': request.user.username, 'title': settings.APP_PUBLIC_NAME, 'msie': msie})
+    else: return render_to_response('index.html', {'username': request.user.username, 'title': settings.APP_PUBLIC_NAME})
 
 def ie6(request, action=None): 
     """ Returns a page for internet explorer 6"""
@@ -563,7 +562,9 @@ def doShowThumbs(request,match,cat,weeks=0,page=1,groups=1):
         cat = '_ALL_'
     if match == '':
         match = '_ALL_'
+    
     return render_to_response('parts/doShowThumbs.html', {
+    'msie': True if request.META["HTTP_USER_AGENT"].find('MSIE') > -1 else False,
     'count': count, 
     'pageSize': pageSize, 
     'pages': p,
@@ -858,8 +859,9 @@ def doShowFavorites(request, requestTemplate,  pageSize, page):
         template = 'parts/doShowFavoritesLarge.html'
         
     
-    return render_to_response(template,     
-        {'page': page,
+    return render_to_response(template, {
+        'msie': True if request.META["HTTP_USER_AGENT"].find('MSIE') > -1 else False,
+        'page': page,
         'pages' : page_info,
         'count': count, 
         'paginator' : page_info.object_list,
@@ -921,8 +923,9 @@ def doStartPage(request,pageSize=8,cat='all',page=1):
         p = paginator.page(page)
     except InvalidPage:
         p = paginator.page(1)
-    return render_to_response('parts/doShowStartPage.html', 
-        {'page': page,
+    return render_to_response('parts/doShowStartPage.html', {
+        'msie': True if request.META["HTTP_USER_AGENT"].find('MSIE') > -1 else False,
+        'page': page,
         'pages' : p,
         'cat': cat, 
         'paginator' : p.object_list,
@@ -951,19 +954,21 @@ def doShowMenu(request,requestedDir=''):
     e = utes.Utes()
     
     # We'll be needing a list to hold the results
-    dirlist = []    
-    results = os.listdir(settings.APP_CONTENT_ROOT + requestedDir)
-    for d in results:
-        if d[0:1] != '.':
-            if d[0:2] != '--':
-                if d[(len(d)-5):(len(d)-4)] != ".":
-                    if d[(len(d)-4):(len(d)-3)] != ".":
-                        if d[(len(d)-3):(len(d)-2)] != ".":
-                            if d.lower()[0:4] != 'icon':
-                                if not d.endswith('_original'):
-                                # excludes returns a tuple, so...
-                                    if False in e.excludes(d,settings.APP_MENU_EXCLUDES):
-                                        dirlist.append(d.encode('utf-8'))
+    dirlist = []
+    requested_dir = os.path.join(settings.APP_CONTENT_ROOT, requestedDir)
+    if os.path.isdir(requested_dir):    
+        results = os.listdir(requested_dir)
+        for d in results:
+            if d[0:1] != '.':
+                if d[0:2] != '--':
+                    if d[(len(d)-5):(len(d)-4)] != ".":
+                        if d[(len(d)-4):(len(d)-3)] != ".":
+                            if d[(len(d)-3):(len(d)-2)] != ".":
+                                if d.lower()[0:4] != 'icon':
+                                    if not d.endswith('_original'):
+                                    # excludes returns a tuple, so...
+                                        if False in e.excludes(d,settings.APP_MENU_EXCLUDES):
+                                            dirlist.append(d.encode('utf-8'))
     
     return render_to_response('parts/doShowMenu.html', {'dirlist': dirlist, 'mList': requestedDir.replace('/', '_SLASH_') + "_SLASH_", 'crumbs': crumbs, 'user': request.user})
     

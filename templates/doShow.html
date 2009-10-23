@@ -2,61 +2,60 @@
 {% load i18n %}
 {% block content %}
 {% endblock %}
-{{msie}}
 <div id="{{div}}_main_dl">
 {% ifequal count 0 %}
-	{% ifequal groups 0 %}
-		{% trans 'No results found for this keyword' %}
-	{% else %}
-		{% trans 'No viewable results at the moment. There might be viewable results ' %}<a href="#" onclick="albums.hide()">{% trans ' if you turned off albums' %}</a>
-	{% endifequal %}
+    {% ifequal groups 0 %}
+        {% trans 'No results found for this keyword' %}
+    {% else %}
+        {% trans 'No viewable results at the moment. There might be viewable results ' %}<a href="#" onclick="albums.hide()">{% trans ' if you turned off albums' %}</a>
+    {% endifequal %}
 {% else %}
-	{% for pg in paginator %}
-		{% if pg.album %}
-			<dl class="gallery album" id="{{pg.album.album_identifier}}" onmouseover="assignDraggable(this)" onmouseup="_draggable.destroy()" {% ifequal div "content" %}{% if perms.interface.can_edit_content %} onclick="actions._select(this);albums._enable(this)"{% endif %}{% endifequal %}>	
-				<dt style="height: 12px; text-align: center;">
-					<div>
-						{% if perms.interface.can_edit_content %}
-						<input class="album-input" title="{% trans 'Click on text to edit, click anywhere else to save' %} {{pg.album.album_identifier}}" id="input-{{pg.album.album_identifier}}" type="text" value="{{pg.album.album_name}}" onfocus="this.addClassName('active')" onblur="this.removeClassName('active'); albums._edit('{{pg.album.album_identifier}}')" />
-						{% else %}
-						<div style="float: left; padding-left: 5px; margin-top: 3px; color: #333; font-size: 10px">{{pg.album.album_name|truncate:27}}</div>
-						{% endif %}
-						<div style="float: right; background-color: white; height: 14px;padding-top: 3px; padding-left: 3px">
-						    <img title="{% trans 'Add this album to your favorites'%}" style="cursor: pointer" onclick="favorites.add('{{pg.album.album_identifier}}')" src="/s/_img_interface/arrow-down.png" border="0" width="10" height="10" alt="{% trans 'Add this album to your favorites'%}" />
-							<img title="{% trans 'Add this album to your basket'%}" style="cursor: pointer; margin-left: 5px;" onclick="createEntry('{{pg.album.album_identifier}}')" src="/s/_img_interface/arrow.png" border="0" width="14" height="10" alt="{% trans 'Add this item to your basket'%}" />
-						</div>
-					</div>		
-				</dt>
-				<dd id="dd-{{pg.image_LNID}}" class="images-gallery-dd {{pg.album.album_identifier}}">
-					<a onmouseover="albums.load('{{pg.album.album_identifier}}', '{{div}}')" title="{{pg.image_LNID}}"  id="{{pg.image_LNID}}">
-							<img id="album-pg-{{pg.image_LNID}}_{{pg.album.album_identifier}}" style="border: 1px solid #ddccdd" class="album-items" src="/gallery/albums/{{pg.image_name}}" height="148" width="148" border="0" />
-					</a>
-					<div id="{{pg.album.album_identifier}}-{{pg.image_LNID}}" style="position: absolute; top: 160px; left: 29px;background-color: white; width: 100px; text-align: center">
+    {% for pg in paginator %}
+        {% if pg.album %}
+            <dl class="gallery album" id="{{pg.album.album_identifier}}" {%if not msie%} onmouseover="assignDraggable(this)" onmouseup="_draggable.destroy()" {% endif %}{% ifequal div "content" %}{% if perms.interface.can_edit_content %} onclick="actions._select(this);albums._enable(this)"{% endif %}{% endifequal %}> 
+                <dt style="height: 12px; text-align: center;">
+                    <div>
+                        {% if perms.interface.can_edit_content %}
+                        <input class="album-input" title="{% trans 'Click on text to edit, click anywhere else to save' %} {{pg.album.album_identifier}}" id="input-{{pg.album.album_identifier}}" type="text" value="{{pg.album.album_name}}" onfocus="this.addClassName('active')" onblur="this.removeClassName('active'); albums._edit('{{pg.album.album_identifier}}')" />
+                        {% else %}
+                        <div style="float: left; padding-left: 5px; margin-top: 3px; color: #333; font-size: 10px">{{pg.album.album_name|truncate:27}}</div>
+                        {% endif %}
+                        <div style="float: right; background-color: white; height: 14px;padding-top: 3px; padding-left: 3px">
+                            <img title="{% trans 'Add this album to your favorites'%}" style="cursor: pointer" onclick="favorites.add('{{pg.album.album_identifier}}')" src="/s/_img_interface/arrow-down.png" border="0" width="10" height="10" alt="{% trans 'Add this album to your favorites'%}" />
+                            <img title="{% trans 'Add this album to your basket'%}" style="cursor: pointer; margin-left: 5px;" onclick="createEntry('{{pg.album.album_identifier}}')" src="/s/_img_interface/arrow.png" border="0" width="14" height="10" alt="{% trans 'Add this item to your basket'%}" />
+                        </div>
+                    </div>      
+                </dt>
+                <dd id="dd-{{pg.image_LNID}}" class="images-gallery-dd {{pg.album.album_identifier}}">
+                    <a onmouseover="albums.load('{{pg.album.album_identifier}}', '{{div}}')" title="{{pg.image_LNID}}"  id="{{pg.image_LNID}}">
+                            <img id="album-pg-{{pg.image_LNID}}_{{pg.album.album_identifier}}" style="border: 1px solid #ddccdd" class="album-items" src="/gallery/albums/{{pg.image_name}}" height="148" width="148" border="0" />
+                    </a>
+                    <div id="{{pg.album.album_identifier}}-{{pg.image_LNID}}" style="position: absolute; top: 160px; left: 29px;background-color: white; width: 100px; text-align: center">
 
-					{% if perms.interface.can_edit_content %}
-					<a title="{% trans 'Click here to edit the album' %}" id="album-admin-{{pg.album_identifier}}"{% ifequal div "content" %} class="lightwindow" params="lightwindow_type=external" {% endifequal %} href="/admin/interface/album/{{pg.album.id}}/">...</a>
-					{% endif%}		
-					<a title="{{pg.image_LNID}}" id="album-a-{{pg.image_LNID}}" {% ifequal div "content" %} class="lightwindow" params="lightwindow_type=external" {% endifequal %} {% if perms.interface.can_edit_content %} href="/admin/interface/metadata/{{pg.id}}/" {% else %} {% ifequal div "content" %} href="/interface/show/description/{{pg.image_LNID}}/1/"{% else %} href="#" {% endifequal %}{% endif %} onmouseout="doHideMDall()" onmouseover="doShowMDall(this,'{{pg.image_LNID}}')" >{{pg.image_LNID|truncate:14}}</a>
-					</div>	
-					{% include 'parts/includeAlbumLeaderIcons.html' %}		
-				</dd>
-					{% include 'parts/includeAlbumControls.html' %}
-			</dl>
-		{% else %}
-			<dl id="{{pg.image_LNID}}-gallery" class="gallery" onmouseover="assignDraggable(this)" onmouseout="_draggable.destroy()" {% ifequal div "content" %}{% if perms.interface.can_edit_content %} onclick="actions._select(this)" {% endif %}{% endifequal %}>	
-				{% include 'parts/includeThumbs.html' %}	
-				<dd id="LN-gallery-dd-{{pg.image_LNID}}">
-					<a title="{{pg.image_LNID}}" id="LN-gallery-dd-a-{{pg.image_LNID}}" {% ifequal div "content" %} class="lightwindow"  params="lightwindow_type=external" {% if perms.interface.can_edit_content %} href="/admin/interface/metadata/{{pg.id}}/" {% else %} href="/interface/show/description/{{pg.image_LNID}}/1/" {% endif %}{% else %}{% if perms.interface.can_edit_content %} href="/admin/interface/metadata/{{pg.id}}/" {% else %} href="#" {% endif %}{% endifequal %} onmouseout="doHideMDall()" onmouseover="doShowMDall(this,'{{pg.image_LNID}}')">{{pg.image_LNID|truncate:20}}</a>
-					{% if perms.interface.can_edit_content %}
-					<!-- <div class="hidden-controls" style="float: right; cursor: pointer">
-						<img onclick="rotate('{{pg.image_LNID}}',-90)" title="{% trans 'Rotate counter-clockwise' %}" style="float: left;" src="/s/_img_interface/rotate-ccw.png" border="0" width="10" height="10" alt="Rotate Ccw" />
-						<img onclick="rotate('{{pg.image_LNID}}',90)" title="{% trans 'Rotate clockwise' %}" style="float: right" src="/s/_img_interface/rotate-cw.png" border="0" width="10" height="10" alt="Rotate Cw" />
-					</div> -->
-					{% endif %}
-				</dd>
-				<dd id="{{pg.image_LNID}}-gallery-messageBox" class="images-gallery-messageBox" style="display: none"></dd>
-			</dl>
-		{% endif %}
-	{% endfor %}
+                    {% if perms.interface.can_edit_content %}
+                    <a title="{% trans 'Click here to edit the album' %}" id="album-admin-{{pg.album_identifier}}"{% ifequal div "content" %} class="lightwindow" params="lightwindow_type=external" {% endifequal %} href="/admin/interface/album/{{pg.album.id}}/">...</a>
+                    {% endif%}      
+                    <a title="{{pg.image_LNID}}" id="album-a-{{pg.image_LNID}}" {% ifequal div "content" %} class="lightwindow" params="lightwindow_type=external" {% endifequal %} {% if perms.interface.can_edit_content %} href="/admin/interface/metadata/{{pg.id}}/" {% else %} {% ifequal div "content" %} href="/interface/show/description/{{pg.image_LNID}}/1/"{% else %} href="#" {% endifequal %}{% endif %} onmouseout="doHideMDall()" onmouseover="doShowMDall(this,'{{pg.image_LNID}}')" >{{pg.image_LNID|truncate:14}}</a>
+                    </div>  
+                    {% include 'parts/includeAlbumLeaderIcons.html' %}      
+                </dd>
+                    {% include 'parts/includeAlbumControls.html' %}
+            </dl>
+        {% else %}
+            <dl id="{{pg.image_LNID}}-gallery" class="gallery" {% if not msie %}onmouseover="assignDraggable(this)" onmouseout="_draggable.destroy()"{% endif %} {% ifequal div "content" %}{% if perms.interface.can_edit_content %} onclick="actions._select(this)" {% endif %}{% endifequal %}>  
+                {% include 'parts/includeThumbs.html' %}    
+                <dd id="LN-gallery-dd-{{pg.image_LNID}}">
+                    <a title="{{pg.image_LNID}}" id="LN-gallery-dd-a-{{pg.image_LNID}}" {% ifequal div "content" %} class="lightwindow"  params="lightwindow_type=external" {% if perms.interface.can_edit_content %} href="/admin/interface/metadata/{{pg.id}}/" {% else %} href="/interface/show/description/{{pg.image_LNID}}/1/" {% endif %}{% else %}{% if perms.interface.can_edit_content %} href="/admin/interface/metadata/{{pg.id}}/" {% else %} href="#" {% endif %}{% endifequal %} onmouseout="doHideMDall()" onmouseover="doShowMDall(this,'{{pg.image_LNID}}')">{{pg.image_LNID|truncate:20}}</a>
+                    {% if perms.interface.can_edit_content %}
+                    <!-- <div class="hidden-controls" style="float: right; cursor: pointer">
+                        <img onclick="rotate('{{pg.image_LNID}}',-90)" title="{% trans 'Rotate counter-clockwise' %}" style="float: left;" src="/s/_img_interface/rotate-ccw.png" border="0" width="10" height="10" alt="Rotate Ccw" />
+                        <img onclick="rotate('{{pg.image_LNID}}',90)" title="{% trans 'Rotate clockwise' %}" style="float: right" src="/s/_img_interface/rotate-cw.png" border="0" width="10" height="10" alt="Rotate Cw" />
+                    </div> -->
+                    {% endif %}
+                </dd>
+                <dd id="{{pg.image_LNID}}-gallery-messageBox" class="images-gallery-messageBox" style="display: none"></dd>
+            </dl>
+        {% endif %}
+    {% endfor %}
 {% endifequal %}
 </div>

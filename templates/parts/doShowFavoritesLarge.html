@@ -8,62 +8,43 @@
 	{% if prev %}<li class="LN-pager-prev"><a class="LN-pagerLink" href="#" onclick="favorites.show({{page|add:"-1"}})"> < </a></li>{% endif %}
 	{% if next %}<li class="LN-pager-next"><a class="LN-pagerLink" href="#" onclick="favorites.show({{page|add:"1"}})"> > </a></li>{% endif %}
 	</ul>
-	
 	<div style="float:right; margin-right: 11px;height: 17px;width:17px;margin-top: 2px; cursor: pointer" onclick="favorites.collapse()">
 		<img src="/s/_img_interface/images-close-panel/16px.png" border="0" width="16" height="16" alt="Images Close Panel" />
 	</div>
-
 </div>
 
 {% for pg in paginator %}
 {% if pg.album %}
 
-
-
-<dl class="gallery album" id="{{pg.album.album_identifier}}" onmouseover="assignDraggable(this)" onmouseout="_draggable.destroy()">
-	
+<dl class="gallery album" id="{{pg.album.album_identifier}}" {% if not msie %} onmouseover="assignDraggable(this)" onmouseout="_draggable.destroy()" {% endif %}>
 	<dt style="height: 12px; text-align: center;">
-		
 		<div>
-			
 			{{pg.album.album_name|truncate:21}}
 			<img title="{% trans 'Add this album to your basket'%}" style="cursor: pointer" onclick="createEntry('{{pg.album.album_identifier}}')" src="/s/_img_interface/arrow.png" border="0" width="14" height="10" alt="{% trans 'Add this item to your basket'%}" />
-
 		</div>
-		
-		
-
 	</dt>
-	
 	{% for item in pg.album.content %}
 	<dd id="dd-{{item.image_LNID}}" class="images-gallery-dd {{pg.album.album_identifier}} {{item.group_status}}">
 		<div style="cursor: pointer; position: absolute; top: -10px; left: 130px; width: 24px" title="{% trans 'Add album to your basket' %}" onclick="createEntry('{{pg.album.album_identifier}}')">&nbsp;</div>
 		<div  style="cursor: pointer; position: absolute; top: -12px; left: 154px; width: 10px" title="{% trans 'Remove item '%}" id="{{pg.id}}-favorites-close" class="favorites-close" onclick="favorites.close(this)" ><img src="/s/_img_interface/images-close.gif" border="0" width="10" height="10" alt="Images Close" /></div>
-		
-		<a class="lightwindow" pages="{{pg.album.image.count}}" title="{{item.image_LNID}} ({{item.group_status}})"  id="{{item.image_LNID}}" href="/gallery/images/{{item.image_name}}" rel="lightbox[{{match|cut:" +"}}]">
+	
+		{% ifequal div "content" %}<a class="lightwindow" pages="{{pg.album.image.count}}" title="{{item.image_LNID}} ({{item.group_status}})"  id="{{item.image_LNID}}" href="/gallery/images/{{item.image_name}}" rel="lightbox[{{match|cut:" +"}}]">{% endifequal %}
 				<img id="album-item-{{item.image_LNID}}_{{pg.album.album_identifier}}" style="border: 1px solid #ddccdd" class="album-items" src="/gallery/albums/{{item.image_name}}" height="148" width="148" border="0" />
-		</a>
-		<div id="{{pg.album.album_identifier}}-{{item.image_LNID}}" style="position: absolute; top: 160px; left: 29px;background-color: white; width: 100px; text-align: center">
-
-			<a title="item.image_LNID" id="album-f-{{item.image_LNID}}" href="#" onmouseout="doHideMDall()" onmouseover="doShowMDall(this,'{{item.image_LNID}}')">{{item.image_LNID|truncate:18}}</a>
-
-		</div>
+		{% ifequal div "content" %}</a>{% endifequal %}
 		
+		<div id="{{pg.album.album_identifier}}-{{item.image_LNID}}" style="position: absolute; top: 160px; left: 29px;background-color: white; width: 100px; text-align: center">
+			<a title="item.image_LNID" id="album-f-{{item.image_LNID}}" href="#" onmouseout="doHideMDall()" onmouseover="doShowMDall(this,'{{item.image_LNID}}')">{{item.image_LNID|truncate:18}}</a>
+		</div>		
 		{% include 'parts/includeAlbumIcons.html' %}
 		
-	</dd>
-	
+	</dd>	
 	{% endfor %}	
-
 	{% include 'parts/includeAlbumControls.html' %}
-
 </dl>
-
-
 
 {% else %}
 
-<dl id="{{pg.image_LNID}}-favorites" class="gallery"  onmouseover="assignFavoritesLargeDraggable('{{pg.image_LNID}}-favorites');" onmouseup="myFavoritesLargeDraggable.destroy()" >
+<dl id="{{pg.image_LNID}}-favorites" class="gallery"  {% if not msie %}onmouseover="assignFavoritesLargeDraggable('{{pg.image_LNID}}-favorites');" onmouseup="myFavoritesLargeDraggable.destroy()" {% endif %}>
 <div title="{% trans 'Remove item '%}{{pg.image_LNID}}" id="{{pg.id}}-favorites-close" class="favorites-close" onclick="favorites.close(this)" ><img src="/s/_img_interface/images-close.gif" border="0" width="10" height="10" alt="Images Close" /></div>
 {% include 'parts/includeThumbs.html' %}
 
