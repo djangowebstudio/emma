@@ -1226,6 +1226,7 @@ function doShowMDall(s,image_LNID){
 
 function assignDraggable(element){
 
+	if(!navigator.userAgent.indexOf('MSIE 7') > -1 || !navigator.userAgent.indexOf('MSIE 6') > -1) { //exclude these IE versions from using draggables
 	
 	_draggable = new Draggable(element,{revert: true, handles: 'handle'});
 		
@@ -1251,6 +1252,7 @@ function assignDraggable(element){
 			
 			}
 		});
+	}
 
 }
 

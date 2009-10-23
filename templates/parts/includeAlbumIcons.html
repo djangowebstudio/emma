@@ -21,7 +21,7 @@
 	{% if item.document %}
 	<img title="{% trans 'this item has an attachment' %}" src="/s/_img_interface/attachment.png" border="0" width="10" height="10" alt="Attachment" />
 	{% endif %}
-	
+	<img title="{% trans 'Add this item to your favorites'%}" style="cursor: pointer" onclick="favorites.add('{{item.image_LNID}}')" src="/s/_img_interface/arrow-down.png" border="0" width="10" height="10" alt="{% trans 'Add this item to your favorites'%}" />
 	<img title="{% trans 'Add this item to your basket'%}" style="cursor: pointer" onclick="createEntry('{{item.image_LNID}}')" src="/s/_img_interface/arrow.png" border="0" width="14" height="10" alt="{% trans 'Add this item to your basket'%}" />
 	
 	{% if perms.interface.can_edit_content %} 

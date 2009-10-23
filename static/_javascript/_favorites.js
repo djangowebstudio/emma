@@ -278,6 +278,14 @@ var favorites = {
 	
 	// interface to Favorite
 	
+	add: function(image_LNID){
+	    
+	    var f = new Favorite();
+		f.item = image_LNID;
+		f.addItem();
+	    
+	},
+	
 	close: function(element){
 		// interface to Favorite's close method.
 		var f = new Favorite();

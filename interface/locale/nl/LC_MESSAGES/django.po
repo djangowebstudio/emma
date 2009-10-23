@@ -299,6 +299,9 @@ msgstr "vergroot"
 msgid "Add album to your basket"
 msgstr "Zet dit album in je mandje"
 
+msgid "Add this album to your favorites"
+msgstr "Zet dit album in je favorieten"
+
 msgid "Remove item "
 msgstr "Verwijder onderdeel"
 
