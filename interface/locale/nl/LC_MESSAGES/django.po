@@ -340,3 +340,15 @@ msgstr "dit onderdeel beval een attachment"
 
 msgid "basket"
 msgstr "mandje"
+
+msgid "cart"
+msgstr "mandje"
+
+msgid "Back"
+msgstr "Terug"
+
+msgid "back"
+msgstr "terug"
+
+msgid "Administration"
+msgstr "Beheer"

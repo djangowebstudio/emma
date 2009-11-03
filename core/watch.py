@@ -522,37 +522,38 @@ class Watch:
 		def f (self, dirname, files):
 	        # Traversal function for directories
 			for filename in files:
-				path = os.path.join(dirname, filename)
+			    if not filename == '.DS_Store' or not filename == 'Thumbs.db':
+    				path = os.path.join(dirname, filename)
 
-				try:
-					t = os.stat(path)
+    				try:
+    					t = os.stat(path)
 				
 
-				except os.error:
-				# If a file has been deleted between os.path.walk()
-				# scanning the directory and now, we'll get an
-				# os.error here.  Just ignore it -- we'll report
-				# the deletion on the next pass through the main loop.
-					continue
+    				except os.error:
+    				# If a file has been deleted between os.path.walk()
+    				# scanning the directory and now, we'll get an
+    				# os.error here.  Just ignore it -- we'll report
+    				# the deletion on the next pass through the main loop.
+    					continue
 				
 			
-				mtime = remaining_files.get(path)
-				if mtime is not None:
+    				mtime = remaining_files.get(path)
+    				if mtime is not None:
 				
-					# Record this file as having been seen
-					del remaining_files[path]
-					# File's mtime has been changed since we last looked at it.
-					if t.st_mtime > mtime:
-						appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(t.st_ctime)
-						changed_list.append(appendix)
-				else:
-					# No recorded modification time, so it must be
-					# a brand new file.
-					#today = datetime.datetime.now()
-					appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(t.st_ctime)
-					changed_list.append(appendix)
-				# Record current mtime of file.
-				all_files[path] = t.st_mtime
+    					# Record this file as having been seen
+    					del remaining_files[path]
+    					# File's mtime has been changed since we last looked at it.
+    					if t.st_mtime > mtime:
+    						appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(t.st_ctime)
+    						changed_list.append(appendix)
+    				else:
+    					# No recorded modification time, so it must be
+    					# a brand new file.
+    					#today = datetime.datetime.now()
+    					appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(t.st_ctime)
+    					changed_list.append(appendix)
+    				# Record current mtime of file.
+    				all_files[path] = t.st_mtime
 
 		# Main loop
 		rescan = False

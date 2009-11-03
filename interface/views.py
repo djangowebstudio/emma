@@ -227,11 +227,15 @@ def doBuildZIP(request):
                 item = os.path.join(prefix_LR, i.image_name).encode('utf-8')
                 fname = i.image_name.encode('utf-8')
             
-            # Write the item to the zip
-            zip.write(item,fname)
-            # Now, if the item includes an attached document, write it. 
-            attachment = attachment_search(i.image_LNID, 'metadata')
-            if attachment: zip.write(attachment[0], ''.join(['README-', attachment[1]]))
+            if os.path.exists(item):
+                # Write the item to the zip
+                zip.write(item,fname)
+                # Now, if the item includes an attached document, write it. 
+                attachment = attachment_search(i.image_LNID, 'metadata')
+                if attachment: zip.write(attachment[0], ''.join(['README-', attachment[1]]))
+            else:
+                send_mail('no path to %s' % item, settings.APP_EMAIL_SENDER, '', settings.APP_EMAIL_RECIPIENTS, fail_silently=False)
+                continue
                         
             
             
@@ -499,7 +503,9 @@ def doShowThumbs(request,match,cat,weeks=0,page=1,groups=1):
     
     difference = datetime.timedelta(weeks=-int(weeks))
     start_date = today + difference
-    if match == '_ALL_':
+    if match == '_START_': 
+        itemListObj = Keyword.objects.all().exclude(image__group_status__icontains='follower').order_by(order)[:50] #Start page query
+    elif match == '_ALL_':
         if cat == '_ALL_':
             cat = ''
         if groups == 0:

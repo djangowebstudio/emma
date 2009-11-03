@@ -35,7 +35,6 @@ from time import strptime, strftime
 from fnmatch import fnmatch
 import logging
 import mimetypes
-
 import subprocess
 from PIL import Image
 #--------------------------------------------------------------------------------------------------
@@ -530,15 +529,18 @@ class Convert:
         with the −vframes or −t option, or in combination with −ss to start extracting from a certain point in time. 
         
         """
+        
+        # First of all, test the input file 
+        if not os.path.exists(finput): return None
+        
         dimensions = {} # Init a dict to hold dimensions
-        
-        
         if size == 'large':
             cmd = ["ffmpeg","-i", finput, "-y","-ar","11025", foutput]
         elif size == 'cropped':
             cmd = ["ffmpeg","-i",finput,"-y","-fs","100000",foutput]
         elif size == 'tiny' or size == 'small':
             fname = '/'.join([foutput, os.path.splitext(os.path.basename(finput))[0] + ".png"])
+            print fname
             cmd = ["ffmpeg", "-i", finput, "-y", "-vframes", "1", "-ss", "5", fname]
         elif size == 'fullsize':
             fname = '/'.join([foutput, os.path.splitext(os.path.basename(finput))[0] + ".jpg"])
@@ -599,8 +601,8 @@ class ConverterTests(unittest.TestCase):
         pass
         
 
-if __name__ == '__main__': 
-    c = Convert()
+if __name__ == '__main__': pass
+    # c = Convert()
     # for root, dirs, files in os.walk('/Users/geert/Desktop/imgs'):
     #     for f in files:
     #         if not f.startswith('.'):
@@ -634,4 +636,4 @@ if __name__ == '__main__':
     # width = d['pixelWidth']
     # print r, d, height, width
     # print c.ffmpeg('/Volumes/miniHD-red/ccnet2.0/content/MOV/NPL.tvcom.JP.020401_20s.mov', '/Users/geert/Desktop', 'fullsize')
-    c.generate_pdf(['/Users/geert/Sites/ccnet2.0/content/JPG/0050.03.90_v0.jpg','/Users/geert/Sites/ccnet2.0/content/JPG/0050.03.90_v1.jpg','/Users/geert/Sites/ccnet2.0/content/JPG/0050.03.90_v2.jpg'], '/Users/geert/Desktop/test.pdf')
+
