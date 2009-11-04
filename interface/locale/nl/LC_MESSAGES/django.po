@@ -352,3 +352,12 @@ msgstr "terug"
 
 msgid "Administration"
 msgstr "Beheer"
+
+msgid "view video content"
+msgstr "bekijk video"
+
+msgid "listen to audio content"
+msgstr "beluister audio"
+
+msgid "view flash media"
+msgstr "bekijk flash"
