@@ -3,8 +3,8 @@ from emma.interface.models import *
 from models import *
 	  	
 class ImageAdmin(admin.ModelAdmin):
-	list_filter = ['image_LNID']
-	search_fields = ['image_LNID']
+	list_display = ['image_LNID', 'image_category']
+	search_fields = ['image_LNID', 'image_category']
 	
 admin.site.register(Image, ImageAdmin)
 	

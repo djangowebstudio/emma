@@ -1,27 +1,11 @@
 {% load i18n %}
 <!-- includeThumbs -->
 <dt>
-	{% ifequal pg.cright 1 %}
-	<img title="{% trans 'copyright owed' %}" style="cursor: help;" src="/s/_img_interface/copyright-yes.png?{{appendix}}" border="0" alt="copyright no" />
-	{% endifequal %}
-	{% ifequal pg.cright 0 %}
-	<img title="{% trans 'copyright settled' %}"  style="cursor: help;" src="/s/_img_interface/copyright-no.png?{{appendix}}" border="0" alt="copyright yes" />
-	{% endifequal %}
-	{% ifequal pg.cright None %}
-	<img title="{% trans 'copyright unknown' %}"  style="cursor: help;" src="/s/_img_interface/copyright-dontknow.png?{{appendix}}" border="0" alt="copyright don't know" />
-	{% endifequal %}
-	{% ifequal pg.profile 0 %}
-	<img title="{% trans 'not yet ready for printing -- this image needs profiling' %}" style="cursor: help;" src="/s/_img_interface/exclamation-mark.png?{{appendix}}" width="10" height="10" alt="niet drukklaar - 4 werkdagen levertijd" />
-	{% endifequal %}
-	{% if pg.document %}
-	<img title="{% trans 'this item contains an attachment'%}" style="cursor: help" src="/s/_img_interface/attachment.png" border="0" width="10" height="10" alt="Attachment" />
-	{% endif %}
-	<img title="{% trans 'Add this item to your favorites'%}" style="cursor: pointer" onclick="favorites.add('{{pg.image_LNID}}')" src="/s/_img_interface/arrow-down.png" border="0" width="10" height="10" alt="{% trans 'Add this item to your favorites'%}" />
-	<img title="{% trans 'Add this item to your basket'%}" style="cursor: pointer" onclick="createEntry('{{pg.image_LNID}}')" src="/s/_img_interface/arrow.png" border="0" width="14" height="10" alt="{% trans 'Add this item to your basket'%}" />
+	<img title="{% trans 'Add this item to your basket'%}" style="cursor: pointer" onclick="createEntry('{{pg.image_LNID}}')" src="/project/_img_interface/arrow.png" border="0" width="94" height="10" alt="{% trans 'Add this item to your basket'%}" />
 	<div>
 		{% ifequal pg.image_category 'video' %}
 			{% ifequal div "content" %}
-				<a  class="lightwindow" title="{{pg.image_LNID}}"  id="{{pg.image_LNID}}" href="/gallery/images/{{pg.image_name}}" params="lightwindow_width=420,lightwindow_height=333" rel="lightbox[gallery]">open</a>
+				<a  class="lightwindow" title="{{pg.image_LNID}}"  id="{{pg.image_LNID}}" href="/s/show148.swf?file=/gallery/images/{{pg.image_name}}" params="lightwindow_width=420,lightwindow_height=333" rel="lightbox[gallery]">{% trans 'view video content' %}</a>
 			{% endifequal %}
 				<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" height="105" width="148">
 				    <param name="allowScriptAccess" value="sameDomain" />
@@ -34,7 +18,7 @@
 		{% endifequal %}
 		{% ifequal pg.image_category 'audio' %}		
 			{% ifequal div "content" %}
-				<a  class="lightwindow" title="{{pg.image_LNID}}"  id="{{pg.image_LNID}}" href="/gallery/images/{{pg.image_name}}" rel="lightbox[gallery]">open</a>
+				<a  class="lightwindow" title="{{pg.image_LNID}}"  id="{{pg.image_LNID}}" href="/s/show148.swf?file=/gallery/images/{{pg.image_name}}" rel="lightbox[gallery]">{% trans 'listen to audio content' %}</a>
 			{% endifequal %}
 				<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" height="105" width="148">
 				    <param name="allowScriptAccess" value="sameDomain" />
@@ -48,7 +32,7 @@
 			
 		{% ifequal pg.image_category 'flash' %}
 			{% ifequal div "content" %}
-				<a  class="lightwindow" title="{{pg.image_LNID}}"  id="{{pg.image_LNID}}" href="/gallery/images/{{pg.image_name}}" rel="lightbox[gallery]">open</a>
+				<a  class="lightwindow" title="{{pg.image_LNID}}"  id="{{pg.image_LNID}}" href="/gallery/images/{{pg.image_name}}" rel="lightbox[gallery]">{% trans 'view flash media' %}</a>
 			{% endifequal %}
 				<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="148" height="105">
 		        <param name="movie" value="/gallery/thumbs/{{pg.image_name}}" />

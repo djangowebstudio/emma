@@ -242,11 +242,12 @@ def doBuildZIP(request):
     zip.close()
     buffer.flush
     
-    t = loader.get_template('emailtemplates/downloads.txt')
-    c = Context({'name': muser.first_name,'imageList': imageList, 'groupList': groupList })
+    if settings.APP_SEND_DOWNLOAD_EMAILS:
+        t = loader.get_template('emailtemplates/downloads.txt')
+        c = Context({'name': muser.first_name,'imageList': imageList, 'groupList': groupList })
     
-    settings.APP_EMAIL_RECIPIENTS.append(muser.email)
-    send_mail('%s download' % settings.APP_PUBLIC_NAME, t.render(c), settings.APP_EMAIL_SENDER, settings.APP_EMAIL_RECIPIENTS, fail_silently=False )
+        settings.APP_EMAIL_RECIPIENTS.append(muser.email)
+        send_mail('%s download' % settings.APP_PUBLIC_NAME, t.render(c), settings.APP_EMAIL_SENDER, settings.APP_EMAIL_RECIPIENTS, fail_silently=False )
     # delete the downloaded items in the cart
     downloadList = Order.objects.filter(client=muser.username, status=0)
     

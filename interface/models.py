@@ -54,6 +54,8 @@ class Image(models.Model):
 	CATEGORY_CHOICES = (
 		('photo', 'Photography'),
 		('illustration', 'Illustrations and Art Work'),
+		('video', 'Video'),
+		('audio', 'Audio')
 	)
 	image_category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
 	image_pages = models.IntegerField(null=False, default=0)
