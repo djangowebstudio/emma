@@ -462,7 +462,7 @@ def doShowTags(request, format, search='all', page=1):
 @login_required
 def doShowThumbs(request,match,cat,weeks=0,page=1,groups=1):
     
-    """Shows thumbs
+    """Shows and pages thumbs
     Takes: match (str or int), cat (str), weeks (int), page (int) groups (int)
     
     """
@@ -504,7 +504,12 @@ def doShowThumbs(request,match,cat,weeks=0,page=1,groups=1):
     
     difference = datetime.timedelta(weeks=-int(weeks))
     start_date = today + difference
-    if match == '_START_': 
+    if match == '_DATE_':
+        m = Metadata.objects.filter(datetimeoriginal__year=cat)
+        for item in m:
+            item.content = Keyword.objects.get(image_LNID=item.image_LNID)
+        itemListObj = m
+    elif match == '_START_':
         itemListObj = Keyword.objects.all().exclude(image__group_status__icontains='follower').order_by(order)[:50] #Start page query
     elif match == '_ALL_':
         if cat == '_ALL_':
@@ -1177,3 +1182,12 @@ def rotate(request, item, rotation):
         return HttpResponse('%s rotated %s degrees. Effects will be visible within %s seconds.' % (i, r, settings.APP_WATCH_DELAY))
     except Exception, inst:
         return HttpResponse('An error occurred processing %s %s' % (item, inst))
+        
+@login_required
+def doShowYears(request):
+    """Return year links"""
+    try:
+        m = Metadata.objects.dates('datetimeoriginal', 'year')
+        return render_to_response('parts/doShowYears.html',{'dates' : m})
+    except Exception, inst:
+        return HttpResponse(inst)

@@ -12,7 +12,7 @@
 </div>
 {% for pg in paginator %}
 <div class="LN-menu-tagContainer-cloud" style="font-size:{{pg|slice:"3:4"|stringformat:"s"}}px;">
-	<a title="{{pg|slice:"1:2"|stringformat:"s"}} - {{pg|slice:"2:3"|stringformat:"s"}} afbeelding{{pg|slice:"2:3"|stringformat:"s"|pluralize:"en"}}" href="#" onclick="doShowThumbs(' +{{pg|first|urlencode}}','_ALL_',1000,1,true,0)">{{pg|slice:"1:2"|stringformat:"s"}}</a>
+	<a title="{{pg|slice:"1:2"|stringformat:"s"}} - {{pg|slice:"2:3"|stringformat:"s"}} item{{pg|slice:"2:3"|stringformat:"s"|pluralize:"s"}}" href="#" onclick="doShowThumbs(' +{{pg|first|urlencode}}','_ALL_',1000,1,true,0)">{{pg|slice:"1:2"|stringformat:"s"}}</a>
 </div>
 {% endfor %}
 <hr>

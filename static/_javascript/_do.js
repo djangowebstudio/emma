@@ -881,6 +881,21 @@ function doShow(){
 		
 }
 
+function doShowYears(element){
+    var url = '/interface/show/years/';
+    var updateContainer = new Element('div', {id: 'menuyearsContainer'});
+    $(element).appendChild(updateContainer);
+    var mAjax = new Ajax.Updater(
+		{success: updateContainer}, 
+		url,
+		{
+			method: 'get', 
+			onCreate: function(){Element.clonePosition('spinner', updateContainer);},
+			onFailure: reportError
+		});
+	
+}
+
 function showDownloadMessage(){
 	setTimeout('doShow()', 2000);
 }
