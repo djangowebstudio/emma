@@ -29,7 +29,11 @@ from __future__ import division
 import sys, os, shutil
 import unittest
 import subprocess
-from CoreGraphics import *
+try:
+    from CoreGraphics import *
+except:
+    pass
+    
 from datetime import datetime
 from time import strptime, strftime
 from fnmatch import fnmatch

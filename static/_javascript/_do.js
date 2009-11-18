@@ -882,6 +882,10 @@ function doShow(){
 }
 
 function doShowYears(element){
+    // triggers serverside script to show date links in a DOM element 
+    // takes element (str), DOM element id
+    // returns HTML
+    
     var url = '/interface/show/years/';
     var updateContainer = new Element('div', {id: 'menuyearsContainer'});
     $(element).appendChild(updateContainer);
@@ -1238,36 +1242,39 @@ function doShowMDall(s,image_LNID){
 
 // to do: create generic function for these draggables
 
-
+var _draggable;
 function assignDraggable(element){
-
-
-	
+    // Makes gallery item draggable.
+    // takes: DOM element
+    
+    
 	_draggable = new Draggable(element,{revert: true, handles: 'handle'});
 		
 	var elementStr = element.id;
 	elementObj = elementStr.replace('-gallery', '');
+    
+    if( $('LN-cartItemsContainer')){
+    	Droppables.add("LN-cartItemsContainer", 
+    	{
+    		accept:'gallery', 
+    		hoverclass:'LN-cartItemsContainer-active', 
+    		onDrop:function(){createEntry(elementObj);}
+    		});
+	}
 
-	Droppables.add("LN-cartItemsContainer", 
-	{
-		accept:'gallery', 
-		hoverclass:'LN-cartItemsContainer-active', 
-		onDrop:function(){createEntry(elementObj);}
-		});
-
-		
-	Droppables.add("content_favorites",
-	{
-		accept: 'gallery', 
-		hoverclass: 'content_favorites-active', 
-		onDrop:function(){
+	if ($('content_favorites'))	{
+    	Droppables.add("content_favorites",
+    	{
+    		accept: 'gallery', 
+    		hoverclass: 'content_favorites-active', 
+    		onDrop:function(){
 			
-			var myfave = new Favorite(elementObj,'','dock',1);
-			myfave.addItem();
+    			var myfave = new Favorite(elementObj,'','dock',1);
+    			myfave.addItem();
 			
-			}
-		});
-
+    			}
+    		});
+    }
 
 }
 

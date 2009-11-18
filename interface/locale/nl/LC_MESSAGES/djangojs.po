@@ -76,4 +76,4 @@ msgid "close"
 msgstr "sluiten"
 
 msgid "Do you REALLY want to remove this item from your basket?"
-msgstr "Wil je dit onderdeel ECHT uit je mandje verwijderen"
+msgstr "Wil je dit onderdeel ECHT uit je mandje verwijderen?"

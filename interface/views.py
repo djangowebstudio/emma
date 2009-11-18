@@ -47,7 +47,7 @@ def index(request):
             r = User.objects.get(user=request.user.id)
         
             if r.setting2 == 1: 
-                return render_to_response('index.html', {'username': request.user.username, 'title': settings.APP_PUBLIC_NAME})
+                return render_to_response('index.html', {'username': request.user.username, 'title': settings.APP_PUBLIC_NAME, 'appendix': appendix()})
             else:
                 r.setting2 = 0
                 r.save()
@@ -60,13 +60,13 @@ def index(request):
         try:
             c = Contract.objects.get(user=request.user.id)
             if c.contract == 1: 
-                return render_to_response('index.html', {'username': request.user.username, 'title': settings.APP_PUBLIC_NAME})     
+                return render_to_response('index.html', {'username': request.user.username, 'title': settings.APP_PUBLIC_NAME, 'appendix': appendix()})     
             else:
                 return render_to_response('contract.html', {'user': request.user})
         except Contract.DoesNotExist:
             return render_to_response('contract.html', {'user': request.user})
             
-    else: return render_to_response('index.html', {'username': request.user.username, 'title': settings.APP_PUBLIC_NAME})
+    else: return render_to_response('index.html', {'username': request.user.username, 'title': settings.APP_PUBLIC_NAME, 'appendix': appendix()})
 
 def ie6(request, action=None): 
     """ Returns a page for internet explorer 6"""
@@ -1182,7 +1182,7 @@ def rotate(request, item, rotation):
         return HttpResponse('%s rotated %s degrees. Effects will be visible within %s seconds.' % (i, r, settings.APP_WATCH_DELAY))
     except Exception, inst:
         return HttpResponse('An error occurred processing %s %s' % (item, inst))
-        
+
 @login_required
 def doShowYears(request):
     """Return year links"""
@@ -1191,3 +1191,5 @@ def doShowYears(request):
         return render_to_response('parts/doShowYears.html',{'dates' : m})
     except Exception, inst:
         return HttpResponse(inst)
+                
+def appendix(): return int(time.time())
