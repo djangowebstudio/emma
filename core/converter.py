@@ -401,7 +401,6 @@ class Convert:
         
         if os.path.exists(source):
             resize_cmd = ["sips", "--resampleWidth", str(target_width), "--setProperty", "format", format, source, "--out", target]
-            print resize_cmd
             action = subprocess.Popen(resize_cmd,stdout=subprocess.PIPE).stdout.read()
             return action
         else:
@@ -504,10 +503,12 @@ class Convert:
             logging.error('Error copying item %s %s' % (finput, inst)) 
         
     
-    def ffmpeg(self, finput, foutput, size="other", defaultwidth=917):
+    def ffmpeg(self, finput, foutput, size="other", defaultwidth=917, format="png"):
         """ Converts all sorts of video formats to a clip in .flv format or set of images.
-        The number of frames can be set in de args.
-        Just a python wrapper to ffmpeg
+        
+        Just a python wrapper to ffmpeg.
+        Besides converting to flv, also simultaneously converts video to stills for use 
+        as thumbs. See arguments below.
         
         Takes:
         1. finput (str), a path
@@ -518,6 +519,7 @@ class Convert:
         case, ffmpeg will be instructed to get the first 180 frames of the source 
         file.
         4. defaultwidth (int), a fallback in case a child function fails to return a value
+        5. format for stills, defaults to png. 
         
         For sound only files, use "large".
         
@@ -533,24 +535,26 @@ class Convert:
         with the −vframes or −t option, or in combination with −ss to start extracting from a certain point in time. 
         
         """
+        # Path to ffmpeg
         
-        # First of all, test the input file 
+        ffmpeg = "/usr/local/bin/ffmpeg"
+        
+        # Test the input file 
         if not os.path.exists(finput): return None
-        
         dimensions = {} # Init a dict to hold dimensions
         if size == 'large':
-            cmd = ["ffmpeg","-i", finput, "-y","-ar","11025", foutput]
+            cmd = [ffmpeg,"-i", finput, "-y","-ar","11025", foutput]
         elif size == 'cropped':
-            cmd = ["ffmpeg","-i",finput,"-y","-fs","100000",foutput]
+            cmd = [ffmpeg,"-i",finput,"-y","-fs","100000",foutput]
         elif size == 'tiny' or size == 'small':
-            fname = '/'.join([foutput, os.path.splitext(os.path.basename(finput))[0] + ".png"])
-            print fname
-            cmd = ["ffmpeg", "-i", finput, "-y", "-vframes", "1", "-ss", "5", fname]
+            fname = os.path.join(foutput, '.'.join([os.path.splitext(os.path.basename(finput))[0],format]))
+            cmd = [ffmpeg, "-i", finput, "-y", "-vframes", "1", "-ss", "5", fname]
         elif size == 'fullsize':
-            fname = '/'.join([foutput, os.path.splitext(os.path.basename(finput))[0] + ".jpg"])
-            cmd = ["ffmpeg", "-i", finput, "-y", "-vframes", "1", "-ss", "5", fname]
+            fname = os.path.join(foutput, '.'.join([os.path.splitext(os.path.basename(finput))[0],format]))
+            cmd = [ffmpeg, "-i", finput, "-y", "-vframes", "1", "-ss", "5", fname]
         else:
-            cmd = ["ffmpeg","-i",finput,"-y","-vframes","180","-an","-s","qqvga",foutput]
+            cmd = [ffmpeg,"-i",finput,"-y","-vframes","180","-an","-s","qqvga",foutput]
+        print cmd
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)      
         print proc.communicate()[0]
         if size == 'tiny': self.crop_to_center(fname, foutput,29,29)

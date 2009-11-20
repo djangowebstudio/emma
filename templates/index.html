@@ -64,34 +64,7 @@
 	</div>
 	<div id="menuContent"> </div>
 </div>
-<div class="toolbar" id="LN-toolbar">
-	<ul id="LN-clickableReloadImage">
-		<li><a title="Click to reload {{title}}" href="#" onclick="location.reload()"><img src="/s/_img_interface/bn-transparant.gif" border="0" width="100" height="20" alt="{{title}}" /></a></li>
-	</ul>
-	<ul id="LN-toolbar-searchbox-container" style="margin-right: 0px; padding-right: 0px">
-
-		<li>
-			<input type="text" style="width: 148px" title="" id="LN-toolbar-searchbox" class="autocomplete_input" name="autocomplete_parameter" accesskey="s" value="Voer zoekterm in..." onfocus="this.value=''" />
-		</li>
-
-	</ul>
-	<ul id="LN-toolbar-searchselect-container" style="margin-left: 0px; padding-left: 0px" title="">
-		<li id="LN-toolbar-searchselect-listItem">
-			<img id="LN-toolbar-searchselect-image" title="" onclick="showSearchSelectMenu()" src="/s/_img_interface/ln-search-select.png" width="28" height="14" alt="" />
-		</li>
-	</ul>
-
-
-	<ul id="LN-toolbar-help-logout">
-		<li><a href="/">home</a> | </li>
-		<li><a href="/stock-bureaus/">stockbureau's</a> | </li>
-		<li><a title="Admin" href="/admin">admin</a> | </li>
-		<li><a title="Show help pages" href="/interface/show/help/">help</a> | </li>
-		<li> <a title="Logout" href="/accounts/logout">logout</a></li>
-		
-	</ul>
-
-</div>
+{% include 'parts/header.html' %}
 <div id="LN-cartContainer">
 	<ul id="LN-toolbar-cart">
 		<li>

@@ -5,7 +5,7 @@
 fix.py
 
 Created by Geert Dekkers on 2008-01-18.
-Copyright (c) 2008 Geert Dekkers Web Studio. All rights reserved.
+Copyright (c) 2008, 2009 Geert Dekkers Web Studio. All rights reserved.
 
 unzips, fixes and formats filenames
 
@@ -44,6 +44,7 @@ except Exception, inst:
 
 
 class Fix:
+    def __init__(self): pass
     def settings(self): return settings # Get the settings for reuse as imported class
     def increment(self, input): return input + 1
     def percent2f_n_bad(self): return re.compile(settings.APP_FIX_BADCHARACTERS) # look for bad chars
@@ -234,7 +235,14 @@ class Fix:
                 except: 
                     # Now we can prepare to change the filenames. However, in some cases it would be prudent to capture any existing information, and often
                     # that would be the filename. So the first step is to load some data from the *old* name for later reuse.
-                    keywords =  ','.join([root.replace(settings.APP_CONTENT_ROOT,'').replace('/',','), os.path.splitext(f)[0].replace(' ', ',')]) # clip off the leading comma later
+                    keywords =  ','.join([root.replace(settings.APP_CONTENT_ROOT,'').replace('/',',').replace('-', ','), os.path.splitext(f)[0].replace('-',',').replace('_',',').replace(' ', ',')]) 
+                    k = keywords[1:len(keywords)] # clip off the leading comma
+                    keywords = k.split(',')
+                    for word in keywords:
+                        if len(word) < 2 or word in settings.APP_FIX_EXCLUDEKEYWORDS:
+                            keywords.remove(word)
+                    keywords = ', '.join(keywords)
+                            
                     if f[len(f)-4:len(f)] == '.fla':
                         # Flash files are to be entered into APP_CONTENT_ROOT as .fla / .swf pairs
                         # If either the .fla is present without an .swf, or vv, then they should be treated
@@ -277,10 +285,11 @@ class Fix:
                                 os.rename(oldpath, newpath)
                                 logging.info( "%(f)s changed to %(newfile)s " % {'f': f, 'newfile': newfile})
                                 self.updateImageCount(number)
-                                if settings.APP_ADD_KEYWORDS:
-                                    # Write the saved keywords data (clipping off the leading comma), where the True arg does a concat
-                                    metadata.Metadata().exifWrite('keywords', keywords[1:len(keywords)], newpath, True) 
-                                logging.info( "count updated to %(number)s" % {'number':number})
+                                if settings.APP_FIX_ADDKEYWORDS:
+                                    # Write the saved keywords data, where the True arg does a concat
+                                    metadata.Metadata().exifWrite('keywords', keywords, newpath, True) 
+                                    logging.info("Added %s to %s" % (keywords, newpath))
+                                logging.info( "Count updated to %(number)s" % {'number':number})
                             except Exception, inst:
                                 logging.error ("Error renaming %(oldpath)s" % {'oldpath':oldpath, 'inst': inst})
                         else:
