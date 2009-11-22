@@ -41,6 +41,8 @@ import logging
 import mimetypes
 import subprocess
 from PIL import Image
+import utes
+import codecs
 #--------------------------------------------------------------------------------------------------
 # Logging (disabled - uncomment to enable logging for this script)
 # The logging calls here are handled by the caller. Only uncomment if you wish to debug this
@@ -59,19 +61,38 @@ class Convert:
     def __init__(self):
         pass
     
-    def convertDocument(self, input_file, font_size=12.0):
+    def convertDocument(self, input_file, output_dir=None):
         '''Convert input file into PDF, using font_size'''
+        font_size=12.0 # Get this from settings in a future release
         text = CGDataProviderCreateWithFilename(input_file)
-        if not text: return None
-        (root, ext) = os.path.splitext(input_file)
-        output_file = root + ".pdf"
-        pageRect = CGRectMake(0, 0, 612, 792)
+        if not text: 
+            try:
+                logging.error('%s is empty' % input_file)
+            except:
+                print ('%s is empty' % input_file)
+            return None
         
+        (root, ext) = os.path.splitext(input_file)
+        if output_dir:
+            output_file = os.path.join(output_dir, '.'.join([os.path.splitext(os.path.basename(input_file))[0], 'pdf']))
+        else:
+            output_file = '.'.join([root,'pdf'])
+        
+        pageRect = CGRectMake(0, 0, 612, 792)
         c = CGPDFContextCreateWithFilename(output_file, pageRect)
         c.beginPage(pageRect)
         
         if fnmatch(ext,".txt"):
-            tr = c.drawPlainTextInRect(text, pageRect, font_size)
+            f = codecs.open(input_file, 'r', encoding='utf-8')
+            try: 
+                f.read()
+                tr = c.drawPlainTextInRect(text, pageRect, font_size)
+            except Exception, inst: 
+                try:
+                    logging.error('Python failed to read %s because %s, exiting' % (input_file, inst))
+                except:
+                    print ('Python failed to read %s because %s, exiting' % (input_file, inst))
+                return None
         elif fnmatch(ext,".rtf"):
             tr = c.drawRTFTextInRect(text, pageRect, font_size)
         elif fnmatch(ext,".htm*") or fnmatch(ext,".php"):
@@ -83,13 +104,24 @@ class Convert:
         elif fnmatch(ext,".?") or fnmatch(ext,".??") or fnmatch(ext,""):
             # Provide one more check on the file to be converted
             if subprocess.Popen('file -bi "%s"' % input_file,shell=True, stdout=subprocess.PIPE).communicate()[0].find('text') == 0:
-                tr = c.drawPlainTextInRect(text, pageRect, font_size)
+                
+                f = codecs.open(input_file, 'r', encoding='utf-8')
+                try: 
+                    f.read()
+                    tr = c.drawPlainTextInRect(text, pageRect, font_size)
+                except Exception, inst: 
+                    try:
+                        logging.error('Python failed to read %s because %s, exiting' % (input_file, inst))
+                    except:
+                        print ('Python failed to read %s because %s, exiting' % (input_file, inst))
+                    return None
+                
             else:
-                logging.error( "Error: unknown type '%s' for '%s'"%(ext, input_file))
+                logging.error( "Tried matching strange extension, but still unknown type '%s' for '%s'"%(ext, input_file))
                 return None
         else: 
             
-            logging.error( "Error: unknown type '%s' for '%s'"%(ext, input_file))
+            logging.error( "Nothing matched, giving up. Error: unknown type '%s' for '%s'"%(ext, input_file))
             return None
     
         c.endPage()
@@ -609,39 +641,11 @@ class ConverterTests(unittest.TestCase):
         pass
         
 
-if __name__ == '__main__': pass
-    # c = Convert()
-    # for root, dirs, files in os.walk('/Users/geert/Desktop/imgs'):
-    #     for f in files:
-    #         if not f.startswith('.'):
-    #             c.resizeimagePIL(os.path.join(root,f), os.path.join('/Users/geert/Desktop/', f), 148, 148)
-    
-    #c.resizeimagePIL('/Users/geert/Sites/convert/gallery/images/ANP-logo-fc.jpg','/Users/geert/Desktop/ANP-logo-fc.jpg', 148, 148)
-    # c.resizeimage('/Users/geert/Sites/convert/gallery/images/ANP-logo-fc.jpg','/Users/geert/Desktop/ANP-logo-fc.jpg', 148, 148)
-    
-    # for root, dirs, files in os.walk('/Users/geert/Sites/convert/gallery/images'):
-    #     for f in files:
-    #         if not f.startswith('.'):
-    #             target = os.path.join('/Users/geert/Desktop/results', '.'.join([os.path.splitext(f)[0], 'jpg']))
-    #             source = os.path.join(root,f)
-    #             c.resize(source, target, 210,210)
-    #             c.resizeimage(target, target, 148, 148)
-    # for root, dirs, files in os.walk('/Users/geert/Sites/miniNET/httpdocs/gallery/images'):
-    #     for f in files:
-    #         if not f.startswith('.'):            
-    #             print f
-    #             source = os.path.join(root, f)
-    #             target = os.path.join('/Users/geert/Desktop/test', '.'.join([os.path.splitext(f)[0], 'jpg']))
-    #             c.resize_with_sips(source, target, 148, 148)
-    #     
-        
-        
-    # print c.crop_to_center('/Volumes/miniHD-red/ccnet2.0/content/Singlepage/0176.99.10_v.pdf', '/Users/geert/Sites/ccnet2.0/gallery/minithumbs', 29, 29)
-    #print c.sips_resize('/Volumes/miniHD-red/ccnet2.0/content/Singlepage/0176.99.10_v.pdf', '/Users/geert/Sites/ccnet2.0/gallery/images', 917, 'png')
-    # c.stats('/Users/geert/Desktop/test.png')
-    # r, d = c.ffmpeg('/Users/geert/Sites/ccnet2.0/content/MOV/NPL.tvcom.JP.020401_20s.mov', '/Users/geert/Desktop', 'fullsize')
-    # height = d['pixelHeight']
-    # width = d['pixelWidth']
-    # print r, d, height, width
-    # print c.ffmpeg('/Volumes/miniHD-red/ccnet2.0/content/MOV/NPL.tvcom.JP.020401_20s.mov', '/Users/geert/Desktop', 'fullsize')
+if __name__ == '__main__':
+    c = Convert()
+    for root, dirs, files in os.walk('/Users/geert/Desktop/docs'):
+        for f in files:
+            if not f.endswith('.pdf'):
+                print c.convertDocument(os.path.join(root, f), '/Users/geert/Desktop/tmp')
+
 

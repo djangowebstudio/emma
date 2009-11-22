@@ -140,7 +140,9 @@ class Fix:
         
         return False,   
     
-                                                    
+
+        
+                                                        
     def convertDirs(self, root, dirs):
         """Renames directories if necessary"""
 
@@ -235,7 +237,7 @@ class Fix:
                 except: 
                     # Now we can prepare to change the filenames. However, in some cases it would be prudent to capture any existing information, and often
                     # that would be the filename. So the first step is to load some data from the *old* name for later reuse.
-                    keywords =  ','.join([root.replace(settings.APP_CONTENT_ROOT,'').replace('/',',').replace('-', ','), os.path.splitext(f)[0].replace('-',',').replace('_',',').replace(' ', ',')]) 
+                    keywords =  ','.join([root.replace(settings.APP_CONTENT_ROOT,'').replace('/',',').replace('-', ',').replace('_',','), os.path.splitext(f)[0].replace('-',',').replace('_',',').replace(' ', ',')]) 
                     k = keywords[1:len(keywords)] # clip off the leading comma
                     keywords = k.split(',')
                     for word in keywords:
@@ -285,8 +287,8 @@ class Fix:
                                 os.rename(oldpath, newpath)
                                 logging.info( "%(f)s changed to %(newfile)s " % {'f': f, 'newfile': newfile})
                                 self.updateImageCount(number)
-                                if settings.APP_FIX_ADDKEYWORDS:
-                                    # Write the saved keywords data, where the True arg does a concat
+                                if 'APP_FIX_ADDKEYWORDS' in dir(settings) and settings.APP_FIX_ADDKEYWORDS:
+                                    # Write the saved keywords data
                                     metadata.Metadata().exifWrite('keywords', keywords, newpath, True) 
                                     logging.info("Added %s to %s" % (keywords, newpath))
                                 logging.info( "Count updated to %(number)s" % {'number':number})

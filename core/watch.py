@@ -25,7 +25,7 @@ within a last directory in the path.
 THIS APP SHOULD BE RUNNING AT ALL TIMES
 watch.py is normally started as a launchd item. See 5 and 6
 
-Getting the app up and running might take some time, as the database entries have to be checked 
+Getting the app up and running might take some time, as the database entries have to be checked
 to find out if anything's been changed in the time the app was offline.
 
 watch.py can also build a new site from a directory tree of images as specified above:
@@ -35,22 +35,22 @@ watch.py can also build a new site from a directory tree of images as specified 
 2.  From within the django app root (here, this is LN), run "python manage.py syncdb". All tables
     will now be created. You will be prompted to create at least one user.
 
-3.  In settings, change APP_CONTENT_ROOT to reflect the living quarters of your content. Or 
+3.  In settings, change APP_CONTENT_ROOT to reflect the living quarters of your content. Or
     move your content to where APP_CONTENT_ROOT points to.
 
 4.  Edit APP_ROOT to match the path to your django app. Also, have a look at the other paths.
 
-5.  From within the django project root, run script/load -f, and leave it running. Refer to 
+5.  From within the django project root, run script/load -f, and leave it running. Refer to
     fix's log to check the progress. Wait for the log to no longer mention files being processed
-    before going on to the next step. 
+    before going on to the next step.
     
-    Fix will fix filenames, renaming as needed to comply with workflow policy. And does heaps 
-    of other useful stuff. Please refer to the programmer's notes in Fix's header. 
-    Fix is set to a 60 second interval. Change if needed. IMPORTANT NOTE: Before running, set 
-    images_imagecount.count to a five digit  number, i.e. 10000. NOT to something like 00001: 
-    python will disregard the leading 0's. 
+    Fix will fix filenames, renaming as needed to comply with workflow policy. And does heaps
+    of other useful stuff. Please refer to the programmer's notes in Fix's header.
+    Fix is set to a 60 second interval. Change if needed. IMPORTANT NOTE: Before running, set
+    images_imagecount.count to a five digit  number, i.e. 10000. NOT to something like 00001:
+    python will disregard the leading 0's.
 
-6.  Run "script/load -l". Your site will now be filled. This could take quite long, depending on your content. 
+6.  Run "script/load -l". Your site will now be filled. This could take quite long, depending on your content.
     Make sure script/load is running at all times. While running, watch.py will watch over your content
     as described above. It is set to rescan settings.APP_ROOT_CONTENT at a 360 second interval.
     This may be freely altered in settings, but restart using script/load -r to apply changes.
@@ -89,51 +89,51 @@ gallery_thumbs = settings.GALLERY_ROOT + '/thumbs/'
 gallery_minithumbs = settings.GALLERY_ROOT + '/miniThumbs/'
 gallery_albums = settings.GALLERY_ROOT + '/albums/'
 
+if 'APP_CONTENT_TMP' in dir(settings):
+    tmp = settings.APP_CONTENT_TMP
+else:
+    tmp = False
+
 #--------------------------------------------------------------------------------------------------
 
 class Watch:
-
-    def convertImages(self,item,file_type='', mime_type=''):
-            """ Calls the appropriate functions in Converter 
+    
+    def convertImages(self,item,file_type='', mime_type='', rotate=''):
+            """ Calls the appropriate functions in Converter
             This function does no actual conversion itself."""
-
-            # initiate conversions from converter.Convert
-        
+            
+            
             c = converter.Convert()
             m = metadata.Metadata()
-        
+            
             # assign the full path to a var
             current_path = item
-        
+            
             # get the filename
             fname = os.path.split(item)[1]
-        
-            # sort files by extension and initiate the appropriate converter function 
-        
+            
+            # sort files by extension and initiate the appropriate converter function
+            
             # Set default values for the return variables
             image_id = ''
             image_path = ''
             image_name = ''
             image_category = ''
             image_pages = 0
-        
+            
             # Go through our files, looking at their extensions to route them to the appropriate converters
-            # At the moment, fix.py is handling files without extensions by extracting file format 
+            # At the moment, fix.py is handling files without extensions by extracting file format
             # information from the metadata and then appending the appropriate extension.
-        
+            
             # Todo: sort extensions using os.path.split. This will be less costly and improve code readability.
             # Todo: Look into magic file definition -- API? Speed issues?
             # NOTE: We're going to extract the file type using exiftool for the moment. This is quite costly, but
             # as we're getting a whole heap of metadata anyway, this one bit of extra data won't slow us down much.
             
-            # Excluding things like Thumbs.db. See the appropriate settings entry.
-            if 'APP_WATCH_EXCLUDES' in dir(settings) and settings.APP_WATCH_EXCLUDES:
-                if os.path.basename(item) in settings.APP_WATCH_EXCLUDES: 
-                    logging.info('%s is in the excludes list, skipping...' % item)
-                    return None 
+            
             if file_type:
                 if mime_type and not mime_type == 'image/vnd.fpx':# Exclude Windows Thumbs.db if it happens to appear under another name
-                    print 'fname: %s, file_type: %s, mime_type: %s' % (fname, file_type, mime_type)
+                    print 'file: %s, file_type: %s, mime_type: %s' % (current_path, file_type, mime_type)
                     logging.info('Converting fname: %s, file_type: %s, mime_type: %s' % (fname, file_type, mime_type))
                     mime_type = mime_type.lower() # Just to make sure...
                     
@@ -148,10 +148,10 @@ class Watch:
                         c.pcopy(gallery_thumbs + 'sound-thumb.jpg', gallery_thumbs + fname.replace(os.path.splitext(fname)[1]) + '.jpg')
                         image_category = 'audio'
                     
-                    elif mime_type.find('image') == 0: 
+                    elif mime_type.find('image') == 0:
                         image_path = c.resize (current_path, gallery_images + fname.replace(os.path.splitext(fname)[1], '.jpg'), settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH)
                         image_category = 'photo'
-                        
+                    
                     elif mime_type == 'application/pdf':
                         image_path, image_pages = c.convertPDF (current_path, gallery_images)
                         image_category = 'illustration'
@@ -159,7 +159,7 @@ class Watch:
                     elif mime_type == 'application/postscript':
                         newpath = gallery_images + fname.replace(os.path.splitext(fname)[1], '.jpg') # convertToBitmap needs to know the extension
                         try:
-                            image_path =  c.convertToBitmap (current_path, newpath )  
+                            image_path =  c.convertToBitmap (current_path, newpath )
                             c.resize(newpath, newpath, settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH) # resize the image immediately afterwards
                         except Exception, inst:
                             logging.warning("%(fname)s %(inst)s" % {'fname': fname, 'inst':inst})
@@ -168,150 +168,158 @@ class Watch:
                     elif mime_type == 'application/photoshop':
                         image_path = c.resize (current_path, gallery_images + fname.replace(os.path.splitext(fname)[1], '.jpg'), settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH)
                         image_category = 'illustration'
-                        
+                    
                     elif mime_type == 'application/msword':
                         # We might consider storing the pdf instead of the word doc.
                         try:
-                            image_path, image_pages = c.convertPDF(c.convertDocument(current_path), gallery_images)
-                            image_category = 'document'
+                            document_path = c.convertDocument(current_path, tmp)
+                            if document_path:
+                                image_path, image_pages = c.convertPDF(document_path, gallery_images)
+                                image_category = 'document'
+                            else:
+                                return None
                         except Exception, inst:
                             logging.warning('Tried converting %s but gave up with error %s' % (fname,inst))
-                            
-                    else: 
+                    
+                    else:
                         logging.warning('This mime type %s is supported right now, skipping %s' % (mime_type, item))
                         return None
                         
-                        
-                else:       
                 
-                    file_type = file_type.lower()
+                else:
                     
+                    file_type = file_type.lower()
+                    print 'No mime type; file: %s, file_type: %s' % (current_path, file_type)
                     logging.info('Converting items using file_type %s' % file_type)
-                
+                    
                     if file_type == "eps":
                         newpath = gallery_images + fname.replace('.eps', '.jpg') # convertToBitmap needs to know the extension
                         try:
-                            image_path =  c.convertToBitmap (current_path, newpath )  
+                            image_path =  c.convertToBitmap (current_path, newpath )
                             c.resize(newpath, newpath, settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH) # resize the image immediately afterwards
                         except Exception, inst:
                             logging.warning("%(fname)s %(inst)s" % { 'fname': fname, 'inst':inst})
                         image_category = 'illustration'
-            
+                    
                     elif file_type == "pdf":
                         image_path, image_pages = c.convertPDF (current_path, gallery_images)
                         image_category = 'illustration'
-                
+                    
                     elif file_type == "jpeg":
                         image_path = c.resize (current_path, gallery_images + fname, settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH)
                         image_category = 'photo'
-                
             
+                    
                     elif file_type == "gif":
                         image_path = c.resize (current_path, gallery_images + fname.replace('.gif', '.jpg'), settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH)
                         image_category = 'illustration'
             
-            
+                    
                     elif file_type == "psd":
                         image_path = c.resize (current_path, gallery_images + fname.replace('.psd', '.jpg'), settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH)
                         image_category = 'illustration'
-            
+                    
                     elif file_type == "png":
                         image_path = c.resize (current_path, gallery_images + fname.replace('.png', '.jpg'), settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH)
                         image_category = 'photo'
-                
+                    
                     elif file_type == "tiff":
                         image_path = c.resize (current_path, gallery_images + fname.replace('.tif', '.jpg'), settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH)
                         image_category = 'photo'
-                
+                    
                     elif file_type == "au":
                         image_path = c.ffmpeg(current_path, gallery_images + fname.replace(os.path.splitext(fname)[1], '.flv'),'large')
                         c.ffmpeg(current_path, gallery_thumbs + fname.replace(file_type, '.flv'),'cropped')
                         image_category = 'audio'
- 
+                    
                     elif file_type == "mp3":
                         image_path = c.ffmpeg(current_path, gallery_images + fname.replace(os.path.splitext(fname)[1], '.flv'),'large')
                         c.ffmpeg(current_path, gallery_thumbs + fname.replace(file_type, '.flv'),'cropped')
                         image_category = 'audio'
-
+                    
                     elif file_type == "aiff":
                         image_path = c.ffmpeg(current_path, gallery_images + fname.replace(os.path.splitext(fname)[1], '.flv'),'large')
                         c.ffmpeg(current_path, gallery_thumbs + fname.replace(file_type, '.flv'),'cropped')
                         image_category = 'audio'
-
+                    
                     elif file_type == "m4v":
                         image_path = c.ffmpeg(current_path, gallery_images + fname.replace(os.path.splitext(fname)[1], '.flv'),'large')
                         c.ffmpeg(current_path, gallery_thumbs + fname.replace(file_type, '.flv'),'small')
                         image_category = 'video'
-
+                    
                     elif file_type == "mp4":
                         image_path = c.ffmpeg(current_path, gallery_images + fname.replace(os.path.splitext(fname)[1], '.flv'),'large')
                         c.ffmpeg(current_path, gallery_thumbs + fname.replace(file_type, '.flv'),'small')
                         image_category = 'video'
-                
+                    
                     elif file_type == "mov":
                         image_path = c.ffmpeg(current_path, gallery_images + fname.replace(os.path.splitext(fname)[1], '.flv'),'large')
                         c.ffmpeg(current_path, gallery_thumbs + fname.replace(file_type, '.flv'),'small')
                         image_category = 'video'
-                
+                    
                     elif file_type == "mpg":
                         image_path = c.ffmpeg(current_path, gallery_images + fname.replace(os.path.splitext(fname)[1], '.flv'),'large')
                         c.ffmpeg(current_path, gallery_thumbs + fname.replace(file_type, '.flv'),'small')
                         image_category = 'video'
-                
+                    
                     elif file_type == "avi":
                         image_path = c.ffmpeg(current_path, gallery_images + fname.replace(os.path.splitext(fname)[1], '.flv'),'large')
                         c.ffmpeg(current_path, gallery_thumbs + fname.replace(file_type, '.flv'),'small')
                         image_category = 'video'
-                
+                    
                     elif file_type == "wmv":
                         image_path = c.ffmpeg(current_path, gallery_images + fname.replace(os.path.splitext(fname)[1], '.flv'),'large')
                         c.ffmpeg(current_path, gallery_thumbs + fname.replace(file_type, '.flv'),'small')
                         image_category = 'video'
-                
+                    
                     elif file_type == "flv":
                         image_path = c.ffmpeg(current_path, gallery_images + fname, 'large')
                         c.ffmpeg(current_path, gallery_thumbs + fname,'small')
                         image_category = 'video'
-                
+                    
                     elif file_type == "fla":
                         image_path = gallery_images + fname
-                        #c.pcopy(current_path, gallery_thumbs + fname.replace('.fla', '.swf')) Moving and copying is now being done in fix. 
+                        #c.pcopy(current_path, gallery_thumbs + fname.replace('.fla', '.swf')) Moving and copying is now being done in fix.
                         image_category = 'flash'
-                
+                    
                     elif file_type == "swf":
                         image_path = c.pcopy(current_path, gallery_images + fname)
                         c.pcopy(current_path, gallery_thumbs + fname) # The only swf files you should be seeing here are standalone files (as opposed to paired fla/swf)
                         image_category = 'flash'
-                    
                 
+                    
                     # Looking for one of txt, doc, htm, xml
-                            
+                    
                     else:
                         logging.warning( "%(file)s doesn't seem to belong to our favourite formats. We'll try to treat it as a text doc, otherwise leave it." % {'file':current_path})
-                    
+                        
                         try:
-                            image_path, image_pages = c.convertPDF(c.convertDocument(current_path), gallery_images)
-                            image_category = 'document'
+                            document_path = c.convertDocument(current_path, tmp)
+                            if document_path:
+                                image_path, image_pages = c.convertPDF(document_path, gallery_images)
+                                image_category = 'document'
+                            else:
+                                return None
                         except Exception, inst:
                             logging.warning('Tried converting %s but gave up with error %s' % (fname,inst))
                 
-                
         
+            
             elif fname[(len(fname)-4):(len(fname)-3)] == ".":
                 
                 
-                
+                print 'No file type, no mime type; file: %s' % (current_path)
                 image_id = fname[0:(len(fname)-4)]
-
+                
                 if fname[(len(fname)-4):len(fname)] == ".eps":
                     newpath = gallery_images + fname.replace('.eps', '.jpg') # convertToBitmap needs to know the extension
                     try:
-                        image_path =  c.convertToBitmap (current_path, newpath )  
+                        image_path =  c.convertToBitmap (current_path, newpath )
                         c.resize(newpath, newpath, settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH) # resize the image immediately afterwards
                     except Exception, inst:
                         logging.warning("%(fname)s %(inst)s" % { 'fname': fname, 'inst':inst})
                     image_category = 'illustration'
-            
+                
                 elif fname[(len(fname)-4):len(fname)] == ".pdf":
                     image_path, image_pages = c.convertPDF (current_path, gallery_images)
                     image_category = 'illustration'
@@ -319,17 +327,17 @@ class Watch:
                 elif fname[(len(fname)-4):len(fname)] == ".jpg":
                     image_path = c.resize (current_path, gallery_images + fname, settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH)
                     image_category = 'photo'
-                
             
+                
                 elif fname[(len(fname)-4):len(fname)] == ".gif":
                     image_path = c.resize (current_path, gallery_images + fname.replace('.gif', '.jpg'), settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH)
                     image_category = 'illustration'
             
-            
+                
                 elif fname[(len(fname)-4):len(fname)] == ".psd":
                     image_path = c.resize (current_path, gallery_images + fname.replace('.psd', '.jpg'), settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH)
                     image_category = 'illustration'
-            
+                
                 elif fname[(len(fname)-4):len(fname)] == ".png":
                     image_path = c.resize (current_path, gallery_images + fname.replace('.png', '.jpg'), settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH)
                     image_category = 'photo'
@@ -375,7 +383,7 @@ class Watch:
                 
                 elif fname[(len(fname)-4):len(fname)] == ".fla":
                     image_path = gallery_images + fname
-                    #c.pcopy(current_path, gallery_thumbs + fname.replace('.fla', '.swf')) Moving and copying is now being done in fix. 
+                    #c.pcopy(current_path, gallery_thumbs + fname.replace('.fla', '.swf')) Moving and copying is now being done in fix.
                     image_category = 'flash'
                 
                 elif fname[(len(fname)-4):len(fname)] == ".swf":
@@ -384,18 +392,22 @@ class Watch:
                     image_category = 'flash'
                 
                 # Looking for one of txt, doc, htm, xml
-                            
+                
                 else:
                     logging.warning( "%(file)s doesn't seem to belong to our favourite formats. We'll try to treat it as a text doc, otherwise leave it." % {'file':current_path})
                     try:
-                        image_path, image_pages = c.convertPDF(c.convertDocument(current_path), gallery_images)
-                        image_category = 'document'
+                        document_path = c.convertDocument(current_path, tmp)
+                        if document_path:
+                            image_path, image_pages = c.convertPDF(document_path, gallery_images)
+                            image_category = 'document'
+                        else:
+                            return None
                     except Exception, inst:
                         logging.warning('Tried converting %s but gave up with error %s' % (fname,inst))
-                    
                 
-            elif fname[(len(fname)-3):(len(fname)-2)] == ".":   
             
+            elif fname[(len(fname)-3):(len(fname)-2)] == ".":
+                
                 if  fname[(len(fname)-3):len(fname)] == ".ai":
                     try:
                         image_path =  c.convertPDF (current_path, gallery_images)[0] # Just get the first item of the tuple. Note that we're using convertPDF, which retrns a tuple.
@@ -406,31 +418,39 @@ class Watch:
                     logging.warning( "%(file)s doesn't seem to belong to our favourite formats. We'll try to treat it as a text doc, otherwise leave it" % {'file':current_path})
                     image_path, image_pages = c.convertPDF(c.convertDocument(current_path), gallery_images)
                     image_category = 'document'
-                    
         
+            
             elif fname[(len(fname)-5):(len(fname)-4)] == ".":
                 
                 if fname[(len(fname)-5):len(fname)] == ".jpeg":
                     image_path = c.resize (current_path, gallery_images + fname.replace('.jpeg','.jpg'), settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH)
                     image_category = 'photo'
-
+                
                 elif fname[(len(fname)-5):len(fname)] == ".tiff":
                     image_path = c.resize (current_path, gallery_images + fname.replace('.tiff','.jpg'), settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH)
                     image_category = 'photo'
                 else:
                     logging.warning( "%(file)s doesn't seem to belong to our favourite formats. We'll try to treat it as a text doc, otherwise leave it" % {'file':current_path})
-                    image_path, image_pages = c.convertPDF(c.convertDocument(current_path), gallery_images)
-                    image_category = 'document'
-                
+                    try:
+                        document_path = c.convertDocument(current_path, tmp)
+                        if document_path:
+                            image_path, image_pages = c.convertPDF(document_path, gallery_images)
+                            image_category = 'document'
+                        else:
+                            return None
+                    except Exception, inst:
+                        logging.warning('Tried converting %s but gave up with error %s' % (fname,inst))
 
         
 
+            
             else:
+                print 'Everything else failed for %s' % current_path
                 image_id = fname
                 image_path = gallery_images + fname + ".jpg"
                 image_category = 'photo'
                 logging.warning( "%(file)s doesn't seem to belong to our favourite formats. We're not doing anything with it at the moment." % {'file':current_path})
-        
+            
             try:
                 image_name = os.path.basename(image_path)
             except Exception, inst:
@@ -440,47 +460,47 @@ class Watch:
             #create interface images from the resultant image ------------------------------------
             if image_name[len(image_name)-4:len(image_name)] == '.jpg':
                 try:
-                    c.resize(image_path, gallery_thumbs + image_name, settings.GALLERY_THUMBS_WIDTH, settings.GALLERY_THUMBS_WIDTH ) 
+                    c.resize(image_path, gallery_thumbs + image_name, settings.GALLERY_THUMBS_WIDTH, settings.GALLERY_THUMBS_WIDTH )
                 except:
                     logging.warning( " tried building thumbs from %(image)s , but it didn't work out." % {'image': current_path})
-
+                    
                     # Copy and resize the image to an absolute square for the album cover and miniThumbs
                 try:
                     source = os.path.join(settings.GALLERY_ROOT,'images',image_name)
                     target = os.path.join(settings.GALLERY_ROOT,'albums',image_name)
                     c.resize_with_sips(source, target, settings.GALLERY_THUMBS_WIDTH, settings.GALLERY_THUMBS_WIDTH)
-                    c.resize(target, gallery_minithumbs + image_name, settings.GALLERY_MINITHUMBS_WIDTH, settings.GALLERY_MINITHUMBS_WIDTH ) 
+                    c.resize(target, gallery_minithumbs + image_name, settings.GALLERY_MINITHUMBS_WIDTH, settings.GALLERY_MINITHUMBS_WIDTH )
                 except Exception, inst:
                     return logging.error('An error occurred processing the album image %s' % inst)
-                
         
+            
             return image_id, image_path, image_name, fname, image_category, image_pages
-    
 
+    
     def extractImage_LNID(self,filename):
-        """Get what appears to be the name of the file minus extension. 
+        """Get what appears to be the name of the file minus extension.
         We use this as image identifier all through the application.
         Accommodates for dotted filenames (i.e. Marketing codes used as filenames)"""
-    
+        
         f = os.path.split(filename)[1]
         return f.replace('.' + f.split('.').pop(),'')
 
 
-
+    
     def renderItem(self,filename):
             d = metadata.Metadata()
             description = d.exif('b -description', filename).split(':')[0].replace("\n"," ").lower()
             for i in wordlist:
                 description = description.replace(i,'')
             return description
-
+    
     wordlist = ['fotobureau', 'let op'] # This list is to moved to some sensible location when it gets too big.
     def renderKeywordsFromDescription(description):
         results = description.split(':')[0].replace("\n"," ").lower()
         for i in wordlist:
             results = results.replace(i,'')
         return results
-
+    
     def update_obj(obj, image_LNID, **kwargs):
         """Shorthand for repetitive object updates"""
         try:
@@ -491,20 +511,21 @@ class Watch:
             logging.info( "Saved %s" % image_LNID)
         except Exception, inst:
             logging.error( "Error saving %s %s " % (obj, image_LNID))
-                        
 
+    
     def watch_directories (self, paths, func, delay=1.0):
-    
+        
         # Create gallery folders if they don't already exist
-    
+        
         makeDirs = utes.Utes()
         makeDirs._mkdir(gallery_images)
         makeDirs._mkdir(gallery_thumbs)
         makeDirs._mkdir(gallery_minithumbs)
         makeDirs._mkdir(gallery_albums)
-    
+        if tmp: makeDirs._mkdir(tmp)
+        
         # So, once we've done all that, start watching...
-    
+        
         """(paths:[str], func:callable, delay:float)
         Continuously monitors the paths and their subdirectories
         for changes.  If any files or directories are modified,
@@ -515,34 +536,34 @@ class Watch:
         (This is so func() can write changes into the tree and prevent itself
         from being immediately called again.)
         """
-
+        
         # Basic principle: all_files is a dictionary mapping paths to
         # modification times.  We repeatedly crawl through the directory
         # tree rooted at 'path', doing a stat() on each file and comparing
-        # the modification time.  
-    
+        # the modification time.
+        
         all_files = {}
         def f (self, dirname, files):
             # Traversal function for directories
             for filename in files:
                 if not filename == '.DS_Store' or not filename == 'Thumbs.db':
                     path = os.path.join(dirname, filename)
-
+                    
                     try:
                         t = os.stat(path)
-                
 
+                    
                     except os.error:
                     # If a file has been deleted between os.path.walk()
                     # scanning the directory and now, we'll get an
                     # os.error here.  Just ignore it -- we'll report
                     # the deletion on the next pass through the main loop.
                         continue
-                
             
+                    
                     mtime = remaining_files.get(path)
                     if mtime is not None:
-                
+                        
                         # Record this file as having been seen
                         del remaining_files[path]
                         # File's mtime has been changed since we last looked at it.
@@ -557,14 +578,14 @@ class Watch:
                         changed_list.append(appendix)
                     # Record current mtime of file.
                     all_files[path] = t.st_mtime
-
+        
         # Main loop
         rescan = False
         while True:
             changed_list = []
             remaining_files = all_files.copy()
             all_files = {}
-        
+            
             for path in paths:
                 os.path.walk(path, f, None)
             removed_list = remaining_files.keys()
@@ -572,7 +593,7 @@ class Watch:
                 rescan = False
             elif changed_list or removed_list:
                 rescan = func(changed_list, removed_list)
-        
+            
             time.sleep(delay)
     
     
@@ -580,22 +601,24 @@ class Watch:
         def f (changed_files, removed_files):
             c = converter.Convert()
             m = metadata.Metadata()
-    
-            for item, item_mtime, item_ctime in changed_files: 
+            u = utes.Utes()
+            for item, item_mtime, item_ctime in changed_files:
                 if item[(len(item)-5):(len(item)-4)] == "." or item[(len(item)-4):(len(item)-3)] == "." or item[(len(item)-3):(len(item)-2)] == ".": # Only files WITH extensions!
+                
             
+                    
                     createdate = item_ctime
                     modifydate = item_mtime
-        
             
+                    
                     # Query the database first, and THEN call convertImages
                     # Do a query on image_LNID, image_real_path and date_modified;
                     # if all three are OK you wouldn't want to call convertImages at all.
-                    # 
+                    #
                     # Note that you can only call convertImages if date_modified has changed for
-                    # the image corresponding to a particular image_LNID. A change in image_LNID or 
+                    # the image corresponding to a particular image_LNID. A change in image_LNID or
                     # image_real_path alone will NOT get you in this loop at all!
-            
+                    
                     # Init vars
                     
                     description = ''
@@ -620,34 +643,40 @@ class Watch:
                     title = ''
                     author = ''
                     album = ''
-                    orientation = ''
-                    group_status = ''   
+                    orientation = 0
+                    group_status = ''
                     file_type = ''
-                    mime_type= ''   
+                    mime_type= ''
                     managedfromfilepath = ''
-                    documentname = ''       
-                    
+                    documentname = ''
             
+                    
                     image_LNID = self.extractImage_LNID(item)                               # Extract the image_LNID from the filename
-
+                    
                     image_real_path = item.replace(settings.APP_CONTENT_ROOT + "/",'')      # Get the image path minus the path-to-content, no leading slash
                     if image_LNID != '':
-                
-                        # We want to get an exact match on image_LNID, image path, and date modified. If any one of the three properties has 
+                        
+                        # We want to get an exact match on image_LNID, image path, and date modified. If any one of the three properties has
                         # changed, we need to update. However, the trigger for watch is always date modified. So if that doesn't change, nothing is changed.
                 
-                
+                        # Excluding things like Thumbs.db. See the appropriate settings entry.
+                        if 'APP_WATCH_EXCLUDES' in dir(settings) and settings.APP_WATCH_EXCLUDES:
+                            if True in u.excludes(os.path.basename(item), settings.APP_WATCH_EXCLUDES):
+                                logging.info('%s is in the excludes list, skipping...' % item)
+                                continue
+
                         try:
                             imageObj = Image.objects.get(image_LNID__exact=image_LNID, image_real_path__exact=image_real_path, date_modified=modifydate)
-                
+                        
                         except Image.DoesNotExist: # Because one of the three above tests failed, we're going to process the image again
-                    
-                    
+                            
                             # Do the conversions, get the info for the item if the image_LNID - date_modified combination doesn't exist
                             logging.info("Starting sequence -----------------------------------------------------")
                             logging.info("Doing image conversion and picking up info for %(item)s" % {'item':item})
-    
+                            
                             try:
+                                
+                                
                                 item_dict = m.exifAll(item)
                                 # Write the dict to variables - we'll be using these over and over...
                                 description = item_dict['description'].strip()
@@ -657,9 +686,9 @@ class Watch:
                                 subject = item_dict['title'].strip()
                                 creator = item_dict['creator'].strip()
                                 try:
-                                    author = item_dict['author'].strip() if item_dict.has_key('author') else creator    
+                                    author = item_dict['author'].strip() if item_dict.has_key('author') else creator
                                 except Exception, inst:
-                                    logging.warning("item_dict['author']" % inst)                           
+                                    logging.warning("item_dict['author']" % inst)
                                 creator_tool = item_dict['creatortool'].strip()
                                 caption_writer = item_dict['captionwriter'].strip()
                                 instructions = item_dict['instructions'].strip()
@@ -672,25 +701,26 @@ class Watch:
                                 datetimeoriginal = item_dict['datetimeoriginal']
                                 album = item_dict['album']
                                 softdate = ''
-                                # Get the group_status from the headline 
+                                # Get the group_status from the headline
                                 if item_dict['headline']:
                                     hl = item_dict['headline'].strip()
                                     if not hl == '-':
                                         if hl.lower() == 'leader' or hl.lower() == 'follower':
                                             group_status = hl.lower()
-        
+                                
                                 file_type = item_dict['filetype']
                                 mime_type = item_dict['mimetype']
                                 managedfromfilepath = item_dict['managedfromfilepath']
                                 documentname = subject if subject else item_dict['documentname']
-                                                                
+                                orientation = item_dict['orientation']
+                                
                                 results = self.convertImages(item, file_type, mime_type) # image conversions based on file type
                             except Exception, inst:
-                                logging.error("Error executing exifAll with item %s %s" % (item, inst))
+                                logging.error("Error executing exifAll with item %s %s, doing convertImages without metadata" % (item, inst))
                                 results = self.convertImages(item) # image conversions based on file extension
                             
-                            
                                     
+                            
                             if results and results[1] != '':  # Test for a value for convertImages, i.e. image_path
                                 try:
                                     imageObj = Image.objects.get(image_LNID=image_LNID)  # If we get a match here, we're updating existing file data
@@ -718,12 +748,12 @@ class Watch:
                                         obj.profile = profile
                                         obj.save()
                                         logging.info( "Keyword updated successfully %(image)s" % {'image':image_LNID})
-                                    except Keyword.DoesNotExist: 
+                                    except Keyword.DoesNotExist:
                                         try:
-                                            obj = Keyword(image=imageObj, 
-                                            image_LNID=image_LNID, 
-                                            keywords=keywords, 
-                                            image_name=results[2], 
+                                            obj = Keyword(image=imageObj,
+                                            image_LNID=image_LNID,
+                                            keywords=keywords,
+                                            image_name=results[2],
                                             cright=copyright,
                                             profile=profile,
                                             image_path=item.replace(settings.APP_CONTENT_ROOT + "/",''))
@@ -731,7 +761,7 @@ class Watch:
                                             logging.info( "new Keyword saved from existing data %(image)s" % {'image':image_LNID})
                                         except Exception, inst:
                                             logging.error( "Keyword error saving existing data %(inst)s" % {'inst':inst})
-                
+                                    
                                     try: #Metadata update for existing data
                                         mdObj = Metadata.objects.get(image_LNID=image_LNID)
                                         mdObj.description = description
@@ -765,11 +795,11 @@ class Watch:
                                             logging.info( "Metadata updated successfully from existing data  %(image)s" % {'image':image_LNID})
                                         except Exception, inst:
                                             logging.error("Metadata update error from existing data %(d)s %(inst)s" % {'d': datetimeoriginal, 'inst': inst})
-                                            
+                                    
                                     except Metadata.DoesNotExist:
                                         try:
                                             mdObj = Metadata(
-                                            image=imageObj, 
+                                            image=imageObj,
                                             image_LNID=image_LNID,
                                             keyword=obj,
                                             description=description,
@@ -797,19 +827,19 @@ class Watch:
                                             file_type=file_type,
                                             mime_type=mime_type,
                                             document=managedfromfilepath,
-                                            documentname=documentname)                                          
+                                            documentname=documentname)
                                             mdObj.save()
                                             logging.info( "new Metadata saved from existing data %(image)s" % {'image':image_LNID})
                                         except Exception, inst:
                                             logging.error( "Metadata save error form existing data (1) %(inst)s" % {'inst':inst})
-                                            
                                 
+                                    
                                     try: # Album update for existing data (case: content manager adds the file to an Album through the host's file system)
                                         logging.info("Checking for the existence of album data...")
                                         if group_status:
                                             if documentname:
-                                                a = Album.objects.filter(image=imageObj) # Check if the image is already in an Album                                            
-                                                if not a:   
+                                                a = Album.objects.filter(image=imageObj) # Check if the image is already in an Album
+                                                if not a:
                                                     logging.info("This item %s doesn't seem to be part of an Album" % item)
                                                     album = Album.objects.filter(album_name=documentname)
                                                     if album:
@@ -818,37 +848,37 @@ class Watch:
                                                         albumObj.image.add(imageObj)
                                                         mdObj.album = albumObj.album_identifier
                                                         mdObj.save()
-                                                    else:   
-                                                        logging.info("Contructing a new Album for %s" % item)                                               
+                                                    else:
+                                                        logging.info("Contructing a new Album for %s" % item)
                                                         album_identifier = ''.join(['album-',strftime("%Y%m%d%H%M%S")]) # Build an album_identifier string
-                                                        albumObj, created = Album.objects.get_or_create(album_identifier=album_identifier, album_name=documentname)                                 
+                                                        albumObj, created = Album.objects.get_or_create(album_identifier=album_identifier, album_name=documentname)
                                                         albumObj.save()
                                                         albumObj.image.add(imageObj)
                                                         mdObj.album=albumObj.album_identifier
                                                         mdObj.save()
-                                                        logging.info("Album %s constructed for item %s" % (albumObj.album_identifier, item)) if created else logging.info("Existing album %s updated with %s" % (albumObj.album_identifier, item)) 
+                                                        logging.info("Album %s constructed for item %s" % (albumObj.album_identifier, item)) if created else logging.info("Existing album %s updated with %s" % (albumObj.album_identifier, item))
                                                 else: logging.info("This item is already part of an album")
                                             else: logging.warning("No documentname value, checking for album data aborted")
                                         else: logging.warning("No group_status value, checking for album data aborted")
-                                                    
                                         
+                                    
                                     except Exception, inst:
                                         logging.error("Error trying to construct an Album from item %s %s" % (image_LNID, inst))
                                                         
-                                                        
                                                                 
                             
+                                
                                 except Image.DoesNotExist: # No matching image_LNID, so we must be dealing with a completely new file
                                     imageObj = Image(
-                                    image_LNID=image_LNID, 
-                                    image_path=results[1], 
+                                    image_LNID=image_LNID,
+                                    image_path=results[1],
                                     image_name=results[2],
-                                    image_real_name=results[3], 
-                                    image_real_path=item.replace(settings.APP_CONTENT_ROOT + "/",''), 
+                                    image_real_name=results[3],
+                                    image_real_path=item.replace(settings.APP_CONTENT_ROOT + "/",''),
                                     group_status=group_status,
-                                    date_created=createdate, 
-                                    date_modified=modifydate, 
-                                    date_entered=datetime.datetime.now(), 
+                                    date_created=createdate,
+                                    date_modified=modifydate,
+                                    date_entered=datetime.datetime.now(),
                                     image_category=results[4],
                                     image_pages=results[5] )
                                     try:
@@ -857,13 +887,13 @@ class Watch:
                                     except Exception, inst:
                                         logging.error( "error saving new Image %(inst)s" % {'inst':inst})
                                         continue
-                                        
+                                    
                                     try: # Album update for new image (case: content manager adds the file to an Album through the host's file system)
                                         logging.info("Checking for the existence of album data for new item...")
                                         if group_status:
                                             if documentname:
-                                                a = Album.objects.filter(image=imageObj) # Check if the image is already in an Album                                            
-                                                if not a:   
+                                                a = Album.objects.filter(image=imageObj) # Check if the image is already in an Album
+                                                if not a:
                                                     logging.info("The item %s isn't part of an album" % item)
                                                     album = Album.objects.filter(album_name=documentname)
                                                     if album:
@@ -872,22 +902,22 @@ class Watch:
                                                         albumObj.image.add(imageObj)
                                                         mdObj.album = albumObj.album_identifier
                                                         mdObj.save()
-                                                    else:   
-                                                        logging.info("Contructing a new Album for %s" % item)                                               
+                                                    else:
+                                                        logging.info("Contructing a new Album for %s" % item)
                                                         album_identifier = ''.join(['album-',strftime("%Y%m%d%H%M%S")]) # Build an album_identifier string
-                                                        albumObj, created = Album.objects.get_or_create(album_identifier=album_identifier, album_name=documentname)                                 
+                                                        albumObj, created = Album.objects.get_or_create(album_identifier=album_identifier, album_name=documentname)
                                                         albumObj.save()
                                                         albumObj.image.add(imageObj)
                                                         mdObj.album=albumObj.album_identifier
                                                         mdObj.save()
-                                                        logging.info("Album %s constructed for item %s" % (albumObj.album_identifier, item)) if created else logging.info("Existing album %s updated with %s" % (albumObj.album_identifier, item)) 
+                                                        logging.info("Album %s constructed for item %s" % (albumObj.album_identifier, item)) if created else logging.info("Existing album %s updated with %s" % (albumObj.album_identifier, item))
                                                 else: logging.info("Is this NEW item already part of an album?")
                                             else: logging.warning("No documentname value, checking for album data aborted")
                                         else: logging.warning("No group_status value, checking for album data aborted")
-                                                    
+                                    
                                     except Exception, inst:
                                         logging.error("Error trying to construct an Album for new item %s %s" % (image_LNID, inst))
-                                                
+                                    
                                     
                                     try:    # Is this file known to Keyword?
                                         obj = Keyword.objects.get(image_LNID=image_LNID)
@@ -897,20 +927,20 @@ class Watch:
                                         obj.profile = profile
                                         obj.save()
                                         logging.info( "Keyword saved %(image)s" % {'image':image_LNID})
-                                    except Keyword.DoesNotExist: 
+                                    except Keyword.DoesNotExist:
                                         try:
-                                            obj = Keyword(image=imageObj, 
-                                            image_LNID=image_LNID, 
-                                            keywords=keywords, 
-                                            image_name=results[2], 
+                                            obj = Keyword(image=imageObj,
+                                            image_LNID=image_LNID,
+                                            keywords=keywords,
+                                            image_name=results[2],
                                             cright=copyright,
-                                            profile=profile, 
+                                            profile=profile,
                                             image_path=item.replace(settings.APP_CONTENT_ROOT + "/",''))
                                             obj.save()
                                             logging.info( "new Keyword saved %(image)s" % {'image':image_LNID})
                                         except Exception, inst:
                                             logging.error( "Keyword edit error %(inst)s" % {'inst':inst})
-                
+                                    
                                     try: # Is this file known to Metadata?
                                         mdObj = Metadata.objects.get(image_LNID=image_LNID)
                                         mdObj.description = description
@@ -947,7 +977,7 @@ class Watch:
                                     except Metadata.DoesNotExist:
                                         try:
                                             mdObj = Metadata(
-                                            image=imageObj, 
+                                            image=imageObj,
                                             image_LNID=image_LNID,
                                             keyword=obj,
                                             description=description,
@@ -979,16 +1009,16 @@ class Watch:
                                             mdObj.save()
                                             logging.info( "new Metadata saved %(image)s" % {'image':image_LNID})
                                         except Exception, inst:
-                                            logging.error( "Metadata edit error (2) %(inst)s" % {'inst':inst})                              
+                                            logging.error( "Metadata edit error (2) %(inst)s" % {'inst':inst})
             for item in removed_files:
                 if item[(len(item)-4):(len(item)-3)] == "." or item[(len(item)-3):(len(item)-2)] == ".":
-            
+                    
                     # Deletes image data, and also the generated files...
-            
+                    
                     image_LNID = self.extractImage_LNID(item)
-            
-                    try: 
-                        Image.objects.get(image_LNID__exact=image_LNID).delete() 
+                    
+                    try:
+                        Image.objects.get(image_LNID__exact=image_LNID).delete()
                         logging.info( "Image deleted %(item)s" % {'item':item})
                         try:
                             os.remove(gallery_images + image_LNID + ".jpg")
@@ -1007,19 +1037,19 @@ class Watch:
                             logging.warning( "Error removing %(path)s %(inst)s" % { 'path': gallery_minithumbs + image_LNID + ".jpg", 'inst' :inst})
                     
                     except Exception, inst: logging.warning( "Image delete %(image)s %(inst)s" % {'image':image_LNID, 'inst': inst } )
-            
-                    try: 
+                    
+                    try:
                         Keyword.objects.get(image_LNID__exact=image_LNID).delete()
                         logging.info( "Keyword deleted %(item)s" % {'item':item})
                     except Exception, inst: logging.warning( "Keyword delete %(image)s %(inst)s" % {'image':image_LNID, 'inst': inst } )
-            
-                    try: 
+                    
+                    try:
                         Metadata.objects.get(image_LNID__exact=image_LNID).delete()
                         logging.info( "Metadata deleted %(item)s" % {'item':item})
                     except Exception, inst: logging.warning( "Metadata delete %(image)s %(inst)s" % {'image':image_LNID, 'inst': inst } )
-    
             
-            # correct permissions 
+            
+            # correct permissions
             u = utes.Utes()
             u.chmodRecursive(os.walk(settings.APP_CONTENT_ROOT), 0667)
             logging.info('Permissions %s set.' % settings.APP_CONTENT_ROOT)

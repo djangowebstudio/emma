@@ -284,27 +284,28 @@ class Metadata:
         -mimetype                                   (images_metadata.mime_type)
         -ManagedFromFilePath                        (images_metadata.document.path)
         -documentname                               (emma.interface.metadata.documentname) 2)
+        -orientation#                               (images_metadata.orientation) 3)
         
         The results are returned as dict.
         
-        1) -credit changed to -xmp:credit because exiftool wasn't getting the part after the ":". Getting the xmp explicitly might exclude older files though - as well as non-adobe files
+        1) -credit changed to -xmp:credit because exiftool wasn't getting the part after the ":". Getting the xmp 
+            explicitly might exclude older files though - as well as non-adobe files.
         2) Not to be confused with the previous "document.path" -- denotes the metadata field "Document Name "
+        3) Orientation is grabbed as integer, changed the orientation field in the Metadata model to reflect this (20091122)
+            Note that we need exiftool 8.00 for this feature
         
         To do: Find out if it's feasible to call the Perl lib directly from Python. One good reason? We have to fix 
         all spaces in all paths because we're using the ExifTool CLI!
         UPDATE: there's an API called pyperl but it's old, not maintained, and doesn't readily compile on macosx
         """
         d = re.compile('(^.+?)(:)(.+$)', re.IGNORECASE)
-        cmd = "exiftool -m -S -f -E -documentname -ManagedFromFilePath -filetype -mimetype -title -subject -keywords -description -copyright -instructions -xmp:credit -icc_profile:colorspacedata -creator -creatortool -urgency -captionwriter -source -datetimeoriginal -city -province-state -country -headline -location -author -album " + "\"" + fileToCheck + "\""
-        proc = subprocess.Popen(cmd,
-                                shell=True, 
-                                stdout=subprocess.PIPE,
-                                )
-        results = proc.communicate()[0]
-    
+        cmd = ["exiftool","-m","-S","-f","-E","-documentname","-ManagedFromFilePath","-filetype","-mimetype",
+                "-title","-subject","-keywords","-description","-copyright","-instructions","-xmp:credit",
+                "-icc_profile:colorspacedata","-creator","-creatortool","-urgency","-captionwriter","-source",
+                "-datetimeoriginal","-city","-province-state","-country","-headline","-location","-author",
+                "-album","-orientation#",fileToCheck]
+        results = subprocess.Popen(cmd,stdout=subprocess.PIPE).stdout.read()
         results_list =  results.splitlines()
-        
-        
         rdict = {}
         for item in results_list:
             m = d.match(item)
@@ -312,8 +313,8 @@ class Metadata:
                 rdict[m.group(1).lower()] = m.group(3).strip()
             except Exception, inst:
                 pass
-        # post-process rdict: switch subject and keywords if ai and keywords are empty
         
+        # post-process rdict: switch subject and keywords if ai and keywords are empty   
         if fileToCheck.split('.').pop() == 'ai':
             if rdict.has_key('keywords'):
                 if rdict['keywords'].strip() == '-':
@@ -323,9 +324,7 @@ class Metadata:
         # post-process rdict: set copyright to boolean int          
         copyright = rdict['copyright'] if rdict.has_key('copyright') else ''
         if copyright: rdict['copyright'] = self.copyright_case(copyright)
-                    
-            
-            
+
         # post-process rdict: set icc_profile:colorspacedata to boolean int
         if rdict.has_key('colorspacedata'):
             if rdict['colorspacedata'].lower().strip() == 'cmyk':
@@ -335,13 +334,15 @@ class Metadata:
             else:
                 rdict['colorspacedata'] = 2
         else:
-            rdict['colorspacedata'] = 2
-        
+            rdict['colorspacedata'] = 2    
         
         # post-process rdict: format datetime   
         if rdict.has_key('datetimeoriginal'):
             rdict['datetimeoriginal'] = None if rdict['datetimeoriginal'].strip() == '-' else Utes().formatDateTime(rdict['datetimeoriginal'])
-                                
+            
+        # post-process rdict: format orientation
+        if rdict.has_key('orientation'):
+            rdict['orientation'] = 0 if rdict['orientation'].strip() == '-' else rdict['orientation']
             
         # post-process rdict: cut values = ' -'
         # The ExifTool -f option prints tags even if the value is not found. We need this because we're
@@ -399,4 +400,6 @@ class MetadataTests(unittest.TestCase):
     def setUp(self):
         pass
 
-if __name__ == '__main__': pass
+if __name__ == '__main__': 
+    m = Metadata()
+    print m.exifAll('/Users/geert/Sites/doennet/content/Jubilea-DOEN/10-jaar-DOEN/1440510jaardoen.jpg')
