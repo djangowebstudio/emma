@@ -221,7 +221,7 @@ class Metadata:
         """
         cmdList = ["exiftool", "-P", "-overwrite_original_in_place",]
         for a, b in cmdDict.iteritems():
-            item = ''.join(['-',a, '=',b])
+            item = ''.join(['-',unicode(a), '=',unicode(b)])
             cmdList.append(item)
         cmdList.append(writeToFile)
         return subprocess.Popen(cmdList,stdout=subprocess.PIPE,).stdout.read()

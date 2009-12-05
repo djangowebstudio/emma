@@ -22,12 +22,12 @@ class KeywordAdmin(admin.ModelAdmin):
 
 
 class MetadataAdmin(admin.ModelAdmin):
-	search_fields = ['image_LNID']
+	search_fields = ['image_LNID', 'subject', 'album', 'mime_type']
 	fieldsets = (
 	('About you', {'fields': ('caption_writer',)}),
 	('Image information', {
 							'classes': ('collapse',),
-							'fields': ('subject', 'copyright', 'profile', 'keywords', 'description', 'instructions', 'source', 'location', 'city', 'provincestate', 'country')}),
+							'fields': ('subject', 'copyright', 'profile', 'keywords', 'description', 'instructions', 'source', 'location', 'city', 'provincestate', 'country', 'datetimeoriginal')}),
 							
 	('Attachments', { 'classes': ('collapse',),
 						'fields': ('document',)}),
@@ -40,7 +40,7 @@ class MetadataAdmin(admin.ModelAdmin):
 	)
 	
 	
-	list_display = ('thumb','image_LNID','subject','copyright','profile','album', 'headline', 'document')
+	list_display = ('thumb','image_LNID','subject','copyright','profile','album', 'headline', 'document', 'mime_type')
 	
 
 admin.site.register(Metadata, MetadataAdmin)

@@ -179,7 +179,7 @@ class Metadata(models.Model):
 	author = models.CharField(max_length=255, blank=True)	
 	credit = models.TextField(blank=True)
 	datetimeoriginal = models.DateTimeField(null=True, blank=True)
-	orientation = models.BooleanField(default=0)
+	orientation = models.IntegerField(default=0)
 	softdate = models.CharField(max_length=255, blank=True)
 	copyright = models.NullBooleanField()
 	profile = models.NullBooleanField()
@@ -245,15 +245,16 @@ class Metadata(models.Model):
 				'province-state'    	:  	self.provincestate,
 				'country'		    	:  	self.country,
 				'instructions'	    	:   self.instructions,
-				'title'			    	:   self.title,
+				'title'			    	:   self.subject,
 				'creatortool'	    	:   self.creator_tool,
 				'creator'		    	:   self.creator,
 				'author'		    	:   self.author,
 				'credit'		    	:   self.credit,
-				'headline'		    	:   self.headline,
+				'xmp:headline'		    :   self.headline, # the xmp prefix should accomodate illustrator and other pdf-based file formats
 				'album'			    	:	self.album,
-				'documentname'			:	self.documentname,
+				'documentname'			:	self.subject,
 				'copyright'				:   'yes' if self.copyright == 1 else 'no' if self.copyright == 0 else 'unknown',
+				'orientation'           :   self.orientation
 				}
 				
 				if self.document:

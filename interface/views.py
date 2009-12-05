@@ -242,7 +242,7 @@ def doBuildZIP(request):
     zip.close()
     buffer.flush
     
-    if settings.APP_SEND_DOWNLOAD_EMAILS:
+    if 'APP_SEND_DOWNLOAD_EMAILS' in dir(settings) and settings.APP_SEND_DOWNLOAD_EMAILS:
         t = loader.get_template('emailtemplates/downloads.txt')
         c = Context({'name': muser.first_name,'imageList': imageList, 'groupList': groupList })
     

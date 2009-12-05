@@ -619,7 +619,7 @@ class Watch:
                     # the image corresponding to a particular image_LNID. A change in image_LNID or
                     # image_real_path alone will NOT get you in this loop at all!
                     
-                    # Init vars
+                    # Init vars to hold metadata info
                     
                     description = ''
                     keywords = ''
@@ -649,6 +649,10 @@ class Watch:
                     mime_type= ''
                     managedfromfilepath = ''
                     documentname = ''
+                    
+                    # other vars
+                    mdObj_album = ''
+                    m_album = ''
             
                     
                     image_LNID = self.extractImage_LNID(item)                               # Extract the image_LNID from the filename
@@ -841,8 +845,8 @@ class Watch:
                                                 a = Album.objects.filter(image=imageObj) # Check if the image is already in an Album
                                                 if not a:
                                                     logging.info("This item %s doesn't seem to be part of an Album" % item)
-                                                    album = Album.objects.filter(album_name=documentname)
-                                                    if album:
+                                                    new_album = Album.objects.filter(album_name=documentname)
+                                                    if new_album:
                                                         albumObj = Album.objects.filter(album_name=documentname)[0]
                                                         logging.info("At least one Album with this documentname already exists, adding the item %s to it..." % item)
                                                         albumObj.image.add(imageObj)
@@ -895,21 +899,19 @@ class Watch:
                                                 a = Album.objects.filter(image=imageObj) # Check if the image is already in an Album
                                                 if not a:
                                                     logging.info("The item %s isn't part of an album" % item)
-                                                    album = Album.objects.filter(album_name=documentname)
-                                                    if album:
+                                                    new_album = Album.objects.filter(album_name=documentname) # now get an album with the same documentname
+                                                    if new_album:
                                                         albumObj = Album.objects.filter(album_name=documentname)[0]
                                                         logging.info("At least one Album with this documentname already exists, adding the item %s to it..." % item)
                                                         albumObj.image.add(imageObj)
-                                                        mdObj.album = albumObj.album_identifier
-                                                        mdObj.save()
+                                                        mdObj_album = albumObj.album_identifier # save this to a var in order to assign to metadata obj later
                                                     else:
                                                         logging.info("Contructing a new Album for %s" % item)
                                                         album_identifier = ''.join(['album-',strftime("%Y%m%d%H%M%S")]) # Build an album_identifier string
                                                         albumObj, created = Album.objects.get_or_create(album_identifier=album_identifier, album_name=documentname)
                                                         albumObj.save()
                                                         albumObj.image.add(imageObj)
-                                                        mdObj.album=albumObj.album_identifier
-                                                        mdObj.save()
+                                                        mdObj_album=albumObj.album_identifier # save this to a var in order to assign to metadata obj later
                                                         logging.info("Album %s constructed for item %s" % (albumObj.album_identifier, item)) if created else logging.info("Existing album %s updated with %s" % (albumObj.album_identifier, item))
                                                 else: logging.info("Is this NEW item already part of an album?")
                                             else: logging.warning("No documentname value, checking for album data aborted")
@@ -963,7 +965,7 @@ class Watch:
                                         mdObj.profile = profile
                                         mdObj.title = title
                                         mdObj.author = author
-                                        mdObj.album = album
+                                        mdObj.album = mdObj_album if mdObj_album else album if album else ''
                                         mdObj.orientation = orientation
                                         mdObj.file_type = file_type
                                         mdObj.mime_type = mime_type
@@ -975,6 +977,7 @@ class Watch:
                                         except Exception, inst:
                                             logging.error("Metadata edit error %(d)s %(inst)s" % {'d': datetimeoriginal, 'inst': inst})
                                     except Metadata.DoesNotExist:
+                                        m_album = mdObj_album if mdObj_album else album if album else '' # get album info if it exists
                                         try:
                                             mdObj = Metadata(
                                             image=imageObj,
@@ -1000,7 +1003,7 @@ class Watch:
                                             profile=profile,
                                             title=title,
                                             author=author,
-                                            album=album,
+                                            album=m_album,
                                             orientation=orientation,
                                             file_type=file_type,
                                             mime_type=mime_type,
