@@ -247,7 +247,10 @@ def doBuildZIP(request):
         c = Context({'name': muser.first_name,'imageList': imageList, 'groupList': groupList })
     
         settings.APP_EMAIL_RECIPIENTS.append(muser.email)
-        send_mail('%s download' % settings.APP_PUBLIC_NAME, t.render(c), settings.APP_EMAIL_SENDER, settings.APP_EMAIL_RECIPIENTS, fail_silently=False )
+        try: # Because, apparently, sometimes the connection fails
+            send_mail('%s download' % settings.APP_PUBLIC_NAME, t.render(c), settings.APP_EMAIL_SENDER, settings.APP_EMAIL_RECIPIENTS, fail_silently=False )
+        except:
+            pass
     # delete the downloaded items in the cart
     downloadList = Order.objects.filter(client=muser.username, status=0)
     
