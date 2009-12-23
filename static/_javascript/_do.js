@@ -8,44 +8,7 @@
 
 //*************************************************************************************************
 //-------------------------------------------------------------------------------------------------
-// Initiate application
-
-window.onload = function(){														// app init
-	searchItems();																// autocomplete 
-	updateUserSearchSelect('simple');											// searchselect default
-	buildStartPageFrame();														// prerequisite for start page
-	doShowStartPage('illustration', 1, false);									// panel Photo's
-	// IE just won't show the illustration panel if it isn't pushed TWICE
-	if(navigator.userAgent.indexOf('MSIE 7') > -1 || navigator.userAgent.indexOf('MSIE 6') > -1) {
-	    doShowIllustrationPanel();
-	    }
-	// ... but IE 8 is OK
-	doShowStartPage('photo', 1, false);											// panel Illustrations
-	doShowMenu('menuContent','_ALL_');											// generate menu
-	setTimeout("doShow()", 500);												// generate cart content
-	setTimeout("favorites.show(1)", 700);										// generate favorites panel in dock skin
-	var commands = $H({
-		'Select All': actions.selectAll,
-		'Deselect All' : actions.deselectAll,
-		'New Album': albums._new
-	});
-	
-	
-	var albumCommands = $H({
-		'Remove from album': function(element){alert(element.id);},
-		'Copy to other album': function(){alert('copies item to other album');}
-	});
-	
-};
-
-window.onresize = function(){
-	if ($('illustrationStartPageDiv')){
-		location.reload();
-	}
-	 
-	
-};
-
+// Initiate application in project _do.js
 //------------------------------ ajax -------------------------------------------------------------		
 Ajax.Responders.register({
     onCreate: function(){Element.show('spinner');},
@@ -428,7 +391,7 @@ function toggleCartPulldown(){
 		
 				
 		$('LN-cartContainer').appendChild(d);
-		Effect.BlindDown(d.id,{duration:.1}); //Scriptaculous effect...
+		Effect.BlindDown(d.id,{duration:0.1}); //Scriptaculous effect...
 
 	
 }
@@ -483,7 +446,7 @@ function toggleCategoryPulldown(element, source){
 		renderHash(Weeks, categoryPulldownContainer, 'weeksLink');
 	
 		$('content').appendChild(categoryPulldownContainer);
-		Effect.BlindDown(categoryPulldownContainer, {duration: .1});
+		Effect.BlindDown(categoryPulldownContainer, {duration: 0.1});
 	}else{
 		$('content').removeChild($('LN-toolbar-category-pulldown-container'));
 	}
@@ -838,24 +801,22 @@ function doOrder(item){
 function createEntry(item){ 
 	//create an entry in the Order table
 	
-	
-	if (item.startsWith('album-')){
-		
-	var	url = "/interface/clients/addalbum/" + item + "/" ;
-		
-	}else{
-	
-	var url = "/interface/clients/add/" + item + "/" ;
-	
+	var url;
+	if (item.startsWith('album-')){		
+	    url = '/interface/clients/addalbum/' + item + '/';		
+	}else{	
+	    url = '/interface/clients/add/' + item + '/';
 	}
 	
+	var updateContainer = 'LN-cartItemsContainer';
+	
 	var mAjax = new Ajax.Updater(
-		{success: 'LN-cartItemsContainer'}, 
+		{success: updateContainer}, 
 		url,
 		{
 			method: 'get', 
 			onFailure: reportError,
-			onComplete: function(){setTimeout("doShow()", 1000);}
+			onComplete: function(){setTimeout(function(){doShow();}, 1000);}
 		});
 		
 
@@ -874,9 +835,9 @@ function doShow(){
 		{success: updateContainer}, 
 		url,
 		{
-			method: 'get', 
-			onCreate: function(){Element.clonePosition('spinner', updateContainer);},
-			onFailure: reportError
+			method: 'get',
+            // onCreate: function(){Element.clonePosition('spinner', updateContainer);},
+	       onFailure: reportError
 		});
 		
 }
@@ -893,9 +854,7 @@ function doShowYears(element){
 		{success: updateContainer}, 
 		url,
 		{
-			method: 'get', 
-			onCreate: function(){Element.clonePosition('spinner', updateContainer);},
-			onFailure: reportError
+			method: 'get'
 		});
 	
 }
@@ -1004,7 +963,6 @@ function doShowMenu(element, search){
 	// Creates a div to be filled with a menu block
 	// Takes: element; element to be filled, search; a path node
 	// returns HTML
-
 	var newId = element + "_" + search;
 	
 	if (!$(newId)){
@@ -1015,14 +973,13 @@ function doShowMenu(element, search){
 		{success: $(newId)}, 
 		url,
 		{
-			method: 'get', 
-			onFailure: reportError,
-			onCreate: function(){Element.clonePosition('spinner', $(newId));}
+			method: 'get'
+            // onCreate: function(){Element.clonePosition('spinner', $(newId));},
+            // onFailure: reportError
 		});
 	}else{
 		$(element).removeChild($(newId));
 	}	
-	
 
 }
 
@@ -1120,13 +1077,13 @@ function doShowThumbs(match, cat, weeks, page, renderCrumbs, groups){
 	args = Array.prototype.slice.call(arguments); // Get args in array for reuse
 	
 	var dimension = $('content').getDimensions();
-	
+	var url;
 	if (groups || groups == 0){
 		
-		var url = "/interface/show/thumbs/" + match + "/" + cat + "/" + weeks + "/" + page + "/" + groups + "/";
+		url = "/interface/show/thumbs/" + match + "/" + cat + "/" + weeks + "/" + page + "/" + groups + "/";
 	}else{
 		
-		var url = "/interface/show/thumbs/" + match + "/" + cat + "/" + weeks + "/" + page + "/";
+		url = "/interface/show/thumbs/" + match + "/" + cat + "/" + weeks + "/" + page + "/";
 	}
 	
 	
@@ -1134,15 +1091,15 @@ function doShowThumbs(match, cat, weeks, page, renderCrumbs, groups){
 		{success: 'content_main'}, 
 		url,
 		{
-			method: 'get', 
-			onFailure: reportError,
-			onCreate: function(){Element.clonePosition('spinner', 'content_main', {offsetTop: -25, offsetLeft: -7});},
-			onComplete: function(){
-				// Empty all galleries before repopulating, otherwise galleries will concatentate
-				myLightWindow.galleries = [];
-				myLightWindow._setupLinks();
-				}
-			
+			method: 'get',
+            onFailure: reportError,
+              // onCreate: function(){Element.clonePosition('spinner', 'content_main', {offsetTop: -25, offsetLeft: -7});},
+              onComplete: function(){
+               // Empty all galleries before repopulating, otherwise galleries will concatentate
+               myLightWindow.galleries = [];
+               myLightWindow._setupLinks();
+               }
+  			
 		});
 		
 		if (renderCrumbs == true){
@@ -1500,7 +1457,7 @@ function doEnlargeCartItem(item, source){
 		cartEnlargement.appendChild(enlargementImage);
 		
 		$('content').appendChild(cartEnlargement);
-		Effect.Appear(cartEnlargement.id, {duration: .3});
+		Effect.Appear(cartEnlargement.id, {duration: 0.3});
 	}else{
 		$('content').removeChild($('cartEnlargementDiv'));
 	}
