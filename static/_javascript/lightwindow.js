@@ -564,7 +564,6 @@ lightwindow.prototype = {
 	//  Clear the window contents out
 	//
 	_clearWindowContents : function(contents) {
-		
 		// If there is an iframe, its got to go
 		if ($('lightwindow_iframe')) {
 			Element.remove($('lightwindow_iframe'));
@@ -742,6 +741,7 @@ lightwindow.prototype = {
 			for (i = 0; i != iframes.length; i++) {
 				iframes[i].style.visibility = visibility;
 			}
+
 		}
 	},
 	// 
@@ -796,7 +796,6 @@ lightwindow.prototype = {
 
 	//
 	_setupDimensions : function() {
-
 		var originalHeight, originalWidth;
 		switch (this.windowType) {
 			case 'page' :
@@ -1222,11 +1221,10 @@ lightwindow.prototype = {
 					images[i].setAttribute('border', '0');
 					images[i].setAttribute('src', this.contentToFetch);
 					$('lightwindow_contents').appendChild(images[i]);
-
 					// We have to do this instead of .onload 
 					this.checkImage[i] = new PeriodicalExecuter(function(i) {
+					    
 						if (!(typeof $('lightwindow_image_'+i).naturalWidth != "undefined" && $('lightwindow_image_'+i).naturalWidth == 0)) {
-							
 							this.checkImage[i].stop();
 	
 							var imageHeight = $('lightwindow_image_'+i).getHeight();
@@ -1378,6 +1376,7 @@ lightwindow.prototype = {
 	//
 	//  Resize the Window to fit the viewport if necessary
 	//
+	
 	_resizeWindowToFit : function() {
 		if (this.resizeTo.height+this.dimensions.cruft.height > this.dimensions.viewport.height) {
 			var heightRatio = this.resizeTo.height/this.resizeTo.width;

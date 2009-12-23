@@ -6,14 +6,13 @@
 lightwindow.addMethods({
 	
 	activate : function(e, link){	
-		
 		// If the active element has a specified className
 		if ($(e.element().id).hasClassName('album-items') ){
 			this._extraBuildGallery(e, link);
 		}else{
 		// Do the usual stuff (back to the original lightwindow method)
 
-		// Clear out the window Contents
+		// Clear out the window Content
 		this._clearWindowContents(true);
 		
 		
@@ -172,7 +171,6 @@ lightwindow.addMethods({
 	_processWindow : function() {
 		// Clean out our effects
 		this.dimensions.dataEffects = [];
-
 		// Set up the data-slide if we have caption information
 		if (this.element.caption || this.element.author || (this.activeGallery && this.options.showGalleryCount)) {
 			if (this.element.caption) {

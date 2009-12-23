@@ -807,24 +807,21 @@ function createEntry(item){
 	}else{	
 	    url = '/interface/clients/add/' + item + '/';
 	}
-	
 	var updateContainer = 'LN-cartItemsContainer';
-	
 	var mAjax = new Ajax.Updater(
 		{success: updateContainer}, 
 		url,
 		{
-			method: 'get', 
+            method: 'get', 
 			onFailure: reportError,
-			onComplete: function(){setTimeout(function(){doShow();}, 1000);}
+            onComplete: function(){setTimeout(doShow, 1000);}
 		});
 		
-
 }
 
 
 function doShow(){ 
-	
+    
 	// show the products in the client basket
 	// returns HTML
 	// see also templates/partsdoShowBasket.html
@@ -836,7 +833,6 @@ function doShow(){
 		url,
 		{
 			method: 'get',
-            // onCreate: function(){Element.clonePosition('spinner', updateContainer);},
 	       onFailure: reportError
 		});
 		
@@ -879,7 +875,7 @@ function doRemoveFromBasket(client,item,view){
 			onFailure: reportError
 		});
 		
-	setTimeout("doShow('" + client + "','" + view + "')", 500);
+	setTimeout(doShow, 500);
 	}
 }
 
@@ -899,7 +895,7 @@ function doEmptyBasket(client, view){
 				onFailure: reportError
 			});
 
-		setTimeout("doShow('" + client + "','" + view + "')", 1000);
+		setTimeout(doShow, 1000);
 		}
 }
 	
@@ -1111,7 +1107,7 @@ function doShowThumbs(match, cat, weeks, page, renderCrumbs, groups){
 
 
 function doCheckBasket(element, item){
-	
+    
 	// Check if cart already contains a certain image_LNID
 	// Toggles the add-to-cart button
 	// Takes: element; the element in lightbox to update, item; the image_LNID to check for
@@ -1425,12 +1421,12 @@ function doShowStartPage(cat,page,start){
 	$(startPageContainer).appendChild(startPage);
 	
 	var url = "/interface/start/" + pageSize + "/" + cat + "/" + page + "/";
-	
+	var completeAction;
 	// Init an onComplete action only if this function is called standalone (i.e. not as part of the init sequence)
 	if (start){
-		var completeAction = function(){};
+		completeAction = function(){};
 	}else{
-		var completeAction = function(){myLightWindow._setupLinks();};
+		completeAction = function(){myLightWindow._setupLinks();};
 	}
 
 	var mAjax = new Ajax.Updater(
