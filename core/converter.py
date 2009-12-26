@@ -43,6 +43,7 @@ import subprocess
 from PIL import Image
 import utes
 import codecs
+from pyPdf import PdfFileWriter, PdfFileReader
 #--------------------------------------------------------------------------------------------------
 # Logging (disabled - uncomment to enable logging for this script)
 # The logging calls here are handled by the caller. Only uncomment if you wish to debug this
@@ -270,7 +271,52 @@ class Convert:
         except Exception, inst:
             logging.error("Error manipulating PDF %s" % inst)
             return None, None
-        
+    
+    def get_pdf_dimensions(self, path):
+        """Get pdf dimensions using pyPdf"""
+        try:
+            pdf = PdfFileReader(file(path, "rb"))
+        except:
+            return None
+        page_list = []
+        if pdf.getNumPages() > 0:
+            for page_number in range(0, pdf.getNumPages()):
+                page = pdf.getPage(page_number)
+                page_list.append({'page': page_number, 'width': page.mediaBox.getLowerRight_x(), 'height': page.mediaBox.getUpperLeft_y()})
+            return page_list
+        else: return None
+
+
+    def joinpdf(self, input_list, output_file):
+        """Join list of pdfs to multipage"""
+        output = PdfFileWriter()
+        for f in input_list:
+            input_file = PdfFileReader(file(f, "rb"))
+            output.addPage(input_file.getPage(0))
+        outputStream = file(output_file, "wb")
+        output.write(outputStream)
+        outputStream.close()
+
+
+
+    def splitpdf(self, input_file, output_dir):
+        """Split pdf to single-page files using pyPdf"""  
+        try:    
+            input1 = PdfFileReader(file(input_file, "rb"))
+        except Exception, inst:
+            return inst
+        files = []
+        for page_number in range(0, input1.getNumPages()):
+            page = input1.getPage(page_number)
+            fname = os.path.basename(input_file).replace('.pdf', '_%s.pdf' % (page_number + 1))
+            fpath = os.path.join(output_dir, fname)
+            files.append(fpath)
+            output = PdfFileWriter()
+            output.addPage(page)
+            output_stream = file(fpath, "wb")
+            output.write(output_stream) 
+        return 'saved %s' % files
+
     
     def resizeimagePIL(self, source, target, tw, th):
         """ Resize and center image to absolute square with PIL """
