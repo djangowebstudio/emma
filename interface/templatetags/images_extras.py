@@ -45,5 +45,5 @@ def submit_row_inline(context):
         'show_save': True
     }
 
-# As you can see, we really want the first template dir.
-submit_row_inline = register.inclusion_tag(os.path.join(settings.TEMPLATE_DIRS[0],'admin/interface/metadata/submit_line.html'), takes_context=True)(submit_row_inline)
+# As you can see, we really want the first template dir. UPDATE: This must be corrected. Will fail if changing the order in which templates are requested.
+submit_row_inline = register.inclusion_tag('/Library/Python/2.5/site-packages/emma/templates/admin/interface/metadata/submit_line.html', takes_context=True)(submit_row_inline)
