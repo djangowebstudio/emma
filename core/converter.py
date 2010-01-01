@@ -298,7 +298,14 @@ class Convert:
         outputStream.close()
 
 
-
+    def pdf_get_no_pages(self, input_file):
+        """Return number of pages in a pdf"""
+        try:
+            pdf_input = PdfFileReader(file(input_file, "rb"))
+            return pdf_input.getNumPages()
+        except:
+            return None
+    
     def splitpdf(self, input_file, output_dir):
         """Split pdf to single-page files using pyPdf"""  
         try:    
@@ -579,15 +586,34 @@ class Convert:
             return foutput
         except Exception, inst:
             logging.error('Error copying item %s %s' % (finput, inst)) 
+            
+            
+    def ffmpeg_simple(self, finput, foutput, dimensions=[None,None], verbose=False):
+        """A simple version of the ffmpeg wrapper. Takes input & output, optionally the height/width."""
+        if dimensions:
+            size = 'x'.join(dimensions)
+            cmd = ["ffmpeg","-i", finput, "-s", size, "-y", "-ar","11025", foutput]
+        else:
+            cmd = ["ffmpeg","-i", finput, "-y", "-ar","11025", foutput]
+        
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)      
+        verbose = proc.communicate()[0]
+        
+        if not verbose: # Return the full path AND filename if verbose is set to True
+            if dimensions: 
+                return foutput, dimensions
+            else:     
+                return foutput
+        else:
+            return verbose
+        
         
     
-    def ffmpeg(self, finput, foutput, size="other", defaultwidth=917, format="png"):
+    def ffmpeg(self, finput, foutput, size="other", defaultwidth=917, format='png', verbose=False):
         """ Converts all sorts of video formats to a clip in .flv format or set of images.
-        
-        Just a python wrapper to ffmpeg.
-        Besides converting to flv, also simultaneously converts video to stills for use 
-        as thumbs. See arguments below.
-        
+        The number of frames can be set in de args.
+        Just a python wrapper for ffmpeg.
+
         Takes:
         1. finput (str), a path
         2. foutput (str). This can be:
@@ -597,10 +623,12 @@ class Convert:
         case, ffmpeg will be instructed to get the first 180 frames of the source 
         file.
         4. defaultwidth (int), a fallback in case a child function fails to return a value
-        5. format for stills, defaults to png. 
-        
+        5. Image format is png by default -- only if you want a slice of the vid back. 
+        Needs to be something that both ffmpeg and sips can handle.
+        6. Return the full cammand list
+
         For sound only files, use "large".
-        
+
         (from man ffmpeg)
         *You can extract images from a video: 
         ffmpeg −i foo.avi −r 1 −s WxH −f image2 foo−%03d.jpeg 
@@ -611,40 +639,40 @@ class Convert:
         formats accepting a normal integer are suitable. 
         If you want to extract just a limited number of frames, you can use the above command in combination 
         with the −vframes or −t option, or in combination with −ss to start extracting from a certain point in time. 
-        
+
         """
-        # Path to ffmpeg
-        
-        ffmpeg = "/usr/local/bin/ffmpeg"
-        
-        # Test the input file 
-        if not os.path.exists(finput): return None
         dimensions = {} # Init a dict to hold dimensions
+
+
         if size == 'large':
-            cmd = [ffmpeg,"-i", finput, "-y","-ar","11025", foutput]
+            cmd = ["ffmpeg","-i", finput, "-y","-ar","11025", foutput]
         elif size == 'cropped':
-            cmd = [ffmpeg,"-i",finput,"-y","-fs","100000",foutput]
+            cmd = ["ffmpeg","-i",finput,"-y","-fs","100000",foutput]
         elif size == 'tiny' or size == 'small':
-            fname = os.path.join(foutput, '.'.join([os.path.splitext(os.path.basename(finput))[0],format]))
-            cmd = [ffmpeg, "-i", finput, "-y", "-vframes", "1", "-ss", "5", fname]
+            fname = '/'.join([foutput, os.path.splitext(os.path.basename(finput))[0] + ".png"])
+            cmd = ["ffmpeg", "-i", finput, "-y", "-vframes", "1", "-ss", "15", fname]
         elif size == 'fullsize':
-            fname = os.path.join(foutput, '.'.join([os.path.splitext(os.path.basename(finput))[0],format]))
-            cmd = [ffmpeg, "-i", finput, "-y", "-vframes", "1", "-ss", "5", fname]
+            fname = '/'.join([foutput, os.path.splitext(os.path.basename(finput))[0] + ".jpg"])
+            print fname
+            cmd = ["ffmpeg", "-i", finput, "-y", "-vframes", "1", "-ss", "15", fname]
         else:
-            cmd = [ffmpeg,"-i",finput,"-y","-vframes","180","-an","-s","qqvga",foutput]
-        print cmd
+            cmd = ["ffmpeg","-i",finput,"-y","-vframes","180","-an","-s","qqvga",foutput]
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)      
-        print proc.communicate()[0]
+        verbose = proc.communicate()[0]
         if size == 'tiny': self.crop_to_center(fname, foutput,29,29)
         if size == 'small': self.crop_to_center(fname, foutput,148,148)
         if size == 'fullsize': 
             dimensions = self.sips_get_properties(fname)
             if dimensions: width = dimensions['pixelWidth'] if dimensions.has_key('pixelWidth') else defaultwidth
-            self.sips_resize(fname, foutput, width, 'jpeg')
-        if dimensions: 
-            return foutput, dimensions
-        else:     
-            return foutput
+            self.sips_resize(fname, foutput, width, format)
+
+        if not verbose: # Return the full path AND filename if verbose is set to True
+            if dimensions: 
+                return foutput, dimensions
+            else:     
+                return foutput
+        else:
+            return verbose
         
     def formatDateTime(self, d_input):
         if d_input == '':
