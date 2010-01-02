@@ -479,6 +479,21 @@ class Convert:
             return properties
         else:
             return None
+    
+    def sips_reformat(self, source, target, format):
+        """ Reformats images. See args:
+        1) path to source file
+        2) path to target dir
+        3) format (one of string jpeg | tiff| png | gif | jp2 | pict | bmp | qtif | psd | sgi | tga | pdf)
+
+        """
+        if os.path.exists(source):
+            cmd = ["sips", "--setProperty", "format", format, source, "--out", target]
+            print cmd
+            action = subprocess.Popen(cmd,stdout=subprocess.PIPE).stdout.read()
+            return action
+        else:
+            return None
                   
     def sips_resize(self, source, target, target_width, format):
         """Scales any source to specified width, respecting aspect.
@@ -592,7 +607,7 @@ class Convert:
         """A simple version of the ffmpeg wrapper. Takes input & output, optionally the height/width."""
         if dimensions:
             size = 'x'.join(dimensions)
-            cmd = ["ffmpeg","-i", finput, "-s", size, "-y", "-ar","11025", foutput]
+            cmd = ["ffmpeg","-i", finput, "-s", size, "-y", "-ar","11025", "-b", "800", foutput]
         else:
             cmd = ["ffmpeg","-i", finput, "-y", "-ar","11025", foutput]
         
