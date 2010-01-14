@@ -288,7 +288,7 @@ class Convert:
 
 
     def joinpdf(self, input_list, output_file):
-        """Join list of pdfs to multipage"""
+        """Join list of pdfs to multipage using pyPdf."""
         output = PdfFileWriter()
         for f in input_list:
             input_file = PdfFileReader(file(f, "rb"))
@@ -299,7 +299,7 @@ class Convert:
 
 
     def pdf_get_no_pages(self, input_file):
-        """Return number of pages in a pdf"""
+        """Return number of pages in a pdf using pyPdf."""
         try:
             pdf_input = PdfFileReader(file(input_file, "rb"))
             return pdf_input.getNumPages()
@@ -356,6 +356,7 @@ class Convert:
         
     
     def resize(self, inputfile, outputfile, width=98, height=128):
+        """Resize an image using python CoreGraphics bindings for 32-bit machines"""
         try:
             img = CGImageImport(CGDataProviderCreateWithFilename(inputfile))
         except Exception, inst:
@@ -386,7 +387,8 @@ class Convert:
             return None
             
     def resizeimage(self, srcimage, targetimage, tw, th):
-        """http://lists.apple.com/archives/quartz-dev/2008/Aug/msg00013.html"""
+        """ Resize an image using CoreGraphics python bindings for 32-bit machines.
+        http://lists.apple.com/archives/quartz-dev/2008/Aug/msg00013.html"""
         try:
             srcimg = CGImageImport(CGDataProviderCreateWithFilename(srcimage))
         except Exception, inst:
@@ -481,7 +483,7 @@ class Convert:
             return None
     
     def sips_reformat(self, source, target, format):
-        """ Reformats images. See args:
+        """ Reformats images using sips. See args:
         1) path to source file
         2) path to target dir
         3) format (one of string jpeg | tiff| png | gif | jp2 | pict | bmp | qtif | psd | sgi | tga | pdf)
@@ -496,7 +498,7 @@ class Convert:
             return None
                   
     def sips_resize(self, source, target, target_width, format):
-        """Scales any source to specified width, respecting aspect.
+        """Scales any source to specified width, respecting aspect using sips.
         Takes source (full path), target (can be directory), target_width (string or int), format (one of string jpeg| tiff| png | gif | jp2 | pict | bmp | qtif | psd | sgi | tga )"""
         
         if os.path.exists(source):
@@ -507,7 +509,7 @@ class Convert:
             return None
             
     def crop_to_center(self, source, target, target_width, target_height):
-        """ Scales and then crops source (including a PDF) to center with sips in relation to size.
+        """ Scales and then crops source (including a PDF) to center with sips in relation to size. Uses sips.
         Takes source (full path), target (can be a directory), target_width (string or int), target_height ( string or int)"""     
         
         if os.path.exists(source):           
@@ -534,6 +536,7 @@ class Convert:
             return None
             
     def stats(self, source):
+        """Get some data from an image using PIL."""
         i = Image.open(source)
         i.convert("1")
         i.save(source)
@@ -541,58 +544,7 @@ class Convert:
         for item in i.getdata():
             if not item == (255, 255, 255):
                 print item           
-        
-    def crop_to_top_left(self, source, target, target_width, target_height):
-        """ Crops source (including a PDF) from top left to square. This function uses sips. """
-        # Get all properties in a dict        
-        properties = self.sips_get_properties(source)
-        
-        height = int(properties['pixelHeight'])
-        width = int(properties['pixelWidth'])
                 
-            
-    
-    # def resize_with_quartz(self, source, target, target_width, target_height):
-    #     """ resizes and crops a JPEG (unfinished)"""
-    #     from Quartz import * # Quartz and CoreGraphics don't mix! (because of -- obvious -- namespace conflicts)
-    #     
-    #     d = CGDataProviderCreateWithFilename(source)
-    #     i = CGImageCreateWithJPEGDataProvider(d, None, True, kCGRenderingIntentDefault)
-    #     width = CGImageGetWidth(i)
-    #     height = CGImageGetHeight(i)
-    #     print width, height
-    #     if width > 0 and height > 0:
-    #         aspect = target_width/target_height
-    #         widthfactor = target_width/width  
-    #         heightfactor = target_height/height
-    #         
-    #         if widthfactor < heightfactor:
-    #             #src height stays the same
-    #             #src width gets cropped
-    #             cropwidth = height * aspect
-    #             x1 = int((width-cropwidth)/2)
-    #             y1 = 0
-    #             x2 = int(width-((width-cropwidth)))
-    #             y2 = int(height)
-    #         else:
-    #             #src height gets cropped
-    #             #src width stays the same
-    #             cropheight = width / aspect
-    #             x1 = 0
-    #             y1 = int(((height-cropheight)/2))
-    #             x2 = int(width)
-    #             y2 = int(height-((height-cropheight)))    
-    #         
-    #         cliprect = CGRectMake(x1, y1, x2, y2)
-    #         cropped_image = CGImageCreateWithImageInRect(i, cliprect)
-    #         print cropped_image
-        
-  
-    # def create_quartz_context(self, width, height):
-    #     bitmap_bytes_per_row = int(width * 4)
-    #     bitmap_byte_count = int(bitmap_bytes_per_row * height)
-    #     color_space = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB)
-    #     bitmap_data = malloc(bitmap_byte_count)
     
     def pcopy(self, finput, foutput):
         """ Copies files. Just a simple python wrapper. """
