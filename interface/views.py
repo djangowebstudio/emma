@@ -260,6 +260,7 @@ def doBuildZIP(request):
 
     response = HttpResponse(buffer.getvalue(),mimetype = 'application/zip')
     response['Content-Disposition'] = 'attachment; filename='+strftime("%Y%m%d%H%M%S")+'-'+settings.APP_PUBLIC_NAME+'-download.zip'
+    response['Content-Length'] = buffer.tell()
     buffer.close()
     return response
 
