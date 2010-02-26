@@ -47,8 +47,7 @@ admin.site.register(Metadata, MetadataAdmin)
 
 class KeywordCountAdmin(admin.ModelAdmin):
 	search_fields = ['keyword']
-
-#admin.site.register(KeywordCount, KeywordCountAdmin)
+admin.site.register(KeywordCount, KeywordCountAdmin)
 			
 class ContractAdmin(admin.ModelAdmin):
 	list_display = ('username', 'contract')

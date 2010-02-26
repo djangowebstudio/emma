@@ -1,5 +1,5 @@
 #**************************************************************************************************
-# Geert Dekkers Web Studio 2008, 2009
+# Geert Dekkers Web Studio 2008, 2009, 2010
 # nznl.com | nznl.net | nznl.org INTERNET PRODUCTIONS
 # views.py - django views for emma.interface
 #
@@ -38,6 +38,12 @@ prefix_HR = settings.APP_CONTENT_ROOT
 prefix_LR = settings.GALLERY_ROOT + "/images/"
 
 #--------------------------------------------------------------------------------------------------
+
+if 'USE_AUTH' in dir(settings): 
+    use_auth = settings.USE_AUTH
+else:
+    use_auth = False
+
 @login_required
 def index(request):
     """ Redirects user to first page """
@@ -70,7 +76,7 @@ def index(request):
 
 def ie6(request, action=None): 
     """ Returns a page for internet explorer 6"""
-    # IE6 users can choose to visit EAM regardless of their antiquated browser (but they'll regret it)
+    # IE6 users can choose to visit EMMA regardless of their antiquated browser (but they'll regret it)
     if action == None:
         return render_to_response('ie6.html')
     else:
@@ -173,7 +179,8 @@ def attachment_search(item_id, folder):
     
 @login_required
 def doBuildZIP(request):
-    """Builds zipfile, sends email"""
+    """Builds zip, sends email, returns zip to user. 
+    If the downloaded item is an album, a second zip is built and incorporated into the zip."""
     muser = request.user
     buffer = StringIO()
     zip = zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED)
@@ -260,7 +267,7 @@ def doBuildZIP(request):
 
     response = HttpResponse(buffer.getvalue(),mimetype = 'application/zip')
     response['Content-Disposition'] = 'attachment; filename='+strftime("%Y%m%d%H%M%S")+'-'+settings.APP_PUBLIC_NAME+'-download.zip'
-    response['Content-Length'] = buffer.tell()
+    response['Content-Length'] = buffer.tell() # Get the filesize.
     buffer.close()
     return response
 

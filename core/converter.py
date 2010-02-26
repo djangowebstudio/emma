@@ -17,7 +17,7 @@ There are drawbacks, however. One apparent drawback is that CoreGraphics can't b
 And the interface also seems to be a one-off deal, introduced in 10.3 and supposedly supported by Python 2.3 only
 (but it runs happily in 2.5 anyway).
 
-Future versions of eam must address this issue, possibly by using the Quartz bindings. Here, creating context is the problem.
+Future versions of EMMA must address this issue, possibly by using the Quartz bindings.
 One (easy) way out of this is to use sips (a command line interface to Quartz 2D) through subprocess.
 See also http://en.wikipedia.org/wiki/Quartz_2D and http://delicious.com/geert2705/quartz
 
@@ -29,11 +29,11 @@ from __future__ import division
 import sys, os, shutil
 import unittest
 import subprocess
-try:
-    from CoreGraphics import *
-except:
-    pass
-    
+# try:
+#     from CoreGraphics import *
+# except:
+#     pass
+from CoreGraphics import *    
 from datetime import datetime
 from time import strptime, strftime
 from fnmatch import fnmatch

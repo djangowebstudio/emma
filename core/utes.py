@@ -32,6 +32,14 @@ class LNError(Exception):
 class Utes:
     def __init__(self):
         pass
+        
+    def pcopy(self, finput, foutput):
+        """ Copies files. Just a simple python wrapper. """
+        try:
+            shutil.copy(finput, foutput)
+            return foutput
+        except Exception, inst:
+            logging.error('Error copying item %s %s' % (finput, inst))
     
     def excludes(self, f, excludes):
         """ 

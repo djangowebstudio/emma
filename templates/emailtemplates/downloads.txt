@@ -17,7 +17,7 @@ Onderdelen in albums:
 {% endfor %}
 {% endif %}
 
-Als je deze beelden definitief gebruikt, neem dan tijdig contact op met het BeeldNET-team. Wij checken de fotocredits, copyrights en zorgen voor de evt. financi‘le afhandeling.
+Als je deze beelden definitief gebruikt, neem dan tijdig contact op met het BeeldNET-team. Wij checken de fotocredits, copyrights en zorgen voor de evt. financiele afhandeling.
 
 LET OP: staat hierboven achter het beeld "drukklaar:nee" ? Het duurt dan maximaal 4 dagen om het beeld drukklaar te maken.
 Wij adviseren dit tijdig te laten doen. Wij helpen daar je graag daarbij.

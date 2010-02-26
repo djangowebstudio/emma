@@ -37,10 +37,7 @@ logging.basicConfig(level=logging.DEBUG,
                     filename=settings.APP_LOGS_ROOT + '/fix.log',
                     filemode='w')
 #--------------------------------------------------------------------------------------------------
-try: 
-    import converter
-except Exception, inst:
-    logging.error(inst)
+
 
 
 class Fix:
@@ -179,7 +176,7 @@ class Fix:
     
     def pairFlashComponents(self, flashDict, root, flashComponent, correct=True):
         """ Processes .fla /.swf pairs - renames both, copies the swf to gallery """
-        c = converter.Convert()
+        u = utes.Utes()
         if flashComponent[len(flashComponent)-4:len(flashComponent)] == '.fla':
             
             component_key = self.percent2f_n_bad().sub('-', flashComponent).replace('.fla', '')
@@ -204,7 +201,7 @@ class Fix:
                     logging.error('Error renaming %(fla)s %(inst)s' % {'fla': flashComponent, 'inst': inst})
                     
                 try: 
-                    c.pcopy(oldpath_SWF, newpath_thumbs_SWF)  # First copy the swf to the thumbs dir in gallery, set chmod"
+                    u.pcopy(oldpath_SWF, newpath_thumbs_SWF)  # First copy the swf to the thumbs dir in gallery, set chmod"
                     try: 
                         os.chmod(newpath_thumbs_SWF, 0755)
                     except Exception, inst:

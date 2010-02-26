@@ -8,7 +8,7 @@
 {% endifequal %}
 {% ifnotequal count 0 %}
 <div id="LN-downloadZipLinkContainer">
-	<a title="{% trans 'Click to download the contents of your basket.' %}" class="button" style="font-size: 10px; margin-left: 5px" href="/interface/clients/zip/" onclick="showDownloadMessage()"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;download&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+	<a title="{% trans 'Click to download the contents of your basket.' %}" class="button" style="font-size: 10px; margin-left: 5px" onclick="showDownloadMessage()" href="/interface/clients/zip/"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;download&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
 </div>
 {% endifnotequal %}
 {% for currentItem in itemList%}
