@@ -5,9 +5,9 @@
 fix.py
 
 Created by Geert Dekkers on 2008-01-18.
-Copyright (c) 2008, 2009 Geert Dekkers Web Studio. All rights reserved.
+Copyright (c) 2008, 2009 Geert Dekkers Web Studio, 2010, Django Web Studio. All rights reserved.
 
-unzips, fixes and formats filenames
+unzips, fixes and formats filenames for EMMA.
 
 """
 #**************************************************************************************************

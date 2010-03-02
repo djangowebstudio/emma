@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # encoding: utf-8
 """
-untitled.py
+utes.py
 
 Created by Geert Dekkers on 2008-04-29.
-Copyright (c) 2008 Geert Dekkers Web Studio. All rights reserved.
+Copyright (c) 2008, 2009 Geert Dekkers Web Studio, 2010, Django Web Studio. All rights reserved.
+
+Assorted utilities for EMMA.
 """
 
 import sys, os, re, subprocess, gc, inspect
