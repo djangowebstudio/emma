@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.5
 # encoding: utf-8
 """
 converter.py
@@ -40,7 +40,6 @@ from fnmatch import fnmatch
 import logging
 import mimetypes
 import subprocess
-from PIL import Image
 import utes
 import codecs
 from pyPdf import PdfFileWriter, PdfFileReader
@@ -61,7 +60,7 @@ from pyPdf import PdfFileWriter, PdfFileReader
 class Convert:
     def __init__(self):
         pass
-    
+        
     def convertDocument(self, input_file, output_dir=None):
         '''Convert input file into PDF, using font_size'''
         font_size=12.0 # Get this from settings in a future release
@@ -684,9 +683,21 @@ class ConverterTests(unittest.TestCase):
 
 if __name__ == '__main__':
     c = Convert()
-    for root, dirs, files in os.walk('/Users/geert/Desktop/docs'):
-        for f in files:
-            if not f.endswith('.pdf'):
-                print c.convertDocument(os.path.join(root, f), '/Users/geert/Desktop/tmp')
+    # im1 = Image.open("/Users/geert/Desktop/wachtende-honden-2-copy.png")
+    # im2 = Image.open("/Users/geert/Desktop/wachtende-honden-7.png")
+    b1 = Image.open("/Users/geert/Desktop/05822boudewijnpoelmann.png").histogram()
+    b2 = Image.open("/Users/geert/Desktop/14474npljaarverslag2008.png").histogram()
+    b3 = Image.open("/Users/geert/Desktop/05823boudewijnpoelmann.png").histogram()
+    c1 = Image.open("/Users/geert/Desktop/04639ambassadeurs.png").histogram()
+    # print c.rmsdiff(b1, b1)
+    # print c.rmsdiff(b1, b2)
+    # print c.rmsdiff(b1, b3)
+    # print c.rmsdiff(b1, c1)
+    # im3 = ImageChops.difference(b1, b2)
+    # ImageStat.Stat(ImageChops.difference(im1, im2)).rms
+    # i1 = ImageStat.Stat(im1)
+    #   i2 = ImageStat.Stat(im2)
+    #   print i1.median, i2.median
+    print math.sqrt(reduce(operator.add, map(lambda a,b: (a-b)**2, b1, b3))/len(b1))
 
 
