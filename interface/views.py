@@ -46,33 +46,35 @@ else:
 
 @login_required
 def index(request):
-    """ Redirects user to first page """
+    """ Redirects user to main screen """
+    # Init a dict to hold response data
+    response_data = {'username': request.user.username, 'user': request.user, 'title': settings.APP_PUBLIC_NAME, 'appendix': appendix()}
+    
     # Redirect IE6 users to help page (todo: a browser detection class)
     if request.META['HTTP_USER_AGENT'].find('MSIE 6.0') > -1: 
         try:
             r = User.objects.get(user=request.user.id)
         
             if r.setting2 == 1: 
-                return render_to_response('index.html', {'username': request.user.username, 'title': settings.APP_PUBLIC_NAME, 'appendix': appendix()})
+                return render_to_response('index.html', response_data, context_instance=RequestContext(request))
             else:
                 r.setting2 = 0
                 r.save()
                 return render_to_response('ie6.html')
         except: return render_to_response('ie6.html')
     
-        
     # Check the contract
     if settings.USERS_USE_CONTRACT == 1:
         try:
             c = Contract.objects.get(user=request.user.id)
             if c.contract == 1: 
-                return render_to_response('index.html', {'username': request.user.username, 'title': settings.APP_PUBLIC_NAME, 'appendix': appendix()})     
+                return render_to_response('index.html', response_data, context_instance=RequestContext(request))     
             else:
                 return render_to_response('contract.html', {'user': request.user})
         except Contract.DoesNotExist:
             return render_to_response('contract.html', {'user': request.user})
             
-    else: return render_to_response('index.html', {'username': request.user.username, 'title': settings.APP_PUBLIC_NAME, 'appendix': appendix()})
+    else: return render_to_response('index.html', response_data, context_instance=RequestContext(request))
 
 def ie6(request, action=None): 
     """ Returns a page for internet explorer 6"""

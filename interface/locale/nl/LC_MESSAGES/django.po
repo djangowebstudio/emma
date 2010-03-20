@@ -361,3 +361,15 @@ msgstr "beluister audio"
 
 msgid "view flash media"
 msgstr "bekijk flash"
+
+msgid "Your username and/or password didn't match. Please try again"
+msgstr "Je login en/of wachtwoord is incorrect. Probeer het aub nog eens"
+
+msgid "Or request a new password"
+msgstr "Of vraag een nieuw wachtwoord aan"
+
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+msgid "Password"
+msgstr "Wachtwoord"

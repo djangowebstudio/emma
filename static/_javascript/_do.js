@@ -1637,7 +1637,11 @@ function showSearchSelectMenu(){
 		var m = new Element('div', {id: 'LN-toolbar-searchSelectMenuText-' + pair.key, title: hTitles.get(pair.key)});
 		m.onclick = function(){
 			updateUserSearchSelect(pair.key);
-			$('LN-toolbar-searchbox').value = 'Zoek ' + pair.value;
+			if($('EMMA-toolbar-searchbox-label')){
+        	    $('EMMA-toolbar-searchbox-label').update('Zoek ' + pair.value);
+        	}else{
+			    $('LN-toolbar-searchbox').value = 'Zoek ' + pair.value;
+			}
 			$('LN-toolbar-searchbox').title = hTitles.get(pair.key);
 			$('content').removeChild($('LN-toolbar-searchSelectMenu'));
 			$('LN-toolbar-searchselect-listItem').title = gettext('You have chosen for ') + pair.value;
