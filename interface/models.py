@@ -109,6 +109,9 @@ class Album(models.Model):
 
 	def __unicode__(self):
 		return self.album_name
+		
+	def remove(self):
+	    super(Album, self).remove()
 
 	
 class MDAll(models.Model):
@@ -202,6 +205,10 @@ class Metadata(models.Model):
 	def get_document_path(self): return '%s/%s' % (settings.MEDIA_ROOT, self.document)
 					
 	def thumb(self): return '<img src="%s" />' % os.path.join('/gallery/miniThumbs/', self.image.image_name)
+	
+	def has_attachment(self):
+	    r = True if self.document else False
+	    return r
 		
 	thumb.allow_tags = True
 	

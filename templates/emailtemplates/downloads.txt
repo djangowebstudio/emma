@@ -17,17 +17,15 @@ Onderdelen in albums:
 {% endfor %}
 {% endif %}
 
-Als je deze beelden definitief gebruikt, neem dan tijdig contact op met het BeeldNET-team. Wij checken de fotocredits, copyrights en zorgen voor de evt. financiele afhandeling.
+Als je deze beelden definitief gebruikt, neem dan tijdig contact op met het BeeldNET-team. Wij checken de fotocredits, copyrights en zorgen voor de evt. financiële afhandeling.
 
-LET OP: staat hierboven achter het beeld "drukklaar:nee" ? Het duurt dan maximaal 4 dagen om het beeld drukklaar te maken.
-Wij adviseren dit tijdig te laten doen. Wij helpen daar je graag daarbij.
+Natuurlijk blijven we ook beschikbaar voor het uitvoeren van speciale zoekopdrachten.
 
-Natuurlijk blijven we beschikbaar voor het uitvoeren van speciale zoekopdrachten.
 
 Met vriendelijke groet,
 
 namens het BeeldNET-team,
 
-Claudia Limmen en Bianca Poortman
-E-mail: claudia@schepper.nl, bianca@schepper.nl
+Claudia Limmen en Lotte Molenaar
+E-mail: claudia@schepper.nl, lotte@schepper.nl
 Telefoon: 020 3058813

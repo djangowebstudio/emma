@@ -15,10 +15,10 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Order, OrderAdmin)
 	
 class KeywordAdmin(admin.ModelAdmin):
-	list_filter = ['image_LNID']
-	search_fields = ['image_LNID']
+	list_display = ['image_LNID', 'subject', 'keywords', 'source']
+	search_fields = ['image_LNID', 'subject', 'keywords', 'source']
 
-#admin.site.register(Keyword, KeywordAdmin)
+admin.site.register(Keyword, KeywordAdmin)
 
 
 class MetadataAdmin(admin.ModelAdmin):
@@ -40,7 +40,7 @@ class MetadataAdmin(admin.ModelAdmin):
 	)
 	
 	
-	list_display = ('thumb','image_LNID','subject','copyright','profile','album', 'headline', 'document', 'mime_type')
+	list_display = ('thumb','image_LNID','subject','copyright','profile','album', 'headline', 'has_attachment', 'keywords', 'mime_type')
 	
 
 admin.site.register(Metadata, MetadataAdmin)

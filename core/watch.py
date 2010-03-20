@@ -603,7 +603,8 @@ class Watch:
             m = metadata.Metadata()
             u = utes.Utes()
             for item, item_mtime, item_ctime in changed_files:
-                if item[(len(item)-5):(len(item)-4)] == "." or item[(len(item)-4):(len(item)-3)] == "." or item[(len(item)-3):(len(item)-2)] == ".": # Only files WITH extensions!
+                # Only files WITH extensions!
+                if item[(len(item)-5):(len(item)-4)] == "." or item[(len(item)-4):(len(item)-3)] == "." or item[(len(item)-3):(len(item)-2)] == ".": 
                 
             
                     
