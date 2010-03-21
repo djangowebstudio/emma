@@ -56,7 +56,7 @@ def index(request):
             r = User.objects.get(user=request.user.id)
         
             if r.setting2 == 1: 
-                return render_to_response('index.html', response_data, context_instance=RequestContext(request))
+                return render_to_response('index.html', response_data)
             else:
                 r.setting2 = 0
                 r.save()
@@ -68,13 +68,13 @@ def index(request):
         try:
             c = Contract.objects.get(user=request.user.id)
             if c.contract == 1: 
-                return render_to_response('index.html', response_data, context_instance=RequestContext(request))     
+                return render_to_response('index.html', response_data)     
             else:
                 return render_to_response('contract.html', {'user': request.user})
         except Contract.DoesNotExist:
             return render_to_response('contract.html', {'user': request.user})
             
-    else: return render_to_response('index.html', response_data, context_instance=RequestContext(request))
+    else: return render_to_response('index.html', response_data)
 
 def ie6(request, action=None): 
     """ Returns a page for internet explorer 6"""
