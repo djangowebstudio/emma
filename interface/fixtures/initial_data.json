@@ -1,60 +1,49 @@
 
 
 
+
+
 [
+    
     
     
 	
     
+    
     {
+        
         
         
 		"model": "interface.albumclass",
         
         
+        
 		"pk": 1,
+        
         
         
 		"fields": 
         
+        
         {
+            
             
             
 			"name": "default"
 		
         
+        
         }
         
         
+        
 	
 	
+    
     
     },
     
 
-
-    {
-        
-	
-	"model": "interface.imagecount",
-        
-	"pk": 1,
-        
-	
-	"fields":
-	
-        {
-            
-		"count": 14404
-	
-        }
-        
-	
-	
-
-    }
-    
-    
 
 
 ]
