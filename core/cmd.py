@@ -14,13 +14,13 @@ import sys
 import os
 import unittest
 import subprocess
-
+from pyPdf import PdfFileWriter, PdfFileReader
 
 class Command:
     def __init__(self):
         pass
         
-    def ffmpeg_simple(self, finput, foutput, dimensions=[None,None], verbose=False):
+    def ffmpeg_simple(self, finput, foutput, dimensions=None, verbose=False):
         """A simple version of the ffmpeg wrapper. Takes input & output, optionally the height/width."""
         if dimensions:
             size = 'x'.join(dimensions)
@@ -39,7 +39,8 @@ class Command:
         else:
             return verbose
 
-
+    
+    
 
     def ffmpeg(self, finput, foutput, size="other", defaultwidth=917, format='png', verbose=False):
         """ Converts all sorts of video formats to a clip in .flv format or set of images.
@@ -185,6 +186,20 @@ class Command:
 
         else:
             return None
+
+    def get_pdf_dimensions(self, path):
+        """Get pdf dimensions using pyPdf"""
+        try:
+            pdf = PdfFileReader(file(path, "rb"))
+        except:
+            return None
+        page_list = []
+        if pdf.getNumPages() > 0:
+            for page_number in range(0, pdf.getNumPages()):
+                page = pdf.getPage(page_number)
+                page_list.append({'page': page_number, 'width': page.mediaBox.getLowerRight_x(), 'height': page.mediaBox.getUpperLeft_y()})
+            return page_list
+        else: return None
 
 
 class CommandTests(unittest.TestCase):

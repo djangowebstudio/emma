@@ -619,8 +619,8 @@ class Convert:
             cmd = ["ffmpeg", "-i", finput, "-y", "-vframes", "1", "-ss", "15", fname]
         elif size == 'fullsize':
             fname = '/'.join([foutput, os.path.splitext(os.path.basename(finput))[0] + ".jpg"])
-            print fname
             cmd = ["ffmpeg", "-i", finput, "-y", "-vframes", "1", "-ss", "15", fname]
+            print 'cmd:',  cmd
         else:
             cmd = ["ffmpeg","-i",finput,"-y","-vframes","180","-an","-s","qqvga",foutput]
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)      
