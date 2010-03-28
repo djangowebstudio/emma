@@ -561,8 +561,8 @@ class Convert:
             cmd = ["ffmpeg","-i", finput, "-s", size, "-y", "-ar","11025", "-b", "800", foutput]
         else:
             cmd = ["ffmpeg","-i", finput, "-y", "-ar","11025", foutput]
-        
-        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)      
+        print cmd
+        proc = subprocess.Popen(cmd, shell=True)      
         verbose = proc.communicate()[0]
         
         if not verbose: # Return the full path AND filename if verbose is set to True
@@ -683,21 +683,22 @@ class ConverterTests(unittest.TestCase):
 
 if __name__ == '__main__':
     c = Convert()
-    # im1 = Image.open("/Users/geert/Desktop/wachtende-honden-2-copy.png")
-    # im2 = Image.open("/Users/geert/Desktop/wachtende-honden-7.png")
-    b1 = Image.open("/Users/geert/Desktop/05822boudewijnpoelmann.png").histogram()
-    b2 = Image.open("/Users/geert/Desktop/14474npljaarverslag2008.png").histogram()
-    b3 = Image.open("/Users/geert/Desktop/05823boudewijnpoelmann.png").histogram()
-    c1 = Image.open("/Users/geert/Desktop/04639ambassadeurs.png").histogram()
-    # print c.rmsdiff(b1, b1)
-    # print c.rmsdiff(b1, b2)
-    # print c.rmsdiff(b1, b3)
-    # print c.rmsdiff(b1, c1)
-    # im3 = ImageChops.difference(b1, b2)
-    # ImageStat.Stat(ImageChops.difference(im1, im2)).rms
-    # i1 = ImageStat.Stat(im1)
-    #   i2 = ImageStat.Stat(im2)
-    #   print i1.median, i2.median
-    print math.sqrt(reduce(operator.add, map(lambda a,b: (a-b)**2, b1, b3))/len(b1))
+    # # im1 = Image.open("/Users/geert/Desktop/wachtende-honden-2-copy.png")
+    # # im2 = Image.open("/Users/geert/Desktop/wachtende-honden-7.png")
+    # b1 = Image.open("/Users/geert/Desktop/05822boudewijnpoelmann.png").histogram()
+    # b2 = Image.open("/Users/geert/Desktop/14474npljaarverslag2008.png").histogram()
+    # b3 = Image.open("/Users/geert/Desktop/05823boudewijnpoelmann.png").histogram()
+    # c1 = Image.open("/Users/geert/Desktop/04639ambassadeurs.png").histogram()
+    # # print c.rmsdiff(b1, b1)
+    # # print c.rmsdiff(b1, b2)
+    # # print c.rmsdiff(b1, b3)
+    # # print c.rmsdiff(b1, c1)
+    # # im3 = ImageChops.difference(b1, b2)
+    # # ImageStat.Stat(ImageChops.difference(im1, im2)).rms
+    # # i1 = ImageStat.Stat(im1)
+    # #   i2 = ImageStat.Stat(im2)
+    # #   print i1.median, i2.median
+    # print math.sqrt(reduce(operator.add, map(lambda a,b: (a-b)**2, b1, b3))/len(b1))
+    
 
 
