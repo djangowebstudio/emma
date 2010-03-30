@@ -13,9 +13,6 @@
 		<img title="copyright onbekend"  style="cursor: help;" src="/s/_img_interface/ln-copyright-icon-dontknow.gif" border="0" alt="copyright don't know" />
 		{% endifequal %}
 		
-		{% ifequal pg.profile 0 %}
-		<img title="niet drukklaar - 4 werkdagen levertijd" style="cursor: help;" src="/s/_img_interface/bn-exclamation-mark.png" width="10" height="10" alt="niet drukklaar - 4 werkdagen levertijd" />
-		{% endifequal %}
 		<span style="cursor: help" title="{{group_name|safe}}">{{group_name|safe|truncatewords:1}}</span><span>{{pages|cut:"<"|cut:">"}}</span>
 		<div class="pagables" style="height:74px; overflow: visible">
 			
