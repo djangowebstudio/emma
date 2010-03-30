@@ -13,10 +13,6 @@
 	{% ifequal pg.cright None %}
 	<img title="{% trans 'copyright unknown' %}"  style="cursor: help;" src="/s/_img_interface/copyright-dontknow.png?{{appendix}}" border="0" alt="copyright don't know" />
 	{% endifequal %}
-
-	{% ifequal pg.profile 0 %}
-	<img title="{% trans 'not yet ready for printing -- this image needs profiling' %}" style="cursor: help;" src="/s/_img_interface/exclamation-mark.png?{{appendix}}" width="10" height="10" alt="niet drukklaar - 4 werkdagen levertijd" />
-	{% endifequal %}
 	
 	{% if pg.document %}
 	<img title="{% trans 'this item has an attachment' %}" src="/s/_img_interface/attachment.png" border="0" width="10" height="10" alt="Attachment" />
