@@ -43,6 +43,7 @@ import subprocess
 import utes
 import codecs
 from pyPdf import PdfFileWriter, PdfFileReader
+import Image
 #--------------------------------------------------------------------------------------------------
 # Logging (disabled - uncomment to enable logging for this script)
 # The logging calls here are handled by the caller. Only uncomment if you wish to debug this
@@ -434,7 +435,8 @@ class Convert:
         if os.path.exists(source):
             try:
                 i = Image.open(source)
-            except:
+            except Exception, inst:
+                logging.error(inst)
                 return None
             width, height = i.size
             if width > 0 and height > 0:
@@ -681,24 +683,8 @@ class ConverterTests(unittest.TestCase):
         pass
         
 
-if __name__ == '__main__':
-    c = Convert()
-    # # im1 = Image.open("/Users/geert/Desktop/wachtende-honden-2-copy.png")
-    # # im2 = Image.open("/Users/geert/Desktop/wachtende-honden-7.png")
-    # b1 = Image.open("/Users/geert/Desktop/05822boudewijnpoelmann.png").histogram()
-    # b2 = Image.open("/Users/geert/Desktop/14474npljaarverslag2008.png").histogram()
-    # b3 = Image.open("/Users/geert/Desktop/05823boudewijnpoelmann.png").histogram()
-    # c1 = Image.open("/Users/geert/Desktop/04639ambassadeurs.png").histogram()
-    # # print c.rmsdiff(b1, b1)
-    # # print c.rmsdiff(b1, b2)
-    # # print c.rmsdiff(b1, b3)
-    # # print c.rmsdiff(b1, c1)
-    # # im3 = ImageChops.difference(b1, b2)
-    # # ImageStat.Stat(ImageChops.difference(im1, im2)).rms
-    # # i1 = ImageStat.Stat(im1)
-    # #   i2 = ImageStat.Stat(im2)
-    # #   print i1.median, i2.median
-    # print math.sqrt(reduce(operator.add, map(lambda a,b: (a-b)**2, b1, b3))/len(b1))
-    
-
+if __name__ == '__main__': pass
+    # c = Convert()
+    # # c.resize('/Users/geert/Sites/detsdesign/gallery/images/10202wachtendehonden.jpg','/Users/geert/Sites/detsdesign/gallery/albums/10202wachtendehonden.jpg', 148, 148 )
+    # c.resize_with_sips('/Users/geert/Sites/detsdesign/gallery/images/10202wachtendehonden.jpg', '/Users/geert/Sites/detsdesign/gallery/albums/10202wachtendehonden.jpg', 148, 148)
 
