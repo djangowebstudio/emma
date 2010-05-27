@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # encoding: utf-8
 #**************************************************************************************************
-# Geert Dekkers Web Studio 2008, 2009 info@nznl.net
-# nznl.com | nznl.net | nznl.org INTERNET PRODUCTIONS
-# watch.py
+# Geert Dekkers Web Studio 2008, 2009, Django Web Studio 2010, info@djangowebstudio.nl
+# 
+# watch.py for EMMA
 #**************************************************************************************************
 """
 EMMA (Easy Media Management Application)
-Administer your image sharing webapp through a fileserver share.
+Administer your image sharing webapp through a fileserver share on your macosx 10.5 client or server.
 
 Watches over the content - updates, inserts, deletes, and more. Sees to it that the database
 accurately reflects the content directory tree at settings.APP_CONTENT_ROOT.
@@ -16,44 +16,34 @@ Watch works in concurrence with fix and generatekeywords.
 1.  Fixes spaces in filenames and directories
 2.  Converts PDF, EPS, AI, PNG, PSD to JPG
 3.  Resizes JPG's for use as thumbs and minithumbs
-4.  Converts avi, mpg, mov, wmv to flv
+4.  Converts avi, mpg, mov, wmv and more to flv
 5.  From paired .fla / .swf files, moves .swf to gallery.
 
-Note: Currently, files orphaned outside a directory will be skipped. So all files need to be
-within a last directory in the path.
+--------------
+DEPLOYING EMMA
+--------------
 
-THIS APP SHOULD BE RUNNING AT ALL TIMES
-watch.py is normally started as a launchd item. See 5 and 6
+1.  EMMA is a set of django apps. It needs to be deployed to a project to work (at all!). So the first
+    step is to start a project and add stub files for watch, generatekeywords, fix and converter. You'll
+    also need to add a urls.py. (sorry, no installer yet!)
 
-Getting the app up and running might take some time, as the database entries have to be checked
-to find out if anything's been changed in the time the app was offline.
+2.  In settings, change APP_CONTENT_ROOT to reflect the living quarters of your content. Or
+    move your content to where APP_CONTENT_ROOT points to. Configure your template & static paths.
+    Override templates & statics locally if you wish.
 
-watch.py can also build a new site from a directory tree of images as specified above:
-
-1.  Open settings, and check the database, user and password. Create if need be.
-
-2.  From within the django app root (here, this is LN), run "python manage.py syncdb". All tables
-    will now be created. You will be prompted to create at least one user.
-
-3.  In settings, change APP_CONTENT_ROOT to reflect the living quarters of your content. Or
-    move your content to where APP_CONTENT_ROOT points to.
-
-4.  Edit APP_ROOT to match the path to your django app. Also, have a look at the other paths.
-
-5.  From within the django project root, run script/load -f, and leave it running. Refer to
-    fix's log to check the progress. Wait for the log to no longer mention files being processed
-    before going on to the next step.
-    
+3.  From within the django project root, run script/load -f, and leave it running. (you will need admin 
+    premissions for this).
+    Refer to fix's log at /Library/Logs/[project name]/fix.log to check the progress. Wait for files to 
+    be processed before going on to the next step.
     Fix will fix filenames, renaming as needed to comply with workflow policy. And does heaps
     of other useful stuff. Please refer to the programmer's notes in Fix's header.
-    Fix is set to a 60 second interval. Change if needed. IMPORTANT NOTE: Before running, set
-    images_imagecount.count to a five digit  number, i.e. 10000. NOT to something like 00001:
-    python will disregard the leading 0's.
+    Set interval at in app settings. IMPORTANT NOTE: Before running, the fixture will set
+    images_imagecount.count to a five digit  number, i.e. 10000.
 
-6.  Run "script/load -l". Your site will now be filled. This could take quite long, depending on your content.
+4.  Run "script/load -l". Your site will now be filled. This could take quite long, depending on your content.
     Make sure script/load is running at all times. While running, watch.py will watch over your content
-    as described above. It is set to rescan settings.APP_ROOT_CONTENT at a 360 second interval.
-    This may be freely altered in settings, but restart using script/load -r to apply changes.
+    as described above. It is set to rescan settings.APP_ROOT_CONTENT at an interval as set in settings.py.
+    This may be freely altered, but restart using script/load -r to apply changes.
 
 """
 
@@ -89,10 +79,9 @@ gallery_thumbs = settings.GALLERY_ROOT + '/thumbs/'
 gallery_minithumbs = settings.GALLERY_ROOT + '/miniThumbs/'
 gallery_albums = settings.GALLERY_ROOT + '/albums/'
 
-if 'APP_CONTENT_TMP' in dir(settings):
-    tmp = settings.APP_CONTENT_TMP
-else:
-    tmp = False
+
+# Get a value for the tmp variable    
+tmp = getattr(settings, 'APP_CONTENT_TMP', False)
 
 #--------------------------------------------------------------------------------------------------
 

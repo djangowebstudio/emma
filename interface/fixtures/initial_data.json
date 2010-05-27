@@ -1,49 +1,10 @@
-
-
-
-
-
 [
-    
-    
-    
-	
-    
-    
     {
-        
-        
-        
-		"model": "interface.albumclass",
-        
-        
-        
-		"pk": 1,
-        
-        
-        
-		"fields": 
-        
-        
+        "model": "interface.albumclass",
+        "pk": 1,
+        "fields": 
         {
-            
-            
-            
-			"name": "default"
-		
-        
-        
+            "name": "default"
         }
-        
-        
-        
-	
-	
-    
-    
-    },
-    
-
-
-
+    }
 ]

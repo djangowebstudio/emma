@@ -39,10 +39,9 @@ prefix_LR = settings.GALLERY_ROOT + "/images/"
 
 #--------------------------------------------------------------------------------------------------
 
-if 'USE_AUTH' in dir(settings): 
-    use_auth = settings.USE_AUTH
-else:
-    use_auth = False
+
+    
+use_auth = getattr(settings, 'USE_AUTH', False)
 
 @login_required
 def index(request):
@@ -95,7 +94,10 @@ def stock(request):
     return render_to_response('stock.html')
 
 def buildZippedFolder(username, itemObj, zip_filename, album):
-    """Builds a zip file from a Folder, updates orders table. Note that you'll need to be able to write to the packages folder. See settings.APP_PACKAGES_ROOT"""
+    """
+    Builds a zip file from a Folder, updates orders table. Note that you'll need to be able to write to 
+    the packages folder. See settings.APP_PACKAGES_ROOT.
+    """
     clientImage = '.'.join([username,album.album_identifier])
     zip_path = settings.APP_PACKAGES_ROOT + "/" + zip_filename
     try:
