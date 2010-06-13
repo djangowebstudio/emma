@@ -61,7 +61,7 @@ class KeywordCountAdmin(admin.ModelAdmin):
 admin.site.register(KeywordCount, KeywordCountAdmin)
 			
 class ContractAdmin(admin.ModelAdmin):
-	list_display = ('username', 'contract')
+	list_display = ('username', 'contract', 'date_signed')
 	search_fields = ['username']
 		
 admin.site.register(Contract, ContractAdmin)

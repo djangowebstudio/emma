@@ -313,7 +313,7 @@ class Author(models.Model):
 	notes = models.TextField()
 	
 class ImageCount(models.Model):
-	"""Represents the last EAM filename system number.
+	"""Represents the last EMMA filename system number.
 	Is retrieved and updated by fix.py"""
 	count = models.IntegerField(default=0)
 
@@ -356,6 +356,7 @@ class Contract(models.Model):
 	user = models.IntegerField(default=0)
 	contract = models.IntegerField(default=0)
 	username = models.CharField(max_length=255)
+	date_signed = models.DateField(auto_now=True)
 	
 	def __unicode__(self):
 		return self.username
