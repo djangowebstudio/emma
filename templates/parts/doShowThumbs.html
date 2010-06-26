@@ -3,7 +3,7 @@
 {% load i18n %}
 {% block content %}
 <ul id="LN-pager" class="LN-pager-positioned">
-<li  id="show-hide-albums-pref-interface" class="active" {% ifequal groups 0 %} title="{% trans 'Group items in albums' %}" onclick="albums.show()" {% else %}  title="{% trans 'No grouping of items in albums' %}" onclick="albums.hide()" {% endifequal %}>{{albumpref}}</li>
+<li id="show-hide-albums-pref-interface" class="active" {% ifequal groups 0 %} title="{% trans 'Group items in albums' %}" onclick="albums.show()" {% else %}  title="{% trans 'No grouping of items in albums' %}" onclick="albums.hide()" {% endifequal %}>{{albumpref}}</li>
 <li id="images-user-sorting-pref-interface" class="active" style="margin-right: 5px" {% ifequal sortpref 0 %} onclick="sort.asc('{{match}}','{{cat}}',{{weeks}},{{first_page}})" {% else %} onclick="sort.desc('{{match}}','{{cat}}',{{weeks}},{{first_page}})" {% endifequal %}>{{order}}</li>
 {% if has_prev %}
 <li class="active" onclick="doShowThumbs('{{match}}','{{cat}}',{{weeks}},{{first_page}},{{groups}})"> &lt;&lt; </li>
