@@ -6,7 +6,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-	<title>untitled</title>
+	<title>beeldnet test search</title>
 	
 </head>
 
@@ -23,6 +23,9 @@
 	        </tr>
 	    </table>
 	{% if sqs %}{% trans "did you mean" %} <a href="{% url emma.search.views.search %}?q={{sqs}}">{{sqs}}</a>?{% endif %}
+	<a id="cr_no" href="{% url haystack_search_cr_no %}">{% url haystack_search_cr_no %}</a>
+	<a id="cr_yes" href="{% url haystack_search_cr_yes %}">{% url haystack_search_cr_yes %}</a>
+	<a href="{% url search %}">{% url search %}</a>
 	{% if page.has_previous or page.has_next %}
 	            <div style="float: right">
 				<div>{{paginator.count}} {% trans "results" %}</div>
@@ -32,7 +35,7 @@
 	            </div>
 	{% endif %}
 	</div>
-	<hr style="clear: all">
+	<hr style="clear: all" />
 	    {% if query %}
 
 			<div style="min-height: 420px">        
@@ -49,5 +52,15 @@
 	        {# Show some example queries to run, maybe query syntax, something else? #}
 	    {% endif %}
 	</form>
+	<div style="clear: all"></div>
+	<hr>
+	<h3>{% trans "More like this" %}</h3>
+	{% if mlt %}
+	{% more_like_this mlt as related limit 10 %}
+	{% for image in related %}
+	<img src="/gallery/thumbs/{{image.image_LNID}}.jpg" />
+	{% endfor %}
+	{% endif %}
+	
 </body>
 </html>
