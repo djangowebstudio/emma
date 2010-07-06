@@ -5,3 +5,5 @@
 {{object.keywords}}
 {{object.location}}
 {{object.copyright}}
+{{object.image_LNID}}
+{{object.source}}

@@ -46,6 +46,8 @@
 	            <div style="float: left; margin-right: 7px; width: 148px; height: 210px">
 	                <a href="{{ result.object.get_absolute_url }}"><img src="/gallery/thumbs/{{ result.object.image_LNID }}.jpg" /></a><br>
 					{% highlight result.object.keywords with query %}<br>
+					{% highlight result.object.image_LNID with query %}<br>
+					{% highlight result.object.source with query %}<br>
 					{{result.object.copyright}}
 	            </div>
 	        {% empty %}
