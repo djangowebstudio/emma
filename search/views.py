@@ -11,10 +11,11 @@ class EmmaSearchView(SearchView):
     def extra_context(self):
         sqs = super(EmmaSearchView, self).extra_context()
         sqs['sqs'] = SearchQuerySet().auto_query(self.query).spelling_suggestion()
-        try:
-            sqs['mlt'] = Metadata.objects.filter(keywords__contains=self.query)[0]
-        except:
-            sqs['mlt'] = ''
+        if self.query:
+            try:
+                sqs['mlt'] = Metadata.objects.filter(keywords__contains=self.query)[0]
+            except:
+                sqs['mlt'] = ''
         
         return sqs
 
