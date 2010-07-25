@@ -24,11 +24,11 @@ class Command:
         """A simple version of the ffmpeg wrapper. Takes input & output, optionally the height/width."""
         if dimensions:
             size = 'x'.join(dimensions)
-            cmd = ["ffmpeg","-i", finput, "-s", size, "-y", "-ar","11025", "-b", "800", foutput]
+            cmd = [ 'ffmpeg ', '-i', finput,  '-s', size,  '-y',  '-ar', '11025',  '-b',  '800', foutput]
         else:
-            cmd = ["ffmpeg","-i", finput, "-y", "-ar","11025", foutput]
+            cmd = [ 'ffmpeg', '-i', finput,  '-y',  '-ar', '11025', foutput]
         print cmd
-        proc = subprocess.Popen(cmd, shell=True)      
+        proc = subprocess.Popen(cmd)      
         verbose = proc.communicate()[0]
 
         if not verbose: # Return the full path AND filename if verbose is set to True
