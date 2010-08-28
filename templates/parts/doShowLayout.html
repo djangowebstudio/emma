@@ -1,3 +1,6 @@
+{% load images_extras %}
+{% load comments %}
+{% load i18n %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,16 +13,22 @@
 	<title>{{title}}</title>
 	<link rel="shortcut icon" href="/s/_img_interface/favicon.ico" />
 	<link rel="stylesheet" href="/s/_css/_common.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+	<script src="/s/_javascript/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(function(){
+			$('input#id_name').val('{{request.user.first_name}} {{request.user.last_name}}');
+			$('input#id_email').val('{{request.user.email}}');
+			$('input#id_url').closest('p').hide();
+		})
+	</script>
+	
 </head>
 <body>
-
-{% load images_extras %}
-
 <div style="margin-top: 42px">
-	<div style="float: left; border: 1px solid #ddccdd">
+	<div class="description-image" style="">
 		<img src="/gallery/images/{{item}}.jpg" width="350" border="0" />
 	</div>
-	<div style="float: right; width: 297px; overflow: auto;">
+	<div class="description-layout" style="">
 	
 	{% for mdict in dataDict %}
 
@@ -77,11 +86,21 @@
 	<div class="content_news_header">Trefwoorden</div>
 	<div class="content_news_body"> {{ mdict.keywords|safe }}</div>
 	{% endif %}
-
-
-
 	{% endfor %}
-
+	
+		<div class="comments">	
+			<h2>Commentaar</h2>
+			<p>Gebruikers kunnen hier op- en aanmerkingen plaatsen over dit beeld.</p>
+			{% get_comment_list for m as comment_list %}
+			{% for comment in comment_list %}
+				 <dl>
+					 <dt>{{comment.submit_date|date:"D j-M-y"|lower}} {% trans "door" %}{% if comment.user_name %} {{comment.user_name}}{% else %}{% trans 'Anoniem' %}{% endif %}</dt>
+					 <dd>{{comment.comment}}</dd>
+				 </dl>
+			 {% endfor %}
+			<p>Wil je ook een opmerking plaatsen? Stuur een bericht!</p>
+			{% render_comment_form for m %}
+		</div>
 	</div>
 </div>
 </body>

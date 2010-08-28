@@ -1,0 +1,6 @@
+{% load images_extras %}
+<ul>
+{% for f in first %}
+<li><a title="{{f}}" href="/column/get/{{key}}/{{f}}/">{{f|truncate:15}}</a></li>
+{% endfor %}
+</ul>

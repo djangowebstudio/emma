@@ -13,7 +13,7 @@ import datetime
 from time import strftime
 from operator import itemgetter
 from django.http import HttpResponse, HttpResponseRedirect
-from django.template import Context, loader, Template
+from django.template import Context, loader, Template, RequestContext
 from django.shortcuts import render_to_response, get_list_or_404
 from emma.interface.models import *
 from django.http import Http404
@@ -389,6 +389,7 @@ def doShowData(request, item, t):
     dataDict = {}  # Initiate a dict
     
     try:
+        m = Metadata.objects.get(image_LNID=item)
         dataDict = Metadata.objects.filter(image_LNID=item).values('subject', 'description', 'location', 'source', 'datetimeoriginal', 'softdate', 'keywords', 'credit', 'creator', 'instructions')
         
         for d in dataDict:
@@ -402,11 +403,11 @@ def doShowData(request, item, t):
         except Exception, inst:
             i = 1
             
-        return render_to_response(template, {'dataDict' : dataDict, 'i': i, 'item': item})
+        return render_to_response(template, {'m': m, 'dataDict' : dataDict, 'i': i, 'item': item}, context_instance=RequestContext(request))
     except Exception, inst:
         
         dataDict = {_('Exception'): _('no information')}
-        return render_to_response(template, {'dataDict' : dataDict, 'item': item})
+        return render_to_response(template, {'dataDict' : dataDict, 'item': item}, context_instance=RequestContext(request))
 
 
     

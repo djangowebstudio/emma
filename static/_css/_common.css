@@ -831,3 +831,61 @@ div.LN-lightwindow-thumbnailContainer img:hover{
 }
 
 /* end extended lightwindow */
+
+/*=============== data layout ===================*/
+
+div.description-image{
+    float: left; border: 1px solid #ddccdd; width: 350px;
+}
+
+
+/*========= comments =============*/
+
+
+div.description-layout{
+    float: left; width: 333px; overflow: auto; padding-left: 11px; margin-left: 11px; border-left: 1px solid #ff3300;
+}
+
+div.description-layout div.comments{
+   
+    
+}
+
+div.description-layout div.comments h2{
+    color: #FF3300;
+}
+
+div.description-layout div.comments h2:hover{
+    
+}
+
+div.description-layout div.comments dt{
+    color: #444;
+    padding-top: 11px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+div.description-layout div.comments dd{
+    margin-left: 0px;
+    background: #eee;
+    padding: 11px;
+    border: 1px solid #ddccdd;
+}
+
+div.description-layout div.comments label{
+    display: block;
+    float: left;
+    width: 148px;
+}
+
+div.description-layout div.comments dt.comment-form-title{
+    background: #fff;
+    color: #444;
+    text-transform: uppercase;
+    border: none;
+    margin-bottom: 11px;
+}
+div.description-layout div.comments textarea#id_comment{
+    width: 98%;
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" href="/s/_css/_common.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<script src="/s/_javascript/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(function(){
+			$('input#id_url').closest('p').hide();
+		})
+	</script>
+	
+</head>
+<body>
+	<div class="description-image" style="height: 100%"></div>
+	<div class="description-layout">
+		<div class="comments">
+	  		{% block content %}{% endblock %}
+		</div>
+	</div>
+</body>
+</html>

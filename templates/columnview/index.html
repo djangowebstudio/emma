@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>beeldnet column view</title>
+	<link rel="shortcut icon" href="/s/_img_interface/favicon.ico" />
+	<link rel="stylesheet" href="/s/_css/_common.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+	<script src="{{MEDIA_URL}}_javascript/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(function(){
+			var range = {{range}};
+			for (i=0; i <= range; i++ ){
+			var url = '/column/get/' + i + '/' + '{{search}}' + '/';
+			 	$('<div/>').attr({'id': i}).appendTo($('div#columns')).load(url);
+			}			
+		});
+	</script>
+	
+<style type="text/css" media="screen">
+	div#columns div{
+		float: left;
+		border-right: 1px solid silver;
+	}
+	div#columns ul{
+		padding: 0 0 0 0;
+		margin: 0 0 0 0;
+	}
+	div#columns ul li{
+		list-style: none;
+		margin: 0 0 0 0;
+		padding: 0 5px 0 5px;
+	}
+</style>
+</head>
+
+<body>
+<div id="columns"></div>
+</body>
+</html>
