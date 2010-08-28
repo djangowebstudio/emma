@@ -1,5 +1,9 @@
 {% load images_extras %}
 {% load i18n %}
+{% load comments %}
+{% if pg.md %}
+{% get_comment_count for pg.md as comment_count %}
+{% endif %}
 <div id="{{pg.album.album_identifier}}-{{pg.image_LNID}}-icons" style="position: absolute; top: 7px; left: 7px; background-color: white; height: 10px; -webkit-border-radius: 5px;-moz-border-radius: 5px; border: 1px solid white">
 	
 	{% ifequal pg.cright 1 %}
@@ -17,6 +21,11 @@
 	{% if pg.document %}
 	<img title="{% trans 'this item has an attachment' %}" src="/s/_img_interface/attachment.png" border="0" width="10" height="10" alt="Attachment" />
 	{% endif %}
+	
+	{% if pg.md %}
+	<a title="{{pg.image_LNID}}" style="text-decoration: none; cursor: pointer; color: #23918C" id="{{pg.image_LNID}}-comment" class="lightwindow" params="lightwindow_type=external" href="/interface/show/description/{{pg.image_LNID}}/1/">{{comment_count}} comment{{comment_count|pluralize:"s"}}</a>
+	{% endif %}
+	
 	<img title="{% trans 'Add this item to your favorites'%}" style="cursor: pointer" onclick="favorites.add('{{pg.image_LNID}}')" src="/s/_img_interface/arrow-down.png" border="0" width="10" height="10" alt="{% trans 'Add this item to your favorites'%}" />
 	<img title="{% trans 'Add this item to your basket'%}" style="cursor: pointer" onclick="createEntry('{{pg.image_LNID}}')" src="/s/_img_interface/arrow.png" border="0" width="14" height="10" alt="{% trans 'Add this item to your basket'%}" />
 	

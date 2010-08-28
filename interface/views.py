@@ -568,10 +568,12 @@ def doShowThumbs(request,match,cat,weeks=0,page=1,groups=1):
         i.image_name = a.image_name
         if groups == 1:
             if get_album(a,i): i = get_album(a,i)
+            i.md = Metadata.objects.get(image=i)
         else:
             try:
-                i.document = Metadata.objects.get(image=i).document
-            except: pass
+                i.md = Metadata.objects.get(image=i)
+            except: 
+                i.md = None
             
     
 
@@ -628,7 +630,7 @@ def doShowAlbumContents(request, album, div):
             item.document = m.document
         a.content = content
     
-        return render_to_response('parts/doShowAlbumContents.html', {'album': a, 'div': div},context_instance=RequestContext(request))
+        return render_to_response('parts/doShowAlbumContents.html', {'album': a, 'div': div, 'm': m},context_instance=RequestContext(request))
     except Exception, inst:
         return render_to_response('parts/doShowAlbumContents.html', {'debug': inst})
     
