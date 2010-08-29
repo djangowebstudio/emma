@@ -424,8 +424,13 @@ a.button:active div {
 a.button:hover div{
 	color: #ff2b00;
 }
+
+div.LN-toolbar-cart-basketname-header{
+    margin: auto;
+    width: 115px;
+}
 p.LN-toolbar-cart-basketname-info{
-    margin: 0 auto 0 5px;
+    margin: 0 0 0 0;
 }
 div#LN-toolbar-cart-basketname{
     background: #eee;
@@ -434,9 +439,14 @@ div#LN-toolbar-cart-basketname{
     border-radius: 5px;
     border: 1px solid #ddccdd;
 }
+div.LN-toolbar-cart-basketname-header h3{
+    margin: 0 0 0 0;
+    color: #ff3300;
+}
 
 div#LN-toolbar-cart-basketname input, div#LN-toolbar-cart-basketname p, div#LN-toolbar-cart-basketname select{
-    width: 115px;
+    width: 98%;
+    margin: auto;
 }
 div#LN-toolbar-cart-basketname p{
     font-size: 10px;

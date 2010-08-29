@@ -220,8 +220,12 @@ div.LN-toolbar-cart-usermessage{
 	width: 105px; 
 	color: #777; 
 	font-weight: bold; 
-	height:210px;
+	height:74px;
 	padding-top: 21px;
 	padding-left: 11px;
 	text-align: center
+}
+
+div.LN-toolbar-cart-footer{
+    clear: both; font-size: 9px; color: #332233; position:relative;top: -5px; margin-left: 11px; margin-top: 21px;
 }

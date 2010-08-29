@@ -20,7 +20,7 @@ class ImageAdmin(admin.ModelAdmin):
 admin.site.register(Image, ImageAdmin)
 	
 class OrderAdmin(admin.ModelAdmin):
-	list_display = ('image_LNID', 'client', 'status', 'ts')
+	list_display = ('image_LNID', 'client', 'project', 'is_published', 'ts')
 	search_fields = ['client']
 	
 admin.site.register(Order, OrderAdmin)

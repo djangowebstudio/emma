@@ -346,6 +346,7 @@ def doCreateEntry(request, item, album=None):
     """Creates entry in basket"""
     muser = request.user
     currentItem = Image.objects.get(image_LNID=item)
+    current_project = User.objects.get(user=muser.id).current_project
     
     if album:
         a = Album.objects.get(album_identifier=album)   
@@ -359,8 +360,18 @@ def doCreateEntry(request, item, album=None):
     clientImage = muser.username + "." + item
     
     try:
-        obj, created = Order.objects.get_or_create(image=currentItem,image_LNID=currentItem.image_LNID, client=muser.username, clientImage=clientImage, group_name=currentItem.group_name, album_identifier=currentItem.album_identifier,status=0, resolution='HR')
-        if created == True:
+        obj, created = Order.objects.get_or_create(
+                                                    image=currentItem,
+                                                    image_LNID=currentItem.image_LNID, 
+                                                    client=muser.username, 
+                                                    clientImage=clientImage, 
+                                                    group_name=currentItem.group_name, 
+                                                    album_identifier=currentItem.album_identifier,
+                                                    status=0, 
+                                                    resolution='HR',
+                                                    project=current_project
+                                                    )
+        if created:
             resp = _('%(item)s is in your basket') % {'item' : item if len(currentItem.group_name) == 0 else currentItem.group_name }   
         else:
             resp = _('%(item)s already here!') % {'item':item if len(currentItem.group_name) == 0 else currentItem.group_name }
@@ -374,6 +385,7 @@ def doCreateEntry(request, item, album=None):
             i.group_name = currentItem.group_name
             i.album_identifier = currentItem.album_identifier
             i.resolution = 'HR'
+            i.project = current_project
             i.save()
             resp = _('%(item)s had been downloaded (more than) once already.') % {'item': i.image_LNID if len(currentItem.group_name) == 0 else currentItem.group_name }
         except Exception, inst:
@@ -1256,3 +1268,20 @@ def doShowYears(request):
         return HttpResponse(inst)
                 
 def appendix(): return int(time.time())
+
+@login_required
+def manage(request):
+    """Manage downloads"""
+    items = Order.objects.filter(client=request.user).exclude(status=0).order_by('project').order_by('-ts')
+    return render_to_response('manage.html', {'items': items}, context_instance=RequestContext(request))
+    
+def toggle(request, order_id):
+    """Toggle order is_published switch"""
+    order = Order.objects.get(id=order_id)
+    if order.is_published == False:
+        order.is_published = True
+    else:
+        order.is_published = False
+    
+    order.save()
+    return HttpResponse(_('successfully toggled published status'))

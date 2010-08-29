@@ -1,0 +1,48 @@
+{% load i18n %}
+{% load images_extras thumbnail %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Geert Dekkers Web Studio, 2008, 2009, Django Web Studio 2010" />
+    <meta name="robots" content="noindex, nofollow" />  
+    <title>{% trans "manage your downloads" %} -- {{request.user}}</title>
+    <link rel="shortcut icon" href="/s/_img_interface/favicon.ico" />
+    <link rel="stylesheet" href="/s/_css/_common.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+    <script src="/s/_javascript/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <style type="text/css" media="screen">
+		div.table-container{margin: 0 0 0 233px; padding: 7px; border: 1px solid #ff3300; border-radius: 7px; width: 777px;}
+		table{width: 100%;}
+    	th{text-align: left;}
+		tr.row1{background: #eee;}
+		tr.header{background: #ff3300; color: white;}
+		div.masthead{cursor: pointer; padding: 0px; margin: 0px; height: 37px; background-image: url(/s/_img_interface/bn-toolbar.png); background-repeat: no-repeat}
+    </style>
+    
+</head>
+
+<body style="padding: 0px; margin: 0px; ">
+<div class="masthead" title="Terug naar BeeldNET" onclick="location.href='/interface/'" style="">&nbsp;</div>	
+		<div class="table-container" style="">
+			<table border="0" cellspacing="0" cellpadding="5">
+				<tr class="header"><th>{% trans "Published" %}</th><th>{% trans "Image" %}</th><th>{% trans "Project" %}</th><th>{% trans "Status" %}</th><th>{% trans "Date" %}</th></tr>
+				{% for item in items %}
+				<tr class="{% cycle 'row1' 'row2' %}">
+					<td width="20">
+						<input id="{{item.image_LNID}}" type="checkbox" {% ifequal item.is_published 1 %}checked{% endifequal %} value="{{item.is_published}}" onclick="$.ajax({url: '/manage/toggle/{{item.id}}/'})" />					
+					</td>
+					<td>
+						<img src="/gallery/miniThumbs/{{item.image_LNID}}.jpg" border="0" />
+						<div title="{{item.image_LNID}}">{{item.image_LNID|truncate:21}}</div>
+					</td>
+					<td>{{item.project}}</td>
+					<td>{{item.status}}</td>
+					<td>{{item.ts}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+</body>
+</html>
