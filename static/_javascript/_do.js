@@ -1136,6 +1136,50 @@ function doCheckBasket(element, item){
 
 }
 
+function doBasketNameUpdate(id){
+    // Updates user current_project pref
+    element = 'LN-toolbar-cart-basketnameinput';
+    var mAjax = new Ajax.Request(
+		'/interface/update/basketname/' + id + '/',
+		{
+			method: 'get', 
+			onFailure: reportError,
+			onCreate: function(){Element.clonePosition('spinner', element);},
+			onComplete: function(){
+			    // reload the cart
+                // doShow();
+
+			}
+			
+		});
+		
+
+	
+    
+}
+
+function doProjectAdd(name){
+    // adds project
+    
+    url = 'interface/add/project/'+ name + '/';
+    element = 'LN-toolbar-cart-basketnameinput';
+    var mAjax = new Ajax.Request(
+		url,
+		{
+			method: 'get', 
+			onFailure: reportError,
+			onCreate: function(){Element.clonePosition('spinner', element);},
+			onSuccess: function(transport){
+                // doShow();
+			}
+			
+		});
+	
+    
+}
+
+
+
 
 function doHideMDall(){
 	

@@ -84,5 +84,11 @@ class AlbumAdmin(admin.ModelAdmin):
 	list_display = ('album_name', 'album_identifier', 'document')
 	
 admin.site.register(Album, AlbumAdmin)
-admin.site.register(User)
+class UserAdmin(admin.ModelAdmin):
+    exlude = ['setstr2']
+admin.site.register(User, UserAdmin)
 admin.site.register(Query)
+class ProjectAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
+    list_display = ['name', 'active', 'is_complete',]
+admin.site.register(Project, ProjectAdmin)

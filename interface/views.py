@@ -253,13 +253,20 @@ def doBuildZIP(request):
     zip.close()
     buffer.flush
     
+    # get a name for this download
+    try: 
+        basket_name = User.objects.get(user=muser.id).current_project.slug
+    except:
+        basket_name = ''
+    
+    
     if 'APP_SEND_DOWNLOAD_EMAILS' in dir(settings) and settings.APP_SEND_DOWNLOAD_EMAILS:
         t = loader.get_template('emailtemplates/downloads.txt')
-        c = Context({'name': muser.first_name,'imageList': imageList, 'groupList': groupList })
+        c = Context({'name': muser.first_name,'imageList': imageList, 'groupList': groupList, 'basket_name': basket_name})
     
         settings.APP_EMAIL_RECIPIENTS.append(muser.email)
         try: # Because, apparently, sometimes the connection fails
-            send_mail('%s download' % settings.APP_PUBLIC_NAME, t.render(c), settings.APP_EMAIL_SENDER, settings.APP_EMAIL_RECIPIENTS, fail_silently=False )
+            send_mail('%s download, project: %s' % (settings.APP_PUBLIC_NAME, basket_name), t.render(c), settings.APP_EMAIL_SENDER, settings.APP_EMAIL_RECIPIENTS, fail_silently=False )
         except:
             pass
     # delete the downloaded items in the cart
@@ -268,9 +275,8 @@ def doBuildZIP(request):
     for item in downloadList:
         item.status = 1
         item.save()
-
     response = HttpResponse(buffer.getvalue(),mimetype = 'application/zip')
-    response['Content-Disposition'] = 'attachment; filename='+strftime("%Y%m%d%H%M%S")+'-'+settings.APP_PUBLIC_NAME+'-download.zip'
+    response['Content-Disposition'] = 'attachment; filename='+strftime("%Y%m%d-%H%M")+'-'+settings.APP_PUBLIC_NAME+'-'+basket_name+'.zip'
     response['Content-Length'] = buffer.tell() # Get the filesize.
     buffer.close()
     return response
@@ -429,6 +435,13 @@ def get_album(a,i):
 @login_required
 def doShowBasket(request, time):
     muser = request.user
+    # Get basket name
+    try:
+        prefs = User.objects.get(user=request.user.id)
+        current_project = prefs.current_project
+    except:
+        current_project = None
+        
     itemList = Order.objects.select_related().filter(client=muser.username, status=0).order_by('-ts')
     count = itemList.count()
     for i in itemList:
@@ -438,7 +451,39 @@ def doShowBasket(request, time):
         if get_album(a,i): i = get_album(a,i)
         
         
-    return render_to_response('parts/doShowBasket.html', { 'itemList' : itemList, 'count': count, 'appendix': strftime("%Y%m%d%H%M%S") })
+    return render_to_response('parts/doShowBasket.html', { 
+                                                            'itemList' : itemList, 
+                                                            'count': count, 
+                                                            'appendix': strftime("%Y%m%d%H%M%S"), 
+                                                            'current_project': current_project,
+                                                            'projects': Project.objects.all() })
+
+@login_required
+def doBasketNameUpdate(request, project_id):
+    """Updates project name"""
+    p = Project.objects.get(id=project_id)
+    try:
+        u = User.objects.get(user=request.user.id)
+        u.current_project = p
+        u.save()
+        return HttpResponse(_("successfully entered project"))
+    except Exception, inst:
+        return HttpResponse(inst)
+        
+        
+@login_required   
+def doProjectAdd(request, name):
+    """Adds a new project"""
+    p, created = Project.objects.get_or_create(name=name)
+    if created:
+        p.slug = name.replace(' ', '-').lower()
+        p.save()
+    message = "successfully created new project" if created else "project with this name already exists"
+    return HttpResponse(_(message))
+
+def doProjectChoose(request, id):
+    """Choose a project for the cart name"""
+    pass
 
 
 @login_required 

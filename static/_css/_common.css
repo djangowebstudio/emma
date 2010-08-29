@@ -395,17 +395,19 @@ a.button {
     float: right;
     font: normal 12px 'helvetica neue', helvetica, arial, sans-serif;
     height: 24px;
-    margin-right: 6px;
+    margin: 5px 6px 11px auto;
     padding-right: 18px; /* sliding doors padding */
     text-decoration: none;
+    width: 115px;
 	
 }
 
-a.button span {
+a.button div {
     background: transparent url('/s/_img_interface/bg_button_span.gif') no-repeat;
     display: block;
     line-height: 14px;
-    padding: 5px 0 5px 18px;
+    padding: 5px 0 5px 3px;
+    width: 100%;
 }
 
 a.button:active {
@@ -414,13 +416,31 @@ a.button:active {
     outline: none; /* hide dotted outline in Firefox */
 }
 
-a.button:active span {
+a.button:active div {
     background-position: bottom left;
     padding: 6px 0 4px 18px; /* push text down 1px */
 }
 
-a.button:hover span{
+a.button:hover div{
 	color: #ff2b00;
+}
+p.LN-toolbar-cart-basketname-info{
+    margin: 0 auto 0 5px;
+}
+div#LN-toolbar-cart-basketname{
+    background: #eee;
+    margin: 5px auto 0 auto;
+    padding: 3px;
+    border-radius: 5px;
+    border: 1px solid #ddccdd;
+}
+
+div#LN-toolbar-cart-basketname input, div#LN-toolbar-cart-basketname p, div#LN-toolbar-cart-basketname select{
+    width: 115px;
+}
+div#LN-toolbar-cart-basketname p{
+    font-size: 10px;
+    margin: 11px auto 11px auto;
 }
 
 div.lsincart{

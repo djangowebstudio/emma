@@ -9,6 +9,7 @@ fs = FileSystemStorage()
 import logging
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.models import User as _u
+from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
 
@@ -126,10 +127,22 @@ class Copyright(models.Model):
 	image_LNID = models.CharField(max_length=255)
 	copyright = models.BooleanField()
 	copyright_terms = models.TextField(blank=True)
+	
+class Project(models.Model):
+    """Refers to a project"""
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(default='')
+    ts = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+    is_complete = models.BooleanField(default=False)
+    
+    def __unicode__(self):
+        return self.name
 
 class Order(models.Model):
 	"""Holds cart items"""
 	image = models.ForeignKey(Image)
+	project = models.ForeignKey(Project, blank=True, null=True)
 	image_LNID = models.CharField(max_length=255)
 	resolution = models.CharField(max_length=255, blank=True)
 	client = models.CharField(max_length=255)
@@ -139,6 +152,9 @@ class Order(models.Model):
 	notes = models.TextField(blank=True)
 	ts = models.DateTimeField(auto_now=True)
 	status = models.SmallIntegerField(null=True)
+	
+	def __unicode__(self):
+	    return '%s %s' % (self.image, self.status)
 	
 		
 
@@ -338,6 +354,8 @@ class User(models.Model):
 	setstr3 = models.CharField(max_length=255,blank=True)
 	setstr4 = models.CharField(max_length=255,blank=True)
 	setstr5 = models.CharField(max_length=255,blank=True)
+	current_project = models.ForeignKey(Project, blank=True, default=1)
+	
 	ts = models.DateTimeField(auto_now=True)
 	
 	def __unicode__(self):
