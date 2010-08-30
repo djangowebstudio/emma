@@ -71,10 +71,10 @@
 	
 	<div class="LN-toolbar-cart-itemName" style="font-size: 9px; cursor: help;">
 		<div title="{% trans 'Change resolution of the downloads. HR is High Resolution and a slower download, LR is Low Resolution and a faster download' %}" style="width: 21px">
-			<input type=checkbox id="LN-toolbar-cart-resolution-checkbox" onclick="doUpdateBasket({{ currentItem.pk }})" {% ifequal currentItem.resolution 'HR' %}checked{% endifequal %} />
+			<input type="checkbox" id="LN-toolbar-cart-resolution-checkbox" onclick="doUpdateBasket({{ currentItem.pk }})" {% ifequal currentItem.resolution 'HR' %}checked{% endifequal %} />
 		</div>
 		
-		<div style="width: 65%; margin-top: 2px" {% if currentItem.group_name|length_is:"0" %} title="{{ currentItem.image_LNID }}"{% else %} title="Album: {{currentItem.group_name|safe}}"{% endif %}>
+		<div style="margin-top: 2px" {% if currentItem.group_name|length_is:"0" %} title="{{ currentItem.image_LNID }}"{% else %} title="Album: {{currentItem.group_name|safe}}"{% endif %}>
 			Download HR
 		</div>
 

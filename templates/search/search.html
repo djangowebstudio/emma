@@ -1,4 +1,4 @@
-{% load more_like_this highlight i18n %}
+{% load more_like_this highlight i18n thumbnail images_extras %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -6,67 +6,107 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>beeldnet test search</title>
+	<link rel="stylesheet" href="/s/_css/_common.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="/s/fancybox/jquery.fancybox-1.3.1.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<script src="/s/_javascript/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/s/fancybox/jquery.fancybox-1.3.1.pack.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/s/fancybox/jquery.easing-1.3.pack.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/s/fancybox/jquery.mousewheel-3.0.2.pack.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(function(){
+			$("a.group").fancybox({
+					'transitionIn'	:	'elastic',
+					'transitionOut'	:	'elastic',
+					'speedIn'		:	600, 
+					'speedOut'		:	200, 
+					'overlayShow'	:	false
+				});
+			
+		})
+	</script>
 	<style type="text/css" media="screen">
-		span.highlighted{
-			background-color: yellow;
-		}
+		body{margin: 0 0 0 0; padding: 0 0 0 0;}
+		span.highlighted{background-color: #ff3300; color: white;}
+		div.masthead{color: white; text-align: center; cursor: pointer; padding: 0px; margin: 0px; height: 37px; background-image: url(/s/_img_interface/bn-toolbar.png); background-repeat: no-repeat}
+		div.main{margin: 0 0 0 210px;}
+		div.header{height: 10px; width: 148px;}
+		div.item{float: left; margin: 0 7px 3px 0; width: 148px; height: 210px; border: 1px solid #ddccdd; padding: 7px; border-radius: 7px}
+		div.data{height: 50px; overflow: hidden;margin: 4px 0 0 0;}
 	</style>
 </head>
 
 <body><span id="debug"></span>
-	<form method="get" action=".">
-	<div style="height: 74px; width: 100%; border: 1px solid green">  
-		<table style="float: left">
-	        {{ form.as_table }}
-	        <tr>
-	            <td>&nbsp;</td>
-	            <td>
-	                <input id="form_search" type="submit" value="Search">
-	            </td>
-	        </tr>
-	    </table>
-		{% if sqs %}{% trans "did you mean" %} <a href="{% url emma.search.views.search %}?q={{sqs}}">{{sqs}}</a>?{% endif %}
-		<a id="cr_no" href="{% url haystack_search_cr_no %}?q={{query}}">{% url haystack_search_cr_no %}</a>
-		<a id="cr_yes" href="{% url haystack_search_cr_yes %}?q={{query}}">{% url haystack_search_cr_yes %}</a>
-		<a id="all" href="{% url search %}?q={{query}}">{% url search %}</a>
-		{% if page.has_previous or page.has_next %}
-          <div style="float: right">
-		  <div>{{paginator.count}} {% trans "results" %}</div>
-              {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
-              |
-              {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
-          </div>
-		{% endif %}
+	<div class="masthead" title="Terug naar BeeldNET" onclick="location.href='/interface/'" style="">
 	</div>
-	<hr style="clear: all" />
-	{% if query %}
+	<div class="main">	
+		<form method="get" action=".">
+		<div style="height: 37px; width: 100%">  
+		
+		        {{ form }}
 
-	<div style="min-height: 420px; width: 100%; border: 1px solid black">        
-		{% for result in page.object_list %}
-	            <div style="float: left; margin-right: 7px; width: 148px; height: 210px">
-	                <a href="{{ result.object.get_absolute_url }}"><img src="/gallery/thumbs/{{ result.object.image_LNID }}.jpg" /></a><br>
-					{% highlight result.object.keywords with query %}<br>
-					{% highlight result.object.image_LNID with query %}<br>
-					{% highlight result.object.source with query %}<br>
-					{{result.object.copyright}}
-	            </div>
-	        {% empty %}
-	            <p>No results found.</p>
-	        {% endfor %}
-	</div>
-	    {% else %}
-	        {# Show some example queries to run, maybe query syntax, something else? #}
-	    {% endif %}
-	</form>
-	<div style="clear: all"></div>
-	<hr>
-	<h3>{% trans "More like this" %}</h3>
-	{% if mlt %}
-	{% more_like_this mlt as related limit 10 %}
-	{% for image in related %}
-	<img src="/gallery/thumbs/{{image.image_LNID}}.jpg" />
-	{% endfor %}
-	{% endif %}
+		                <input id="form_search" type="submit" value="Search">
+			{% if sqs %}{% trans "did you mean" %} 
+				<a href="{% url emma.search.views.search %}?q={{sqs}}">{{sqs}}</a>?
+			{% endif %}
+			<a id="cr_no" href="{% url haystack_search_cr_no %}?q={{query}}">
+				<img src="/s/_img_interface/copyright-no.png" width="10" height="10" alt="Copyright No">
+			</a>
+			<a id="cr_yes" href="{% url haystack_search_cr_yes %}?q={{query}}">
+				<img src="/s/_img_interface/copyright-yes.png" width="10" height="10" alt="Copyright Yes">
+			</a>
+			<a id="all" href="{% url search %}?q={{query}}">{% trans "all" %}</a>
+			{% if page.has_previous or page.has_next %}
+	          <div style="float: right; margin: 0 52px 0 0">
+			  <div>{{paginator.count}} {% trans "results" %}</div>
+	              {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+	              |
+	              {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+	          </div>
+			{% endif %}
+		</div>
+		<hr />
+		{% if query %}
+
+		<div style="min-height: 420px; width: 100%;">        
+			{% for result in page.object_list %}
+		            <div class="item">
+						<div class="header">
+							{% if result.object.copyright %}
+							<img src="/s/_img_interface/copyright-yes.png" width="10" height="10" alt="Copyright Yes">
+							{% else %}
+							<img src="/s/_img_interface/copyright-no.png" width="10" height="10" alt="Copyright No">
+							{% endif %}
+						</div>
+						<div class="image">		                
+							<a class="group" rel="main" href="/gallery/images/{{result.object.image_LNID}}.jpg">
+								{% thumbnail result.object.get_image 148x148 crop upscale as image %}
+							<img src="{{image}}" border="0" width="{{image.width}}" height="{{image.width}}" alt="{{result.object.subject|truncate:100}}" />
+						</a>
+						</div>						
+						<div class="label">{% highlight result.object.image_LNID with query %}</div>
+						<div class="data">				
+							{% highlight result.object.keywords with query %}			
+							{% highlight result.object.source with query %}
+						</div>
+		            </div>
+		        {% empty %}
+		            <p>No results found.</p>
+		        {% endfor %}
+		</div>
+		{% else %}
+		      {# Show some example queries to run, maybe query syntax, something else? #}
+		{% endif %}
+		</form>
+		<div style="clear: both"></div>
+		<hr>
+		<h3>{% trans "More like this" %}</h3>
+		{% if mlt %}
+		{% more_like_this mlt as related limit 10 %}
+		{% for image in related %}
+		<a class="group" rel="mlt" href="/gallery/images/{{image.image_LNID}}.jpg"><img src="/gallery/miniThumbs/{{image.image_LNID}}.jpg" border="0" alt="{% if image.subject %}{{image.subject}}{% endif %}" /></a>
+		{% endfor %}
+		{% endif %}
 	
+	</div>
 </body>
 </html>

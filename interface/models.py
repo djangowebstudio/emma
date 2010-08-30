@@ -220,6 +220,8 @@ class Metadata(models.Model):
     ts = models.DateTimeField(auto_now=True)
     
     def __unicode__(self): return self.image_LNID
+    
+    def get_image(self): return 'gallery/images/%s.jpg' % self.image_LNID
         
     def get_absolute_url(self): return '/media/%s' % self.document
         
