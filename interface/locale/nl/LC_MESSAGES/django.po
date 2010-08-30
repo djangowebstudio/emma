@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-03 20:00+0200\n"
+"POT-Creation-Date: 2010-08-30 17:13+0200\n"
 "PO-Revision-Date: 2009-05-23 22:22+0200\n"
 "Last-Translator: Geert Dekkers, geert@nznl.com, 2009\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,360 +16,363 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: views.py:78
-#, python-format
-msgid "Error creating or saving user preferences %s"
-msgstr ""
-
-#: views.py:100
+#: views.py:90
 #, python-format
 msgid "An error has occurred saving your Internet Explorer preferences %s"
-msgstr ""
+msgstr "Een fout is opgetreden tijdens het bewaren van Internet Explorer voorkeuren"
 
-#: views.py:280
+#: views.py:308
 msgid "Your basket is empty."
-msgstr ""
+msgstr "Je mandje is leeg"
 
-#: views.py:282
+#: views.py:310
 msgid "An error occurred while emptying you basket."
-msgstr ""
+msgstr "Er is een fout opgetreden bij het leegmaken van je mandje"
 
-#: views.py:289
+#: views.py:317
 msgid "The item has been removed"
-msgstr ""
+msgstr "Dit onderdeel is verwijderd"
 
-#: views.py:291
+#: views.py:319
 msgid "An error occurred. The item was not removed"
-msgstr ""
+msgstr "Een fout is opgetreden, het onderdeel is niet verwijderd"
 
-#: views.py:320
+#: views.py:348
 #, fuzzy, python-format
 msgid "%s is in your basket"
 msgstr "Zet dit onderdeel in je mandje"
 
-#: views.py:320
+#: views.py:348
 #, python-format
 msgid "%s is already in there!"
-msgstr ""
+msgstr "%s is er al!"
 
-#: views.py:326
+#: views.py:354
 #, python-format
 msgid "%s has already been downloaded"
-msgstr ""
+msgstr "%s is al gedownload"
 
-#: views.py:328
+#: views.py:356
 #, python-format
 msgid "%(album)s is already selected %(inst)s"
 msgstr ""
 
-#: views.py:330
+#: views.py:358
 #, python-format
 msgid "An error has occurred -- unable to get album leader %(inst)s %(leader)s"
 msgstr ""
 
-#: views.py:355
+#: views.py:394
 #, fuzzy, python-format
 msgid "%(item)s is in your basket"
 msgstr "Zet dit onderdeel in je mandje"
 
-#: views.py:357
+#: views.py:396
 #, python-format
 msgid "%(item)s already here!"
 msgstr ""
 
-#: views.py:369
+#: views.py:409
 #, python-format
 msgid "%(item)s had been downloaded (more than) once already."
 msgstr ""
 
-#: views.py:371
+#: views.py:411
 #, python-format
 msgid "%(item)s already selected"
 msgstr ""
 
-#: views.py:405
+#: views.py:446
 msgid "Exception"
 msgstr ""
 
-#: views.py:405
+#: views.py:446
 msgid "no information"
 msgstr ""
 
-#: views.py:420
+#: views.py:461
 #, python-format
 msgid "The item seemed to be part of an album, but no album found - %s"
 msgstr ""
 
-#: views.py:596
+#: views.py:505
+msgid "successfully entered project"
+msgstr ""
+
+#: views.py:692
 msgid "item view"
 msgstr "toon geen albums"
 
-#: views.py:596
+#: views.py:692
 msgid "album view"
 msgstr "toon als albums"
 
-#: views.py:597
-msgid "show oldest first"
-msgstr "toon oudste eerst"
-
-#: views.py:597
+#: views.py:693
 msgid "show newest first"
 msgstr "toon nieuwste eerst"
 
-#: views.py:658
+#: views.py:693
+msgid "show oldest first"
+msgstr "toon oudste eerst"
+
+#: views.py:754
 msgid "De requested album does not exist"
 msgstr ""
 
-#: views.py:730 views.py:766
+#: views.py:826 views.py:862
 msgid "No results"
 msgstr ""
 
-#: views.py:797
+#: views.py:893
 msgid " added to an existing favorite"
 msgstr ""
 
-#: views.py:814
+#: views.py:910
 msgid " added new favorite"
 msgstr ""
 
-#: views.py:894
+#: views.py:991
 msgid "removed"
 msgstr ""
 
-#: views.py:1001
+#: views.py:1121
 #, python-format
 msgid "saved pagesize %s"
 msgstr ""
 
-#: views.py:1003
+#: views.py:1123
 #, python-format
 msgid "Sorry, something went wrong %s"
 msgstr ""
 
-#: views.py:1012
+#: views.py:1132
 msgid "Order by date set to descending (oldest first)"
 msgstr ""
 
-#: views.py:1012
+#: views.py:1132
 msgid "Order by date set to ascending (newest first)"
 msgstr ""
 
-#: views.py:1021
+#: views.py:1141
 #, python-format
 msgid "Album visibility set to %s"
 msgstr ""
 
-#: views.py:1027
+#: views.py:1147
 msgid "new album generated"
 msgstr ""
 
-#: views.py:1037
+#: views.py:1157
 #, python-format
 msgid "An error getting the Image object %(inst)s for argument %(item)s"
 msgstr ""
 
-#: views.py:1058
+#: views.py:1178
 #, python-format
 msgid "%(item)s entered into album %(album)s"
 msgstr ""
 
-#: views.py:1060 views.py:1071 views.py:1081 views.py:1144
+#: views.py:1180 views.py:1191 views.py:1201 views.py:1264
 #, python-format
 msgid "An error occurred %s"
 msgstr ""
 
-#: views.py:1069
+#: views.py:1189
 #, python-format
 msgid "Saved %s"
 msgstr ""
 
-#: views.py:1097
+#: views.py:1217
 #, python-format
 msgid "%(item)s removed from album %(album)s."
 msgstr ""
 
-#: views.py:1099
+#: views.py:1219
 #, python-format
 msgid "Error saving Metadata object for Album follower %s"
 msgstr ""
 
-#: views.py:1115
+#: views.py:1235
 #, python-format
 msgid ""
 "%(item)s removed from this album. As this was the leader, %(new)s has now "
 "been made leader"
 msgstr ""
 
-#: views.py:1138
+#: views.py:1258
 #, python-format
 msgid ""
 "The last item has been removed, and consequently the album %s has been "
 "deleted."
 msgstr ""
 
-#: views.py:1140
+#: views.py:1260
 #, python-format
 msgid "An error occurred removing the last item. %s"
 msgstr ""
 
-msgid "No results found for this keyword"
-msgstr "Geen resultaten gevonden voor dit trefwoord"
-
-msgid "No viewable results at the moment. There might be viewable results "
+#: views.py:1311
+msgid "successfully toggled published status"
 msgstr ""
-"Momenteel geen resultaten zichtbaar. Mogelijk zouden er resultaten "
-"zichtbaar zijn "
 
-msgid " if you turned off albums"
-msgstr " als onderdelen niet in albums getoond zouden worden"
+ msgid "No results found for this keyword"
+ msgstr "Geen resultaten gevonden voor dit trefwoord"
 
-msgid "Add this album to your basket"
-msgstr "Zet dit album in je mandje"
+ msgid "No viewable results at the moment. There might be viewable results "
+ msgstr ""
+ "Momenteel geen resultaten zichtbaar. Mogelijk zouden er resultaten "
+ "zichtbaar zijn "
 
-msgid "Click here to edit the album"
-msgstr "Klik hier om het album te bewerken"
+ msgid " if you turned off albums"
+ msgstr " als onderdelen niet in albums getoond zouden worden"
 
-msgid "categories"
-msgstr "categorieën"
+ msgid "Add this album to your basket"
+ msgstr "Zet dit album in je mandje"
 
-msgid "tags"
-msgstr "trefwoorden"
+ msgid "Click here to edit the album"
+ msgstr "Klik hier om het album te bewerken"
 
-msgid "list"
-msgstr "lijst"
+ msgid "categories"
+ msgstr "categorieën"
 
-msgid "cloud"
-msgstr "wolk"
+ msgid "tags"
+ msgstr "trefwoorden"
 
-msgid "will not work AT ALL if javascript is turned off!"
-msgstr "werkt helemaal niet als javascript uitgeschakeld is!"
+ msgid "list"
+ msgstr "lijst"
 
-msgid "Click on text to edit, click anywhere else to save"
-msgstr "Klik op de tekst om te bewerken, klik ergens anders om te bewaren"
+ msgid "cloud"
+ msgstr "wolk"
 
-msgid "drag the items you want to download here"
-msgstr "sleep de onderdelen naar het mandje"
+ msgid "will not work AT ALL if javascript is turned off!"
+ msgstr "werkt helemaal niet als javascript uitgeschakeld is!"
 
-msgid "or click the small grey arrow"
-msgstr "of klik op het grijze pijltje"
+ msgid "Click on text to edit, click anywhere else to save"
+ msgstr "Klik op de tekst om te bewerken, klik ergens anders om te bewaren"
 
-msgid "Click to download the contents of your basket."
-msgstr "Klik om je mandje te downloaden."
+ msgid "drag the items you want to download here"
+ msgstr "sleep de onderdelen naar het mandje"
 
-msgid "Click to drag"
-msgstr "Klik om te slepen."
+ msgid "or click the small grey arrow"
+ msgstr "of klik op het grijze pijltje"
 
-msgid "Click to remove this item from your basket"
-msgstr "Klik om dit onderdeel uit je mandje te verwijderen"
+ msgid "Click to download the contents of your basket."
+ msgstr "Klik om je mandje te downloaden."
 
-msgid ""
-"Change resolution of the downloads. HR is High Resolution and a slower "
-"download, LR is Low Resolution and a faster download"
-msgstr ""
-"Verander de resolutie van de download. HR is een hoge resolutie en een "
-"langzamer download, LR is een lagere resolutie en een snellere download"
+ msgid "Click to drag"
+ msgstr "Klik om te slepen."
 
-msgid "Empty your basket"
-msgstr "Maak je mandje leeg"
+ msgid "Click to remove this item from your basket"
+ msgstr "Klik om dit onderdeel uit je mandje te verwijderen"
 
-msgid "Click here to empty your basket completely"
-msgstr "Klik hier om je mandje geheel leeg te maken"
+ msgid ""
+ "Change resolution of the downloads. HR is High Resolution and a slower "
+ "download, LR is Low Resolution and a faster download"
+ msgstr ""
+ "Verander de resolutie van de download. HR is een hoge resolutie en een "
+ "langzamer download, LR is een lagere resolutie en een snellere download"
 
-msgid "Prev"
-msgstr "Vorig"
+ msgid "Empty your basket"
+ msgstr "Maak je mandje leeg"
 
-msgid "Next"
-msgstr "Volgende"
+ msgid "Click here to empty your basket completely"
+ msgstr "Klik hier om je mandje geheel leeg te maken"
 
-msgid "Favorites"
-msgstr "Favorieten"
+ msgid "Prev"
+ msgstr "Vorig"
 
-msgid "expand favorites bar for more options"
-msgstr "vergroot de favorietenbalk voor meer opties"
+ msgid "Next"
+ msgstr "Volgende"
 
-msgid "Edit your favorites in a new panel"
-msgstr "Bewerk de favorieten in een nieuw paneel"
+ msgid "Favorites"
+ msgstr "Favorieten"
 
-msgid "Expand"
-msgstr "Vergroot"
+ msgid "expand favorites bar for more options"
+ msgstr "vergroot de favorietenbalk voor meer opties"
 
-msgid "expand"
-msgstr "vergroot"
+ msgid "Edit your favorites in a new panel"
+ msgstr "Bewerk de favorieten in een nieuw paneel"
 
-msgid "Add album to your basket"
-msgstr "Zet dit album in je mandje"
+ msgid "Expand"
+ msgstr "Vergroot"
 
-msgid "Add this album to your favorites"
-msgstr "Zet dit album in je favorieten"
+ msgid "expand"
+ msgstr "vergroot"
 
-msgid "Remove item "
-msgstr "Verwijder onderdeel"
+ msgid "Add album to your basket"
+ msgstr "Zet dit album in je mandje"
 
-msgid "Group items in albums"
-msgstr "Groepeer onderdelen in albums"
+ msgid "Add this album to your favorites"
+ msgstr "Zet dit album in je favorieten"
 
-msgid "No grouping of items in albums"
-msgstr "Laat alle onderdelen los zien (dus niet in albums)"
+ msgid "Remove item "
+ msgstr "Verwijder onderdeel"
 
-msgid "Page album left"
-msgstr "Volgende onderdeel laten zien"
+ msgid "Group items in albums"
+ msgstr "Groepeer onderdelen in albums"
 
-msgid "Page album right"
-msgstr "Vorige onderdeel laten zien"
+ msgid "No grouping of items in albums"
+ msgstr "Laat alle onderdelen los zien (dus niet in albums)"
 
-msgid "Remove this item from album"
-msgstr "Verwijder dit onderdeel uit het album"
+ msgid "Page album left"
+ msgstr "Volgende onderdeel laten zien"
 
-msgid "Add this item to your basket"
-msgstr "Zet dit onderdeel in je mandje"
+ msgid "Page album right"
+ msgstr "Vorige onderdeel laten zien"
 
-msgid "copyright owed"
-msgstr "copyright verschuldigd"
+ msgid "Remove this item from album"
+ msgstr "Verwijder dit onderdeel uit het album"
 
-msgid "copyright settled"
-msgstr "copyright is betaald"
+ msgid "Add this item to your basket"
+ msgstr "Zet dit onderdeel in je mandje"
 
-msgid "copyright unknown"
-msgstr "copyright onbekend"
+ msgid "copyright owed"
+ msgstr "copyright verschuldigd"
 
-msgid "not yet ready for printing -- this image needs profiling"
-msgstr "niet drukklaar - 4 dagen verwerkingstijd"
+ msgid "copyright settled"
+ msgstr "copyright is betaald"
 
-msgid "this item contains an attachment"
-msgstr "dit onderdeel beval een attachment"
+ msgid "copyright unknown"
+ msgstr "copyright onbekend"
 
-msgid "basket"
-msgstr "mandje"
+ msgid "not yet ready for printing -- this image needs profiling"
+ msgstr "niet drukklaar - 4 dagen verwerkingstijd"
 
-msgid "cart"
-msgstr "mandje"
+ msgid "this item contains an attachment"
+ msgstr "dit onderdeel beval een attachment"
 
-msgid "Back"
-msgstr "Terug"
+ msgid "basket"
+ msgstr "mandje"
 
-msgid "back"
-msgstr "terug"
+ msgid "cart"
+ msgstr "mandje"
 
-msgid "Administration"
-msgstr "Beheer"
+ msgid "Back"
+ msgstr "Terug"
 
-msgid "view video content"
-msgstr "bekijk video"
+ msgid "back"
+ msgstr "terug"
 
-msgid "listen to audio content"
-msgstr "beluister audio"
+ msgid "Administration"
+ msgstr "Beheer"
 
-msgid "view flash media"
-msgstr "bekijk flash"
+ msgid "view video content"
+ msgstr "bekijk video"
 
-msgid "Your username and/or password didn't match. Please try again"
-msgstr "Je login en/of wachtwoord is incorrect. Probeer het aub nog eens"
+ msgid "listen to audio content"
+ msgstr "beluister audio"
 
-msgid "Or request a new password"
-msgstr "Of vraag een nieuw wachtwoord aan"
+ msgid "view flash media"
+ msgstr "bekijk flash"
 
-msgid "Username"
-msgstr "Gebruikersnaam"
+ msgid "Your username and/or password didn't match. Please try again"
+ msgstr "Je login en/of wachtwoord is incorrect. Probeer het aub nog eens"
 
-msgid "Password"
-msgstr "Wachtwoord"
+ msgid "Or request a new password"
+ msgstr "Of vraag een nieuw wachtwoord aan"
+
+ msgid "Username"
+ msgstr "Gebruikersnaam"
+
+ msgid "Password"
+ msgstr "Wachtwoord"
