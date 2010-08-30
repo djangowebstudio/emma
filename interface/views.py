@@ -148,8 +148,13 @@ def buildZippedFolder(muser, itemObj, zip_filename, album):
                 o.resolution = 'HR'
                 o.notes = 'unpacked from album %s' % album
                 o.save()
+            try:
+                empty_album = Order.objects.get(client=muser.username, album_identifier=album.album_identifier, status=0)
+                empty_album.delete()
+            except Exception, inst:
+                print inst
         except Exception, inst:
-            print inst
+            pass
             
         
         # try:
@@ -1309,3 +1314,11 @@ def toggle(request, order_id):
     
     order.save()
     return HttpResponse(_('successfully toggled published status'))
+
+def update_notes(request, order_id, text):
+    """update notes for order"""
+
+    o = Order.objects.get(id=order_id)
+    o.notes = text
+    o.save()
+    return HttpResponse(_("successfully entered text"))

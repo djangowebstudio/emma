@@ -39,6 +39,9 @@
 		div.masthead{color: white; text-align: center; cursor: pointer; padding: 0px; margin: 0px; height: 37px; background-image: url(/s/_img_interface/bn-toolbar.png); background-repeat: no-repeat}
 		h2.message{margin: 0 auto 5px 0; width: 100%;}
 		div.image_LNID{float: left; margin: 0 0 0 11px; position: relative; top: 2px}
+		textarea{height: 105px; width: 148px;display: block; border-color: #ddccdd; border-radius: 3px;}
+		div.label{font-size: 10px;}
+		img{border: 1px solid #ddccdd; padding: 3px; border-radius: 3px;}
     </style>
 </head>
 
@@ -50,17 +53,26 @@
 			<h2 class="message">Managing {{request.user}}'s downloads</h2>			
 			<p>This is an overview of your downloads. You can help us by checking the downloads used in a publication. <a href="/">Click this link to go back</a>.</p>
 			<table border="0" cellspacing="0" cellpadding="5">
-				<tr class="header"><th>{% anchor is_published published %}</th><th>{% anchor image_LNID image %}</th><th>{% anchor project project %}</th><th>{% anchor ts date %}</th></tr>
+				<tr class="header">
+					<th>{% anchor is_published "is published?" %}</th>
+					<th align="center">{% anchor image_LNID image %}</th>
+					<th>{% anchor project project %}</th>
+					<th>{% anchor ts "download date" %}</th>
+				</tr>
 				{% for item in items %}
 				<tr class="{% cycle 'row1' 'row2' %}">
 					<td>
 						<div style="float: left">	
 							<input id="{{item.image_LNID}}" type="checkbox" {% ifequal item.is_published 1 %}checked{% endifequal %} value="{{item.is_published}}" onclick="$.ajax({url: '/manage/toggle/{{item.id}}/'})" />
 						</div>			
-						<div class="image_LNID" title="{{item.image_LNID}}">{{item.image_LNID|truncate:21}}</div>		
+						<div class="image_LNID" title="{{item.image_LNID}}">
+							<textarea onblur="$.ajax({url: '/manage/update/notes_for/{{item.id}}/' + this.value + '/'})">{{item.notes}}</textarea>
+							<div class="label">{% trans "publication details" %}</div>						
+						</div>		
 					</td>
-					<td>{% thumbnail item.get_image 105x105 crop upscale as image %}
-						<a class="group" href="/gallery/images/{{item.image_LNID}}.jpg"><img src="{{image}}" border="0" width="{{image.width}}" height="{{image.height}}" alt="{{item.image_LNID}}" /></a>					
+					<td align="center">{% thumbnail item.get_image 148x105 crop upscale as image %}
+						<a class="group" href="/gallery/images/{{item.image_LNID}}.jpg"><img src="{{image}}" border="0" width="{{image.width}}" height="{{image.height}}" alt="{{item.image_LNID}}" /></a>	
+						<div class="label">{{item.image_LNID|truncate:30}}</div>			
 					</td>
 					<td>{{item.project}}</td>
 					<td>{{item.ts|date:"l m M Y H:m"}}</td>
