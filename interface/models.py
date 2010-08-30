@@ -148,7 +148,7 @@ class Order(models.Model):
     image_LNID = models.CharField(max_length=255)
     resolution = models.CharField(max_length=255, blank=True)
     client = models.CharField(max_length=255)
-    clientImage = models.CharField(max_length=255, unique=True)
+    clientImage = models.CharField(max_length=255)
     group_name = models.CharField(max_length=255, blank=True)
     album_identifier = models.CharField(max_length=255, blank=True)
     notes = models.TextField(blank=True)

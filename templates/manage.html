@@ -1,5 +1,5 @@
-{% load i18n %}
-{% load images_extras thumbnail %}
+{% load i18n images_extras thumbnail sorting_tags %}
+{% autosort items %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
@@ -11,35 +11,59 @@
     <title>{% trans "manage your downloads" %} -- {{request.user}}</title>
     <link rel="shortcut icon" href="/s/_img_interface/favicon.ico" />
     <link rel="stylesheet" href="/s/_css/_common.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+	<link rel="stylesheet" href="/s/fancybox/jquery.fancybox-1.3.1.css" type="text/css" media="screen" title="no title" charset="utf-8">
+
     <script src="/s/_javascript/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/s/fancybox/jquery.fancybox-1.3.1.pack.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/s/fancybox/jquery.easing-1.3.pack.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/s/fancybox/jquery.mousewheel-3.0.2.pack.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		$(function(){
+			$("a.group").fancybox({
+					'transitionIn'	:	'elastic',
+					'transitionOut'	:	'elastic',
+					'speedIn'		:	600, 
+					'speedOut'		:	200, 
+					'overlayShow'	:	false
+				});
+		});
+	</script>
     <style type="text/css" media="screen">
-		div.table-container{margin: 0 0 0 233px; padding: 7px; border: 1px solid #ff3300; border-radius: 7px; width: 777px;}
-		table{width: 100%;}
+		div.table-container{margin: 0 0 0 210px; padding: 21px; border: 1px solid #ff3300; border-radius: 21px; width: 777px; background: #fff;}
+		table{width: 100%; font-size: 12px;}
     	th{text-align: left;}
 		tr.row1{background: #eee;}
-		tr.header{background: #ff3300; color: white;}
-		div.masthead{cursor: pointer; padding: 0px; margin: 0px; height: 37px; background-image: url(/s/_img_interface/bn-toolbar.png); background-repeat: no-repeat}
+		tr.row2{background: #fff;}
+		tr.header{background: #ff3300;}
+		tr.header a{color: white;}
+		div.masthead{color: white; text-align: center; cursor: pointer; padding: 0px; margin: 0px; height: 37px; background-image: url(/s/_img_interface/bn-toolbar.png); background-repeat: no-repeat}
+		h2.message{margin: 0 auto 5px 0; width: 100%;}
+		div.image_LNID{float: left; margin: 0 0 0 11px; position: relative; top: 2px}
     </style>
-    
 </head>
 
 <body style="padding: 0px; margin: 0px; ">
-<div class="masthead" title="Terug naar BeeldNET" onclick="location.href='/interface/'" style="">&nbsp;</div>	
+<div class="masthead" title="Terug naar BeeldNET" onclick="location.href='/interface/'" style="">
+	
+</div>	
 		<div class="table-container" style="">
+			<h2 class="message">Managing {{request.user}}'s downloads</h2>			
+			<p>This is an overview of your downloads. You can help us by checking the downloads used in a publication. <a href="/">Click this link to go back</a>.</p>
 			<table border="0" cellspacing="0" cellpadding="5">
-				<tr class="header"><th>{% trans "Published" %}</th><th>{% trans "Image" %}</th><th>{% trans "Project" %}</th><th>{% trans "Status" %}</th><th>{% trans "Date" %}</th></tr>
+				<tr class="header"><th>{% anchor is_published published %}</th><th>{% anchor image_LNID image %}</th><th>{% anchor project project %}</th><th>{% anchor ts date %}</th></tr>
 				{% for item in items %}
 				<tr class="{% cycle 'row1' 'row2' %}">
-					<td width="20">
-						<input id="{{item.image_LNID}}" type="checkbox" {% ifequal item.is_published 1 %}checked{% endifequal %} value="{{item.is_published}}" onclick="$.ajax({url: '/manage/toggle/{{item.id}}/'})" />					
-					</td>
 					<td>
-						<img src="/gallery/miniThumbs/{{item.image_LNID}}.jpg" border="0" />
-						<div title="{{item.image_LNID}}">{{item.image_LNID|truncate:21}}</div>
+						<div style="float: left">	
+							<input id="{{item.image_LNID}}" type="checkbox" {% ifequal item.is_published 1 %}checked{% endifequal %} value="{{item.is_published}}" onclick="$.ajax({url: '/manage/toggle/{{item.id}}/'})" />
+						</div>			
+						<div class="image_LNID" title="{{item.image_LNID}}">{{item.image_LNID|truncate:21}}</div>		
+					</td>
+					<td>{% thumbnail item.get_image 105x105 crop upscale as image %}
+						<a class="group" href="/gallery/images/{{item.image_LNID}}.jpg"><img src="{{image}}" border="0" width="{{image.width}}" height="{{image.height}}" alt="{{item.image_LNID}}" /></a>					
 					</td>
 					<td>{{item.project}}</td>
-					<td>{{item.status}}</td>
-					<td>{{item.ts}}</td>
+					<td>{{item.ts|date:"l m M Y H:m"}}</td>
 				</tr>
 				{% endfor %}
 			</table>

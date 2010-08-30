@@ -93,12 +93,12 @@ def stock(request):
     """ Returns an information page on stock photography"""
     return render_to_response('stock.html')
 
-def buildZippedFolder(username, itemObj, zip_filename, album):
+def buildZippedFolder(muser, itemObj, zip_filename, album):
     """
-    Builds a zip file from a Folder, updates orders table. Note that you'll need to be able to write to 
+    Builds a zip file from an album, updates orders table. Note that you'll need to be able to write to 
     the packages folder. See settings.APP_PACKAGES_ROOT.
     """
-    clientImage = '.'.join([username,album.album_identifier])
+    clientImage = '.'.join([muser.username,album.album_identifier])
     zip_path = settings.APP_PACKAGES_ROOT + "/" + zip_filename
     try:
     
@@ -131,29 +131,48 @@ def buildZippedFolder(username, itemObj, zip_filename, album):
         # Update Order to reflect the status of the download.
         # This is just once per album, accepting that future changes in the album
         # may distort the reality of this piece of data. 
-        #
-        
+        # UPDATE 20100830
+        # Orders must be managed on a individual image basis.
+        # Unpack the album, enter the images as orders.
         try:
-            o = Order.objects.get(clientImage=clientImage)
-            o.status = 1
-            o.group_name=album.album_name
-            o.album_identifier = album.album_identifier
-            o.save()
-            #print ('Saving found order object %s' % o)
-        except Order.DoesNotExist:
-            try: 
-                i = Order(
-                image=a,
-                image_LNID=a.image_LNID,
-                resolution=itemObj.resolution,
-                group_name=album.album_name,
-                client=muser.username,
-                clientImage=clientImage,
-                status=1)
-                i.save()
-                #print( 'made new order obj')
-            except Exception, inst: pass
-                #print( 'error saving order object %s' % inst)
+            project = User.objects.get(user=muser.id).current_project
+            for i in album.image.all():
+                order_id = '.'.join([muser.username, i.image_LNID])
+                o, created = Order.objects.get_or_create(   image=i, 
+                                                            clientImage=order_id, 
+                                                            client=muser.username, 
+                                                            image_LNID=i.image_LNID,
+                                                            project=project
+                                                        )
+                o.status = 1
+                o.resolution = 'HR'
+                o.notes = 'unpacked from album %s' % album
+                o.save()
+        except Exception, inst:
+            print inst
+            
+        
+        # try:
+        #     o = Order.objects.get(clientImage=clientImage)
+        #     o.status = 1
+        #     o.group_name=album.album_name
+        #     o.album_identifier = album.album_identifier
+        #     o.save()
+        #     
+        # except Order.DoesNotExist:
+        #     try: 
+        #         i = Order(
+        #         image=a,
+        #         image_LNID=a.image_LNID,
+        #         resolution=itemObj.resolution,
+        #         group_name=album.album_name,
+        #         client=muser.username,
+        #         clientImage=clientImage,
+        #         status=1)
+        #         i.save()
+        #         #print( 'made new order obj')
+        #     except Exception, inst: pass
+        #         #print( 'error saving order object %s' % inst)
                 
         # Get information for later rendering as text
         group = album.image.all()
@@ -201,7 +220,7 @@ def doBuildZIP(request):
             try:
                 album = Album.objects.get(album_identifier=i.album_identifier)
                 zipfilename = utes.Utes().bad().sub('-', i.group_name).replace('/','-') + '.zip'.encode('utf-8')            
-                z = buildZippedFolder(muser.username, i, zipfilename, album)
+                z = buildZippedFolder(muser, i, zipfilename, album)
                 zip.write(z[0], zipfilename.encode('utf-8'))
                 groupList.append(z[1])
                 # To do: Get rid of the saved zip now....
@@ -478,6 +497,11 @@ def doBasketNameUpdate(request, project_id):
         u = User.objects.get(user=request.user.id)
         u.current_project = p
         u.save()
+        orders = Order.objects.filter(client=request.user.username, status=0)
+        for order in orders:
+            order.project = p
+            order.save()
+        
         return HttpResponse(_("successfully entered project"))
     except Exception, inst:
         return HttpResponse(inst)

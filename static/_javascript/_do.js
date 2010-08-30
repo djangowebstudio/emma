@@ -1161,7 +1161,7 @@ function doBasketNameUpdate(id){
 function doProjectAdd(name){
     // adds project
     
-    url = 'interface/add/project/'+ name + '/';
+    url = '/interface/add/project/'+ name + '/';
     element = 'LN-toolbar-cart-basketnameinput';
     var mAjax = new Ajax.Request(
 		url,
