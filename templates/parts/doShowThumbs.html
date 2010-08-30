@@ -6,16 +6,15 @@
 <li id="show-hide-albums-pref-interface" class="active" {% ifequal groups 0 %} title="{% trans 'Group items in albums' %}" onclick="albums.show()" {% else %}  title="{% trans 'No grouping of items in albums' %}" onclick="albums.hide()" {% endifequal %}>{{albumpref}}</li>
 <li id="images-user-sorting-pref-interface" class="active" style="margin-right: 5px" {% ifequal sortpref 0 %} onclick="sort.asc('{{match}}','{{cat}}',{{weeks}},{{first_page}})" {% else %} onclick="sort.desc('{{match}}','{{cat}}',{{weeks}},{{first_page}})" {% endifequal %}>{{order}}</li>
 {% if has_prev %}
-<li class="active" onclick="doShowThumbs('{{match}}','{{cat}}',{{weeks}},{{first_page}},{{groups}})"> &lt;&lt; </li>
-<li class="active" onclick="doShowThumbs('{{match}}','{{cat}}',{{weeks}},{{prev_page}},{{groups}})"> &lt; </li>
+<li class="active" onclick="doShowThumbs('{{match}}','{{cat}}',{{weeks}},{{first_page}})"> &lt;&lt; </li>
+<li class="active" onclick="doShowThumbs('{{match}}','{{cat}}',{{weeks}},{{prev_page}})"> &lt; </li>
 {% else %}
 <li><img src="/s/_img_interface/bn-transparant.gif" width="32" height="10" alt="Bn Transparant" /></li>
 {% endif %}
 <li> {{pages|cut:"<"|cut:">"}} | {{count}} item{{count|pluralize:"s"}} | <a class="_images_interface" id="images-pager-pulldown-link" href="#" onclick="togglePageSizePulldown(this)">{{pageSize}} per page</a> </li>
 {% if has_next %}
-
-<li class="active" onclick="doShowThumbs('{{match}}','{{cat}}',{{weeks}},{{next_page}},{{groups}})"> > </li>
-<li class="active" onclick="doShowThumbs('{{match}}','{{cat}}',{{weeks}},{{last_page}},{{groups}})"> >> </li>
+<li class="active" onclick="doShowThumbs('{{match}}','{{cat}}',{{weeks}},{{next_page}})"> &gt; </li>
+<li class="active" onclick="doShowThumbs('{{match}}','{{cat}}',{{weeks}},{{last_page}})"> &gt;&gt; </li>
 {% endif %}
 {% if perms.images %}
 <li class="_action-select" onclick="pulldown.show(this, commands)"><img src="/s/_img_interface/images-action-select.png" border="0" width="32" height="16" alt="Images Action Select" /></li>

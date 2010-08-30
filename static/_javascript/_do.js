@@ -1063,7 +1063,7 @@ function urldecode( str ) {
     return ret;
 }
 
-function doShowThumbs(match, cat, weeks, page, renderCrumbs, groups){ 
+function doShowThumbs(match, cat, weeks, page, renderCrumbs){ 
 	
 	// Shows thumbnail images in content_main
 	// Takes: match; a search string, cat; a path node; weeks; integer, page; a page number, renderCrumbs; boolean
@@ -1074,15 +1074,15 @@ function doShowThumbs(match, cat, weeks, page, renderCrumbs, groups){
 	
 	var dimension = $('content').getDimensions();
 	var url;
-	if (groups || groups == 0){
-		
-		url = "/interface/show/thumbs/" + match + "/" + cat + "/" + weeks + "/" + page + "/" + groups + "/";
-	}else{
-		
-		url = "/interface/show/thumbs/" + match + "/" + cat + "/" + weeks + "/" + page + "/";
-	}
+    // if (groups || groups == 0){
+    //  
+    //  url = "/interface/show/thumbs/" + match + "/" + cat + "/" + weeks + "/" + page + "/" + groups + "/";
+    // }else{
+    //  
+    //  url = "/interface/show/thumbs/" + match + "/" + cat + "/" + weeks + "/" + page + "/";
+    // }
 	
-	
+	url = "/interface/show/thumbs/" + match + "/" + cat + "/" + weeks + "/" + page + "/";
 	var mAjax = new Ajax.Updater(
 		{success: 'content_main'}, 
 		url,
@@ -1177,7 +1177,6 @@ function doProjectAdd(name){
 	
     
 }
-
 
 
 
