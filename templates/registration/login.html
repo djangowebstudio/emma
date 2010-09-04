@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<form method="post" action=".">
+<form method="post" action=".">{% csrf_token %}
 <table id="LN-login" align="center">
 <tr><th colspan="2"></th></tr>
 <tr><td><label for="id_username">{% trans "Username" %}:</label></td><td>{{ form.username }}</td></tr>

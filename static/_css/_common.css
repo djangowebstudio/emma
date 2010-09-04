@@ -438,6 +438,7 @@ div#LN-toolbar-cart-basketname{
     padding: 3px;
     border-radius: 5px;
     border: 1px solid #ddccdd;
+    width: 100%;
 }
 div.LN-toolbar-cart-basketname-header h3{
     margin: 0 0 0 0;

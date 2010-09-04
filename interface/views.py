@@ -29,7 +29,6 @@ setup_environ(settings)
 import emma.core.utes as utes
 import re
 import subprocess
-from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 
 #--------------------------------------------------------------------------------------------------
@@ -55,7 +54,7 @@ def index(request):
             r = User.objects.get(user=request.user.id)
         
             if r.setting2 == 1: 
-                return render_to_response('index.html', response_data)
+                return render_to_response('index.html', response_data, context_instance=RequestContext(request))
             else:
                 r.setting2 = 0
                 r.save()
@@ -67,13 +66,13 @@ def index(request):
         try:
             c = Contract.objects.get(user=request.user.id)
             if c.contract == 1: 
-                return render_to_response('index.html', response_data)     
+                return render_to_response('index.html', response_data, context_instance=RequestContext(request))     
             else:
-                return render_to_response('contract.html', {'user': request.user})
+                return render_to_response('contract.html', {'user': request.user}, context_instance=RequestContext(request))
         except Contract.DoesNotExist:
-            return render_to_response('contract.html', {'user': request.user})
+            return render_to_response('contract.html', {'user': request.user}, context_instance=RequestContext(request))
             
-    else: return render_to_response('index.html', response_data)
+    else: return render_to_response('index.html', response_data, context_instance=RequestContext(request))
 
 def ie6(request, action=None): 
     """ Returns a page for internet explorer 6"""
@@ -85,7 +84,7 @@ def ie6(request, action=None):
             r = User.objects.get(user=request.user.id)
             r.setting2 = 1
             r.save()
-            return render_to_response('index.html', {'username': request.user.username, 'title': settings.APP_PUBLIC_NAME})
+            return render_to_response('index.html', {'username': request.user.username, 'title': settings.APP_PUBLIC_NAME}, context_instance=RequestContext(request))
         except Exception, inst:
             return HttpResponse(_('An error has occurred saving your Internet Explorer preferences %s') % inst)
     
@@ -469,7 +468,7 @@ def get_album(a,i):
     
         
 @login_required
-def doShowBasket(request, time):
+def doShowBasket(request, time=None):
     muser = request.user
     # Get basket name
     try:
@@ -492,7 +491,8 @@ def doShowBasket(request, time):
                                                             'count': count, 
                                                             'appendix': strftime("%Y%m%d%H%M%S"), 
                                                             'current_project': current_project,
-                                                            'projects': Project.objects.all() })
+                                                            'projects': Project.objects.all() },
+                                                             context_instance=RequestContext(request))
 
 @login_required
 def doBasketNameUpdate(request, project_id):
@@ -718,7 +718,7 @@ def doShowAlbumContents(request, album, div):
     
         return render_to_response('parts/doShowAlbumContents.html', {'album': a, 'div': div, 'm': m},context_instance=RequestContext(request))
     except Exception, inst:
-        return render_to_response('parts/doShowAlbumContents.html', {'debug': inst})
+        return render_to_response('parts/doShowAlbumContents.html', {'debug': inst}, context_instance=RequestContext(request))
     
     
     
@@ -854,7 +854,7 @@ def doSearch(request):
             
                 
                             
-            return render_to_response('parts/doShowSearch.html', {'itemList': itemList, 'mode': mode})
+            return render_to_response('parts/doShowSearch.html', {'itemList': itemList, 'mode': mode}, context_instance=RequestContext(request))
             
         elif mode == 'source':
             searchterm = match['s']
@@ -862,9 +862,9 @@ def doSearch(request):
             for i in itemListObj:
                 m = i.source, i.source
                 itemListFinal.append(m)
-            return render_to_response('parts/doShowSearchSource.html', {'itemList': itemListFinal })
+            return render_to_response('parts/doShowSearchSource.html', {'itemList': itemListFinal }, context_instance=RequestContext(request))
         else:
-            return render_to_response('parts/doShowSearch.html', {'itemList': [_('No results')]})
+            return render_to_response('parts/doShowSearch.html', {'itemList': [_('No results')]}, context_instance=RequestContext(request))
                 
         
 @login_required
@@ -985,7 +985,7 @@ def doShowFavorites(request, requestTemplate,  pageSize, page):
         'first_page': 1,
         'last_page': paginator.num_pages,
         'user': this_user,
-        })
+        }, context_instance=RequestContext(request))
     
     
 @login_required
@@ -1081,7 +1081,7 @@ def doShowMenu(request,requestedDir=''):
                                     if False in e.excludes(d,settings.APP_MENU_EXCLUDES):
                                         dirlist.append(d.encode('utf-8'))
     
-    return render_to_response('parts/doShowMenu.html', {'dirlist': dirlist, 'mList': requestedDir.replace('/', '_SLASH_') + "_SLASH_", 'crumbs': crumbs, 'user': request.user})
+    return render_to_response('parts/doShowMenu.html', {'dirlist': dirlist, 'mList': requestedDir.replace('/', '_SLASH_') + "_SLASH_", 'crumbs': crumbs, 'user': request.user}, context_instance=RequestContext(request))
     
 
 @login_required 
@@ -1292,7 +1292,7 @@ def doShowYears(request):
     """Return year links"""
     try:
         m = Metadata.objects.dates('datetimeoriginal', 'year')
-        return render_to_response('parts/doShowYears.html',{'dates' : m})
+        return render_to_response('parts/doShowYears.html',{'dates' : m}, context_instance=RequestContext(request))
     except Exception, inst:
         return HttpResponse(inst)
                 

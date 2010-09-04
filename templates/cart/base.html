@@ -1,0 +1,103 @@
+{% block content %}
+{% load images_extras %}
+{% load i18n %}
+<div class="LN-toolbar-cart-basketname-header">
+	{% if not current_project %}
+	<a style="margin-bottom: 11px" href="#" onclick="$('div#LN-toolbar-cart-basketname').toggle()">{% trans "Give your basket a name" %}</a>
+	{% else %}
+	<p class="LN-toolbar-cart-basketname-info">{% trans "Your basket is named" %}
+	<h3>{{current_project.name}}</h3>
+	<a title="{% trans 'Give your basket another name' %}" style="margin-bottom: 11px" href="#" onclick="$('div#LN-toolbar-cart-basketname').toggle()">{% trans "Change" %}</a>
+	</p>
+	{% endif %}
+</div>
+<div id="LN-toolbar-cart-basketname" style="display: none">
+	<p>{% trans "You might want to name this basket after the project you are working on. Choose a name from the list" %}, <a href="#" onclick="$('div#LN-toolbar-cart-projectname-addcontainer').toggle()">{% trans "or add a new name" %}</a>.</p>
+	<form id="LN-toolbar-cart-basketname-select" action="">		
+		<select name="basket_names" id="names" onchange="$.get('/cart/update/name/' + $(this).val() + '/')">
+			<option>--------</option>
+			{% for project in projects %}
+			<option {% ifequal current_project.name project.name %}selected{% endifequal %} value="{{project.id}}">{{project.name}}</option>
+			{% endfor %}
+		</select>	
+	</form>	
+	<div id="LN-toolbar-cart-projectname-addcontainer" style="display: none">	
+		<form id="LN-toolbar-cart-projectname-add">	
+			<input id="LN-toolbar-cart-basketnameinput" type="text" value="{% if current_project %}{{current_project.name}}{% endif %}" onblur="$.get('/cart/add/project/' + $(this).val() + '/')" />
+		</form>	
+	</div>
+	<div id="cartname-done"><a title="" href="#" onclick="r();">{% trans "Done" %}</a></div>
+</div>
+
+{% ifequal count 0 %}
+<div class="LN-toolbar-cart-usermessage">{% trans 'Your cart is empty' %}</div>
+{% endifequal %}
+{% ifnotequal count 0 %}
+<div id="LN-downloadZipLinkContainer">
+	
+	
+	<a title="{% trans 'Click to download the contents of your basket.' %}" class="button" style="" onclick="showDownloadMessage()" href="/interface/clients/zip/">
+		<div>download</div>
+	</a>
+</div>
+{% endifnotequal %}
+{% for currentItem in itemList%}
+<div title="" id="{{currentItem.image_LNID}}-cartitem" {% if currentItem.group_name|length_is:"0" %} class="LN-toolbar-cart-basketItemContainer"  {% else %} class="LN-toolbar-cart-basketFolder" {% endif %}>
+	<div class="LN-toolbar-cart-itemPartTop" {% if not currentItem.group_name|length_is:"0" %} style="position: relative; top: 9px" {% endif %}>
+	
+		{% if currentItem.group_name|length_is:"0" %}
+		<div class="LN-toolbar-cart-imageColumn" style="width: 50%; text-align: left; height: 37px; ">
+			<img id="{{currentItem.image_LNID}}-cartImage" 
+			{% ifequal currentItem.image_category "video" %}
+			src="/s/_img_interface/video.png"
+			{% endifequal %}
+			{% ifequal currentItem.image_category "audio" %}
+			src="/s/_img_interface/audio.png"
+			{% else %}
+			src="/gallery/miniThumbs/{{ currentItem.image_name }}?{{appendix}}" 				
+			{% endifequal %}
+			border="0" />
+		</div>
+		{% else %}
+		<div class="LN-toolbar-cart-imageColumn" style="width: 50%; text-align: left; height: 37px;background-repeat: no-repeat; background-position: 21px -7px; background-image:{% ifequal currentItem.image_category "video" %}url('/s/_img_interface/video.png'){% endifequal %}{% ifequal currentItem.image_category "audio" %}url('/s/_img_interface/audio.png'){% else %}url('/gallery/miniThumbs/{{ currentItem.image_name }}'){% endifequal %}">
+		</div>
+		{% endif %}
+		<div class="LN-toolbar-cart-removeButtonContainer" style="width: 49%; text-align: right">
+			<a title="{% trans 'Click to remove this item from your basket' %}" href="#" 
+			onclick="if(confirm(gettext('Do you REALLY want to remove this item from your basket?'))){$.get('{% url remove_item currentItem.id %}');r();}">
+				<img src="/s/_img_interface/images-close/10px.png" border="0" width="10" height="10" alt="10px" />
+			</a>
+		</div>
+	</div>
+	
+	<div class="LN-toolbar-cart-itemName" style="font-size: 9px; cursor: help;">
+		<div title="{% trans 'Change resolution of the downloads. HR is High Resolution and a slower download, LR is Low Resolution and a faster download' %}" style="width: 21px">
+			<input type="checkbox" id="LN-toolbar-cart-resolution-checkbox" onclick="$.get('{% url update_item currentItem.pk %}');" {% ifequal currentItem.resolution 'HR' %}checked{% endifequal %} />
+		</div>
+		
+		<div style="margin-top: 2px" {% if currentItem.group_name|length_is:"0" %} title="{{ currentItem.image_LNID }}"{% else %} title="Album: {{currentItem.group_name|safe}}"{% endif %}>
+			Download HR
+		</div>
+
+	</div>
+	
+
+</div>
+{% if not currentItem.group_name|length_is:"0" %}
+<div style="font-size: 9px;text-align: center;margin-top: 0px; margin-bottom: 5px">	
+	{{currentItem.group_name|safe}}
+</div>	
+{% endif %}
+
+
+{% endfor %}
+{% ifnotequal count 0 %}
+<div class="LN-toolbar-cart-footer" style="margin-top: 5px">
+	{% trans 'Empty your basket' %} 
+	<img title="{% trans 'Click here to empty your basket completely' %}" 
+	border="0" 
+	onclick="if(confirm(gettext('Do your REALLY want to empty your WHOLE basket?'))){$.get('{% url empty_cart %}'); r();}" 
+	style="cursor: pointer" src="/s/_img_interface/images-close/16px.png" width="16" height="16" alt="Ln Toolbar Cart Pulldown Close" /></div> 
+{% endifnotequal %}
+{% endblock %}
+

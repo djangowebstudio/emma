@@ -162,6 +162,9 @@ class Order(models.Model):
     def get_image(self):
         return 'gallery/images/%s.jpg' % self.image_LNID
         
+    class Meta:
+        ordering = ['ts']
+        
 
 class Keyword(models.Model):
     """Secondary table, most used for views."""

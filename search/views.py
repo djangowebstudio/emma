@@ -22,7 +22,8 @@ class EmmaSearchView(SearchView):
 
 @login_required
 def search(req):
-    try:
-        return EmmaSearchView(template='search/search.html', form_class=SearchForm)(req)
-    except Exception, inst:
-        raise Http404
+    return EmmaSearchView(template='search/search.html', form_class=SearchForm)(req)
+    # try:
+    #     return EmmaSearchView(template='search/search.html', form_class=SearchForm)(req)
+    # except Exception, inst:
+    #     raise Http404
