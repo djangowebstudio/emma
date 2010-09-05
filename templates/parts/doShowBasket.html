@@ -2,20 +2,19 @@
 {% load images_extras %}
 {% load i18n %}
 <div class="LN-toolbar-cart-basketname-header">
-	{% if not current_project %}
+	{% ifequal current_project.slug 'none' %}
 	<a style="margin-bottom: 11px" href="#" onclick="$('LN-toolbar-cart-basketname').toggle()">{% trans "Give your basket a name" %}</a>
 	{% else %}
 	<p class="LN-toolbar-cart-basketname-info">{% trans "Your basket is named" %}
 	<h3>{{current_project.name}}</h3>
 	<a title="{% trans 'Give your basket another name' %}" style="margin-bottom: 11px" href="#" onclick="$('LN-toolbar-cart-basketname').toggle()">{% trans "Change" %}</a>
 	</p>
-	{% endif %}
+	{% endifequal %}
 </div>
 <div id="LN-toolbar-cart-basketname" style="display: none">
-	<p>{% trans "You might want to name this basket after the project you are working on. Choose a name from the list" %}, <a href="#" onclick="$('LN-toolbar-cart-projectname-addcontainer').toggle()">{% trans "or add a new name" %}</a>.</p>
+	<p>{% trans "You might want to name your cart after the project you are working on. Choose a name from the list" %}, <a href="#" onclick="$('LN-toolbar-cart-projectname-addcontainer').toggle()">{% trans "or add a new name" %}</a>. {% trans "Don't want to name your cart? Select the first - empty - item" %}.</p>
 	<form id="LN-toolbar-cart-basketname-select">		
 		<select name="basket_names" id="names" onchange="doBasketNameUpdate($F('names'))">
-			<option>--------</option>
 			{% for project in projects %}
 			<option {% ifequal current_project.name project.name %}selected{% endifequal %} value="{{project.id}}">{{project.name}}</option>
 			{% endfor %}

@@ -9,11 +9,15 @@
 	<link rel="shortcut icon" href="/s/_img_interface/favicon.ico" />
 	<link rel="stylesheet" href="/s/_css/_common.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	<link rel="stylesheet" href="/s/fancybox/jquery.fancybox-1.3.1.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="/s/feedback/main.css"/>
 	<script src="/s/_javascript/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/s/fancybox/jquery.fancybox-1.3.1.pack.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/s/fancybox/jquery.easing-1.3.pack.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/s/fancybox/jquery.mousewheel-3.0.2.pack.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/jsi18n/" type="text/javascript" charset="utf-8"></script>
+	<script src="/jsi18n/" type="text/javascript" charset="utf-8"></script>   
+	<script src="/s/feedback/jquery.form.js"></script>
+   	<script src="/s/feedback/main.js"></script>
+
 	<script type="text/javascript" charset="utf-8">
 		$(function(){
 			$("a.group").fancybox({
@@ -68,6 +72,7 @@
 		div.button{float: right; width: 74px; border-radius: 7px; padding: 7px; border: 1px solid #ddccdd;}
 		div.button div.label{}
 		div#cart{position: absolute; right: 11px; top: 37px;background: #fff; width: 148px;}
+		div#LN-cartContainer{top: 0px;}
 		div#cartname-done{clear: both; text-align: right; margin-top: 21px;}
 		div#metadata{position: absolute; top: 37px; left: 7px; width: 180px; text-align: right; background: #eee;padding: 7px;border: 1px solid #ddccdd;-webkit-box-shadow: 0px 1px 5px #000; -moz-box-shadow: 0px 1px 5px #000; }
 		div.pager{float: right; margin: 0 52px 0 0;}
@@ -80,10 +85,13 @@
 		div.filters img{position: relative; top: 2px;}
 		label{font-size: 19px; margin-right: 11px; color: #444;  display: none;}
 		input#id_q{margin: 5px 0 0 0; width: 297px; font-size: 19px; height: 24px; border-radius: 14px; -moz-border-radius: 14px; border: 1px solid #ff3300; padding: 0 0 0 11px;}
-		input#form_search{margin: 0 42px 0 5px;  font-size: 2em; position: relative; top: -2px; }
+		input#form_search{margin: 0 42px 0 5px; width: 74px;  font-size: 2em; position: relative; top: -2px; }
 		div.divider{clear: both; height: 1px; width: 100%; background-color: #ddccdd;-webkit-box-shadow: 0px 1px 5px #ddccdd; -moz-box-shadow: 0px 1px 5px #ddccdd; margin: 0 0 11px 0;}
 		div.mlt{float: left; margin: 0 2px 0 2px;}
 		div.mlt a.mlt-add{float:right;}
+		div#back{ padding: 6px 0 0 52px; width: 74px; height: 24px; position: absolute; left: 5px; top: 11px; font-size: 14px; text-transform: uppercase; background:  url('/s/_img_interface/arrow-back.png') no-repeat;}
+		div#back a{color: #444;}
+		div#back:hover{ background: #eee  url('/s/_img_interface/arrow-back.png') no-repeat; border-radius: 14px;}
 	</style>
 </head>
 
@@ -173,7 +181,7 @@
 		{% if mlt %}
 		<h3>{% trans "More like this" %}</h3>
 		<p>{% trans "Showing results in some way related to the current search" %}</p>
-		{% more_like_this mlt as related limit 15 %}
+		{% more_like_this mlt as related limit 10 %}
 		{% for image in related %}
 		<div class="mlt">	
 			<a class="group" rel="mlt" href="/gallery/images/{{image.image_LNID}}.jpg">
@@ -188,7 +196,19 @@
 		{% endif %}
 	
 	</div>
+	<div id="LN-cartContainer">
+		<ul id="LN-toolbar-cart">
+			<li>
+				<img border="0" src="/s/_img_interface/ln-toolbar-cart.gif" width="15" height="16" alt="Ln Cart" />
+			</li>
+			<li style="position: relative; top: -5px">
+				{{request.user.username}}'s {% trans 'basket' %}
+			</li>
+		</ul>
+	</div>
 	<div id="cart"></div>
 	<div id="metadata" style="display: none"></div>
+	<div id="back"><a href="/">{% trans "Back" %}</a></div>
+	{% include "feedback/button.html" %}
 </body>
 </html>
