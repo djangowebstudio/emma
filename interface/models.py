@@ -132,6 +132,7 @@ class Copyright(models.Model):
     
 class Project(models.Model):
     """Refers to a project"""
+    number = models.IntegerField(default=0, verbose_name="order")
     name = models.CharField(max_length=255)
     slug = models.SlugField(default='')
     ts = models.DateTimeField(auto_now=True)
@@ -139,7 +140,10 @@ class Project(models.Model):
     is_complete = models.BooleanField(default=False)
     
     def __unicode__(self):
-        return self.name
+        return '%s %s' % (self.name, self.slug)
+        
+    class Meta:
+        ordering = ['number', 'id']
 
 class Order(models.Model):
     """Holds cart items"""

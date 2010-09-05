@@ -90,5 +90,5 @@ admin.site.register(User, UserAdmin)
 admin.site.register(Query)
 class ProjectAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
-    list_display = ['name', 'active', 'is_complete',]
+    list_display = ['number','name', 'slug', 'active', 'is_complete',]
 admin.site.register(Project, ProjectAdmin)
