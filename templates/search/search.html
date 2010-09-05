@@ -41,7 +41,7 @@
 								.css({'top': ($(this).offset().top+16) + 'px', 'left': $(this).offset().left + 'px'});
 			});
 			$('a.iframe').bind("mouseout", function(){$('div#metadata').hide()});
-			r();
+			r(); // load cart on page load
 		});
 		function r(){
 			var cart = $('div#cart');
@@ -82,6 +82,8 @@
 		input#id_q{margin: 5px 0 0 0; width: 297px; font-size: 19px; height: 24px; border-radius: 14px; -moz-border-radius: 14px; border: 1px solid #ff3300; padding: 0 0 0 11px;}
 		input#form_search{margin: 0 42px 0 5px;  font-size: 2em; position: relative; top: -2px; }
 		div.divider{clear: both; height: 1px; width: 100%; background-color: #ddccdd;-webkit-box-shadow: 0px 1px 5px #ddccdd; -moz-box-shadow: 0px 1px 5px #ddccdd; margin: 0 0 11px 0;}
+		div.mlt{float: left; margin: 0 2px 0 2px;}
+		div.mlt a.mlt-add{float:right;}
 	</style>
 </head>
 
@@ -142,8 +144,9 @@
 							<img src="/s/_img_interface/copyright-no.png" width="10" height="10" alt="Copyright No">
 							{% endif %}
 						</div>
-						<div class="image">		                
+						<div class="image">      
 							<a class="group" rel="main" href="/gallery/images/{{result.object.image_LNID}}.jpg">
+								
 								{% thumbnail result.object.get_image 148x148 crop upscale as image %}
 								<img class="item-image"  src="{{image}}" border="0" width="{{image.width}}" height="{{image.width}}" alt="{{result.object.subject|truncate:100}}" />
 							</a>
@@ -170,9 +173,17 @@
 		{% if mlt %}
 		<h3>{% trans "More like this" %}</h3>
 		<p>{% trans "Showing results in some way related to the current search" %}</p>
-		{% more_like_this mlt as related limit 10 %}
+		{% more_like_this mlt as related limit 15 %}
 		{% for image in related %}
-		<a class="group" rel="mlt" href="/gallery/images/{{image.image_LNID}}.jpg"><img src="/gallery/miniThumbs/{{image.image_LNID}}.jpg" border="0" alt="{% if image.subject %}{{image.subject}}{% endif %}" /></a>
+		<div class="mlt">	
+			<a class="group" rel="mlt" href="/gallery/images/{{image.image_LNID}}.jpg">
+				{% thumbnail image.object.get_image 74x74 crop upscale as img %}
+				<img src="{{img}}" width="{{img.width}}" height="{{img.height}}" border="0" alt="{% if image.object.subject %}{{image.object.subject}}{% endif %}" />
+			</a>
+			<div class="label" style="width: 100%">
+				<a class="mlt-add" onclick="$.get('{% url add_item image.object.image_LNID %}');r();" href="#">{% trans "add to cart" %}</a>
+			</div>
+		</div>		
 		{% endfor %}
 		{% endif %}
 	
