@@ -11,8 +11,8 @@
 	</p>
 	{% endifequal %}
 </div>
-<div id="LN-toolbar-cart-basketname" style="display: none">
-	<p>{% trans "You might want to name your cart after the project you are working on. Choose a name from the list" %}, <a href="#" onclick="$('LN-toolbar-cart-projectname-addcontainer').toggle()">{% trans "or add a new name" %}</a>. {% trans "Don't want to name your cart? Select the first - empty - item" %}.</p>
+<div id="LN-toolbar-cart-basketname" style="display: none; width: 90%">
+	<p>{% trans "You might want to name your cart after the project you are working on. Choose a name from the list" %}, <a href="#" onclick="$('LN-toolbar-cart-projectname-addcontainer').toggle()">{% trans "or add a new name" %}</a>. {% trans "Don't want to name your cart? Select the first (empty) item" %}.</p>
 	<form id="LN-toolbar-cart-basketname-select">		
 		<select name="basket_names" id="names" onchange="doBasketNameUpdate($F('names'))">
 			{% for project in projects %}

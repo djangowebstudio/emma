@@ -13,7 +13,7 @@
 </div>
 <div id="LN-toolbar-cart-basketname" style="display: none">
 	<p>
-		{% trans "You might want to name your cart after the project you are working on. Choose a name from the list" %}, <a href="#" onclick="$('div#LN-toolbar-cart-projectname-addcontainer').toggle()">{% trans "or add a new name" %}</a>. {% trans "Don't want to name your cart? Select the first - empty - item" %}.
+		{% trans "You might want to name your cart after the project you are working on. Choose a name from the list" %}, <a href="#" onclick="$('div#LN-toolbar-cart-projectname-addcontainer').toggle()">{% trans "or add a new name" %}</a>. {% trans "Don't want to name your cart? Select the first (empty) item" %}.
 	</p>
 	<form id="LN-toolbar-cart-basketname-select" action="">		
 		<select name="basket_names" id="names" onchange="$.get('/cart/update/name/' + $(this).val() + '/')">
@@ -95,11 +95,12 @@
 {% endfor %}
 {% ifnotequal count 0 %}
 <div class="LN-toolbar-cart-footer" style="margin-top: 5px">
-	{% trans 'Empty your basket' %} 
+	<p>{% trans 'Empty your basket' %}</p>
 	<img title="{% trans 'Click here to empty your basket completely' %}" 
 	border="0" 
 	onclick="if(confirm(gettext('Do your REALLY want to empty your WHOLE basket?'))){$.get('{% url empty_cart %}'); r();}" 
-	style="cursor: pointer" src="/s/_img_interface/images-close/16px.png" width="16" height="16" alt="Ln Toolbar Cart Pulldown Close" /></div> 
+	style="cursor: pointer" src="/s/_img_interface/images-close/16px.png" width="16" height="16" alt="Ln Toolbar Cart Pulldown Close" />
+</div> 
 {% endifnotequal %}
 {% endblock %}
 

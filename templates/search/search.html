@@ -87,11 +87,14 @@
 		input#id_q{margin: 5px 0 0 0; width: 297px; font-size: 19px; height: 24px; border-radius: 14px; -moz-border-radius: 14px; border: 1px solid #ff3300; padding: 0 0 0 11px;}
 		input#form_search{margin: 0 42px 0 5px; width: 74px;  font-size: 2em; position: relative; top: -2px; }
 		div.divider{clear: both; height: 1px; width: 100%; background-color: #ddccdd;-webkit-box-shadow: 0px 1px 5px #ddccdd; -moz-box-shadow: 0px 1px 5px #ddccdd; margin: 0 0 11px 0;}
-		div.mlt{float: left; margin: 0 2px 0 2px;}
+		div.mlt{float: left; margin: 0 6px 0 0;}
 		div.mlt a.mlt-add{float:right;}
+		div.mlt-label{width: 95%; height: 12px; margin: 2px 0 0 0; padding: 0 4px 0 2px; text-align: left; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;background: #eee}
 		div#back{ padding: 6px 0 0 52px; width: 74px; height: 24px; position: absolute; left: 5px; top: 11px; font-size: 14px; text-transform: uppercase; background:  url('/s/_img_interface/arrow-back.png') no-repeat;}
 		div#back a{color: #444;}
 		div#back:hover{ background: #eee  url('/s/_img_interface/arrow-back.png') no-repeat; border-radius: 14px;}
+		div.LN-toolbar-cart-footer{padding: 7px;}
+		div.LN-toolbar-cart-footer p{display: inline; position: relative; top: -5px; margin: 0 5px 0 0;}
 	</style>
 </head>
 
@@ -165,8 +168,12 @@
 							{% highlight result.object.source with query %}
 						</div>
 						<p>
-							<a id="{{result.object.image_LNID}}" class="iframe" href="/interface/show/description/{{result.object.image_LNID}}/1/">{% trans "show details" %}</a>
-							<a style="float: right" href="#" onclick="$.get('{% url add_item result.object.image_LNID %}');r();">{% trans "add to cart" %}</a>							
+							<a id="{{result.object.image_LNID}}" title="{{result.object.subject}}" class="iframe" href="/interface/show/description/{{result.object.image_LNID}}/1/">
+								<img src="/s/_img_interface/detail/15px.png" width="15" height="15" alt="15px">
+							</a>
+							<a title="{% trans 'add to cart' %}" style="float: right; margin-right: 5px" href="#" onclick="$.get('{% url add_item result.object.image_LNID %}');r();">
+								<img src="/s/_img_interface/addtocart/0.15x.png" width="22" height="18" alt="{% trans 'add to cart' %}" border="0" />
+							</a>							
 						</p>
 		            </div>
 		        {% empty %}
@@ -184,12 +191,17 @@
 		{% more_like_this mlt as related limit 10 %}
 		{% for image in related %}
 		<div class="mlt">	
-			<a class="group" rel="mlt" href="/gallery/images/{{image.image_LNID}}.jpg">
+			<a class="group" title="{{image.object.subject}}" rel="mlt" href="/gallery/images/{{image.image_LNID}}.jpg">
 				{% thumbnail image.object.get_image 74x74 crop upscale as img %}
 				<img src="{{img}}" width="{{img.width}}" height="{{img.height}}" border="0" alt="{% if image.object.subject %}{{image.object.subject}}{% endif %}" />
 			</a>
-			<div class="label" style="width: 100%">
-				<a class="mlt-add" onclick="$.get('{% url add_item image.object.image_LNID %}');r();" href="#">{% trans "add to cart" %}</a>
+			<div class="label mlt-label" style="">
+				<a title="{{image.object.subject}}" id="{{image.object.image_LNID}}" class="iframe" href="/interface/show/description/{{image.object.image_LNID}}/1/">
+					<img src="/s/_img_interface/detail/10px.png" width="10" height="10" alt="10px" border="0" />
+				</a>
+				<a title="{% trans "add to cart" %}" class="mlt-add" onclick="$.get('{% url add_item image.object.image_LNID %}');r();" href="#">
+					<img src="/s/_img_interface/addtocart/0.1x.png" width="15" height="12" alt="0.1x" border="0" />
+				</a>
 			</div>
 		</div>		
 		{% endfor %}
@@ -199,10 +211,10 @@
 	<div id="LN-cartContainer">
 		<ul id="LN-toolbar-cart">
 			<li>
-				<img border="0" src="/s/_img_interface/ln-toolbar-cart.gif" width="15" height="16" alt="Ln Cart" />
+				<img border="0" src="/s/_img_interface/ln-toolbar-cart.gif" width="15" height="16" alt="Cart" />
 			</li>
 			<li style="position: relative; top: -5px">
-				{{request.user.username}}'s {% trans 'basket' %}
+				{{request.user.username}}'s {% trans 'cart' %}
 			</li>
 		</ul>
 	</div>
