@@ -2,10 +2,6 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 from django.contrib import admin
 admin.autodiscover()
-try: 
-    import json
-except:
-    import simplejson as json
 
 urlpatterns = patterns('emma.cart.views',
             url(r'^add/item/(?P<item>.*)/$', 'add', name='add_item'),
