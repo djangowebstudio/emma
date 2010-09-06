@@ -151,7 +151,7 @@ def buildZippedFolder(muser, itemObj, zip_filename, album):
                 empty_album = Order.objects.get(client=muser.username, album_identifier=album.album_identifier, status=0)
                 empty_album.delete()
             except Exception, inst:
-                print inst
+                pass
         except Exception, inst:
             pass
             
