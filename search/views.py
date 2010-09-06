@@ -4,6 +4,10 @@ from haystack.forms import SearchForm
 from django.contrib.auth.decorators import login_required
 from emma.interface.models import Metadata, Keyword
 from django.http import Http404
+try: 
+    import json
+except:
+    import simplejson as json
 
 class EmmaSearchView(SearchView):
     def __name__(self):
