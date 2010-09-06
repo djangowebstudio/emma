@@ -50,7 +50,7 @@
 		function r(){
 			var cart = $('div#cart');
 			cart.hide();
-			cart.load('');
+			cart.load('{% url show_cart %}');
 			cart.show('fast');
 		}		
 	</script>
