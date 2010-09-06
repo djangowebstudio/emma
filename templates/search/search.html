@@ -45,14 +45,14 @@
 								.css({'top': ($(this).offset().top+16) + 'px', 'left': $(this).offset().left + 'px'});
 			});
 			$('a.iframe').bind("mouseout", function(){$('div#metadata').hide()});
-			// r(); // load cart on page load
+			r(); // load cart on page load
 		});
-		// function r(){
-		// 	var cart = $('div#cart');
-		// 	cart.hide();
-		// 	cart.load('{% url show_cart %}');
-		// 	cart.show('fast');
-		// }		
+		function r(){
+			var cart = $('div#cart');
+			cart.hide();
+			cart.load('');
+			cart.show('fast');
+		}		
 	</script>
 	<style type="text/css" media="screen">
 		body{margin: 0 0 0 0; padding: 0 0 0 0;}
