@@ -8,6 +8,6 @@ class FeedbackForm(forms.ModelForm):
     '''The form shown when giving feedback'''
     class Meta:
         model = models.Feedback
-        #exclude = ('site', 'url')
+        # exclude = ('site', 'url', 'subject', 'email')
 
 # vim: et sw=4 sts=4

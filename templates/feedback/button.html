@@ -1,21 +1,19 @@
+{% load i18n %}
 <div id="feedback_button" class="white left normal"><a href="/feedback/">feedback</a></div>
 <div id="feedback_drop" class="hiding"></div>
 <div id="feedback_popup" class="hiding">
     <form class="feedback" action="/feedback/ajax{{ request.path }}" method="POST">
-        <div class="name error"> </div>
-        <label for="email">email (optional)</label>
-            <input name="email"/>
-        <div class="subject error"> </div>
-        <label for="subject">subject (optional)</label>
-            <input name="subject"/>
+		<div class="subject error"> </div>
+		<label for="subject">{% trans "subject" %}</label>
+		<input type="text" name="subject" />
         <div class="text error"> </div>
-        <label for="text">message</label>
+        <label for="text">{% trans "message" %}</label>
             <textarea name="text"></textarea>
         <div class="buttons">
-            <button>Send</button>
+            <button>{% trans "Send" %}</button>
         </div>
     </form>
-    <div class="thanks hiding">Thank you for your feedback!</div>
+    <div class="thanks hiding">{% trans "Thank you for your feedback" %}!</div>
     <div class="close"></div>
 </div>
 
