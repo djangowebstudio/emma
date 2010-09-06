@@ -11,6 +11,10 @@ from django.core.management import setup_environ
 import settings
 setup_environ(settings)
 from django.utils.translation import ugettext_lazy as _
+try: 
+    import json
+except:
+    import simplejson as json
 
 @login_required
 def empty(request):
