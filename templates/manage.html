@@ -42,6 +42,9 @@
 		textarea{height: 105px; width: 148px;display: block; border-color: #ddccdd; border-radius: 3px;}
 		div.label{font-size: 10px;}
 		img{border: 1px solid #ddccdd; padding: 3px; border-radius: 3px;}
+		div#back{ padding: 6px 0 0 52px; width: 74px; height: 24px; position: absolute; left: 5px; top: 11px; font-size: 14px; text-transform: uppercase; background:  url('/s/_img_interface/arrow-back.png') no-repeat;}
+		div#back a{color: #444;}
+		div#back:hover{ background: #eee  url('/s/_img_interface/arrow-back.png') no-repeat; border-radius: 14px;}
     </style>
 </head>
 
@@ -49,8 +52,8 @@
 <div class="masthead" title="Terug naar BeeldNET" onclick="location.href='/interface/'" style="">
 </div>	
 		<div class="table-container" style="">
-			<h2 class="message">Managing {{request.user}}'s downloads</h2>			
-			<p>This is an overview of your downloads. You can help us by checking the downloads used in a publication. <a href="/">Click this link to go back</a>.</p>
+			<h2 class="message">{% trans "Managing" %} {{request.user}}'s {% trans "downloads" %}</h2>			
+			<p>{% trans "This is an overview of your downloads. You can help us by checking the downloads used in a publication." %}</p>
 			<table border="0" cellspacing="0" cellpadding="5">
 				<tr class="header">
 					<th>{% anchor is_published "is published?" %}</th>
@@ -79,5 +82,6 @@
 				{% endfor %}
 			</table>
 		</div>
+<div id="back"><a href="/">{% trans "Back" %}</a></div>
 </body>
 </html>
