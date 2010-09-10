@@ -1,0 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-10 11:07+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: views.py:22
+msgid "Your basket is empty."
+msgstr "Je mandje is leeg"
+
+#: views.py:24
+#, fuzzy
+msgid "An error occurred while emptying your basket."
+msgstr "Er trad een fout op bij het leegmaken van je mandje"
+
+#: views.py:31
+msgid "The item has been removed"
+msgstr "Het onderdeel is verwijderd"
+
+#: views.py:33
+msgid "An error occurred. The item was not removed"
+msgstr "Er trad een fout op. Het onderdeel is niet verwijderd"
+
+#: views.py:82
+#, python-format
+msgid "%(item)s is in your basket"
+msgstr "%(item)s in je mandje"
+
+#: views.py:84
+#, python-format
+msgid "%(item)s already here!"
+msgstr "%(item)s is er al!"
+
+#: views.py:97
+#, python-format
+msgid "%(item)s had been downloaded (more than) once already."
+msgstr "%(item)s is al gedownlaod"
+
+#: views.py:99
+#, python-format
+msgid "%(item)s already selected"
+msgstr "%(item)s al geselecteerd"
+
+#: views.py:159
+msgid "successfully entered project"
+msgstr "project ingevoerd"
+
+#: views.py:183
+#, python-format
+msgid "The item seemed to be part of an album, but no album found - %s"
+msgstr ""
+"Dit onderdeel leek deel uit te maken van een album, maar geen album gevonden "
+"- %s"
+
+#: templates/cart/base.html:6
+msgid "Give your basket a name"
+msgstr "Geef je mandje een naam"
+
+#: templates/cart/base.html:8
+msgid "Your basket is named"
+msgstr "Je mandje heet"
+
+#: templates/cart/base.html:10
+msgid "Change name"
+msgstr "Wijzig naam"
+
+#: templates/cart/base.html:10
+msgid "Change"
+msgstr "Wijzig"
+
+#: templates/cart/base.html:16
+msgid ""
+"You might want to name your cart after the project you are working on. "
+"Choose a name from the list"
+msgstr ""
+"Je kunt je mandje een naam geven, bv de naam van dit project. "
+"Kies een naam uit de lijst"
+
+#: templates/cart/base.html:16
+msgid "or add a new name"
+msgstr "of voeg een nieuwe naam toe"
+
+#: templates/cart/base.html:16
+msgid "Don't want to name your cart? Select the first (empty) item"
+msgstr ""
+"Wil je je mandje geen naam geven? Selecteer het eerste (lege) keuzeveld"
+
+#: templates/cart/base.html:30
+msgid "Done"
+msgstr "Klaar"
+
+#: templates/cart/base.html:34
+msgid "Your cart is empty"
+msgstr "Je mandje is leeg"
+
+#: templates/cart/base.html:40
+msgid "Click to download the contents of your basket."
+msgstr "Klik om de inhoud vcan je mandje te downloaden"
+
+#: templates/cart/base.html:68
+msgid "Click to remove this item from your basket"
+msgstr "Klik om dit onderdeel uit je mandje te verwijderen"
+
+#: templates/cart/base.html:76
+msgid ""
+"Change resolution of the downloads. HR is High Resolution and a slower "
+"download, LR is Low Resolution and a faster download"
+msgstr ""
+"Verander de resolutie van de download. HR is een hoge resolutie en een "
+"langzamer download, LR is een lage resolutie en een snellere download"
+
+#: templates/cart/base.html:98
+msgid "Empty your basket"
+msgstr "Maak je mandje leeg"
+
+#: templates/cart/base.html:99
+msgid "Click here to empty your basket completely"
+msgstr "Hier hier om je mandje helemaal leeg te maken"

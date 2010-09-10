@@ -1,0 +1,100 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-10 12:30+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/parts/header-links.html:5
+msgid "change your password"
+msgstr "verander je wachtwoord"
+
+#: templates/parts/header-links.html:6
+msgid "manage your downloads"
+msgstr "beheer je downloads"
+
+#: templates/parts/header-links.html:7
+msgid "show help pages"
+msgstr "laat helppagina's zien"
+
+#: templates/search/search.html:113
+msgid "Search"
+msgstr "Zoeken"
+
+#: templates/search/search.html:115
+msgid "did you mean"
+msgstr "bedoelde je"
+
+#: templates/search/search.html:123
+msgid "no copyright"
+msgstr "geen copyright"
+
+#: templates/search/search.html:130
+msgid "copyrighted"
+msgstr "copyright"
+
+#: templates/search/search.html:133
+msgid "reset"
+msgstr "herstel"
+
+#: templates/search/search.html:138
+msgid "results"
+msgstr "resultaten"
+
+#: templates/search/search.html:174 templates/search/search.html.py:175
+#: templates/search/search.html:202
+msgid "add to cart"
+msgstr "in je mandje"
+
+#: templates/search/search.html:180
+msgid "No results found"
+msgstr "Geen resultaten gevonden"
+
+#: templates/search/search.html:180
+msgid "If you filtered the results, you might try clicking the"
+msgstr "Als je een filter hebt gebruikt, klik dan de "
+
+#: templates/search/search.html:180
+msgid "reset search"
+msgstr "herstel zoekopdracht"
+
+#: templates/search/search.html:180
+msgid "button"
+msgstr "button"
+
+#: templates/search/search.html:184
+msgid ""
+"Enter a search query into the box above. You may filter your results by "
+"clicking the green button (no copyright). Click the reset button to continue "
+"with the full results set."
+msgstr ""
+"Geef een zoekopdracht hierboven in. Je kunt de zoekopdracht filteren door de "
+"groene button te klikken. Klik de herstel button om verder te gaan met de "
+"volledige set resultaten."
+
+#: templates/search/search.html:189
+msgid "More like this"
+msgstr "Meer resultaten"
+
+#: templates/search/search.html:190
+msgid "Showing results in some way related to the current search"
+msgstr "Meer resultaten die gerelateerd zijn aan de huidige zoekopdracht"
+
+#: templates/search/search.html:217
+msgid "cart"
+msgstr "mandje"
+
+#: templates/search/search.html:223
+msgid "Back"
+msgstr "Terug"

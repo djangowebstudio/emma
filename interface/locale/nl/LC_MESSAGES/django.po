@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-30 17:13+0200\n"
+"POT-Creation-Date: 2010-09-10 13:07+0200\n"
 "PO-Revision-Date: 2009-05-23 22:22+0200\n"
 "Last-Translator: Geert Dekkers, geert@nznl.com, 2009\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,204 +16,324 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: views.py:90
+#: views.py:89
 #, python-format
 msgid "An error has occurred saving your Internet Explorer preferences %s"
-msgstr "Een fout is opgetreden tijdens het bewaren van Internet Explorer voorkeuren"
+msgstr "Een fout is opgetreden tijdens het bewaren van Internet Explorer voorkeuren %s"
 
-#: views.py:308
+#: views.py:312
 msgid "Your basket is empty."
 msgstr "Je mandje is leeg"
 
-#: views.py:310
+#: views.py:314
 msgid "An error occurred while emptying you basket."
 msgstr "Er is een fout opgetreden bij het leegmaken van je mandje"
 
-#: views.py:317
+#: views.py:321
 msgid "The item has been removed"
 msgstr "Dit onderdeel is verwijderd"
 
-#: views.py:319
+#: views.py:323
 msgid "An error occurred. The item was not removed"
 msgstr "Een fout is opgetreden, het onderdeel is niet verwijderd"
 
-#: views.py:348
+#: views.py:352
 #, fuzzy, python-format
 msgid "%s is in your basket"
 msgstr "Zet dit onderdeel in je mandje"
 
-#: views.py:348
+#: views.py:352
 #, python-format
 msgid "%s is already in there!"
 msgstr "%s is er al!"
 
-#: views.py:354
+#: views.py:358
 #, python-format
 msgid "%s has already been downloaded"
 msgstr "%s is al gedownload"
 
-#: views.py:356
+#: views.py:360
 #, python-format
 msgid "%(album)s is already selected %(inst)s"
-msgstr ""
+msgstr "%(album)s is al geselecteerd %(inst)s"
 
-#: views.py:358
+#: views.py:362
 #, python-format
 msgid "An error has occurred -- unable to get album leader %(inst)s %(leader)s"
 msgstr ""
+"Een fout is opgetreden -- het was niet mogelijk om de album leader op te "
+"halen %(inst)s %(leader)s"
 
-#: views.py:394
+#: views.py:398
 #, fuzzy, python-format
 msgid "%(item)s is in your basket"
 msgstr "Zet dit onderdeel in je mandje"
 
-#: views.py:396
+#: views.py:400
 #, python-format
 msgid "%(item)s already here!"
-msgstr ""
+msgstr "%(item)s is er al!"
 
-#: views.py:409
+#: views.py:413
 #, python-format
 msgid "%(item)s had been downloaded (more than) once already."
-msgstr ""
+msgstr "%(item)s is al (vaker) gedownload"
 
-#: views.py:411
+#: views.py:415
 #, python-format
 msgid "%(item)s already selected"
-msgstr ""
+msgstr "%(item)s al geselecteerd"
 
-#: views.py:446
+#: views.py:450
 msgid "Exception"
-msgstr ""
+msgstr "Uitzondering"
 
-#: views.py:446
+#: views.py:450
 msgid "no information"
-msgstr ""
+msgstr "geen informatie"
 
-#: views.py:461
+#: views.py:465
 #, python-format
 msgid "The item seemed to be part of an album, but no album found - %s"
 msgstr ""
+"Het onderdeel leek onderdeel te zijn van een album, maar geen album gevonden "
+"- %s"
 
-#: views.py:505
+#: views.py:510
 msgid "successfully entered project"
-msgstr ""
+msgstr "project naam ingevoerd"
 
-#: views.py:692
+#: views.py:697
 msgid "item view"
 msgstr "toon geen albums"
 
-#: views.py:692
+#: views.py:697
 msgid "album view"
 msgstr "toon als albums"
 
-#: views.py:693
+#: views.py:698
 msgid "show newest first"
 msgstr "toon nieuwste eerst"
 
-#: views.py:693
+#: views.py:698
 msgid "show oldest first"
 msgstr "toon oudste eerst"
 
-#: views.py:754
+#: views.py:759
 msgid "De requested album does not exist"
-msgstr ""
+msgstr "De gevraagde album bestaat niet"
 
-#: views.py:826 views.py:862
+#: views.py:831 views.py:867
 msgid "No results"
-msgstr ""
+msgstr "Geen resultaten"
 
-#: views.py:893
+#: views.py:898
 msgid " added to an existing favorite"
-msgstr ""
+msgstr " toegevoegd aan een bestaande favoriet"
 
-#: views.py:910
+#: views.py:915
 msgid " added new favorite"
-msgstr ""
+msgstr " nieuwe favoriet toegevoegd"
 
-#: views.py:991
+#: views.py:996
 msgid "removed"
-msgstr ""
+msgstr "verwijderd"
 
-#: views.py:1121
+#: views.py:1126
 #, python-format
 msgid "saved pagesize %s"
-msgstr ""
+msgstr "paginagrootte bewaard %s"
 
-#: views.py:1123
+#: views.py:1128
 #, python-format
 msgid "Sorry, something went wrong %s"
-msgstr ""
+msgstr "Sorry, er ging iets fout %s"
 
-#: views.py:1132
+#: views.py:1137
 msgid "Order by date set to descending (oldest first)"
-msgstr ""
+msgstr "Ordenen op datum is nu oudste eerst"
 
-#: views.py:1132
+#: views.py:1137
 msgid "Order by date set to ascending (newest first)"
-msgstr ""
+msgstr "Ordenen op datum is nu nieuwste eerst"
 
-#: views.py:1141
+#: views.py:1146
 #, python-format
 msgid "Album visibility set to %s"
-msgstr ""
+msgstr "Album zichtbaarheid nu %s"
 
-#: views.py:1147
+#: views.py:1152
 msgid "new album generated"
-msgstr ""
+msgstr "nieuwe album aangemaakt"
 
-#: views.py:1157
+#: views.py:1162
 #, python-format
 msgid "An error getting the Image object %(inst)s for argument %(item)s"
 msgstr ""
+"Een fout trad op bij het ophalen van het Image object %(inst)s for argument %"
+"(item)s"
 
-#: views.py:1178
+#: views.py:1183
 #, python-format
 msgid "%(item)s entered into album %(album)s"
-msgstr ""
+msgstr "%(item)s toegevoegd aan album %(album)s"
 
-#: views.py:1180 views.py:1191 views.py:1201 views.py:1264
+#: views.py:1185 views.py:1196 views.py:1206 views.py:1269
 #, python-format
 msgid "An error occurred %s"
-msgstr ""
+msgstr "Een fout trad op %s"
 
-#: views.py:1189
+#: views.py:1194
 #, python-format
 msgid "Saved %s"
-msgstr ""
+msgstr "Bewaard %s"
 
-#: views.py:1217
+#: views.py:1222
 #, python-format
 msgid "%(item)s removed from album %(album)s."
-msgstr ""
+msgstr "%(item)s uit album %(album)s verwijderd."
 
-#: views.py:1219
+#: views.py:1224
 #, python-format
 msgid "Error saving Metadata object for Album follower %s"
 msgstr ""
+"Een fout trad op bij het bewaren van het Metadata objects voor album "
+"follower %s"
 
-#: views.py:1235
+#: views.py:1240
 #, python-format
 msgid ""
 "%(item)s removed from this album. As this was the leader, %(new)s has now "
 "been made leader"
 msgstr ""
+"%(item)s verwijderd van dit album. Omdat dit de leader was %(new)s is nu "
+"leader geworden"
 
-#: views.py:1258
+#: views.py:1263
 #, python-format
 msgid ""
 "The last item has been removed, and consequently the album %s has been "
 "deleted."
-msgstr ""
+msgstr "Het laatste onderdeel is verwijderd, en het album %s is verwijderd."
 
-#: views.py:1260
+#: views.py:1265
 #, python-format
 msgid "An error occurred removing the last item. %s"
-msgstr ""
+msgstr "Een fout trad op bij het wijzigen van het laatste onderdeel. %s "
 
-#: views.py:1311
+#: views.py:1316
 msgid "successfully toggled published status"
+msgstr "status gewijzigd"
+
+#: views.py:1324
+msgid "successfully entered text"
+msgstr "tekst toegevoegd"
+
+#: templates/manage.html:11
+#, fuzzy
+msgid "manage your downloads"
+msgstr "Beheer je downloads"
+
+#: templates/manage.html:55
+msgid "Managing"
+msgstr "Beheer"
+
+#: templates/manage.html:55
+#, fuzzy
+msgid "downloads"
+msgstr "Beheer je downloads"
+
+#: templates/manage.html:56
+msgid ""
+"This is an overview of your downloads. You can help us by checking the "
+"downloads used in a publication."
 msgstr ""
+"Dit is een overzicht van je downloads. Je kunt ons helpen door "
+"beelden aan te vinken die in een publicatie zijn gebruikt."
+
+#: templates/manage.html:72
+msgid "publication details"
+msgstr "details"
+
+#: templates/manage.html:85
+msgid "Back"
+msgstr "Terug"
+
+#: templates/parts/doShowBasket.html:6
+msgid "Give your cart a name"
+msgstr "Geef je mandje een naam"
+
+#: templates/parts/doShowBasket.html:8
+msgid "Your cart is named"
+msgstr "Naam van je mandje"
+
+#: templates/parts/doShowBasket.html:10
+msgid "Give your basket another name"
+msgstr "Geef je mandje een andere naam"
+
+#: templates/parts/doShowBasket.html:10
+msgid "Change"
+msgstr "Wijzig"
+
+#: templates/parts/doShowBasket.html:15
+msgid ""
+"You might want to name your cart after the project you are working on. "
+"Choose a name from the list"
+msgstr ""
+"Het is mogelijk je mandje een naam te geven, bv de naam van je huidige "
+"projectKies een naam uit de lijst"
+
+#: templates/parts/doShowBasket.html:15
+msgid "or add a new name"
+msgstr "of voeg een nieuwe naam toe"
+
+#: templates/parts/doShowBasket.html:15
+msgid "Don't want to name your cart? Select the first (empty) item"
+msgstr "Wil je je mandje geen naam geven? Selecteer dan de eerste (lege) keuzeveld"
+
+#: templates/parts/doShowBasket.html:28
+msgid "Done"
+msgstr "Klaar"
+
+#: templates/parts/doShowBasket.html:32
+msgid "drag the items you want to download here"
+msgstr "sleep de onderdelen naar het mandje"
+
+#: templates/parts/doShowBasket.html:32
+msgid "or click the small grey arrow"
+msgstr "of klik op het grijze pijltje"
+
+#: templates/parts/doShowBasket.html:38
+msgid "Click to download the contents of your basket."
+msgstr "Klik om je mandje te downloaden."
+
+#: templates/parts/doShowBasket.html:44
+msgid "Click to drag"
+msgstr "Klik om te slepen."
+
+#: templates/parts/doShowBasket.html:65
+msgid "Click to remove this item from your basket"
+msgstr "Klik om dit onderdeel uit je mandje te verwijderen"
+
+#: templates/parts/doShowBasket.html:72
+msgid ""
+"Change resolution of the downloads. HR is High Resolution and a slower "
+"download, LR is Low Resolution and a faster download"
+msgstr ""
+"Verander de resolutie van de download. HR is een hoge resolutie en een "
+"langzamer download, LR is een lagere resolutie en een snellere download"
+
+#: templates/parts/doShowBasket.html:92
+msgid "Manage your downloads"
+msgstr "Beheer je downloads"
+
+#: templates/parts/doShowBasket.html:94
+msgid "Empty your basket"
+msgstr "Maak je mandje leeg"
+
+#: templates/parts/doShowBasket.html:94
+msgid "Click here to empty your basket completely"
+msgstr "Klik hier om je mandje geheel leeg te maken"
 
 msgid "No results found for this keyword"
 msgstr "Geen resultaten gevonden voor dit trefwoord"
@@ -249,34 +369,6 @@ msgstr "werkt helemaal niet als javascript uitgeschakeld is!"
 
 msgid "Click on text to edit, click anywhere else to save"
 msgstr "Klik op de tekst om te bewerken, klik ergens anders om te bewaren"
-
-msgid "drag the items you want to download here"
-msgstr "sleep de onderdelen naar het mandje"
-
-msgid "or click the small grey arrow"
-msgstr "of klik op het grijze pijltje"
-
-msgid "Click to download the contents of your basket."
-msgstr "Klik om je mandje te downloaden."
-
-msgid "Click to drag"
-msgstr "Klik om te slepen."
-
-msgid "Click to remove this item from your basket"
-msgstr "Klik om dit onderdeel uit je mandje te verwijderen"
-
-msgid ""
-"Change resolution of the downloads. HR is High Resolution and a slower "
-"download, LR is Low Resolution and a faster download"
-msgstr ""
-"Verander de resolutie van de download. HR is een hoge resolutie en een "
-"langzamer download, LR is een lagere resolutie en een snellere download"
-
-msgid "Empty your basket"
-msgstr "Maak je mandje leeg"
-
-msgid "Click here to empty your basket completely"
-msgstr "Klik hier om je mandje geheel leeg te maken"
 
 msgid "Prev"
 msgstr "Vorig"
@@ -346,9 +438,6 @@ msgstr "mandje"
 
 msgid "cart"
 msgstr "mandje"
-
-msgid "Back"
-msgstr "Terug"
 
 msgid "back"
 msgstr "terug"

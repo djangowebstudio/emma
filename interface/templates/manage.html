@@ -37,10 +37,6 @@
 		tr.header{background: #ff3300;}
 		tr.header a{color: white;}
 		div.masthead{color: white; text-align: center; cursor: pointer; padding: 0px; margin: 0px; height: 37px; background-image: url(/s/_img_interface/bn-toolbar.png); background-repeat: no-repeat}
-		div.masthead ul{float: left; padding: 0 0 0 0; margin: 0 0 0 420px;}
-		div.masthead ul li{list-style: none; float: left; padding: 0 0 0 0; margin: 7px 5px 0 5px;}
-		div.masthead ul li a {color: white; text-decoration: none;}
-		div.masthead ul li a:hover{text-decoration: underline;}
 		h2.message{margin: 0 auto 5px 0; width: 100%;}
 		div.image_LNID{float: left; margin: 0 0 0 11px; position: relative; top: 2px}
 		textarea{height: 105px; width: 148px;display: block; border-color: #ddccdd; border-radius: 3px;}
@@ -53,7 +49,7 @@
 </head>
 
 <body style="padding: 0px; margin: 0px; ">
-<div class="masthead" title="Terug naar BeeldNET" onclick="location.href='/interface/'" style="">{% include "parts/header-links.html" %}
+<div class="masthead" title="Terug naar BeeldNET" onclick="location.href='/interface/'" style="">
 </div>	
 		<div class="table-container" style="">
 			<h2 class="message">{% trans "Managing" %} {{request.user}}'s {% trans "downloads" %}</h2>			

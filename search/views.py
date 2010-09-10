@@ -4,7 +4,8 @@ from haystack.forms import SearchForm
 from django.contrib.auth.decorators import login_required
 from emma.interface.models import Metadata, Keyword
 from django.http import Http404
-
+import os, sys
+print os.path.abspath(os.path.dirname(__file__))
 
 class EmmaSearchView(SearchView):
     def __name__(self):

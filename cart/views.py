@@ -1,3 +1,4 @@
+import os, sys
 from time import strftime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context, loader, Template, RequestContext
@@ -11,7 +12,7 @@ from django.core.management import setup_environ
 import settings
 setup_environ(settings)
 from django.utils.translation import ugettext_lazy as _
-
+print os.path.abspath(os.path.dirname(__file__))
 
 @login_required
 def empty(request):
