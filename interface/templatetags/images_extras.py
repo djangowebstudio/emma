@@ -8,11 +8,16 @@ nznl.com | nznl.net | nznl.org INTERNET PRODUCTIONS
 from django.template import Library
 register = Library()
 from django.template.defaultfilters import stringfilter
-import os, sys
+import os, sys, re
 from django.core.management import setup_environ
 import settings
 setup_environ(settings)
 
+@register.filter
+def replace(string, args):
+	search = args.split(args[0])[1]
+	replace = args.split(args[0])[2]
+	return re.sub(search, replace, string)
 
 @register.filter(name='truncate')
 @stringfilter
