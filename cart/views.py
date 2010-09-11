@@ -12,7 +12,6 @@ from django.core.management import setup_environ
 import settings
 setup_environ(settings)
 from django.utils.translation import ugettext_lazy as _
-print os.path.abspath(os.path.dirname(__file__))
 
 @login_required
 def empty(request):

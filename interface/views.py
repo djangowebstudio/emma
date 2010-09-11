@@ -41,7 +41,6 @@ prefix_LR = settings.GALLERY_ROOT + "/images/"
 
     
 use_auth = getattr(settings, 'USE_AUTH', False)
-print os.path.abspath(os.path.dirname(__file__))
 @login_required
 def index(request):
     """ Redirects user to main screen """
