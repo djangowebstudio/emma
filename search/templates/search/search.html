@@ -46,6 +46,8 @@
 			});
 			$('a.iframe').bind("mouseout", function(){$('div#metadata').hide()});
 			r(); // load cart on page load
+			// filter out erroneous spelling suggestions
+			
 		});
 		function r(){
 			var cart = $('div#cart');
@@ -95,6 +97,7 @@
 		div#back:hover{ background: #eee  url('/s/_img_interface/arrow-back.png') no-repeat; border-radius: 14px;}
 		div.LN-toolbar-cart-footer{padding: 7px;}
 		div.LN-toolbar-cart-footer p{display: inline; position: relative; top: -5px; margin: 0 5px 0 0;}
+		div#results p{font-size: 1.2em;}
 	</style>
 </head>
 
@@ -112,9 +115,12 @@
 
 		    <input id="form_search" type="submit" value="{% trans 'Search' %}">
 		</form>
-			<div class="text">{% if sqs %}{% trans "did you mean" %} 
-				<a href="{% url emma.search.views.search %}?q={{sqs}}">{{sqs}}</a>? |
-			{% endif %}</div>
+			<div class="text">
+				{% if sqs %}
+				{% trans "did you mean" %} 
+					<a href="{% url emma.search.views.search %}?q={{sqs|cut:"("|cut:"AND"|cut:")"|replace:"/  / "}}">{{sqs|cut:"("|cut:"AND"|cut:")"|replace:"/  / "}}</a>? |
+				{% endif %}
+			</div>
 			<div class="filters">	
 				<span>filter</span>			
 				<a id="cr_no" href="{% url haystack_search_cr_no %}?q={{query}}">
@@ -124,7 +130,7 @@
 					</button>
 				</a>
 
-				<a style="" id="all" href="{% url search %}?q={{query}}"><button>{% trans "reset" %}</button></a>
+			<a style="" id="all" href="{% url search %}?q={{query}}"><button>{% trans "reset" %}</button></a>
 			</div>			
 			
 			{% if page.has_previous or page.has_next %}
@@ -172,6 +178,11 @@
 		            </div>
 		        {% empty %}
 		            <p>{% trans "No results found" %}. {% trans "If you filtered the results, you might try clicking the" %} '{% trans "reset search" %}' {% trans "button" %}</p>
+					{% if sqs %}
+					{% ifnotequal partition|length 1 %}
+					<p>{% trans "You may also try the spelling suggestions as seperate words:"%} {% for item in partition %}<a href="/search/?q={{item}}">{{item}}</a> | {% endfor %}</p>
+					{% endifnotequal %}
+					{% endif %}
 		        {% endfor %}
 		</div>
 		{% else %}
