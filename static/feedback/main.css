@@ -85,7 +85,7 @@ div.hiding {
 
 #feedback_popup {
     width:250px;
-    min-height:210px;
+    min-height:240px;
     position:fixed;
     top:50%;
     left:50%;
@@ -141,17 +141,17 @@ div.hiding {
 }
 
 /** form stuff **/
-label {
+div#feedback_popup label {
     font-size:.8em;
     color:#555;
     display:block;
 }
 
-textarea {
+div#feedback_popup textarea {
     min-height:148px;
     width:221px;
 }
 
-input {
+div#feedback_popup input {
     width:223px;
 }

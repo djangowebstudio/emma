@@ -1,0 +1,21 @@
+@import url('_common.css');
+div.table-container{margin: 0 0 0 210px; padding: 21px; border: 1px solid #ff3300; border-radius: 21px; width: 777px; background: #fff;}
+table{width: 100%; font-size: 12px;}
+th{text-align: left;}
+tr.row1{background: #eee;}
+tr.row2{background: #fff;}
+tr.header{background: #ff3300;}
+tr.header a{color: white;}
+div.masthead{color: white; text-align: center; cursor: pointer; padding: 0px; margin: 0px; height: 37px; background-image: url(/s/_img_interface/bn-toolbar.png); background-repeat: no-repeat}
+div.masthead ul{float: left; padding: 0 0 0 0; margin: 0 0 0 420px;}
+div.masthead ul li{list-style: none; float: left; padding: 0 0 0 0; margin: 7px 5px 0 5px;}
+div.masthead ul li a {color: white; text-decoration: none;}
+div.masthead ul li a:hover{text-decoration: underline;}
+h2.message{margin: 0 auto 5px 0; width: 100%;}
+div.image_LNID{float: left; margin: 0 0 0 11px; position: relative; top: 2px}
+textarea{height: 105px; width: 148px;display: block; border-color: #ddccdd; border-radius: 3px;}
+div.label{font-size: 10px;}
+img{border: 1px solid #ddccdd; padding: 3px; border-radius: 3px;}
+div#back{ padding: 6px 0 0 52px; width: 74px; height: 24px; position: absolute; left: 5px; top: 11px; font-size: 14px; text-transform: uppercase; background:  url('/s/_img_interface/arrow-back.png') no-repeat;}
+div#back a{color: #444;}
+div#back:hover{ background: #eee  url('/s/_img_interface/arrow-back.png') no-repeat; border-radius: 14px;}

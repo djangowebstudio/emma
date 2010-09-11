@@ -1,17 +1,14 @@
 import os, sys
 from time import strftime
 from django.http import HttpResponse, HttpResponseRedirect
-from django.template import Context, loader, Template, RequestContext
-from django.shortcuts import render_to_response, get_list_or_404
-from emma.interface.models import *
-from django.http import Http404
+from django.template import RequestContext, loader, Context
+from django.shortcuts import render_to_response
+from emma.interface.models import Album, Order, Image, User, Project
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
-from django.core.paginator import Paginator, InvalidPage
+from django.utils.translation import ugettext_lazy as _
 from django.core.management import setup_environ
 import settings
 setup_environ(settings)
-from django.utils.translation import ugettext_lazy as _
 
 @login_required
 def empty(request):
@@ -120,12 +117,13 @@ def show(request, time=None):
 
 
     return render_to_response('cart/base.html', { 
-                                                            'itemList' : itemList, 
-                                                            'count': count, 
-                                                            'appendix': strftime("%Y%m%d%H%M%S"), 
-                                                            'current_project': current_project,
-                                                            'projects': Project.objects.all() },
-                                                             context_instance=RequestContext(request))
+                                                'itemList' : itemList, 
+                                                'count': count, 
+                                                'appendix': strftime("%Y%m%d%H%M%S"), 
+                                                'current_project': current_project,
+                                                'projects': Project.objects.all() 
+                                                },
+                                                 context_instance=RequestContext(request))
  
 @login_required
 def check(request, item):
@@ -182,5 +180,3 @@ def get_album(a,i):
                  return (_("The item seemed to be part of an album, but no album found - %s") % inst)
          else: return None
      except: return None
-
-

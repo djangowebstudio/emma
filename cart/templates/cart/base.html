@@ -35,14 +35,12 @@
 {% endifequal %}
 {% ifnotequal count 0 %}
 <div id="LN-downloadZipLinkContainer">
-	
-	
-	<a title="{% trans 'Click to download the contents of your basket.' %}" class="button" style="" onclick="showDownloadMessage()" href="/interface/clients/zip/">
+	<a title="{% trans 'Click to download the contents of your basket.' %}" class="button" href="/interface/clients/zip/">
 		<div>download</div>
 	</a>
 </div>
 {% endifnotequal %}
-<div style="width: 100%; clear: both"></div>
+<div style="width: 100%; clear: both; height: 1px;"></div>
 {% for currentItem in itemList%}
 <div title="" id="{{currentItem.image_LNID}}-cartitem" {% if currentItem.group_name|length_is:"0" %} class="LN-toolbar-cart-basketItemContainer"  {% else %} class="LN-toolbar-cart-basketFolder" {% endif %}>
 	<div class="LN-toolbar-cart-itemPartTop" {% if not currentItem.group_name|length_is:"0" %} style="position: relative; top: 9px" {% endif %}>
@@ -74,7 +72,7 @@
 	
 	<div class="LN-toolbar-cart-itemName" style="font-size: 9px; cursor: help;">
 		<div title="{% trans 'Change resolution of the downloads. HR is High Resolution and a slower download, LR is Low Resolution and a faster download' %}" style="width: 21px">
-			<input type="checkbox" id="LN-toolbar-cart-resolution-checkbox" onclick="$.get('{% url update_item currentItem.pk %}');" {% ifequal currentItem.resolution 'HR' %}checked{% endifequal %} />
+			<input style="width: 21px" type="checkbox" id="LN-toolbar-cart-resolution-checkbox" onclick="$.get('{% url update_item currentItem.pk %}');" {% ifequal currentItem.resolution 'HR' %}checked{% endifequal %} />
 		</div>
 		
 		<div style="margin-top: 2px" {% if currentItem.group_name|length_is:"0" %} title="{{ currentItem.image_LNID }}"{% else %} title="Album: {{currentItem.group_name|safe}}"{% endif %}>

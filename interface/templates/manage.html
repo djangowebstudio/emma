@@ -12,11 +12,14 @@
     <link rel="shortcut icon" href="/s/_img_interface/favicon.ico" />
     <link rel="stylesheet" href="/s/_css/_common.css" type="text/css" media="screen" title="no title" charset="utf-8" />
 	<link rel="stylesheet" href="/s/fancybox/jquery.fancybox-1.3.1.css" type="text/css" media="screen" title="no title" charset="utf-8">
-
+	<link rel="stylesheet" href="/s/feedback/main.css"/>
     <script src="/s/_javascript/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/s/fancybox/jquery.fancybox-1.3.1.pack.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/s/fancybox/jquery.easing-1.3.pack.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/s/fancybox/jquery.mousewheel-3.0.2.pack.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/jsi18n/" type="text/javascript" charset="utf-8"></script>   
+	<script src="/s/feedback/jquery.form.js"></script>
+   	<script src="/s/feedback/main.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		$(function(){
 			$("a.group").fancybox({
@@ -26,7 +29,12 @@
 					'speedOut'		:	200, 
 					'overlayShow'	:	false
 				});
+		r();
 		});
+		function r(){
+			 $('div#cart').hide().load('{% url show_cart %}').show('fast');
+		}		
+		
 	</script>
     <style type="text/css" media="screen">
 		div.table-container{margin: 0 0 0 210px; padding: 21px; border: 1px solid #ff3300; border-radius: 21px; width: 777px; background: #fff;}
@@ -37,29 +45,41 @@
 		tr.header{background: #ff3300;}
 		tr.header a{color: white;}
 		div.masthead{color: white; text-align: center; cursor: pointer; padding: 0px; margin: 0px; height: 37px; background-image: url(/s/_img_interface/bn-toolbar.png); background-repeat: no-repeat}
+		div.masthead ul{float: left; padding: 0 0 0 0; margin: 0 0 0 420px;}
+		div.masthead ul li{list-style: none; float: left; padding: 0 0 0 0; margin: 7px 5px 0 5px;}
+		div.masthead ul li a {color: white; text-decoration: none;}
+		div.masthead ul li a:hover{text-decoration: underline;}
 		h2.message{margin: 0 auto 5px 0; width: 100%;}
 		div.image_LNID{float: left; margin: 0 0 0 11px; position: relative; top: 2px}
 		textarea{height: 105px; width: 148px;display: block; border-color: #ddccdd; border-radius: 3px;}
 		div.label{font-size: 10px;}
-		img{border: 1px solid #ddccdd; padding: 3px; border-radius: 3px;}
+		img.item{border: 1px solid #ddccdd; padding: 3px; border-radius: 3px;}
 		div#back{ padding: 6px 0 0 52px; width: 74px; height: 24px; position: absolute; left: 5px; top: 11px; font-size: 14px; text-transform: uppercase; background:  url('/s/_img_interface/arrow-back.png') no-repeat;}
 		div#back a{color: #444;}
 		div#back:hover{ background: #eee  url('/s/_img_interface/arrow-back.png') no-repeat; border-radius: 14px;}
+		div#cart{position: absolute; right: 11px; top: 37px;background: #fff; width: 148px;}
+		div#LN-cartContainer{top: 0px;}
+		div#cartname-done{clear: both; text-align: right; margin-top: 21px;}
+		div.LN-toolbar-cart-footer{padding: 7px;}
+		div.LN-toolbar-cart-footer p{display: inline; position: relative; top: -5px; margin: 0 5px 0 0;}
     </style>
 </head>
 
 <body style="padding: 0px; margin: 0px; ">
 <div class="masthead" title="Terug naar BeeldNET" onclick="location.href='/interface/'" style="">
+			{% include "parts/header-links.html" %}
 </div>	
 		<div class="table-container" style="">
 			<h2 class="message">{% trans "Managing" %} {{request.user}}'s {% trans "downloads" %}</h2>			
 			<p>{% trans "This is an overview of your downloads. You can help us by checking the downloads used in a publication." %}</p>
+			<p>{% trans "Need to download an item again? Just click the add-to-cart icon" %}</p>
 			<table border="0" cellspacing="0" cellpadding="5">
 				<tr class="header">
 					<th>{% anchor is_published "is published?" %}</th>
 					<th align="center">{% anchor image_LNID image %}</th>
 					<th>{% anchor project project %}</th>
 					<th>{% anchor ts "download date" %}</th>
+					<th>&nbsp;</th>
 				</tr>
 				{% for item in items %}
 				<tr class="{% cycle 'row1' 'row2' %}">
@@ -73,15 +93,33 @@
 						</div>		
 					</td>
 					<td align="center">{% thumbnail item.get_image 148x105 crop upscale as image %}
-						<a class="group" href="/gallery/images/{{item.image_LNID}}.jpg"><img src="{{image}}" border="0" width="{{image.width}}" height="{{image.height}}" alt="{{item.image_LNID}}" /></a>	
+						<a rel="managed_images" class="group" href="/gallery/images/{{item.image_LNID}}.jpg">
+							<img class="item" src="{{image}}" border="0" width="{{image.width}}" height="{{image.height}}" alt="{{item.image_LNID}}" />
+						</a>	
 						<div class="label">{{item.image_LNID|truncate:30}}</div>			
 					</td>
-					<td>{{item.project}}</td>
+					<td>{{item.project.name}}</td>
 					<td>{{item.ts|date:"l m M Y H:m"}}</td>
+					<td><img class="item" style="cursor: pointer" onclick="$.get('{% url add_item item.image_LNID %}');r();" src="/s/_img_interface/addtocart/0.25x.png" width="37" height="31" alt="{{item.image_LNID}}" border="0" /></td>
 				</tr>
 				{% endfor %}
 			</table>
 		</div>
-<div id="back"><a href="/">{% trans "Back" %}</a></div>
+		<div id="back">
+			<a title="{% trans 'Go back one page. To go back to the homepage, click home in the top menu' %}" href="javascript:history.back()">{% trans "Back" %}</a>
+		</div>
+
+<div id="LN-cartContainer">
+	<ul id="LN-toolbar-cart">
+		<li>
+			<img border="0" src="/s/_img_interface/ln-toolbar-cart.gif" width="15" height="16" alt="Cart" />
+		</li>
+		<li style="position: relative; top: -5px">
+			{{request.user.username}}'s {% trans 'cart' %}
+		</li>
+	</ul>
+</div>
+<div id="cart"></div>
+{% include "feedback/button.html" %}
 </body>
 </html>

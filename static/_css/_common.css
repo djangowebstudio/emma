@@ -443,6 +443,7 @@ div#LN-toolbar-cart-basketname{
 div.LN-toolbar-cart-basketname-header h3{
     margin: 0 0 0 0;
     color: #ff3300;
+    font-size: 14px;
 }
 
 div#LN-toolbar-cart-basketname input, div#LN-toolbar-cart-basketname p, div#LN-toolbar-cart-basketname select{
