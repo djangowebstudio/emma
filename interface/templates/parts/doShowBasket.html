@@ -1,7 +1,7 @@
 {% block content %}
 {% load images_extras %}
 {% load i18n %}
-<div class="LN-toolbar-cart-basketname-header">
+<!-- <div class="LN-toolbar-cart-basketname-header">
 	{% ifequal current_project.slug 'none' %}
 	<a style="margin-bottom: 11px" href="#" onclick="$('LN-toolbar-cart-basketname').toggle()">{% trans "Give your cart a name" %}</a>
 	{% else %}
@@ -26,7 +26,7 @@
 		</form>	
 	</div>
 	<div style="clear: both; text-align: right; margin-top: 21px"><a href="#" onclick="doShow()">{% trans "Done" %}</a></div>
-</div>
+</div> -->
 
 {% ifequal count 0 %}
 <div class="LN-toolbar-cart-usermessage">{% trans 'drag the items you want to download here' %} {% trans 'or click the small grey arrow' %}</div>
@@ -89,7 +89,7 @@
 
 
 {% endfor %}
-<div class="LN-toolbar-cart-footer" style="margin-bottom: 0px"><a href="/manage">{% trans "Manage your downloads" %}</a></div>
+<!-- <div class="LN-toolbar-cart-footer" style="margin-bottom: 0px"><a href="/manage">{% trans "Manage your downloads" %}</a></div> -->
 {% ifnotequal count 0 %}
 <div class="LN-toolbar-cart-footer" style="margin-top: 5px">{% trans 'Empty your basket' %} <img title="{% trans 'Click here to empty your basket completely' %}" border="0" onclick="doEmptyBasket('{{ currentItem.client }}')" style="cursor: pointer" src="/s/_img_interface/images-close/16px.png" width="16" height="16" alt="Ln Toolbar Cart Pulldown Close" /></div> 
 {% endifnotequal %}
