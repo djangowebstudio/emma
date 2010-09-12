@@ -659,7 +659,10 @@ def doShowThumbs(request,match,cat,weeks=0,page=1,groups=1):
         i.image_name = a.image_name
         if groups == 1:
             if get_album(a,i): i = get_album(a,i)
-            i.md = Metadata.objects.get(image=i)
+            try: 
+                i.md = Metadata.objects.get(image=i)
+            except:
+                i.md = None
         else:
             try:
                 i.md = Metadata.objects.get(image=i)
