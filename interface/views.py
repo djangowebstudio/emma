@@ -133,7 +133,10 @@ def buildZippedFolder(muser, itemObj, zip_filename, album):
         # Orders must be managed on a individual image basis.
         # Unpack the album, enter the images as orders.
         try:
-            project = User.objects.get(user=muser.id).current_project
+            try:
+                project = User.objects.get(user=muser.id).current_project
+            except:
+                project = None
             for i in album.image.all():
                 order_id = '.'.join([muser.username, i.image_LNID])
                 o, created = Order.objects.get_or_create(   image=i, 
@@ -368,7 +371,10 @@ def doCreateEntry(request, item, album=None):
     """Creates entry in basket"""
     muser = request.user
     currentItem = Image.objects.get(image_LNID=item)
-    current_project = User.objects.get(user=muser.id).current_project
+    try:
+        current_project = User.objects.get(user=muser.id).current_project
+    except:
+        current_project = None
     
     if album:
         a = Album.objects.get(album_identifier=album)   
