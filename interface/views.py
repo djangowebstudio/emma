@@ -662,12 +662,12 @@ def doShowThumbs(request,match,cat,weeks=0,page=1,groups=1):
             try: 
                 i.md = Metadata.objects.get(image=i)
             except:
-                i.md = None
+                pass
         else:
             try:
                 i.md = Metadata.objects.get(image=i)
             except: 
-                i.md = None
+                pass
             
     
 
