@@ -18,7 +18,7 @@
 	<img title="{% trans 'this item contains an attachment'%}" style="cursor: help" src="/s/_img_interface/attachment.png" border="0" width="10" height="10" alt="Attachment" />
 	{% endif %}
 	{% if pg.md %}
-		<a title="{{pg.image_LNID}}" style="text-decoration: none; cursor: pointer; color: #23918C" id="{{pg.image_LNID}}-comment" class="lightwindow" params="lightwindow_type=external" href="/interface/show/description/{{pg.image_LNID}}/1/">{{comment_count}} comment{{comment_count|pluralize:"s"}}</a>
+		<!-- <a title="{{pg.image_LNID}}" style="text-decoration: none; cursor: pointer; color: #23918C" id="{{pg.image_LNID}}-comment" class="lightwindow" params="lightwindow_type=external" href="/interface/show/description/{{pg.image_LNID}}/1/">{{comment_count}} comment{{comment_count|pluralize:"s"}}</a> -->
 	{% endif %}
 	<img title="{% trans 'Add this item to your favorites'%}" style="cursor: pointer" onclick="favorites.add('{{pg.image_LNID}}')" src="/s/_img_interface/arrow-down.png" border="0" width="10" height="10" alt="{% trans 'Add this item to your favorites'%}" />
 	<img title="{% trans 'Add this item to your basket'%}" style="cursor: pointer" onclick="createEntry('{{pg.image_LNID}}')" src="/s/_img_interface/arrow.png" border="0" width="14" height="10" alt="{% trans 'Add this item to your basket'%}" />
