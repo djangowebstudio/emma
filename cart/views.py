@@ -49,7 +49,10 @@ def add(request, item, album=None):
     """Creates entry in basket"""
     muser = request.user
     currentItem = Image.objects.get(image_LNID=item)
-    current_project = User.objects.get(user=muser.id).current_project
+    try: 
+        current_project = User.objects.get(user=muser.id).current_project
+    except:
+        current_project = None
 
     if album:
         a = Album.objects.get(album_identifier=album)   
