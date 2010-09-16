@@ -478,3 +478,6 @@ msgstr "Gebruikersnaam"
 
 msgid "Password"
 msgstr "Wachtwoord"
+
+msgid "search"
+msgstr "zoek"
