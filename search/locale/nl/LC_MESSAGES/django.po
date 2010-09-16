@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-10 12:30+0200\n"
+"POT-Creation-Date: 2010-09-16 17:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,52 +28,52 @@ msgstr "beheer je downloads"
 msgid "show help pages"
 msgstr "laat helppagina's zien"
 
-#: templates/search/search.html:113
+#: templates/search/search.html:70
 msgid "Search"
 msgstr "Zoeken"
 
-#: templates/search/search.html:115
+#: templates/search/search.html:75
 msgid "did you mean"
 msgstr "bedoelde je"
 
-#: templates/search/search.html:123
+#: templates/search/search.html:84
 msgid "no copyright"
 msgstr "geen copyright"
 
-#: templates/search/search.html:130
-msgid "copyrighted"
-msgstr "copyright"
-
-#: templates/search/search.html:133
+#: templates/search/search.html:88
 msgid "reset"
 msgstr "herstel"
 
-#: templates/search/search.html:138
+#: templates/search/search.html:93
 msgid "results"
 msgstr "resultaten"
 
-#: templates/search/search.html:174 templates/search/search.html.py:175
-#: templates/search/search.html:202
+#: templates/search/search.html:129 templates/search/search.html.py:130
+#: templates/search/search.html:166
 msgid "add to cart"
 msgstr "in je mandje"
 
-#: templates/search/search.html:180
+#: templates/search/search.html:135
 msgid "No results found"
 msgstr "Geen resultaten gevonden"
 
-#: templates/search/search.html:180
+#: templates/search/search.html:135
 msgid "If you filtered the results, you might try clicking the"
 msgstr "Als je een filter hebt gebruikt, klik dan de "
 
-#: templates/search/search.html:180
+#: templates/search/search.html:135
 msgid "reset search"
 msgstr "herstel zoekopdracht"
 
-#: templates/search/search.html:180
+#: templates/search/search.html:135
 msgid "button"
 msgstr "button"
 
-#: templates/search/search.html:184
+#: templates/search/search.html:138
+msgid "You may also try the spelling suggestions as seperate words:"
+msgstr "Je kunt ook een zoekopdracht doen aan de hand van de woorden:"
+
+#: templates/search/search.html:145
 msgid ""
 "Enter a search query into the box above. You may filter your results by "
 "clicking the green button (no copyright). Click the reset button to continue "
@@ -83,18 +83,48 @@ msgstr ""
 "groene button te klikken. Klik de herstel button om verder te gaan met de "
 "volledige set resultaten."
 
-#: templates/search/search.html:189
+#: templates/search/search.html:146
+msgid "To return to the home page, click the"
+msgstr "Om terug te keren naar de homepage, klik op de"
+
+#: templates/search/search.html:146
+msgid "home"
+msgstr "home"
+
+#: templates/search/search.html:146
+msgid "button in the top menu."
+msgstr "button in het menu hierboven"
+
+#: templates/search/search.html:147
+msgid ""
+"We welcome any comments you may have about this new feature. Click the "
+"feedback button on the left side of this page to enter a comment."
+msgstr ""
+"We zijn benieuwd naar de reacties over dit scherm. Klik op de "
+"feedback button aan de linkerkant van deze pagina om een bericht te sturen."
+
+#: templates/search/search.html:153
 msgid "More like this"
 msgstr "Meer resultaten"
 
-#: templates/search/search.html:190
+#: templates/search/search.html:154
 msgid "Showing results in some way related to the current search"
 msgstr "Meer resultaten die gerelateerd zijn aan de huidige zoekopdracht"
 
-#: templates/search/search.html:217
+#: templates/search/search.html:181
 msgid "cart"
 msgstr "mandje"
 
-#: templates/search/search.html:223
+#: templates/search/search.html:188
+msgid ""
+"Go back one page. To go back to the homepage, click home in the top menu"
+msgstr ""
+"Ga 1 pagina terug. Om terug te gaan naar de homepage, klik op home in het "
+"menu hierboven."
+
+#: templates/search/search.html:188
 msgid "Back"
 msgstr "Terug"
+
+#~ msgid "copyrighted"
+#~ msgstr "copyright"
