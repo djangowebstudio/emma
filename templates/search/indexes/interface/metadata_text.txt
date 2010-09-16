@@ -1,9 +1,0 @@
-{{object.description}}
-{{object.title}}
-{{object.subject}}
-{{object.datetimeoriginal}}
-{{object.keywords}}
-{{object.location}}
-{{object.copyright}}
-{{object.image_LNID}}
-{{object.source}}
