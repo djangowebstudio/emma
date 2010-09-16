@@ -436,7 +436,8 @@ def doShowData(request, item, t):
     
     try:
         m = Metadata.objects.get(image_LNID=item)
-        dataDict = Metadata.objects.filter(image_LNID=item).values('subject', 'description', 'location', 'source', 'datetimeoriginal', 'softdate', 'keywords', 'credit', 'creator', 'instructions')
+        dataDict = Metadata.objects.filter(image_LNID=item).values('subject', 'description', 'location', 'source', 'datetimeoriginal', 
+                                                                        'softdate', 'keywords', 'credit', 'creator', 'instructions')
         
         for d in dataDict:
             for k, v in d.iteritems():

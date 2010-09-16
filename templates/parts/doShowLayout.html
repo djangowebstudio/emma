@@ -87,7 +87,7 @@
 	<div class="content_news_body"> {{ mdict.keywords|safe }}</div>
 	{% endif %}
 	{% endfor %}
-	
+		{% if m %}
 		<div class="comments">	
 			<h2>Commentaar</h2>
 			<p>Gebruikers kunnen hier op- en aanmerkingen plaatsen over dit beeld.</p>
@@ -101,6 +101,7 @@
 			<p>Wil je ook een opmerking plaatsen? Stuur een bericht!</p>
 			{% render_comment_form for m %}
 		</div>
+		{% endif %}
 	</div>
 </div>
 </body>
