@@ -368,7 +368,7 @@ class User(models.Model):
     setstr3 = models.CharField(max_length=255,blank=True)
     setstr4 = models.CharField(max_length=255,blank=True)
     setstr5 = models.CharField(max_length=255,blank=True)
-    current_project = models.ForeignKey(Project, blank=True, default=1)
+    current_project = models.ForeignKey(Project, blank=True, default=None, null=True)
     
     ts = models.DateTimeField(auto_now=True)
     

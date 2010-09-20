@@ -280,7 +280,7 @@ def doBuildZIP(request):
     
     # get a name for this download
     try: 
-        basket_name = User.objects.get(user=muser.id).current_project.slug
+        basket_name = ''.join(['-', User.objects.get(user=muser.id).current_project.slug])
     except:
         basket_name = ''
     
@@ -301,7 +301,7 @@ def doBuildZIP(request):
         item.status = 1
         item.save()
     response = HttpResponse(buffer.getvalue(),mimetype = 'application/zip')
-    response['Content-Disposition'] = 'attachment; filename='+strftime("%Y%m%d-%H%M")+'-'+settings.APP_PUBLIC_NAME+'-'+basket_name+'.zip'
+    response['Content-Disposition'] = 'attachment; filename='+strftime("%Y%m%d-%H%M")+'-'+settings.APP_PUBLIC_NAME+basket_name+'.zip'
     response['Content-Length'] = buffer.tell() # Get the filesize.
     buffer.close()
     return response

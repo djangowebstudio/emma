@@ -144,9 +144,15 @@ def check(request, item):
      return HttpResponse(r)
      
 @login_required
-def update_name(request, project_id):
-     """Updates project name"""
-     p = Project.objects.get(id=project_id)
+def update_name(request, item):
+     """Updates project name, or sets name to none"""
+     try: # is the arg an int?
+         project_id = int(item)
+         p = Project.objects.get(id=project_id)
+     except:
+         # not an int, so we are probably passing it a none
+         p = None
+     
      try:
          u = User.objects.get(user=request.user.id)
          u.current_project = p

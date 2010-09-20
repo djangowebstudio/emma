@@ -2,14 +2,14 @@
 {% load images_extras %}
 {% load i18n %}
 <div class="LN-toolbar-cart-basketname-header">
-	{% ifequal current_project.slug 'none' %}
+	{% if not current_project %}
 	<a style="margin-bottom: 11px" href="#" onclick="$('div#LN-toolbar-cart-basketname').toggle()">{% trans "Give your cart a name" %}</a>
 	{% else %}
 	<p class="LN-toolbar-cart-basketname-info">{% trans "Your cart is named" %}
 	<h3>{{current_project.name}}</h3>
 	<a title="{% trans 'Change name' %}" style="margin-bottom: 11px" href="#" onclick="$('div#LN-toolbar-cart-basketname').toggle()">{% trans "Change" %}</a>
 	</p>
-	{% endifequal %}
+	{% endif %}
 </div>
 <div id="LN-toolbar-cart-basketname" style="display: none">
 	<p>
@@ -17,8 +17,9 @@
 	</p>
 	<form id="LN-toolbar-cart-basketname-select" action="">		
 		<select name="basket_names" id="names" onchange="$.get('/cart/update/name/' + $(this).val() + '/')">
+			<option value="none">{% trans "don't use a name" %}</option>
 			{% for project in projects %}
-			<option {% ifequal current_project.name project.name %}selected{% endifequal %} value="{{project.id}}">{{project.name}}</option>
+			<option {% ifequal current_project.name project.name %}selected{% endifequal %} value="{{project.id}}" value="{{project.slug}}">{{project.name}}</option>
 			{% endfor %}
 		</select>	
 	</form>	

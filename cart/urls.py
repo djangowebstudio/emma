@@ -10,7 +10,7 @@ urlpatterns = patterns('emma.cart.views',
             url(r'^update/(?P<item>\d+)/$', 'update', name="update_item"),
             url(r'^empty/', 'empty', name="empty_cart"),
             url(r'^add/project/(?P<name>.*)/$', 'add_project', name="add_project"),
-            url(r'^update/name/(?P<project_id>\d+)/$', 'update_name', name="update_name"),
+            url(r'^update/name/(?P<item>.*)/$', 'update_name', name="update_name"),
         )
 
 
