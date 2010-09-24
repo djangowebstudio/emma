@@ -1310,7 +1310,7 @@ def appendix(): return int(time.time())
 @login_required
 def manage(request):
     """Manage downloads"""
-    items = Order.objects.filter(client=request.user).exclude(status=0).order_by('project').order_by('-ts')
+    items = Order.objects.filter(client=request.user, status=1).order_by('project').order_by('-ts')
     return render_to_response('manage.html', {'items': items}, context_instance=RequestContext(request))
     
 def toggle(request, order_id):
