@@ -481,3 +481,6 @@ msgstr "Wachtwoord"
 
 msgid "search"
 msgstr "zoek"
+
+msgid "new search engine"
+msgstr "nieuwe zoekmachine"
