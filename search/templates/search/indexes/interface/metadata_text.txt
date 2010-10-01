@@ -7,3 +7,4 @@
 {{object.copyright}}
 {{object.image_LNID}}
 {{object.source}}
+{{object.document}}

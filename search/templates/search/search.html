@@ -108,6 +108,9 @@
 							{% else %}
 							<img src="/s/_img_interface/copyright-no.png" width="10" height="10" alt="Copyright No">
 							{% endif %}
+							{% if result.object.document %}
+							<img title="{% trans 'this item contains an attachment'%}" style="cursor: help" border="0" src="/s/_img_interface/attachment.png" width="10" height="10" alt="Attachment">
+							{% endif %}
 						</div>
 						<div class="image">      
 							<a class="group" rel="main" href="/gallery/images/{{result.object.image_LNID}}.jpg">
