@@ -51,7 +51,7 @@ msgstr "resultaten"
 #: templates/search/search.html:129 templates/search/search.html.py:130
 #: templates/search/search.html:166
 msgid "add to cart"
-msgstr "in je mandje"
+msgstr "in je winkelmand"
 
 #: templates/search/search.html:135
 msgid "No results found"
@@ -113,7 +113,7 @@ msgstr "Meer resultaten die gerelateerd zijn aan de huidige zoekopdracht"
 
 #: templates/search/search.html:181
 msgid "cart"
-msgstr "mandje"
+msgstr "winkelmand"
 
 #: templates/search/search.html:188
 msgid ""

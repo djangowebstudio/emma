@@ -42,7 +42,7 @@ msgstr "Geef een cijfer aan (geen letter). Of kies een waarde uit de lijst."
 
 #: _javascript/_do.js:1091
 msgid "Add to basket"
-msgstr "Zet in je mandje"
+msgstr "Zet in je winkelmand"
 
 #: _javascript/_do.js:1093
 msgid "Already in there!"
@@ -70,10 +70,10 @@ msgid "image code"
 msgstr "beeldnummer"
 
 msgid "Do your REALLY want to empty your WHOLE basket?"
-msgstr "Wil je echt het HELE mandje leegmaken?"
+msgstr "Wil je echt het HELE winkelmand leegmaken?"
 
 msgid "close"
 msgstr "sluiten"
 
 msgid "Do you REALLY want to remove this item from your basket?"
-msgstr "Wil je dit onderdeel ECHT uit je mandje verwijderen?"
+msgstr "Wil je dit onderdeel ECHT uit je winkelmand verwijderen?"

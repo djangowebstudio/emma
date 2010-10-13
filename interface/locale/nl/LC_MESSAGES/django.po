@@ -25,11 +25,11 @@ msgstr "Een fout is opgetreden tijdens het bewaren van Internet Explorer voorkeu
 
 #: views.py:311
 msgid "Your basket is empty."
-msgstr "Je mandje is leeg"
+msgstr "Je winkelmand is leeg"
 
 #: views.py:313
 msgid "An error occurred while emptying you basket."
-msgstr "Er is een fout opgetreden bij het leegmaken van je mandje"
+msgstr "Er is een fout opgetreden bij het leegmaken van je winkelmand"
 
 #: views.py:320
 msgid "The item has been removed"
@@ -42,7 +42,7 @@ msgstr "Een fout is opgetreden, het onderdeel is niet verwijderd"
 #: views.py:351
 #, fuzzy, python-format
 msgid "%s is in your basket"
-msgstr "Zet dit onderdeel in je mandje"
+msgstr "Zet dit onderdeel in je winkelmand"
 
 #: views.py:351
 #, python-format
@@ -69,7 +69,7 @@ msgstr ""
 #: views.py:397
 #, fuzzy, python-format
 msgid "%(item)s is in your basket"
-msgstr "Zet dit onderdeel in je mandje"
+msgstr "Zet dit onderdeel in je winkelmand"
 
 #: views.py:399
 #, python-format
@@ -255,7 +255,7 @@ msgstr ""
 
 #: templates/manage.html:75
 msgid "Need to download an item again? Just click the add-to-cart icon"
-msgstr "Wil je een onderdeel opnieuw downloaden? Klik dan het icoon met het mandje."
+msgstr "Wil je een onderdeel opnieuw downloaden? Klik dan het icoon met het winkelmand."
 
 #: templates/manage.html:92
 msgid "publication details"
@@ -273,15 +273,15 @@ msgstr "Terug"
 
 #: templates/parts/doShowBasket.html:6
 msgid "Give your cart a name"
-msgstr "Geef je mandje een naam"
+msgstr "Geef je winkelmand een naam"
 
 #: templates/parts/doShowBasket.html:8
 msgid "Your cart is named"
-msgstr "Naam van je mandje"
+msgstr "Naam van je winkelmand"
 
 #: templates/parts/doShowBasket.html:10
 msgid "Give your basket another name"
-msgstr "Geef je mandje een andere naam"
+msgstr "Geef je winkelmand een andere naam"
 
 #: templates/parts/doShowBasket.html:10
 msgid "Change"
@@ -292,8 +292,8 @@ msgid ""
 "You might want to name your cart after the project you are working on. "
 "Choose a name from the list"
 msgstr ""
-"Het is mogelijk je mandje een naam te geven, bv de naam van je huidige "
-"projectKies een naam uit de lijst"
+"Het is mogelijk je winkelmand een naam te geven, bijv. de naam van je huidige "
+"project. Kies een naam uit de lijst"
 
 #: templates/parts/doShowBasket.html:15
 msgid "or add a new name"
@@ -302,7 +302,7 @@ msgstr "of voeg een nieuwe naam toe"
 #: templates/parts/doShowBasket.html:15
 msgid "Don't want to name your cart? Select the first (empty) item"
 msgstr ""
-"Wil je je mandje geen naam geven? Selecteer dan de eerste (lege) keuzeveld"
+"Wil je je winkelmand geen naam geven? Selecteer dan het eerste (lege) keuzeveld"
 
 #: templates/parts/doShowBasket.html:28
 msgid "Done"
@@ -310,7 +310,7 @@ msgstr "Klaar"
 
 #: templates/parts/doShowBasket.html:32
 msgid "drag the items you want to download here"
-msgstr "sleep de onderdelen naar het mandje"
+msgstr "sleep de onderdelen naar het winkelmand"
 
 #: templates/parts/doShowBasket.html:32
 msgid "or click the small grey arrow"
@@ -318,7 +318,7 @@ msgstr "of klik op het grijze pijltje"
 
 #: templates/parts/doShowBasket.html:38
 msgid "Click to download the contents of your basket."
-msgstr "Klik om je mandje te downloaden."
+msgstr "Klik om je winkelmand te downloaden."
 
 #: templates/parts/doShowBasket.html:44
 msgid "Click to drag"
@@ -326,7 +326,7 @@ msgstr "Klik om te slepen."
 
 #: templates/parts/doShowBasket.html:65
 msgid "Click to remove this item from your basket"
-msgstr "Klik om dit onderdeel uit je mandje te verwijderen"
+msgstr "Klik om dit onderdeel uit je winkelmand te verwijderen"
 
 #: templates/parts/doShowBasket.html:72
 msgid ""
@@ -342,11 +342,11 @@ msgstr "Beheer je downloads"
 
 #: templates/parts/doShowBasket.html:94
 msgid "Empty your basket"
-msgstr "Maak je mandje leeg"
+msgstr "Maak je winkelmand leeg"
 
 #: templates/parts/doShowBasket.html:94
 msgid "Click here to empty your basket completely"
-msgstr "Klik hier om je mandje geheel leeg te maken"
+msgstr "Klik hier om je winkelmand geheel leeg te maken"
 
 msgid "No results found for this keyword"
 msgstr "Geen resultaten gevonden voor dit trefwoord"
@@ -360,7 +360,7 @@ msgid " if you turned off albums"
 msgstr " als onderdelen niet in albums getoond zouden worden"
 
 msgid "Add this album to your basket"
-msgstr "Zet dit album in je mandje"
+msgstr "Zet dit album in je winkelmand"
 
 msgid "Click here to edit the album"
 msgstr "Klik hier om het album te bewerken"
@@ -405,7 +405,7 @@ msgid "expand"
 msgstr "vergroot"
 
 msgid "Add album to your basket"
-msgstr "Zet dit album in je mandje"
+msgstr "Zet dit album in je winkelmand"
 
 msgid "Add this album to your favorites"
 msgstr "Zet dit album in je favorieten"
@@ -429,7 +429,7 @@ msgid "Remove this item from album"
 msgstr "Verwijder dit onderdeel uit het album"
 
 msgid "Add this item to your basket"
-msgstr "Zet dit onderdeel in je mandje"
+msgstr "Zet dit onderdeel in je winkelmand"
 
 msgid "copyright owed"
 msgstr "copyright verschuldigd"
@@ -447,10 +447,10 @@ msgid "this item contains an attachment"
 msgstr "dit onderdeel beval een attachment"
 
 msgid "basket"
-msgstr "mandje"
+msgstr "winkelmand"
 
 msgid "cart"
-msgstr "mandje"
+msgstr "winkelmand"
 
 msgid "back"
 msgstr "terug"

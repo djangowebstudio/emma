@@ -18,12 +18,12 @@ msgstr ""
 
 #: views.py:18
 msgid "Your basket is empty."
-msgstr "Je mandje is leeg"
+msgstr "Je winkelmand is leeg"
 
 #: views.py:20
 #, fuzzy
 msgid "An error occurred while emptying you basket."
-msgstr "Er trad een fout op bij het leegmaken van je mandje"
+msgstr "Er trad een fout op bij het leegmaken van je winkelmand"
 
 #: views.py:27
 msgid "The item has been removed"
@@ -36,7 +36,7 @@ msgstr "Er trad een fout op. Het onderdeel is niet verwijderd"
 #: views.py:81
 #, python-format
 msgid "%(item)s is in your basket"
-msgstr "%(item)s in je mandje"
+msgstr "%(item)s in je winkelmand"
 
 #: views.py:83
 #, python-format
@@ -67,12 +67,12 @@ msgstr ""
 #: templates/cart/base.html:6
 #, fuzzy
 msgid "Give your cart a name"
-msgstr "Geef je mandje een naam"
+msgstr "Geef je winkelmand een naam"
 
 #: templates/cart/base.html:8
 #, fuzzy
 msgid "Your cart is named"
-msgstr "Je mandje heet"
+msgstr "Je winkelmand heet"
 
 #: templates/cart/base.html:10
 msgid "Change name"
@@ -87,7 +87,7 @@ msgid ""
 "You might want to name your cart after the project you are working on. "
 "Choose a name from the list"
 msgstr ""
-"Je kunt je mandje een naam geven, bv de naam van dit project. Kies een naam "
+"Je kunt je winkelmand een naam geven, bv de naam van dit project. Kies een naam "
 "uit de lijst"
 
 #: templates/cart/base.html:16
@@ -97,7 +97,7 @@ msgstr "of voeg een nieuwe naam toe"
 #: templates/cart/base.html:16
 msgid "Don't want to name your cart? Select the first (empty) item"
 msgstr ""
-"Wil je je mandje geen naam geven? Selecteer het eerste (lege) keuzeveld"
+"Wil je je winkelmand geen naam geven? Selecteer het eerste (lege) keuzeveld"
 
 #: templates/cart/base.html:20
 msgid "don't use a name"
@@ -109,15 +109,15 @@ msgstr "Klaar"
 
 #: templates/cart/base.html:35
 msgid "Your cart is empty"
-msgstr "Je mandje is leeg"
+msgstr "Je winkelmand is leeg"
 
 #: templates/cart/base.html:39
 msgid "Click to download the contents of your basket."
-msgstr "Klik om de inhoud vcan je mandje te downloaden"
+msgstr "Klik om de inhoud vcan je winkelmand te downloaden"
 
 #: templates/cart/base.html:67
 msgid "Click to remove this item from your basket"
-msgstr "Klik om dit onderdeel uit je mandje te verwijderen"
+msgstr "Klik om dit onderdeel uit je winkelmand te verwijderen"
 
 #: templates/cart/base.html:75
 msgid ""
@@ -129,8 +129,8 @@ msgstr ""
 
 #: templates/cart/base.html:97
 msgid "Empty your basket"
-msgstr "Maak je mandje leeg"
+msgstr "Maak je winkelmand leeg"
 
 #: templates/cart/base.html:98
 msgid "Click here to empty your basket completely"
-msgstr "Hier hier om je mandje helemaal leeg te maken"
+msgstr "Hier hier om je winkelmand helemaal leeg te maken"
