@@ -302,7 +302,7 @@ msgstr "of voeg een nieuwe naam toe"
 #: templates/parts/doShowBasket.html:15
 msgid "Don't want to name your cart? Select the first (empty) item"
 msgstr ""
-"Wil je je winkelmand geen naam geven? Selecteer dan het eerste (lege) keuzeveld"
+"Wil je je winkelmand geen naam geven? Selecteer dan het keuzeveld 'geen naam gebruiken'"
 
 #: templates/parts/doShowBasket.html:28
 msgid "Done"
