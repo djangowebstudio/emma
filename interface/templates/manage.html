@@ -101,7 +101,7 @@
 					</td>
 					<td>{{item.project.name}}</td>
 					<td>{{item.ts|date:"l m M Y H:m"}}</td>
-					<td><img class="item" style="cursor: pointer" onclick="$.get('{% url add_item item.image_LNID %}');r();" src="/s/_img_interface/addtocart/0.25x.png" width="37" height="31" alt="{{item.image_LNID}}" border="0" /></td>
+					<td><img class="item" style="cursor: pointer" onclick="$.get('{% url add_item item.image_LNID %}');r();" src="/s/_img_interface/cart/37px.png" width="37" height="37" alt="{{item.image_LNID}}" border="0" /></td>
 				</tr>
 				{% endfor %}
 			</table>
