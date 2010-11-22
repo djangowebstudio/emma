@@ -2,9 +2,25 @@ from django.contrib import admin
 from emma.interface.models import *
 from models import *
 from django.contrib.flatpages.models import FlatPage
-from django.contrib.flatpages.admin import FlatPageAdmin as FlatPageAdminOld
+from django.contrib.flatpages.admin import FlatPageAdmin
+# from django.contrib.auth.models import User
+# from django.contrib.auth.admin import UserAdmin
 
-class FlatPageAdmin(FlatPageAdminOld):
+def set_to_active(modeladmin, request, queryset):
+    queryset.update(is_active=True)
+set_to_active.short_description = "Set selected users to active"
+
+def set_to_inactive(modeladmin, request, queryset):
+    queryset.update(is_active=False)
+set_to_inactive.short_description = "Set selected users to inactive"
+
+# class UserAdmin(UserAdmin):
+#     actions = [set_to_active, set_to_inactive]
+# admin.site.unregister(User)
+# admin.site.register(User, UserAdmin)
+    
+
+class FlatPageAdmin(FlatPageAdmin):
     class Media:
         js = ('/s/js/tiny_mce/tiny_mce.js',
               '/s/js/tiny_mce/textareas.js',)

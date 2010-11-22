@@ -1,0 +1,15 @@
+{% load i18n %}
+<div class="menubar" id="LN-menubar">
+	<div class="header"> </div>
+	<ul class="LN-menubar" id="LN-menubar-show">
+		<li><a title="Show categories"  href="#" onclick="toggleMenuHeaders(this);$('menuContent').update();$('content_crumbs').update();doShowMenu('menuContent','_ALL_')">{% trans 'categories'%}</a> | </li>
+		<li><a title="Show tags"  href="#" onclick="toggleMenuHeaders(this);doShowTags('menuContent','list','all',1)">{% trans 'tags'%}</a></li>
+	</ul>
+	<div id="LN-menubarDivider">
+		<ul class="LN-menubar" id="LN-menubar-view">
+			<li><a title="View as list"  href="#" onclick="toggleMenuHeaders(this);doShowTags('menuContent','list','all',1)">{% trans 'list'%}</a> | </li>
+			<li><a title="View as cloud" href="#" onclick="toggleMenuHeaders(this);doShowTags('menuContent','cloud','all',1)">{% trans 'cloud'%}</a></li>
+		</ul>
+	</div>
+	<div id="menuContent"> </div>
+</div>

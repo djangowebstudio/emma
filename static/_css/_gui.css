@@ -1,0 +1,49 @@
+@import url('_common.css');
+body{margin: 0 0 0 0; padding: 0 0 0 0;}
+span.highlighted{background-color: #ff3300; color: white;}
+div.masthead{color: white; text-align: center; cursor: pointer; padding: 0px; margin: 0px; height: 37px; background-image: url(/s/_img_interface/bn-toolbar.png); background-repeat: no-repeat}
+div.masthead ul{float: left; padding: 0 0 0 0; margin: 0 0 0 420px;}
+div.masthead ul li{list-style: none; float: left; padding: 0 0 0 0; margin: 7px 5px 0 5px;}
+div.masthead ul li a {color: white; text-decoration: none;}
+div.masthead ul li a:hover{text-decoration: underline;}
+div.main{margin: 0 0 0 210px; width: 70%; border-right: 1px solid #eee;}
+div.nav{height: 37px; width: 100%;}
+div.nav div#searchform{float: left; margin: 0 0 0 0;}
+div.nav div#dym{float: left; margin: 9px 5px 0 0; font-size: 1.2em;}
+div.nav input#id_q{margin: 5px 0 0 0; width: 297px; font-size: 19px; height: 24px; border-radius: 14px; -moz-border-radius: 14px; border: 1px solid #ff3300; padding: 0 0 0 11px;}
+div.nav input#form_search{margin: 0 21px 0 5px; width: 74px;  font-size: 16px; position: relative; top: -2px; }
+div.filters{float: left; margin: 7px 0 0 0;}
+div.filters a{text-decoration: none;}
+div.filters a button{height: 21px; border: 1px solid #ddccdd; background: white;}
+div.filters a button:hover{-webkit-box-shadow: 0px 1px 5px #ddccdd; -moz-box-shadow: 0px 1px 5px #ddccdd;}
+div.filters span{font-size: 1.2em;}
+div.filters img{position: relative; top: 2px;}
+div#results{min-height: 420px; width: 100%;}
+div.header{height: 21px; width: 148px;}
+div.item{float: left; margin: 0 3px 3px 0; width: 150px; height: 240px; border: 1px solid #ddccdd; padding: 3px 3px 0 3px; border-radius: 3px; -moz-border-radius: 3px;}
+div.data{height: 50px; overflow: hidden;margin: 4px 0 0 0;}
+div.item-nav{height: 18px; border-top: 1px solid #ddccdd; padding: 3px 3px 0 3px; margin: 0 0 0 0;}
+div.item-nav a.detail{float: left;}
+div.item-nav a.add-to-cart{float: right;}
+a.colored_button{width: 74px;}
+div.button{float: right; width: 74px; border-radius: 7px; padding: 7px; border: 1px solid #ddccdd;}
+div.button div.label{}
+div#cart{position: absolute; right: 11px; top: 37px;background: #fff; width: 148px;}
+div#LN-cartContainer{top: 0px;}
+div#cartname-done{clear: both; text-align: right; margin-top: 21px;}
+div#metadata{position: absolute; top: 37px; left: 7px; width: 180px; text-align: right; background: #eee;padding: 7px;border: 1px solid #ddccdd;-webkit-box-shadow: 0px 1px 5px #000; -moz-box-shadow: 0px 1px 5px #000; }
+div.pager{float: right; margin: 0 52px 0 0;}
+div.text{display: inline; font-size: 1.2em; position: relative; top: -3px; color: #333;}
+form#search label{display: none;}
+div.divider{clear: both; height: 1px; width: 100%; background-color: #ddccdd;-webkit-box-shadow: 0px 1px 5px #ddccdd; -moz-box-shadow: 0px 1px 5px #ddccdd; margin: 0 0 11px 0;}
+div.mlt{float: left; margin: 0 6px 0 0; width: 76px;}
+div.mlt a.mlt-add{float:right;}
+div.mlt-label{width: 67px; height: 12px; margin: 2px 0 0 0; padding: 1px 4px 0 2px; text-align: left; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border: 1px solid #ddccdd;}
+div.mlt-label a.mlt-detail{float: left; margin: 1px 0 0 0;}
+div.mlt-label a.mlt-add{float: right;}
+div#back{ padding: 6px 0 0 52px; width: 74px; height: 21px; position: absolute; left: 5px; top: 11px; font-size: 14px; text-transform: uppercase; background:  url('/s/_img_interface/arrow-back.png') no-repeat;}
+div#back a{color: #444;}
+div#back:hover{ background: #eee  url('/s/_img_interface/arrow-back.png') no-repeat; border-radius: 14px;}
+div.LN-toolbar-cart-footer{padding: 7px;}
+div.LN-toolbar-cart-footer p{display: inline; position: relative; top: -5px; margin: 0 5px 0 0;}
+div#results p{font-size: 1.2em;}

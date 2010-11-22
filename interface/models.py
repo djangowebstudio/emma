@@ -70,6 +70,7 @@ class Image(models.Model):
     def __unicode__(self):
         return self.image_LNID
         
+    def get_image(self): return 'gallery/images/%s.jpg' % self.image_LNID
     
         
         

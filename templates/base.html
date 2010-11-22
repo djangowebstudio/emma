@@ -1,37 +1,24 @@
+{% load i18n thumbnail images_extras %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<link rel="stylesheet" href="/s/_css/_common.css" type="text/css" media="screen" title="no title" charset="utf-8" />
-    <title>Login</title>
-<style type="text/css">
-	#LN-login{
-		width: 297px;
-		border: 1px solid #ddccdd;
-		margin-top: 210px;
-		height: 148px;
-		padding: 0px;
-		-moz-border-radius: 3px;
-		-webkit-border-radius: 3px;
-		-webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
-		
-	}
-	
-	#LN-login th{
-		background-image: url(/s/_img_interface/bn-login.png);
-		background-repeat: no-repeat;
-		height: 32px;
-	}
-	#LN-login td{
-		padding: 7px;
-		color: #444;
-		font: 11px helvetica;
-	}
-</style>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="shortcut icon" href="/s/_img_interface/favicon.ico" />
+	<link rel="stylesheet" href="/s/_css/_gui.css" type="text/css" media="screen" title="gui styles" charset="utf-8" />
+	{% block extrastyle %}{% endblock %}
+	<script src="/s/_javascript/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/jsi18n/" type="text/javascript" charset="utf-8"></script>
+	{% block extrahead %}{% endblock %}
 </head>
+	
+	<body>
+		<div class="masthead" title="Terug naar BeeldNET" onclick="location.href='/interface/'" style="">
+			{% include "parts/header-links.html" %}
+		</div>
 
-<body>
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
-</body>
+	{% block content %}{% endblock %}
+	</body>
+</html>

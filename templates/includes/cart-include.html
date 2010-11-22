@@ -1,0 +1,12 @@
+{% load i18n %}
+<div id="LN-cartContainer">
+	<ul id="LN-toolbar-cart">
+		<li>
+			<img src="/s/_img_interface/cart/15px.png" width="15" height="15" alt="{% trans 'basket' %}"  border="0" />
+		</li>
+		<li style="position: relative; top: -5px">
+			{{request.user.username}}'s {% trans 'cart' %}
+		</li>
+	</ul>
+</div>
+<div id="cart"></div>
