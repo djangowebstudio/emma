@@ -4,9 +4,10 @@
 <link rel="stylesheet" href="/s/fancybox/jquery.fancybox-1.3.1.css" type="text/css" media="screen" title="no title" charset="utf-8">
 {% endblock %}
 {% block extrahead %}
-<script src="/s/fancybox/jquery.easing-1.3.pack.js" type="text/javascript" charset="utf-8"></script>
 <script src="/s/fancybox/jquery.fancybox-1.3.1.pack.js" type="text/javascript" charset="utf-8"></script>
+<script src="/s/fancybox/jquery.easing-1.3.pack.js" type="text/javascript" charset="utf-8"></script>
 <script src="/s/fancybox/jquery.mousewheel-3.0.2.pack.js" type="text/javascript" charset="utf-8"></script>
+
 <script type="text/javascript" charset="utf-8">
 	function r(){
 		// 
@@ -23,10 +24,37 @@
 
 	}
 	
+	
 		
 	$(function(){
 		r();
 		$('div#menuContent').load('/menu/_ALL_');
+		$("a.group").fancybox({
+				'transitionIn'	:	'elastic',
+				'transitionOut'	:	'elastic',
+				'speedIn'		:	600, 
+				'speedOut'		:	200, 
+				'overlayShow'	:	true
+			});
+		$("a.iframe").fancybox({
+				'transitionIn'	:	'elastic',
+				'transitionOut'	:	'elastic',
+				'speedIn'		:	600, 
+				'speedOut'		:	200, 
+				'width'			:   842,
+				'height'		:   '85%',
+				'overlayShow'	:	true
+			});
+		
+		
+		$('a.iframe').bind("mouseover", function(){
+			$('div#metadata')
+							.show()
+							.load('/interface/show/description/' + $(this).attr('id') + "/0/")
+							.css({'top': ($(this).offset().top+16) + 'px', 'left': $(this).offset().left + 'px'});
+		});
+		$('a.iframe').bind("mouseout", function(){$('div#metadata').hide()});
+		
 	});
 </script>
 {% endblock %}
@@ -35,7 +63,7 @@
 
 {% include 'includes/menu-include.html' %}
 
-<div id="main" style="margin-left: 210px">
+<div class="main">
 	<div class="nav">  
 		<div id="searchform">		
 			<form id="search" method="get" action="/search">
@@ -46,16 +74,16 @@
 	
 		{% if page.has_previous or page.has_next %}
 	      <div class="pager">
-			  <div>{{paginator.count}} {% trans "results" %}</div>
-	              {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+			  <div>{{page.count}} {% trans "results" %}</div>
+	              {% if page.has_previous %}<a href="/{{url}}{{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
 	              |
-	              {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+	              {% if page.has_next %}<a href="/{{url}}{{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
 	      </div>
 		{% endif %}
 	</div> <!-- end nav -->
 	<div class="divider"></div>
 	<div id="results">        
-		{% for result in m %}
+		{% for result in page.object_list %}
 	            <div class="item">
 					<div class="header">
 						{% if result.copyright %}
@@ -76,7 +104,7 @@
 					</div>						
 					<div class="label"></div>
 					<div class="data">	
-						{{result.keywords}}		
+						{{result.title}}{{result.keywords}}		
 					</div>
 					<div class="item-nav">
 						<a id="{{result.image_LNID}}" title="{% if result.subject %}{{result.subject}}{% else %} {{result.keywords|truncatewords:10}}{% endif %}" class="iframe detail" href="/interface/show/description/{{result.image_LNID}}/1/">
@@ -88,7 +116,7 @@
 					</div>
 	            </div>
 	        {% empty %}
-	            <p>{% trans "No results found" %}. {% trans "If you filtered the results, you might try clicking the" %} '{% trans "reset search" %}' {% trans "button" %}</p>
+	            <p>{% trans "No results found" %}.</p>
 				{% if sqs %}
 				{% ifnotequal partition|length 1 %}
 				<p>{% trans "You may also try the spelling suggestions as seperate words:"%} | {% for item in partition %}<a href="/search/?q={{item}}">{{item}}</a> | {% endfor %}</p>

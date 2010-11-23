@@ -7,7 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>{% block title %}{% endblock %}</title>
 	<link rel="shortcut icon" href="/s/_img_interface/favicon.ico" />
-	<link rel="stylesheet" href="/s/_css/_gui.css" type="text/css" media="screen" title="gui styles" charset="utf-8" />
+	<link rel="stylesheet" href="/s/_css/_gui.css" type="text/css" media="screen" title="no title" charset="utf-8" />
 	{% block extrastyle %}{% endblock %}
 	<script src="/s/_javascript/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/jsi18n/" type="text/javascript" charset="utf-8"></script>
@@ -16,7 +16,7 @@
 	
 	<body>
 		<div class="masthead" title="Terug naar BeeldNET" onclick="location.href='/interface/'" style="">
-			{% include "parts/header-links.html" %}
+			{% include "includes/header-links.html" %}
 		</div>
 
 	{% block content %}{% endblock %}
