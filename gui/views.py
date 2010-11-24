@@ -12,15 +12,12 @@ setup_environ(settings)
 from emma.search.views import EmmaSearchView
 import emma.core.utes as utes
 
-
 def index(request, p=1):
     """Returns the last xx items"""
-    
     number = getattr(settings, 'APP_NO_ITEMS', 100)
     m = Metadata.objects.all().order_by('-ts')[:number]
     
-    page = get_page(request, m, p)
-    
+    page = get_page(request, m, p)    
     return render_to_response('gui/main.html', locals(), context_instance=RequestContext(request))
     
 def menu(request,requestedDir=''):
@@ -61,8 +58,6 @@ def thumbs(request, requestedDir='', p=1):
     path = requestedDir.replace('_SLASH_', '/')
     if path.startswith('/'):
         path = path[1:]
-    print requestedDir
-    print path
     sortpref = prefs(request)['sortpref']
     order = 'interface_image.date_modified' if sortpref == 1 else '-interface_image.date_modified'
     m = Metadata.objects.filter(image__image_real_path__startswith=path).order_by(order)
@@ -79,9 +74,7 @@ def get_page(request, obj, p=1):
     except InvalidPage:
         page = paginator.page(1)
     return page
-        
-    
-    
+            
 def prefs(request):
     """Get user prefs (pagesize,  order)"""
     prefs = {}

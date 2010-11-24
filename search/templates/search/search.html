@@ -1,67 +1,28 @@
+{% extends 'base.html' %}
 {% load more_like_this highlight i18n thumbnail images_extras %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>beeldnet test search</title>
-	<link rel="shortcut icon" href="/s/_img_interface/favicon.ico" />
-	<link rel="stylesheet" href="/s/_css/_search.css" type="text/css" media="screen" title="no title" charset="utf-8">
-	<link rel="stylesheet" href="/s/fancybox/jquery.fancybox-1.3.1.css" type="text/css" media="screen" title="no title" charset="utf-8">
-	<link rel="stylesheet" href="/s/feedback/main.css"/>
-	<script src="/s/_javascript/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+{% block extrastyle %}
+<link rel="stylesheet" href="/s/fancybox/jquery.fancybox-1.3.1.css" type="text/css" media="screen" title="no title" charset="utf-8">
+{% endblock %}
+{% block extrahead %}
 	<script src="/s/fancybox/jquery.fancybox-1.3.1.pack.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/s/fancybox/jquery.easing-1.3.pack.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/s/fancybox/jquery.mousewheel-3.0.2.pack.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/jsi18n/" type="text/javascript" charset="utf-8"></script>   
 	<script src="/s/feedback/jquery.form.js"></script>
    	<script src="/s/feedback/main.js"></script>
-
-	<script type="text/javascript" charset="utf-8">
-		$(function(){
-			$("a.group").fancybox({
-					'transitionIn'	:	'elastic',
-					'transitionOut'	:	'elastic',
-					'speedIn'		:	600, 
-					'speedOut'		:	200, 
-					'overlayShow'	:	false
-				});
-			$("a.iframe").fancybox({
-					'transitionIn'	:	'elastic',
-					'transitionOut'	:	'elastic',
-					'speedIn'		:	600, 
-					'speedOut'		:	200, 
-					'width'			:   842,
-					'height'		:   '85%',
-					'overlayShow'	:	false
-				});
-			
-			
-			$('a.iframe').bind("mouseover", function(){
-				$('div#metadata')
-								.show()
-								.load('/interface/show/description/' + $(this).attr('id') + "/0/")
-								.css({'top': ($(this).offset().top+16) + 'px', 'left': $(this).offset().left + 'px'});
-			});
-			$('a.iframe').bind("mouseout", function(){$('div#metadata').hide()});
-			r(); // load cart on page load
-		});
-		function r(){
-			 $('div#cart').hide().load('{% url show_cart %}').show('fast');
-		}		
-	</script>
+	<script src="/s/_javascript/gui.js" type="text/javascript" charset="utf-8"></script>
 	<!--[if IE]>
 	<style type="text/css" media="screen">
 		div.nav input#form_search{position: relative; top: 1px}
 	</style>
 	<![endif]-->
+{% endblock %}
 </head>
 
-<body><span id="debug"></span>
-	<div class="masthead" title="Terug naar BeeldNET" onclick="location.href='/interface/'" style="">
-		{% include "includes/header-links.html" %}
-	</div>
+{% block content %}
+<span id="debug"></span>
+
+	{% include 'includes/menu-include.html' %}
 	<div class="main">		
 		<div class="nav">  
 			<div id="searchform">		
@@ -150,46 +111,7 @@
 				<p>{% trans "We welcome any comments you may have about this new feature. Click the feedback button on the left side of this page to enter a comment." %}</p>
 			</div>
 		{% endif %}
-
-		<div class="divider" style="clear: both"></div>
-		{% if mlt %}
-		<h3>{% trans "More like this" %}</h3>
-		<p>{% trans "Showing results in some way related to the current search" %}</p>
-		{% more_like_this mlt as related limit 10 %}
-		{% for image in related %}
-		<div class="mlt">	
-			<a class="group" title="{{image.object.subject}}" rel="mlt" href="/gallery/images/{{image.image_LNID}}.jpg">
-				{% thumbnail image.object.get_image 74x74 crop upscale as img %}
-				<img src="{{img}}" width="{{img.width}}" height="{{img.height}}" border="0" alt="{% if image.object.subject %}{{image.object.subject}}{% endif %}" />
-			</a>
-			<div class="label mlt-label">
-				<a title="{{image.object.subject}}" id="{{image.object.image_LNID}}" class="iframe mlt-detail" href="/interface/show/description/{{image.object.image_LNID}}/1/">
-					<img src="/s/_img_interface/detail/10px.png" width="10" height="10" alt="10px" border="0" />
-				</a>
-				<a title="{% trans "add to cart" %}" class="mlt-add" onclick="$.get('{% url add_item image.object.image_LNID %}');r();" href="#">
-					<img src="/s/_img_interface/cart-grey/15px.png" width="15" height="15" alt="{% trans 'add to cart' %}" border="0" />
-				</a>
-			</div>
-		</div>		
-		{% endfor %}
-		{% endif %}
-	
 	</div>
-	<div id="LN-cartContainer">
-		<ul id="LN-toolbar-cart">
-			<li>
-				<img src="/s/_img_interface/cart/15px.png" width="15" height="15" alt="{% trans 'basket' %}"  border="0" />
-			</li>
-			<li style="position: relative; top: -5px">
-				{{request.user.username}}'s {% trans 'cart' %}
-			</li>
-		</ul>
-	</div>
-	<div id="cart"></div>
 	<div id="metadata" style="display: none"></div>
-	<div id="back">
-		<a title="{% trans 'Go back one page. To go back to the homepage, click home in the top menu' %}" href="javascript:history.back()">{% trans "Back" %}</a>
-	</div>
-	{% include "feedback/button.html" %}
-</body>
-</html>
+	{% include 'includes/cart-include.html' %}
+{% endblock %}

@@ -7,56 +7,19 @@
 <script src="/s/fancybox/jquery.fancybox-1.3.1.pack.js" type="text/javascript" charset="utf-8"></script>
 <script src="/s/fancybox/jquery.easing-1.3.pack.js" type="text/javascript" charset="utf-8"></script>
 <script src="/s/fancybox/jquery.mousewheel-3.0.2.pack.js" type="text/javascript" charset="utf-8"></script>
-
+<script src="/s/_javascript/gui.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" charset="utf-8">
-	function r(){
-		// 
-		 $('div#cart').hide().load('{% url show_cart %}').show('fast');
-	}	
-		
-	function menu(el, s){
-		// open or close menu items
-		if ($('div#' + el + '_' + s).length == 0){
-			$('<div/>').attr({'id': el + '_' + s}).appendTo($('div#' + el)).load('/menu/' + s + '/');			
-		}else{
-			$('div#' + el + '_' + s).detach();
-		}
-
-	}
-	
-	
-		
 	$(function(){
-		r();
+		
+		var current = '{{requestedDir}}'.replace('_SLASH_','');
 		$('div#menuContent').load('/menu/_ALL_');
-		$("a.group").fancybox({
-				'transitionIn'	:	'elastic',
-				'transitionOut'	:	'elastic',
-				'speedIn'		:	600, 
-				'speedOut'		:	200, 
-				'overlayShow'	:	true
-			});
-		$("a.iframe").fancybox({
-				'transitionIn'	:	'elastic',
-				'transitionOut'	:	'elastic',
-				'speedIn'		:	600, 
-				'speedOut'		:	200, 
-				'width'			:   842,
-				'height'		:   '85%',
-				'overlayShow'	:	true
-			});
-		
-		
-		$('a.iframe').bind("mouseover", function(){
-			$('div#metadata')
-							.show()
-							.load('/interface/show/description/' + $(this).attr('id') + "/0/")
-							.css({'top': ($(this).offset().top+16) + 'px', 'left': $(this).offset().left + 'px'});
+		$('div#menuContent').delegate('div#' + current, 'load', function(){
+			$('<div/>').attr({'id':'{{requestedDir}}-container'}).appendTo($('div#' + current)).load('/menu/{{requestedDir}}');
 		});
-		$('a.iframe').bind("mouseout", function(){$('div#metadata').hide()});
-		
+				
 	});
 </script>
+
 {% endblock %}
 
 {% block content %}
@@ -117,13 +80,9 @@
 	            </div>
 	        {% empty %}
 	            <p>{% trans "No results found" %}.</p>
-				{% if sqs %}
-				{% ifnotequal partition|length 1 %}
-				<p>{% trans "You may also try the spelling suggestions as seperate words:"%} | {% for item in partition %}<a href="/search/?q={{item}}">{{item}}</a> | {% endfor %}</p>
-				{% endifnotequal %}
-				{% endif %}
 	        {% endfor %}
 	</div>
 	{% include 'includes/cart-include.html' %}
 </div>
+<div id="debug" style="position: absolute; top: 10px left: 10px"></div>
 {% endblock %}

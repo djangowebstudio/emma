@@ -1,7 +1,7 @@
 {% block content %}
 {% for d in dirlist %}
 <div id="{{d}}" class="menu-passive">
-	<a title="{{crumbs}}/{{d}}" href="/thumbs/{{mList}}{{d}}" onclick="menu('{{d}}','{{mList}}{{d}}');">
+	<a title="{{crumbs}}/{{d}}" href="/thumbs/{{mList}}{{d}}">
 		<img id="img-{{d}}" style="margin-right: 5px" border="0" src="/s/_img_interface/triangle-bluegreen-right.png" width="9" height="9" alt="Triangle Bluegreen Right" />
 		{{d}}
 	</a>
