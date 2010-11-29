@@ -52,7 +52,7 @@
 	          <div class="pager">
 				  <div><span>{{paginator.count}} {% trans "results" %}</span></div>
 		              {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; {% trans "Previous" %}{% if page.has_previous %}</a>{% endif %}
-		              <div id="page_size">{{page_size}} p.p.</div>
+		              <div title="{% trans 'Click to change the sorting order' %}" id="page_size">{{page_size}} p.p.</div>
 		              {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}{% trans "Next" %} &raquo;{% if page.has_next %}</a>{% endif %}
 	          </div>
 		</div> <!-- end nav -->
@@ -63,9 +63,9 @@
 		            <div class="item">
 						<div class="header">
 							{% if result.object.copyright %}
-							<img src="/s/_img_interface/copyright-yes.png" width="10" height="10" alt="Copyright Yes">
+							<img  title="{% trans 'copyright owed' %}" src="/s/_img_interface/copyright-yes.png" width="10" height="10" alt="Copyright Yes">
 							{% else %}
-							<img src="/s/_img_interface/copyright-no.png" width="10" height="10" alt="Copyright No">
+							<img title="{% trans 'copyright settled' %}" src="/s/_img_interface/copyright-no.png" width="10" height="10" alt="Copyright No">
 							{% endif %}
 							{% if result.object.document %}
 							<img title="{% trans 'this item contains an attachment'%}" style="cursor: help" border="0" src="/s/_img_interface/attachment.png" width="10" height="10" alt="Attachment">

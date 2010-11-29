@@ -1,0 +1,22 @@
+{% extends "admin-base.html" %}
+{% load i18n %}
+{% block title %}login{% endblock %}
+{% block content %}
+
+
+<form method="post" action=".">{% csrf_token %}
+<table id="LN-login" align="center">
+<tr><th colspan="2"></th></tr>
+<tr><td><label for="id_username">{% trans "Username" %}:</label></td><td>{{ form.username }}</td></tr>
+<tr><td><label for="id_password">{% trans "Password" %}:</label></td><td>{{ form.password }}</td></tr>
+{% if form.errors %}
+<tr><td colspan="2">{% trans "Your username and/or password didn't match. Please try again" %}.</td></tr>
+<tr><td colspan="2"><a href="/accounts/password_reset/">{% trans "Or request a new password" %}.</a></td></tr>
+{% endif %}
+<tr><td colspan="2" align="right"><input type="submit" value="login" /></td></tr></table>
+<div align="center" style="font-size: 10px; margin-top: 11px">Support: 020-3058800<br /> <a href="mailto:beeldnetsupport@schepper.nl?subject=Login probleem">beeldnetsupport@schepper.nl</a></div>
+
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}

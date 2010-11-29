@@ -21,6 +21,7 @@ div.filters span{font-size: 1.2em;}
 div.filters img{position: relative; top: 2px;}
 div#results{min-height: 420px; width: 100%;}
 div.header{height: 21px; width: 148px;}
+div.header img{cursor: help;}
 div#results div.item{float: left; margin: 0 3px 3px 0; width: 150px; height: 240px; border: 1px solid #ddccdd; padding: 3px 3px 0 3px; border-radius: 3px; -moz-border-radius: 3px;}
 div#results div.label{height: 5px;}
 div.data{height: 59px; overflow: hidden;margin: 4px 0 0 0;}

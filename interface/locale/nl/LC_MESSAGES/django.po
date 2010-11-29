@@ -490,3 +490,9 @@ msgstr "zoek"
 
 msgid "new search engine"
 msgstr "nieuwe zoekmachine"
+
+msgid "Click to change the sorting order"
+msgstr "Klik om de volgorde te veranderen"
+
+msgid "Click to choose a page size from the menu"
+msgstr "Klik om het aantal onderdelen op de pagina te veranderen"
