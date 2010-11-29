@@ -21,7 +21,11 @@
 					'speedOut'		:	200, 
 					'overlayShow'	:	false
 				});
+				
 		r();
+		$('div.menu-passive').hide();
+		$('div#menuContent > div.menu-passive').show();
+		
 		});
 		function r(){
 			 $('div#cart').hide().load('{% url show_cart %}').show('fast');
