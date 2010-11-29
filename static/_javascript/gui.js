@@ -29,7 +29,7 @@ $(function(){
 	// menu item hiding
 	$('div.menu-passive').hide();
 	$('div#menuContent > div.menu-passive').show();
-	var folder_id = location.pathname.replace(/^\/+|\/+$/g, '').replace('folder/', '').replace('/', '_');
+	var folder_id = location.pathname.replace(/^\/+|\/+$/g, '').replace('gui/folder/', '').replace('/', '_');
 	if (folder_id){
     	var selector = 'div#' + folder_id + ', div#' + folder_id + ' > div.menu-passive';
         // $('#debug').text(selector + ' | ' + $(selector).length + ' | ' + $('div#' + folder_id).length);
