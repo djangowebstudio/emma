@@ -40,7 +40,7 @@ $(function(){
 	// change sorting
 	
     $('div#sorting').click(function(){
-        $.get('/toggle/sorting/');
+        $.get('/gui/toggle/sorting/');
         setTimeout(function(){location.reload();}, 500);
     });
     $('ul#pagesize-container').hide();
@@ -50,7 +50,7 @@ $(function(){
         setTimeout(function(){$('ul#pagesize-container').fadeOut();}, 5000 );
     });
     $('ul#pagesize-container li').click(function(){
-        $.get('/change/pagesize/' + $(this).attr('title') + '/');
+        $.get('/gui/change/pagesize/' + $(this).attr('title') + '/');
         setTimeout(function(){location.reload();}, 500);
     });
 	
