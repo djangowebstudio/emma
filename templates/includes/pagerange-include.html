@@ -1,0 +1,6 @@
+{% load i18n %}
+<ul id="pagesize-container">
+	{% for pg_size in page_range %}
+	<li title="{{pg_size}}">{{pg_size}} {% trans "items per page" %}</li>
+	{% endfor %}
+</ul>

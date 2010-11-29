@@ -535,6 +535,7 @@ class Watch:
         def f (self, dirname, files):
             # Traversal function for directories
             for filename in files:
+                logging.info(filename)
                 if not filename == '.DS_Store' or not filename == 'Thumbs.db':
                     path = os.path.join(dirname, filename)
                     

@@ -386,11 +386,17 @@ msgstr "Klik op de tekst om te bewerken, klik ergens anders om te bewaren"
 msgid "Prev"
 msgstr "Vorig"
 
+msgid "Previous"
+msgstr "Vorige"
+
 msgid "Next"
 msgstr "Volgende"
 
 msgid "Favorites"
 msgstr "Favorieten"
+
+msgid "Change Sorting"
+msgstr "Verander volgorde"
 
 msgid "expand favorites bar for more options"
 msgstr "vergroot de favorietenbalk voor meer opties"

@@ -1,12 +1,11 @@
 from django.conf.urls.defaults import *
 
-
 urlpatterns = patterns('emma.gui.views',
     url(r'^$', 'index'),
     url(r'^(?P<p>\d+)/$', 'index'),
-    url(r'^thumbs/(?P<requestedDir>.*)/(?P<p>\d+)/$', 'thumbs'),     
-    url(r'^thumbs/(?P<requestedDir>.*)/$', 'thumbs'),   
-    
-    url(r'^menu/(?P<requestedDir>.*)/$', 'menu'),
+    url(r'^folder/(?P<path>.*)/(?P<p>\d+)/$', 'folder'),     
+    url(r'^folder/(?P<path>.*)/$', 'folder'),   
+    url(r'^toggle/sorting/$', 'sorting'),
+    url(r'^change/pagesize/(?P<page_size>[0-9]+)/$', 'page_size'),   
 
 )

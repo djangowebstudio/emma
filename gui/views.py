@@ -11,56 +11,44 @@ import settings
 setup_environ(settings)
 from emma.search.views import EmmaSearchView
 import emma.core.utes as utes
+from django.utils.translation import ugettext_lazy as _
 
+
+
+@login_required
 def index(request, p=1):
     """Returns the last xx items"""
-    number = getattr(settings, 'APP_NO_ITEMS', 100)
-    m = Metadata.objects.all().order_by('-ts')[:number]
     
+    # get no. of items & page_range from settings    
+    number = getattr(settings, 'APP_NO_ITEMS', 100)
+    page_range = getattr(settings, 'APP_PAGE_RANGE', range(8, 88, 8))
+    # get sorting order & page_size
+    preferences = prefs(request)
+    sortpref, page_size = preferences['sortpref'], preferences['page_size']
+
+    order = 'image__date_modified' if sortpref == 1 else '-image__date_modified'
+    m = Metadata.objects.all().order_by(order)
+    m = m[:number] if number else m
     page = get_page(request, m, p)    
     return render_to_response('gui/main.html', locals(), context_instance=RequestContext(request))
     
-def menu(request,requestedDir=''):
-    """ 
-    Shows a menu node, using os.listdir. 
-    Takes requestedDir
-    Returns a menu node in a DOM element created on the fly."""
-    # Apache doesn't seem to like empty url nodes so we fill them...
-    requestedDir = requestedDir.replace('_SLASH_','/').replace('_ALL_','')
-    crumbs = requestedDir
-    mList = requestedDir.replace('/', '_SLASH_') + "_SLASH_"
 
-    # Init utes 
-    e = utes.Utes()
-
-    # We'll be needing a list to hold the results
-    dirlist = []
-    results = os.listdir(settings.APP_CONTENT_ROOT + requestedDir)
-    for d in results:
-        if d[0:1] != '.':
-            if d[0:2] != '--':
-                if d[(len(d)-5):(len(d)-4)] != ".":
-                    if d[(len(d)-4):(len(d)-3)] != ".":
-                        if d[(len(d)-3):(len(d)-2)] != ".":
-                            if d.lower()[0:4] != 'icon':
-                                if not d.endswith('_original'):
-                                # excludes returns a tuple, so...
-                                    if False in e.excludes(d,settings.APP_MENU_EXCLUDES):
-                                        dirlist.append(d.encode('utf-8'))
-
-    return render_to_response('includes/menu-item.html', locals(), context_instance=RequestContext(request))
-                                                            
-def thumbs(request, requestedDir='', p=1):
+@login_required                                                            
+def folder(request, path='', p=1):
     """
-    Takes an encoded path, queries for path
+    Queries for path
     """
-    url = 'thumbs/%s/' % requestedDir
-    path = requestedDir.replace('_SLASH_', '/')
+    url = 'folder/%s/' % path
     if path.startswith('/'):
         path = path[1:]
-    sortpref = prefs(request)['sortpref']
-    order = 'interface_image.date_modified' if sortpref == 1 else '-interface_image.date_modified'
-    m = Metadata.objects.filter(image__image_real_path__startswith=path).order_by(order)
+        
+    preferences = prefs(request)
+    sortpref, page_size = preferences['sortpref'], preferences['page_size']
+    
+    # get page range from settings
+    page_range = getattr(settings, 'APP_PAGE_RANGE', range(8, 88, 8))
+    order = 'image__date_modified' if sortpref == 1 else '-image__date_modified'
+    m = Metadata.objects.filter(image__image_real_path__istartswith=path).order_by(order)
     
     page = get_page(request, m, p)
         
@@ -83,9 +71,24 @@ def prefs(request):
         prefs['sortpref'] = int(u.order)
         prefs['page_size'] = int(u.pagesize)
     except Exception, inst: 
-        print inst
         prefs['sortpref'] = 1
         prefs['page_size'] = 8
     return prefs
+
+
+def sorting(request):
+    """ Change sorting order in User Preferences"""
+    u = User.objects.get(user=request.user.id)
+    u.order = 1 if u.order == 0 else 0
+    u.save()
+    return HttpResponse(_('Order by date set to descending (oldest first)') if u.order == 0 else _('Order by date set to ascending (newest first)'))
     
-    
+def page_size(request, page_size):
+    """ Changes page size in user preferences"""    
+    try:
+        u = User.objects.get(user=request.user.id)
+        u.pagesize = page_size
+        u.save()
+        return HttpResponse('saved pagesize %s' % page_size)
+    except Exception, inst:
+        return HttpResponse('Sorry, something went wrong %s' % inst)

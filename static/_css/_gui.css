@@ -1,6 +1,7 @@
 @import url('_common.css');
+p.LN-toolbar-cart-basketname-info{text-align: left;}
 body{margin: 0 0 0 0; padding: 0 0 0 0;}
-span.highlighted{background-color: #ff3300; color: white;}
+span.highlighted{background-color: #eee; color: #444;}
 div.masthead{color: white; text-align: center; cursor: pointer; padding: 0px; margin: 0px; height: 37px; background-image: url(/s/_img_interface/bn-toolbar.png); background-repeat: no-repeat}
 div.masthead ul{float: left; padding: 0 0 0 0; margin: 0 0 0 420px;}
 div.masthead ul li{list-style: none; float: left; padding: 0 0 0 0; margin: 7px 5px 0 5px;}
@@ -20,9 +21,12 @@ div.filters span{font-size: 1.2em;}
 div.filters img{position: relative; top: 2px;}
 div#results{min-height: 420px; width: 100%;}
 div.header{height: 21px; width: 148px;}
-div.item{float: left; margin: 0 3px 3px 0; width: 150px; height: 240px; border: 1px solid #ddccdd; padding: 3px 3px 0 3px; border-radius: 3px; -moz-border-radius: 3px;}
-div.data{height: 50px; overflow: hidden;margin: 4px 0 0 0;}
-div.item-nav{height: 18px; border-top: 1px solid #ddccdd; padding: 3px 3px 0 3px; margin: 0 0 0 0;}
+div#results div.item{float: left; margin: 0 3px 3px 0; width: 150px; height: 240px; border: 1px solid #ddccdd; padding: 3px 3px 0 3px; border-radius: 3px; -moz-border-radius: 3px;}
+div#results div.label{height: 5px;}
+div.data{height: 59px; overflow: hidden;margin: 4px 0 0 0;}
+div.data a{color: #777; text-decoration: none;}
+div.data a:hover{color: black; text-decoration: underline;}
+div.item-nav{height: 18px; border-top: 1px solid #ddccdd; padding: 3px 3px 0 3px; margin: 0 0 0 0; background: #eee;}
 div.item-nav a.detail{float: left;}
 div.item-nav a.add-to-cart{float: right;}
 a.colored_button{width: 74px;}
@@ -32,7 +36,9 @@ div#cart{position: absolute; right: 11px; top: 37px;background: #fff; width: 148
 div#LN-cartContainer{top: 0px;}
 div#cartname-done{clear: both; text-align: right; margin-top: 21px;}
 div#metadata{position: absolute; top: 37px; left: 7px; width: 180px; text-align: right; background: #eee;padding: 7px;border: 1px solid #ddccdd;-webkit-box-shadow: 0px 1px 5px #000; -moz-box-shadow: 0px 1px 5px #000; }
-div.pager{float: right; margin: 0 52px 0 0;}
+div.pager{float: right; margin: 0 52px 0 0; color: #ddd; line-height: 16px;}
+div.pager span{color: #444;}
+div.pager a{color: #444; background: none;}
 div.text{display: inline; font-size: 1.2em; position: relative; top: -3px; color: #333;}
 form#search label{display: none;}
 div.divider{clear: both; height: 1px; width: 100%; background-color: #ddccdd;-webkit-box-shadow: 0px 1px 5px #ddccdd; -moz-box-shadow: 0px 1px 5px #ddccdd; margin: 0 0 11px 0;}
@@ -47,3 +53,10 @@ div#back:hover{ background: #eee  url('/s/_img_interface/arrow-back.png') no-rep
 div.LN-toolbar-cart-footer{padding: 7px;}
 div.LN-toolbar-cart-footer p{display: inline; position: relative; top: -5px; margin: 0 5px 0 0;}
 div#results p{font-size: 1.2em;}
+div.menu-passive a{background: url('/s/_img_interface/triangle-bluegreen-right.png') no-repeat center left; padding-left: 11px;}
+a.active{background: url('/s/_img_interface/triangle-bluegreen-down.png') no-repeat center left; padding-left: 1px;}
+div#sorting, div#page_size{display: inline; cursor: pointer;-moz-border-radius: 2px;-webkit-border-radius: 2px;border: 1px solid #ddccdd;padding-left: 2px;padding-right: 2px;color: #777;}
+div#sorting:hover, div#page_size:hover{background-color: #666;color: white;}
+ul#pagesize-container{position: absolute; background: #fff; margin: 0 0 0 0; padding:3px 3px 7px 3px; -webkit-box-shadow: 0px 1px 5px #ddccdd; -moz-box-shadow: 0px 1px 5px #ddccdd; border: 1px solid #ddccdd;}
+ul#pagesize-container li{list-style: none; padding: 0 0 0 0; margin: 0 0 0 0;color: #777;cursor: pointer;}
+ul#pagesize-container li:hover{text-decoration: underline;color: black;}
