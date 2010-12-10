@@ -42,7 +42,7 @@ class Command:
     
     
 
-    def ffmpeg(self, finput, foutput, size="other", defaultwidth=917, format='png', verbose=False):
+    def ffmpeg(self, finput, foutput, size="other", defaultwidth=917, frame=1, format='png', verbose=False):
         """ Converts all sorts of video formats to a clip in .flv format or set of images.
         The number of frames can be set in de args.
         Just a python wrapper for ffmpeg.
@@ -83,14 +83,13 @@ class Command:
             cmd = ["ffmpeg","-i",finput,"-y","-fs","100000",foutput]
         elif size == 'tiny' or size == 'small':
             fname = '/'.join([foutput, os.path.splitext(os.path.basename(finput))[0] + ".png"])
-            cmd = ["ffmpeg", "-i", finput, "-y", "-vframes", "1", "-ss", "15", fname]
+            cmd = ["ffmpeg", "-i", finput, "-y", "-vframes", "1", "-ss", unicode(frame), fname]
         elif size == 'fullsize':
             fname = '/'.join([foutput, os.path.splitext(os.path.basename(finput))[0] + ".jpg"])
-            print fname
-            cmd = ["ffmpeg", "-i", finput, "-y", "-vframes", "1", "-ss", "10", fname]
+            cmd = ["ffmpeg", "-i", finput, "-y", "-vframes", "1", "-ss", unicode(frame), fname]
         else:
             cmd = ["ffmpeg","-i",finput,"-y","-vframes","180","-an","-s","qqvga",foutput]
-        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)      
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
         verbose = proc.communicate()[0]
         if size == 'tiny': self.crop_to_center(fname, foutput,29,29)
         if size == 'small': self.crop_to_center(fname, foutput,148,148)
