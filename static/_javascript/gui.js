@@ -29,7 +29,7 @@ $(function(){
 	// menu item hiding
 	$('div.menu-passive').hide();
 	$('div#menuContent > div.menu-passive').show();
-	var folder_id = location.pathname.replace(/^\/+|\/+$/g, '').replace('gui/folder/', '').replace('/', '_');
+	var folder_id = location.pathname.replace(/^\/+|\/+$/g, '').replace('folder/', '').replace('/', '_');
 	if (folder_id){
     	var selector = 'div#' + folder_id + ', div#' + folder_id + ' > div.menu-passive';
         // $('#debug').text(selector + ' | ' + $(selector).length + ' | ' + $('div#' + folder_id).length);
@@ -40,7 +40,7 @@ $(function(){
 	// change sorting
 	
     $('div#sorting').click(function(){
-        $.get('/gui/toggle/sorting/');
+        $.get('/toggle/sorting/');
         setTimeout(function(){location.reload();}, 500);
     });
     $('ul#pagesize-container').hide();
@@ -50,7 +50,7 @@ $(function(){
         setTimeout(function(){$('ul#pagesize-container').fadeOut();}, 5000 );
     });
     $('ul#pagesize-container li').click(function(){
-        $.get('/gui/change/pagesize/' + $(this).attr('title') + '/');
+        $.get('/change/pagesize/' + $(this).attr('title') + '/');
         setTimeout(function(){location.reload();}, 500);
     });
 	

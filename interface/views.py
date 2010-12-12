@@ -279,12 +279,12 @@ def doBuildZIP(request):
     buffer.flush
     
     # get a name for this download
-    # try: 
-    #     basket_name = ''.join(['-', User.objects.get(user=muser.id).current_project.slug])
-    # except:
-    #     basket_name = ''
+    try: 
+        basket_name = ''.join(['-', User.objects.get(user=muser.id).current_project.slug])
+    except:
+        basket_name = ''
         
-    basket_name = ''
+    # basket_name = ''
     
     
     if 'APP_SEND_DOWNLOAD_EMAILS' in dir(settings) and settings.APP_SEND_DOWNLOAD_EMAILS:

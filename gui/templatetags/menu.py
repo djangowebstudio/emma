@@ -8,7 +8,7 @@ def mknode(path):
     "Return HTML for the entire tree"
     p = path.replace(settings.APP_CONTENT_ROOT + '/', '')
     if p:
-        node = '<div id="%s" class="menu-passive"><a href="/gui/folder/%s">%s</a>' % (p.replace('/', '_').lower(), p.lower(), path.split('/').pop())
+        node = '<div id="%s" class="menu-passive"><a href="/folder/%s">%s</a>' % (p.replace('/', '_').lower(), p.lower(), path.split('/').pop())
     else:
         node = ''
     for f in os.listdir(path):
