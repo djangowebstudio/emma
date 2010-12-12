@@ -10,7 +10,7 @@ div.masthead ul li a:hover{text-decoration: underline;}
 div.main{margin: 0 0 0 210px; width: 70%; border-right: 1px solid #eee;}
 div.nav{height: 37px; width: 100%;}
 div.nav div#searchform{float: left; margin: 0 0 0 0;}
-div.nav div#dym{float: left; margin: 9px 5px 0 0; font-size: 1.2em;}
+div.nav div#dym{height: 24px; margin: 9px 5px 0 0; font-size: 1.2em; margin: 0 0 11px 11px;}
 div.nav input#id_q{margin: 5px 0 0 0; width: 297px; font-size: 19px; height: 24px; border-radius: 14px; -moz-border-radius: 14px; border: 1px solid #ff3300; padding: 0 0 0 11px;}
 div.nav input#form_search{margin: 0 21px 0 5px; width: 74px;  font-size: 16px; position: relative; top: -2px; }
 div.filters{float: left; margin: 7px 0 0 0;}

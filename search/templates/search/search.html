@@ -32,12 +32,6 @@
 			    	<input id="form_search" type="submit" value="{% trans 'Search' %}">
 			  	</form>
 			</div>			
-			<div id="dym">
-				{% if sqs %}
-				{% trans "did you mean" %} 
-					<a href="{% url emma.search.views.search %}?q={{sqs|cut:"("|cut:"AND"|cut:")"|replace:"/  / "}}">{{sqs|cut:"("|cut:"AND"|cut:")"|replace:"/  / "}}</a>? |
-				{% endif %}
-			</div>
 			<div class="filters">	
 				<span>filter</span>			
 				<a id="cr_no" href="{% url haystack_search_cr_no %}?q={{query}}">
@@ -56,7 +50,17 @@
 		              <div title="{% trans 'Click to change the sorting order' %}" id="page_size">{{page_size}} p.p.</div>
 		              {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}{% trans "Next" %} &raquo;{% if page.has_next %}</a>{% endif %}
 	          </div>
+	
 		</div> <!-- end nav -->
+		
+		<div id="dym">
+				{% if sqs %}
+				{% trans "did you mean" %} 
+					<a href="{% url emma.search.views.search %}?q={{sqs|cut:"("|cut:"AND"|cut:")"|replace:"/  / "}}">{{sqs|cut:"("|cut:"AND"|cut:")"|replace:"/  / "}}</a>?
+				{% endif %}
+		</div>
+
+		
 		<div class="divider"></div>
 		{% if query %}
 		<div id="results">        
