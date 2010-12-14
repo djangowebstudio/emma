@@ -250,12 +250,12 @@ msgid ""
 "This is an overview of your downloads. You can help us by checking the "
 "downloads used in a publication."
 msgstr ""
-"Dit is een overzicht van je downloads. Je kunt ons helpen door beelden aan "
-"te vinken die in een publicatie zijn gebruikt."
+"Dit is een overzicht van je downloads. Laat ons weten welke beelden "
+"in een publicatie zijn gebruikt (vink aan 'Is published')."
 
 #: templates/manage.html:75
 msgid "Need to download an item again? Just click the add-to-cart icon"
-msgstr "Wil je een onderdeel opnieuw downloaden? Klik dan het icoon met het winkelmand."
+msgstr "Wil je een onderdeel opnieuw downloaden? Klik dan op het winkelmand icoon."
 
 #: templates/manage.html:92
 msgid "publication details"
