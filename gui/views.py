@@ -90,7 +90,7 @@ def prefs(request):
     """Get user prefs (pagesize,  order)"""
     prefs = {}
     try:
-        u = User.objects.get(user=request.user.id)
+        u, created = User.objects.get_or_create(user=request.user.id)
         prefs['sortpref'] = int(u.order)
         prefs['page_size'] = int(u.pagesize)
     except Exception, inst: 
@@ -101,7 +101,7 @@ def prefs(request):
 
 def sorting(request):
     """ Change sorting order in User Preferences"""
-    u = User.objects.get(user=request.user.id)
+    u, created = User.objects.get_or_create(user=request.user.id)
     u.order = 1 if u.order == 0 else 0
     u.save()
     return HttpResponse(_('Order by date set to descending (oldest first)') if u.order == 0 else _('Order by date set to ascending (newest first)'))
@@ -109,7 +109,7 @@ def sorting(request):
 def page_size(request, page_size):
     """ Changes page size in user preferences"""    
     try:
-        u = User.objects.get(user=request.user.id)
+        u, created = User.objects.get_or_create(user=request.user.id)
         u.pagesize = page_size
         u.save()
         return HttpResponse('saved pagesize %s' % page_size)
