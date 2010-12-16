@@ -30,7 +30,19 @@ def index(request, p=1):
     m = Metadata.objects.all().order_by(order)
     m = m[:number] if number else m
     page = get_page(request, m, p)    
-    return render_to_response('gui/main.html', locals(), context_instance=RequestContext(request))
+    
+    # Check the contract FIXME: abstract & move to middleware
+    if getattr(settings,'USERS_USE_CONTRACT', 1) == 1:
+        try:
+            c = Contract.objects.get(user=request.user.id)
+            if c.contract == 1: 
+                return render_to_response('gui/main.html', locals(), context_instance=RequestContext(request))   
+            else:
+                return render_to_response('contract.html', {'user': request.user}, context_instance=RequestContext(request))
+        except Contract.DoesNotExist:
+            return render_to_response('contract.html', {'user': request.user}, context_instance=RequestContext(request))
+            
+    else: return render_to_response('gui/main.html', locals(), context_instance=RequestContext(request))
     
 
 @login_required                                                            
@@ -52,7 +64,18 @@ def folder(request, path='', p=1):
     
     page = get_page(request, m, p)
         
-    return render_to_response('gui/main.html', locals(), context_instance=RequestContext(request))
+    # Check the contract
+    if getattr(settings,'USERS_USE_CONTRACT', 1) == 1:
+        try:
+            c = Contract.objects.get(user=request.user.id)
+            if c.contract == 1: 
+                return render_to_response('gui/main.html', locals(), context_instance=RequestContext(request))   
+            else:
+                return render_to_response('contract.html', {'user': request.user}, context_instance=RequestContext(request))
+        except Contract.DoesNotExist:
+            return render_to_response('contract.html', {'user': request.user}, context_instance=RequestContext(request))
+            
+    else: return render_to_response('gui/main.html', locals(), context_instance=RequestContext(request))
     
 def get_page(request, obj, p=1):
     """Returns page for object"""
@@ -92,3 +115,5 @@ def page_size(request, page_size):
         return HttpResponse('saved pagesize %s' % page_size)
     except Exception, inst:
         return HttpResponse('Sorry, something went wrong %s' % inst)
+        
+
