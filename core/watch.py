@@ -144,6 +144,10 @@ class Watch:
                     elif mime_type == 'application/pdf':
                         image_path, image_pages = c.convertPDF (current_path, gallery_images)
                         image_category = 'illustration'
+                        
+                    elif mime_type == 'application/vnd.adobe.illustrator':
+                        image_path, image_pages = c.convertPDF (current_path, gallery_images)
+                        image_category = 'illustration'
                     
                     elif mime_type == 'application/postscript':
                         newpath = gallery_images + fname.replace(os.path.splitext(fname)[1], '.jpg') # convertToBitmap needs to know the extension
@@ -171,7 +175,7 @@ class Watch:
                             logging.warning('Tried converting %s but gave up with error %s' % (fname,inst))
                     
                     else:
-                        logging.warning('This mime type %s is supported right now, skipping %s' % (mime_type, item))
+                        logging.warning('This mime type %s is not supported right now, skipping %s' % (mime_type, item))
                         return None
                         
                 
