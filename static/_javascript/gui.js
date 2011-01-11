@@ -101,7 +101,7 @@ function r(){
 	 var f = function(){
 	    c.load('/cart/show/').show('fast');
 	 };
-	 setTimeout(f, 200);
+	 setTimeout(f, 500);
     }	
 
 
