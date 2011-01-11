@@ -464,6 +464,26 @@ div.LN-showCartIconContainer{
 	display: inline;
 }
 
+div.add-to-cart{
+    height: 25px; 
+    width: 51%;
+    padding: 9px 42px 0 0; 
+    position: relative; 
+    top: 0px; 
+    cursor: pointer;
+    z-index: 1500; 
+    background: url('/s/_img_interface/cart-bg/157x25.png') no-repeat bottom right;
+    text-align: right;
+    z-index: 2000;
+    
+}
+div.add-to-cart span{
+    color: white;
+    font-weight: bold;
+    position: relative;
+    top: 3px;
+}
+
 div#spinner{
 	position:absolute;
 	opacity: .85;

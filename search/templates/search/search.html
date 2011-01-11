@@ -65,7 +65,7 @@
 		{% if query %}
 		<div id="results">        
 			{% for result in page.object_list %}
-		            <div class="item">
+		            <div class="item" id="item-{{result.object.image_LNID}}">
 						<div class="header">
 							{% if result.object.copyright %}
 							<img  title="{% trans 'copyright owed' %}" src="/s/_img_interface/copyright-yes.png" width="10" height="10" alt="Copyright Yes">
@@ -77,7 +77,7 @@
 							{% endif %}
 						</div>
 						<div class="image">      
-							<a class="group" rel="main" href="/gallery/images/{{result.object.image_LNID}}.jpg">
+							<a name="{{result.object.image_LNID}}" class="group" rel="main" href="/gallery/images/{{result.object.image_LNID}}.jpg">
 								
 								{% thumbnail result.object.get_image 148x148 crop upscale as image %}
 								<img class="item-image"  src="{{image}}" border="0" width="{{image.width}}" height="{{image.width}}" alt="{{result.object.subject|truncate:100}}" />

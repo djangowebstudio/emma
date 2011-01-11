@@ -17,6 +17,32 @@ $(function(){
 			'overlayShow'	:	true
 		});
 	
+	// Add an "add to cart" button to the fancybox. Exclude IE, doesn't know how to
+	// render next() en prev() correctly'
+	
+	if ($.support.changeBubbles){
+	    // IE detection
+    	$('a.group').click(function(){
+    	   var image_LNID = $(this).attr('name'); 
+    	   i(image_LNID);	   
+    	});
+	
+	
+	
+        $('#fancybox-right').click(function(){       
+            var image_LNID = $('#fancybox-img').attr('src').split('/').pop().replace('.jpg','');
+            req = $('div#item-' + image_LNID).next().attr('id').replace('item-', '');
+            i(req);
+        });
+    
+        $('#fancybox-left').click(function(){       
+            var image_LNID = $('#fancybox-img').attr('src').split('/').pop().replace('.jpg','');
+            req = $('div#item-' + image_LNID).prev().attr('id').replace('item-', '');
+            i(req);
+        });
+    }
+    
+		
 	
 	$('a.iframe').bind("mouseover", function(){
 		$('div#metadata')
@@ -55,8 +81,27 @@ $(function(){
     });
 	
 });
-
+function i(image_LNID){
+        $('#fancy-bg-n').html($('<div/>')
+                        .attr({
+                                'id': image_LNID, 
+                                'class': 'add-to-cart',
+                                'title': image_LNID
+                                })
+                        .click(function(){
+                                    $.get('/cart/add/item/' + image_LNID + '/');r();
+                            })
+                        .html($('<span/>').text(trans_add_to_cart))
+                            );
+    }
 function r(){
-	// render cart
-	 $('div#cart').hide().load('/cart/show/').show('fast');
-}	
+	// render cart 
+	var c = $('div#cart');
+	c.hide();
+	 var f = function(){
+	    c.load('/cart/show/').show('fast');
+	 };
+	 setTimeout(f, 200);
+    }	
+
+

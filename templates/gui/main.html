@@ -8,6 +8,7 @@
 <script src="/s/fancybox/jquery.fancybox-1.3.1.pack.js" type="text/javascript" charset="utf-8"></script>
 <script src="/s/fancybox/jquery.easing-1.3.pack.js" type="text/javascript" charset="utf-8"></script>
 <script src="/s/fancybox/jquery.mousewheel-3.0.2.pack.js" type="text/javascript" charset="utf-8"></script>
+
 <script src="/s/_javascript/gui.js" type="text/javascript" charset="utf-8"></script>
 <!--[if IE]>
 <style>
@@ -19,6 +20,7 @@ div#LN-downloadZipLinkContainer{margin-bottom: 0px}
 </style>
 
 <![endif]-->
+
 {% endblock %}
 
 {% block content %}
@@ -44,7 +46,7 @@ div#LN-downloadZipLinkContainer{margin-bottom: 0px}
 	<div class="divider"></div>
 	<div id="results">        
 		{% for result in page.object_list %}
-	            <div class="item">
+	            <div class="item" id="item-{{result.image_LNID}}">
 					<div class="header">
 						{% if result.copyright %}
 						<img title="{% trans 'copyright owed' %}" src="/s/_img_interface/copyright-yes.png" border="0" width="10" height="10" alt="Copyright Yes">
@@ -56,7 +58,7 @@ div#LN-downloadZipLinkContainer{margin-bottom: 0px}
 						{% endif %}
 					</div>
 					<div class="image">      
-						<a class="group" rel="main" href="/gallery/images/{{result.image_LNID}}.jpg">
+						<a name="{{result.image_LNID}}" class="group" rel="main" href="/gallery/images/{{result.image_LNID}}.jpg">
 							
 							{% thumbnail result.image.get_image 148x148 crop upscale as image %}
 							<img class="item-image"  src="{{image}}" border="0" width="{{image.width}}" height="{{image.width}}" alt="{{result.subject|truncate:100}}" />
