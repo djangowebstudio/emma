@@ -41,7 +41,7 @@ class Command(BaseCommand):
         print 'acting on category %s' % category
         
         if not copyright:
-            sys.stderr.write(self.style.ERROR('Please enter a copyright string. (-c, --copyright [str])' ) + '\n')
+            sys.stderr.write(self.style.ERROR('Please enter a copyright boolean. (-c, --copyright [bool])' ) + '\n')
             exit()
             
         if not category:
