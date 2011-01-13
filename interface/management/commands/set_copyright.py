@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError, NoArgsCommand
 from emma.interface.models import *
 import os, sys
+from optparse import make_option
 
 class Command(BaseCommand):
     help = """
