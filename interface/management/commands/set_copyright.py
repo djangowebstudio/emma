@@ -7,7 +7,7 @@ class Command(BaseCommand):
     help = """
     Set all copyrights to a certain value. Will optionally filter on category. 
     """
-    args = "copyright, category, action"
+    args = "copyright [yes|no], category [photo|illustration], action"
     option_list = BaseCommand.option_list + (
            
             make_option('-r', '--for-real', 
@@ -17,9 +17,9 @@ class Command(BaseCommand):
                 help='Do the action.'),
                 
             make_option('-c', '--copyright',
-                action='store_false',
+                action='store',
                 dest='copyright',
-                default=True,
+                default='yes',
                 help='Enter a string.'),
                 
                 
@@ -35,21 +35,21 @@ class Command(BaseCommand):
                 
     def handle(self, *args, **options):
         action = options.get('action', False)
-        copyright = options.get('copyright', True)
+        copyright = options.get('copyright', 'yes')
+        copyright = True if copyright == 'yes' else False
         category = options.get('category', 'illustration')
         
         print 'acting on category %s' % category
         
         if not copyright:
-            sys.stderr.write(self.style.ERROR('Please enter a copyright boolean. (-c, --copyright [bool])' ) + '\n')
+            sys.stderr.write(self.style.ERROR('Please enter a copyright. (-c, --copyright [yes|no])' ) + '\n')
             exit()
             
         if not category:
-            sys.stderr.write(self.style.ERROR('Please enter a category (string, illustration or photo, -g --group ["photo|illustration"]).' ) + '\n')
+            sys.stderr.write(self.style.ERROR('Please enter a category ( -g --group ["photo|illustration"]).' ) + '\n')
             exit()
         
-        m = Metadata.objects.filter(image__image_category=category)    
-        
+        m = Metadata.objects.filter(image__image_category=category)      
         
         for item in m:
             print 'image: %s | copyright: %s | category: %s' % (item.image_LNID, item.copyright, item.image.image_category)
