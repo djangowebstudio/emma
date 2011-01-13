@@ -254,7 +254,7 @@ class Metadata(models.Model):
         # Execute only if the caller is not in watch. (See above)
         caller = inspect.getframeinfo(sys._getframe(1), context=0)[2]       
         try:
-            if not caller == 'f':
+            if not caller == 'f' and not self.image.image_category == 'illustration':
                 
                 # Save overlapping Keyword / Metadata fields
                 k = Keyword.objects.get(pk=self.image.pk)
@@ -301,7 +301,10 @@ class Metadata(models.Model):
                 m.exifWriteAll(cmdDict, path)
                 
             else:
-                logging.info("Caller was %s so no models.Metadata super save()" % caller)
+                if self.image.image_category == 'illustration':
+                    logging.info("%s not super saved because %s" % (self, self.image.image_category))
+                else:
+                    logging.info("Caller was %s so no models.Metadata super save()" % caller)
         
         
         finally:
