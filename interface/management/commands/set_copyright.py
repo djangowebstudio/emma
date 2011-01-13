@@ -5,9 +5,9 @@ from optparse import make_option
 
 class Command(BaseCommand):
     help = """
-    Set all copyrights to a certain value. Will optionally filter on category. 
+    Set all copyrights to a certain value. Will optionally filter on category and / or directory. 
     """
-    args = "copyright [yes|no], category [photo|illustration], action"
+    args = "copyright [yes|no], category [photo|illustration], directory, action"
     option_list = BaseCommand.option_list + (
            
             make_option('-r', '--for-real', 
@@ -29,7 +29,14 @@ class Command(BaseCommand):
                 default='illustration',
                 type='string',
                 help='Enter a category (called group here).'),
-                
+            
+            make_option('-d', '--dir',
+                action='store',
+                dest='directory',
+                default='',
+                type='string',
+                help='Enter a directory.'),
+               
                 )
                 
                 
@@ -37,6 +44,7 @@ class Command(BaseCommand):
         action = options.get('action', False)
         copyright = options.get('copyright', 'yes')       
         category = options.get('category', 'illustration')
+        directory = options.get('directory', '')
         
         print 'acting on category %s' % category
         
@@ -50,7 +58,12 @@ class Command(BaseCommand):
             sys.stderr.write(self.style.ERROR('Please enter a category ( -g --group ["photo|illustration"]).' ) + '\n')
             exit()
         
-        m = Metadata.objects.filter(image__image_category=category)      
+        if directory and category:
+            m = Metadata.objects.filter(image__image_category=category, image__image_path__icontains=directory) 
+        elif directory and not category:
+            m = Metadata.objects.filter(image__image_path__icontains=directory)
+        else:
+            m = Metadata.objects.filter(image__image_category=category)         
         
         for item in m:
             print 'image: %s | copyright: %s | category: %s' % (item.image_LNID, item.copyright, item.image.image_category)
