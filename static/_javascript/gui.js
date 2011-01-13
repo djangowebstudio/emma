@@ -20,8 +20,8 @@ $(function(){
 	// Add an "add to cart" button to the fancybox. Exclude IE, doesn't know how to
 	// render next() en prev() correctly'
 	
-	if ($.support.changeBubbles){
-	    // IE detection
+	if ($.support.changeBubbles){// IE detection
+	    
     	$('a.group').click(function(){
     	   var image_LNID = $(this).attr('name'); 
     	   i(image_LNID);	   
