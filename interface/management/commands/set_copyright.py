@@ -17,9 +17,9 @@ class Command(BaseCommand):
                 help='Do the action.'),
                 
             make_option('-c', '--copyright',
-                action='store_true',
+                action='store_false',
                 dest='copyright',
-                default=False,
+                default=True,
                 help='Enter a string.'),
                 
                 
@@ -35,7 +35,7 @@ class Command(BaseCommand):
                 
     def handle(self, *args, **options):
         action = options.get('action', False)
-        copyright = options.get('copyright', False)
+        copyright = options.get('copyright', True)
         category = options.get('category', 'illustration')
         
         print 'acting on category %s' % category
