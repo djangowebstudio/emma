@@ -49,6 +49,7 @@ admin.site.register(Keyword, KeywordAdmin)
 
 
 class MetadataAdmin(admin.ModelAdmin):
+    save_on_top = True
 	search_fields = ['image_LNID', 'subject', 'album', 'mime_type']
 	fieldsets = (
 	('About you', {'fields': ('caption_writer',)}),
