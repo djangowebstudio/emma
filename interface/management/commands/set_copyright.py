@@ -17,15 +17,16 @@ class Command(BaseCommand):
                 help='Do the action.'),
                 
             make_option('-c', '--copyright',
-                action='store',
+                action='store_true',
                 dest='copyright',
-                type='string',
+                default=False,
                 help='Enter a string.'),
                 
                 
             make_option('-g', '--group',
                 action='store',
                 dest='category',
+                default='illustration',
                 type='string',
                 help='Enter a category (called group here).'),
                 
@@ -34,17 +35,17 @@ class Command(BaseCommand):
                 
     def handle(self, *args, **options):
         action = options.get('action', False)
-        copyright = options.get('copyright', '')
+        copyright = options.get('copyright', False)
         category = options.get('category', 'illustration')
         
         print 'acting on category %s' % category
         
         if not copyright:
-            sys.stderr.write(self.style.ERROR('Please enter a copyright string.' ) + '\n')
+            sys.stderr.write(self.style.ERROR('Please enter a copyright string. (-c, --copyright [str])' ) + '\n')
             exit()
             
         if not category:
-            sys.stderr.write(self.style.ERROR('Please enter a category (string, illustration or photo).' ) + '\n')
+            sys.stderr.write(self.style.ERROR('Please enter a category (string, illustration or photo, -g --group ["photo|illustration"]).' ) + '\n')
             exit()
         
         m = Metadata.objects.filter(image__image_category=category)    
@@ -53,12 +54,12 @@ class Command(BaseCommand):
         for item in m:
             print 'image: %s | copyright: %s | category: %s' % (item.image_LNID, item.copyright, item.image.image_category)
             if action:
-                item.copyright = 'no'
+                item.copyright = copyright
                 try:
                     item.save()
                     try:
                         k = Keyword.objects.get(image_LNID=item.image_LNID)
-                        k.copyright = 'no'
+                        k.copyright = copyright
                         k.save()
                     except Exception, inst:
                         sys.stderr.write(self.style.ERROR(inst ) + '\n')
