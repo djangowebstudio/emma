@@ -48,8 +48,10 @@ class Command(BaseCommand):
         
         m = Metadata.objects.filter(image__image_category=category)    
         
-        if action:
-            for item in m:
+        
+        for item in m:
+            print 'image: %s | copyright: %s | category: %s' % (item.image_LNID, item.copyright, item.image.image_category)
+            if action:
                 item.copyright = 'no'
                 try:
                     item.save()
