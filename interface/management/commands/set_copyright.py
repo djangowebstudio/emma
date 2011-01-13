@@ -57,10 +57,12 @@ class Command(BaseCommand):
                 item.copyright = copyright
                 try:
                     item.save()
+                    print 'saved %s' % copyright
                     try:
                         k = Keyword.objects.get(image_LNID=item.image_LNID)
                         k.copyright = copyright
                         k.save()
+                        print 'saved %s ' % copyright
                     except Exception, inst:
                         sys.stderr.write(self.style.ERROR(inst ) + '\n')
                 except Exception, inst:
