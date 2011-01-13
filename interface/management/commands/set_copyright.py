@@ -35,8 +35,7 @@ class Command(BaseCommand):
                 
     def handle(self, *args, **options):
         action = options.get('action', False)
-        copyright = options.get('copyright', 'yes')
-        copyright = True if copyright == 'yes' else False
+        copyright = options.get('copyright', 'yes')       
         category = options.get('category', 'illustration')
         
         print 'acting on category %s' % category
@@ -44,7 +43,9 @@ class Command(BaseCommand):
         if not copyright:
             sys.stderr.write(self.style.ERROR('Please enter a copyright. (-c, --copyright [yes|no])' ) + '\n')
             exit()
-            
+        
+        copyright = True if copyright == 'yes' else False
+        
         if not category:
             sys.stderr.write(self.style.ERROR('Please enter a category ( -g --group ["photo|illustration"]).' ) + '\n')
             exit()
