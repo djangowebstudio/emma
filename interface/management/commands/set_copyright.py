@@ -59,9 +59,9 @@ class Command(BaseCommand):
             exit()
         
         if directory and category:
-            m = Metadata.objects.filter(image__image_category=category, image__image_path__icontains=directory) 
+            m = Metadata.objects.filter(image__image_category=category, image__image_real_path__icontains=directory) 
         elif directory and not category:
-            m = Metadata.objects.filter(image__image_path__icontains=directory)
+            m = Metadata.objects.filter(image__image_real_path__icontains=directory)
         else:
             m = Metadata.objects.filter(image__image_category=category)         
         
