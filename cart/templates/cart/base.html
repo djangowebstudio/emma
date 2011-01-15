@@ -65,7 +65,7 @@
 		{% endif %}
 		<div class="LN-toolbar-cart-removeButtonContainer" style="width: 49%; text-align: right">
 			<a title="{% trans 'Click to remove this item from your basket' %}" href="#" 
-			onclick="if(confirm(gettext('Do you REALLY want to remove this item from your basket?'))){$.get('{% url remove_item currentItem.id %}');r();}">
+			onclick="if(confirm(gettext('Do you REALLY want to remove this item from your basket?'))){$.get('{% url remove_item currentItem.id %}');}">
 				<img src="/s/_img_interface/images-close/10px.png" border="0" width="10" height="10" alt="10px" />
 			</a>
 		</div>
@@ -97,7 +97,7 @@
 	<p>{% trans 'Empty your basket' %}</p>
 	<img title="{% trans 'Click here to empty your basket completely' %}" 
 	border="0" 
-	onclick="if(confirm(gettext('Do your REALLY want to empty your WHOLE basket?'))){$.get('{% url empty_cart %}'); r();}" 
+	onclick="if(confirm(gettext('Do your REALLY want to empty your WHOLE basket?'))){$.get('{% url empty_cart %}');}" 
 	style="cursor: pointer" src="/s/_img_interface/images-close/16px.png" width="16" height="16" alt="Ln Toolbar Cart Pulldown Close" />
 </div> 
 {% endifnotequal %}

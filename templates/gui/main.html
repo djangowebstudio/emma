@@ -3,23 +3,16 @@
 {% block title %}{% trans "Folders" %}{% endblock %}
 {% block extrastyle %}
 <link rel="stylesheet" href="/s/fancybox/jquery.fancybox-1.3.1.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<!--[if IE]>
+	<link rel="stylesheet" href="/s/_css/_ie.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<![endif]-->
 {% endblock %}
 {% block extrahead %}
-<script src="/s/fancybox/jquery.fancybox-1.3.1.pack.js" type="text/javascript" charset="utf-8"></script>
+<script src="/s/fancybox/jquery.fancybox-1.3.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="/s/fancybox/jquery.easing-1.3.pack.js" type="text/javascript" charset="utf-8"></script>
 <script src="/s/fancybox/jquery.mousewheel-3.0.2.pack.js" type="text/javascript" charset="utf-8"></script>
 
 <script src="/s/_javascript/gui.js" type="text/javascript" charset="utf-8"></script>
-<!--[if IE]>
-<style>
-
-div.nav input#form_search{position: relative; top: 1px}
-div.menubar{left: 0px}
-div#LN-downloadZipLinkContainer{margin-bottom: 0px}
-
-</style>
-
-<![endif]-->
 
 {% endblock %}
 
@@ -72,7 +65,7 @@ div#LN-downloadZipLinkContainer{margin-bottom: 0px}
 						<a id="{{result.image_LNID}}" title="{% if result.subject %}{{result.subject}}{% else %} {{result.keywords|truncatewords:10}}{% endif %}" class="iframe detail" {% if perms.interface.can_edit_content %} href="/admin/interface/metadata/{{result.id}}/" {% else %} href="/interface/show/description/{{result.image_LNID}}/1/" {% endif %}>
 							<img border="0" src="/s/_img_interface/information/15px.png" width="15" height="15" alt="{{result.subject}}">
 						</a>
-						<a class="add-to-cart" title="{% trans 'add to cart' %}" href="#" onclick="$.get('{% url add_item result.image_LNID %}');r();">
+						<a class="add-to-cart" title="{% trans 'add to cart' %}" href="#" onclick="$.get('{% url add_item result.image_LNID %}');">
 							<img src="/s/_img_interface/cart-grey/15px.png" width="15" height="15" alt="{% trans 'add to cart' %}" border="0" />
 						</a>							
 					</div>

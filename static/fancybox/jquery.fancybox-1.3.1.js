@@ -355,7 +355,6 @@
 
 		fancybox_show = function() {
 			loading.hide();
-
 			if (wrap.is(":visible") && $.isFunction(currentOpts.onCleanup)) {
 				if (currentOpts.onCleanup(currentArray, currentIndex, currentOpts) === false) {
 					$.event.trigger('fancybox-cancel');
@@ -513,8 +512,23 @@
 				'src'	: imgPreloader.src,
 				'alt'	: selectedOpts.title
 			}).appendTo( tmp );
-
 			fancybox_show();
+			
+			// add to cart button
+			var image_LNID = imgPreloader.src.split('/').pop().replace('.jpg','');
+			$('#fancy-bg-n').html($('<div/>')
+                            .attr({
+                                    'id': image_LNID, 
+                                    'class': 'add-to-cart',
+                                    'title': image_LNID
+                                    })
+                            .click(function(){
+                                        $.get('/cart/add/item/' + image_LNID + '/');
+                                })
+                            .html($('<span/>').text(trans_add_to_cart))
+                                );
+            
+			
 		},
 
 		fancybox_start = function() {

@@ -1,0 +1,19 @@
+div.nav input#form_search{position: relative; top: 1px}
+div.menubar{left: 0px}
+div#LN-downloadZipLinkContainer{margin-bottom: 0px}
+div.add-to-cart{
+    height: 25px; 
+    width: 51%;
+    padding: 9px 42px 0 0;
+    cursor: pointer;
+    background: url('/s/_img_interface/cart-bg/157x25.png') no-repeat bottom right;
+    text-align: right;
+    position: relative;
+    top: -11px;
+}
+div.add-to-cart span{
+    color: white;
+    font-weight: bold;
+    position: relative;
+    top: 3px;
+}
