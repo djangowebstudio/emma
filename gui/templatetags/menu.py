@@ -99,7 +99,11 @@ def mknode(path, url=''):
     # Initiate a dict d and get the relative path in respect to the 
     # full path path   
     d = {}
-    relpath = os.path.relpath(path, settings.APP_CONTENT_ROOT).lower()
+    try:
+        relpath = os.path.relpath(path, settings.APP_CONTENT_ROOT).lower()
+    except ImportError:
+        relpath = path.replace(settings.APP_CONTENT_ROOT, '').lower()
+        
     for f in os.listdir(path):
         fullname = os.path.join(path, f)
         
