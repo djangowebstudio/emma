@@ -4,6 +4,23 @@ from django.template import Library
 register = Library()
 import os, sys, re, time, fnmatch
 
+from posixpath import curdir, sep, pardir, join
+
+def relpath(path, start=curdir):
+    """
+    Return a relative version of a path
+    http://www.saltycrane.com/blog/2010/03/ospathrelpath-source-code-python-25/
+    """
+    if not path:
+        raise ValueError("no path specified")
+    start_list = posixpath.abspath(start).split(sep)
+    path_list = posixpath.abspath(path).split(sep)
+    # Work out how much of the filepath is shared by start and path.
+    i = len(posixpath.commonprefix([start_list, path_list]))
+    rel_list = [pardir] * (len(start_list)-i) + path_list[i:]
+    if not rel_list:
+        return curdir
+    return join(*rel_list)
 
 
 def has_request_as_parent(d, name, url):
@@ -101,8 +118,8 @@ def mknode(path, url=''):
     d = {}
     try:
         relpath = os.path.relpath(path, settings.APP_CONTENT_ROOT).lower()
-    except ImportError:
-        relpath = path.replace(settings.APP_CONTENT_ROOT, '').lower()
+    except:
+        relpath = relpath(path, settings.APP_CONTENT_ROOT).lower()
         
     for f in os.listdir(path):
         fullname = os.path.join(path, f)
@@ -112,7 +129,10 @@ def mknode(path, url=''):
             
             # The path fullname will be used to generate the next listdir
             # We need the relative path rel to check against the request
-            rel = os.path.relpath(fullname, settings.APP_CONTENT_ROOT).lower()            
+            try:
+                rel = os.path.relpath(fullname, settings.APP_CONTENT_ROOT).lower()    
+            except:            
+                rel = relpath(fullname, settings.APP_CONTENT_ROOT).lower()
             
             # The key rel is assigned a value relpath. All of the dirs in the current
             # listdir will now be recognisable as having the same parent relpath.
