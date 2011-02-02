@@ -22,7 +22,6 @@ div.menubar{
 	padding-right: 3px;
 	height: 594px;
 	width: 175px;
-	margin-top: 24px;
 }
 
 
@@ -69,7 +68,7 @@ div#LN-menu-list-header{
 }
 
 div#menuContent{
-	margin-top: 11px;
+	margin-top: 0px;
 	overflow: hidden;
 }
 

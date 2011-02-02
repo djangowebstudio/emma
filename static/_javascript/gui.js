@@ -25,16 +25,6 @@ $(function(){
 	});
 	$('a.iframe').bind("mouseout", function(){$('div#metadata').hide();});
 	
-	// menu item hiding
-	$('div.menu-passive').hide();
-	$('div#menuContent > div.menu-passive').show();
-	var folder_id = location.pathname.replace(/^\/+|\/+$/g, '').replace('folder/', '').replace('/', '_');
-	if (folder_id){
-    	var selector = 'div#' + folder_id + ', div#' + folder_id + ' > div.menu-passive';
-    	$(selector).show().siblings().show();
-    	$('div#' + folder_id + ' a').addClass('active');
-	}
-	
 	// change sorting
 	
     $('div#sorting').click(function(){
