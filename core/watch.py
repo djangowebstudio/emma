@@ -150,7 +150,7 @@ class Watch:
                         image_category = 'illustration'
                     
                     elif mime_type == 'application/vnd.adobe.photoshop':
-                        image_path, image_pages = c.convertPDF (current_path, gallery_images)
+                        image_path = c.resize (current_path, gallery_images + fname.replace(os.path.splitext(fname)[1], '.jpg'), settings.GALLERY_IMAGE_WIDTH, settings.GALLERY_IMAGE_WIDTH)
                         image_category = 'illustration'
                     
                     
