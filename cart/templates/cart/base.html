@@ -1,5 +1,5 @@
 {% block content %}
-{% load images_extras %}
+{% load images_extras thumbnail %}
 {% load i18n %}
 <div class="LN-toolbar-cart-basketname-header">
 	{% if not current_project %}
@@ -55,7 +55,8 @@
 			{% ifequal currentItem.image_category "audio" %}
 			src="/s/_img_interface/audio.png"
 			{% else %}
-			src="/gallery/miniThumbs/{{ currentItem.image_name }}?{{appendix}}" 				
+			{% thumbnail currentItem.get_image 37x37 crop upscale as img %}
+			src="{{img}}?{{appendix}}" 				
 			{% endifequal %}
 			border="0" />
 		</div>
