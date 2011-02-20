@@ -149,6 +149,11 @@ class Watch:
                         image_path, image_pages = c.convertPDF (current_path, gallery_images)
                         image_category = 'illustration'
                     
+                    elif mime_type == 'application/vnd.adobe.photoshop':
+                        image_path, image_pages = c.convertPDF (current_path, gallery_images)
+                        image_category = 'illustration'
+                    
+                    
                     elif mime_type == 'application/postscript':
                         newpath = gallery_images + fname.replace(os.path.splitext(fname)[1], '.jpg') # convertToBitmap needs to know the extension
                         try:
