@@ -109,3 +109,5 @@ class ProjectAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
     list_display = ['number','name', 'slug', 'active', 'is_complete',]
 admin.site.register(Project, ProjectAdmin)
+
+admin.site.register(ImageCount)
