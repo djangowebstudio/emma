@@ -210,10 +210,12 @@ class Convert:
         of course for the extension. """
         # Get the filename minus extension.  And from that, the base filname.
         # We're building the output filename(s) from this.
+        
+        if not pdf_filename: return None
         pdf_name, ext = os.path.splitext( pdf_filename )
         out_name = pdf_name.split('/').pop()
 
-        if pdf_filename == None: return None
+        
 
         # NOTE: on Panther use cs = CGColorSpaceCreateDeviceRGB()
         cs = CGColorSpaceCreateWithName( kCGColorSpaceGenericRGB )
