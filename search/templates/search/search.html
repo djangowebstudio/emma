@@ -86,7 +86,7 @@
 							{{result.object.keywords|to_queries}}
 						</div>
 						<div class="item-nav">
-							<a id="{{result.object.image_LNID}}" title="{% if result.object.subject %}{{result.object.subject}}{% else %} {{result.object.keywords|truncatewords:10}}{% endif %}" class="iframe detail" {% if perms.interface.can_edit_content %} href="/admin/interface/metadata/{{result.object.id}}/" {% else %} href="/interface/show/description/{{result.object.image_LNID}}/1/"{% endif %}>
+							<a id="{{result.object.image_LNID}}" class="iframe detail" {% if perms.interface.can_edit_content %} href="/admin/interface/metadata/{{result.object.id}}/" {% else %} href="/interface/show/description/{{result.object.image_LNID}}/1/"{% endif %}>
 								<img border="0" src="/s/_img_interface/information/15px.png" width="15" height="15" alt="{{result.object.subject}}">
 							</a>
 							<a class="add-to-cart" title="{% trans 'add to cart' %}" href="#" onclick="$.get('{% url add_item result.object.image_LNID %}');">
