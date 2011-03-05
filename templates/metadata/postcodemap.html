@@ -1,0 +1,186 @@
+{% load thumbnail %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>Postcode Map for {{postcode}}</title>
+	<link rel="shortcut icon" href="/project/_img_interface/favicon.png" />
+	<link rel="stylesheet" href="/s/_css/_common.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<script src="/s/_javascript/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={{google_api_key}}" type="text/javascript"></script>
+	<script src="http://www.google.com/uds/api?file=uds.js&amp;v=1.0&amp;key={{google_api_key}}" type="text/javascript"></script>
+
+	<script type="text/javascript" charset="utf-8">
+	var map;
+	var localSearch = new GlocalSearch();
+
+	var icon = new GIcon();
+	icon.image = "http://www.google.com/mapfiles/marker.png";
+	icon.shadow = "http://www.google.com/mapfiles/shadow50.png";
+	icon.iconSize = new GSize(20, 34);
+	icon.shadowSize = new GSize(37, 34);
+	icon.iconAnchor = new GPoint(10, 34);
+
+
+	function usePointFromPostcode(postcode, callbackFunction) {
+
+
+		localSearch.setSearchCompleteCallback(null, 
+			function() {
+
+				if (localSearch.results[0])
+				{		
+					var resultLat = localSearch.results[0].lat;
+					var resultLng = localSearch.results[0].lng;
+					var point = new GLatLng(resultLat,resultLng);
+					callbackFunction(point);
+				}else{
+					alert("Postcode not found!");
+				}
+			});	
+
+		localSearch.execute(postcode + ", UK");
+	}
+
+	function placeMarkerAtPoint(point)
+	{
+		var marker = new GMarker(point,icon);
+		map.addOverlay(marker);
+	}
+
+	function setCenterToPoint(point)
+	{
+		map.setCenter(point, 17);
+	}
+
+	function showPointLatLng(point)
+	{
+		
+		$('#latlong').toggle(function(){
+			$(this).find('input').val("Latitude: " + point.lat() + "\nLongitude: " + point.lng());
+		})
+
+	}
+
+	function mapLoad() {
+		if (GBrowserIsCompatible()) {
+			map = new GMap2(document.getElementById("map"));
+			map.addControl(new GLargeMapControl());
+			map.addControl(new GMapTypeControl());
+			map.setCenter(new GLatLng(54.622978,-2.592773), 5, G_HYBRID_MAP);
+		}
+	}
+
+	function addLoadEvent(func) {
+	  var oldonload = window.onload;
+	  if (typeof window.onload != 'function') {
+	    window.onload = func;
+	  } else {
+	    window.onload = function() {
+	      oldonload();
+	      func();
+	    }
+	  }
+	}
+
+	function addUnLoadEvent(func) {
+		var oldonunload = window.onunload;
+		if (typeof window.onunload != 'function') {
+		  window.onunload = func;
+		} else {
+		  window.onunload = function() {
+		    oldonunload();
+		    func();
+		  }
+		}
+	}
+
+	addLoadEvent(mapLoad);
+	addUnLoadEvent(GUnload);
+	
+
+	
+	$(function(){
+
+			usePointFromPostcode('{{postcode}}', placeMarkerAtPoint);
+			
+
+		
+		
+	});
+	
+</script>
+<style type="text/css" media="screen">
+	#map
+	{
+		height: 500px;
+		width: 500px;
+	}
+	
+	#left{
+		
+		height: 500px;
+		width: 500px;
+		float: left;
+	}
+	
+	#left #menu{
+		height: 37px;
+	}
+	
+	#right{
+		width: 307px;
+		height: 420px;
+		float: left;
+		padding: 0;
+		margin: 0 0 0 0;
+	}
+	
+	#right img{
+		margin: 37px 0 0 11px;
+	}
+	
+	#latlong{
+		display: none;
+		border: 1px solid #444;
+		height: 21px;
+		width: 290px;
+		margin: 11px 0 0 11px;
+		padding: 3px;
+	}
+	
+	#latlong input{
+		width: 290px;
+		border: none;
+	}
+</style>
+</head>
+
+<body>
+	
+<div id="left">
+	
+	<div id="menu">
+		
+		Postcode: <input type="text" id="postcode" size="10" value="{{postcode}}" />
+		<input type="submit" value="Place Marker" onclick="javascript:usePointFromPostcode(document.getElementById('postcode').value, placeMarkerAtPoint)" />
+		<input type="submit" value="Center Map" onclick="javascript:usePointFromPostcode(document.getElementById('postcode').value, setCenterToPoint)" />
+		<input type="submit" value="Show Lat/Lng" onclick="javascript:usePointFromPostcode(document.getElementById('postcode').value, showPointLatLng)" />
+
+		
+	</div>
+	
+	<div id="map"></div>
+</div>
+<div id="right">
+	{% thumbnail i.get_image '297x297' crop='center' as img %}
+	<img src="/{{img}}" />
+	{% endthumbnail %}
+	<div id="latlong"><input type="text" value="" /></div>
+</div>
+
+</body>
+</html>

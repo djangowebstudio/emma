@@ -13,7 +13,7 @@ from emma.search.views import EmmaSearchView
 import emma.core.utes as utes
 from django.utils.translation import ugettext_lazy as _
 
-
+google_api_key = getattr('settings', 'GOOGLE_API_KEY', '')
 
 @login_required
 def index(request, p=1):

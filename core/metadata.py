@@ -15,10 +15,10 @@ import re
 import datetime
 import time
 from utes import *
-# from django.core.management import setup_environ
-# import settings
-# setup_environ(settings)
-# from emma.interface.models import *
+try:
+    import json
+except:
+    import simplejson as json
 
 class Metadata:
     
@@ -249,8 +249,28 @@ class Metadata:
         return results
     def exifRAW(self, path):
         """ Just a simple wrapper to exiftool -all (http://www.sno.phy.queensu.ca/~phil/exiftool/)"""
-        cmdList = ['exiftool', '-all', path]
-        return subprocess.Popen(cmdList,stdout=subprocess.PIPE,).stdout.read()
+        cmd = ['exiftool', '-all', '-j', path]
+        r = subprocess.Popen(cmd,stdout=subprocess.PIPE,).stdout.read()
+        try:
+            j = json.loads(r)[0]
+            return j
+        except:
+            return None
+        
+    def exifJSON(self, path, key): 
+        """ Wrapper to exiftool. Returns JSON for a single key """
+        
+        k = '-%s' % key
+        
+        cmd = ['exiftool', k, '-j', path]
+        
+        r = subprocess.Popen(cmd,stdout=subprocess.PIPE,).stdout.read()
+        try:
+            j = json.loads(r)[0]
+            return j
+        except:
+            return None
+        
         
             
     def exifAll(self, fileToCheck):
@@ -287,6 +307,7 @@ class Metadata:
         -orientation#                               (images_metadata.orientation) 3)
         
         The results are returned as dict.
+        UPDATE: We'll be writing all to json. 
         
         1) -credit changed to -xmp:credit because exiftool wasn't getting the part after the ":". Getting the xmp 
             explicitly might exclude older files though - as well as non-adobe files.
@@ -297,6 +318,7 @@ class Metadata:
         To do: Find out if it's feasible to call the Perl lib directly from Python. One good reason? We have to fix 
         all spaces in all paths because we're using the ExifTool CLI!
         UPDATE: there's an API called pyperl but it's old, not maintained, and doesn't readily compile on macosx
+        
         """
         d = re.compile('(^.+?)(:)(.+$)', re.IGNORECASE)
         cmd = ["exiftool","-m","-S","-f","-E","-documentname","-ManagedFromFilePath","-filetype","-mimetype",

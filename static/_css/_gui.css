@@ -7,7 +7,7 @@ div.masthead ul{float: left; padding: 0 0 0 0; margin: 0 0 0 420px;}
 div.masthead ul li{list-style: none; float: left; padding: 0 0 0 0; margin: 7px 5px 0 5px;}
 div.masthead ul li a {color: white; text-decoration: none;}
 div.masthead ul li a:hover{text-decoration: underline;}
-div.main{margin: 0 0 0 210px; width: 70%; border-right: 1px solid #eee;}
+div.main{margin: 0 0 297px 210px; width: 70%; border-right: 1px solid #eee;}
 div.nav{height: 37px; width: 100%;}
 div.nav div#searchform{float: left; margin: 0 0 0 0;}
 div.nav div#dym{height: 24px; margin: 9px 5px 0 0; font-size: 1.2em; margin: 0 0 11px 11px;}

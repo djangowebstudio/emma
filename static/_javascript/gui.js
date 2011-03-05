@@ -17,13 +17,16 @@ $(function(){
 			'overlayShow'	:	true
 		});		
 	
-	$('a.iframe').bind("mouseover", function(){
+	
+
+	
+	$('a.detail').bind("mouseover", function(){
 		$('div#metadata')
 						.show()
 						.load('/interface/show/description/' + $(this).attr('id') + "/0/")
 						.css({'top': ($(this).offset().top+16) + 'px', 'left': $(this).offset().left + 'px'});
 	});
-	$('a.iframe').bind("mouseout", function(){$('div#metadata').hide();});
+	$('a.detail').bind("mouseout", function(){$('div#metadata').hide();});
 	
 	// change sorting
 	
@@ -47,6 +50,8 @@ $(function(){
             $(this).text(xhr.responseText);r();
         }
     });	
+    
+
     
 });
 function r(){
