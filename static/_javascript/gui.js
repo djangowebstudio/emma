@@ -12,7 +12,7 @@ $(function(){
 			'transitionOut'	:	'elastic',
 			'speedIn'		:	600, 
 			'speedOut'		:	200, 
-			'width'			:   842,
+			'width'			:   870,
 			'height'		:   '85%',
 			'overlayShow'	:	true
 		});		
