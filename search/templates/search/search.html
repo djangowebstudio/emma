@@ -104,6 +104,10 @@
 		        {% endfor %}
 		</div>
 		<div class="divider"></div>
+		<div class="pager">	
+			{% if page.has_previous %}<a class="active" href="/{{url}}{{ page.previous_page_number }}">{% endif %}&laquo; {% trans "Previous" %}{% if page.has_previous %}</a>{% endif %}
+		    {% if page.has_next %}<a class="active" href="/{{url}}{{ page.next_page_number }}">{% endif %}{% trans "Next" %} &raquo;{% if page.has_next %}</a>{% endif %}
+		</div>
 		{% else %}
 		     <div class="text" style="display: block; width: 71%; padding: 11px; margin: auto">
 				<p>{% trans "Enter a search query into the box above. You may filter your results by clicking the green button (no copyright). Click the reset button to continue with the full results set." %}</p>
