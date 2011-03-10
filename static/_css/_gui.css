@@ -61,3 +61,6 @@ div#sorting:hover, div#page_size:hover{background-color: #666;color: white;}
 ul#pagesize-container{position: absolute; background: #fff; margin: 0 0 0 0; padding:3px 3px 7px 3px; -webkit-box-shadow: 0px 1px 5px #ddccdd; -moz-box-shadow: 0px 1px 5px #ddccdd; border: 1px solid #ddccdd;}
 ul#pagesize-container li{list-style: none; padding: 0 0 0 0; margin: 0 0 0 0;color: #777;cursor: pointer;}
 ul#pagesize-container li:hover{text-decoration: underline;color: black;}
+div#footer{height: 240px;width: 500px; border: 1px solid black; background: #eee;}
+div.menubar div.link{margin: 21px 0 0 11px;}
+div.menubar div.link a{background: #444; color:#eee; text-decoration: none;  padding: 5px; border-radius: 5px;}
