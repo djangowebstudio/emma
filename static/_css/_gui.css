@@ -63,4 +63,5 @@ ul#pagesize-container li{list-style: none; padding: 0 0 0 0; margin: 0 0 0 0;col
 ul#pagesize-container li:hover{text-decoration: underline;color: black;}
 div#footer{height: 240px;width: 500px; border: 1px solid black; background: #eee;}
 div.menubar div.link{margin: 21px 0 0 11px;}
-div.menubar div.link a{background: #444; color:#eee; text-decoration: none;  padding: 5px; border-radius: 5px;}
+div.menubar div.link a{background: #444; color:#eee; text-decoration: none;  padding: 5px; border-radius: 5px; font-weight: bold;}
+div.menubar div.link a:hover{color: #444; background: #eee;}
