@@ -103,6 +103,7 @@
 					{% endif %}
 		        {% endfor %}
 		</div>
+		<div class="divider"></div>
 		{% else %}
 		     <div class="text" style="display: block; width: 71%; padding: 11px; margin: auto">
 				<p>{% trans "Enter a search query into the box above. You may filter your results by clicking the green button (no copyright). Click the reset button to continue with the full results set." %}</p>
@@ -111,6 +112,7 @@
 			</div>
 		{% endif %}
 	</div>
+	
 	<div id="metadata" style="display: none"></div>
 	{% include 'includes/cart-include.html' %}
 	{% include 'includes/pagerange-include.html' %}
