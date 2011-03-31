@@ -121,7 +121,7 @@
 					case 'over':
 						return '<span id="fancybox-title-over">' + title + '</span>';
 					default:
-						return '<span id="fancybox-title-wrap"><span id="fancybox-title-left"></span><span id="fancybox-title-main">' + title + '</span><span id="fancybox-title-right"></span></span>';
+						return '<span id="fancybox-title-wrap"><span id="fancybox-title-left"></span><span id="fancybox-title-main">' + title.replace('_|_c_|_', '') + '</span><span id="fancybox-title-right"></span></span>';
 				}
 			}
 
@@ -523,7 +523,11 @@
                                     'title': image_LNID
                                     })
                             .click(function(){
-                                        $.get('/cart/add/item/' + image_LNID + '/');
+                                        if (selectedOpts.title.substring(0,7) == '_|_c_|_'){
+                                            location.href='/show_costs/' + image_LNID + '/';
+                                        }else{
+                                            $.get('/cart/add/item/' + image_LNID + '/');
+                                        }
                                 })
                             .html($('<span/>').text(trans_add_to_cart))
                                 );
