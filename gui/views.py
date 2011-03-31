@@ -116,4 +116,9 @@ def page_size(request, page_size):
     except Exception, inst:
         return HttpResponse('Sorry, something went wrong %s' % inst)
         
+def show_costs(request, item):
+    """Show copyright costs"""
+    m = Metadata.objects.get(image_LNID=item)
+    return render_to_response('gui/costs.html', locals(), context_instance=RequestContext(request))
+        
 
