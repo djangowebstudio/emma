@@ -27,7 +27,6 @@ class Command:
             cmd = [ 'ffmpeg ', '-i', finput,  '-s', size,  '-y',  '-ar', '11025',  '-b',  '800', foutput]
         else:
             cmd = [ 'ffmpeg', '-i', finput,  '-y',  '-ar', '11025', foutput]
-        print cmd
         proc = subprocess.Popen(cmd)      
         verbose = proc.communicate()[0]
 
@@ -125,7 +124,7 @@ class Command:
             try:
                 properties.setdefault(* kv.split(':'))
             except Exception, inst:
-                print inst
+                pass
 
         if properties:
             for k, v in properties.iteritems(): properties[k] = v.strip()
@@ -142,7 +141,6 @@ class Command:
         """
         if os.path.exists(source):
             cmd = ["sips", "--setProperty", "format", format, source, "--out", target]
-            print cmd
             action = subprocess.Popen(cmd,stdout=subprocess.PIPE).stdout.read()
             return action
         else:
@@ -177,7 +175,7 @@ class Command:
 
                 base_heightwidth = (width/7) if widthfactor > heightfactor else (height/8)
             except Exception, inst:
-                print inst
+                pass
                 base_heightwidth = 210
             resize_cmd = ["sips", "--resampleHeight", str(base_heightwidth), "--cropToHeightWidth", str(target_width), str(target_height), "--setProperty", "format", "png", source, "--out", target]
             action = subprocess.Popen(resize_cmd,stdout=subprocess.PIPE).stdout.read()
