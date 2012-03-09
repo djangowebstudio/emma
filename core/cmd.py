@@ -42,7 +42,11 @@ class Command:
     
 
     def ffmpeg(self, finput, foutput, size="other", defaultwidth=917, frame=1, format='png', verbose=False):
-        """ Converts all sorts of video formats to a clip in .flv format or set of images.
+        """ 
+        Wrapper for ffmpeg
+        ------------------
+        
+        Converts all sorts of video formats to a clip in .flv format or set of images.
         The number of frames can be set in de args.
         Just a python wrapper for ffmpeg.
 
@@ -75,9 +79,8 @@ class Command:
         """
         dimensions = {} # Init a dict to hold dimensions
 
-
         if size == 'large':
-            cmd = ["ffmpeg","-i", finput, "-y","-ar","11025", foutput]
+            cmd = ["ffmpeg","-i", finput, "-y","-ar","11025", "-b", "1400kb", foutput]
         elif size == 'cropped':
             cmd = ["ffmpeg","-i",finput,"-y","-fs","100000",foutput]
         elif size == 'tiny' or size == 'small':
