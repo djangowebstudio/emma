@@ -113,7 +113,7 @@ msgstr "Je winkelmand is leeg"
 
 #: templates/cart/base.html:39
 msgid "Click to download the contents of your basket."
-msgstr "Klik om de inhoud vcan je winkelmand te downloaden"
+msgstr "Klik om de inhoud van je winkelmand te downloaden"
 
 #: templates/cart/base.html:67
 msgid "Click to remove this item from your basket"
