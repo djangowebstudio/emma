@@ -2,6 +2,7 @@ from django import template
 from django.template import Library
 register = Library()
 from django.utils.safestring import mark_safe
+import os
 
 @register.filter(name="to_queries")
 def to_queries(value):
@@ -14,3 +15,13 @@ def to_queries(value):
     
     output = ', '.join(li)
     return mark_safe(output)
+    
+@register.filter(name="ext")
+def ext(path):
+    """ Returns the extension"""
+    try:
+        s = os.path.splitext(path)[1].replace('.','')
+    except:
+        s = None
+        
+    return s
