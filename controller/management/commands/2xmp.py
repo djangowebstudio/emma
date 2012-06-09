@@ -37,7 +37,7 @@ class Command(BaseCommand):
             for f in files:
                 p = os.path.join(root, f)
                 # get original keywords
-                keywords = Metadata().exif("keywords", p)
+                keywords = Metadata().exif("iptc:keywords", p)
                 
                 # some older files contain linebreaks in their 
                 # keywords, we will remove these
