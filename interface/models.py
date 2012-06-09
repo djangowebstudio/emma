@@ -276,7 +276,7 @@ class Metadata(models.Model):
                 'source'                :   self.source,
                 'captionwriter'         :   self.caption_writer,
                 'subject'               :   self.subject,
-                'keywords'              :   self.keywords,
+                'xmp:keywords'          :   self.keywords, # revision 182, changed to xmp keywords
                 'description'           :   self.description,
                 'location'              :   self.location,
                 'city'                  :   self.city,
@@ -294,7 +294,7 @@ class Metadata(models.Model):
                 'copyright'             :   'yes' if self.copyright == 1 else 'no' if self.copyright == 0 else 'unknown',
                 'orientation'           :   self.orientation
                 }
-                
+                                
                 if self.document:
                     cmdDict['ManagedFromFilePath'] = self.document.path
         

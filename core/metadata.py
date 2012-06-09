@@ -56,7 +56,18 @@ class Metadata:
                 return 2
         
     def exifFromDescription(self, stringToGrep, t=0):
-        """Try to populate standards-compliant metadata set from 1st generation metadata
+        """
+        Migration script
+        ----------------
+        Try to populate standards-compliant metadata set from 1st generation metadata.
+        
+        This project has quite a history, and a web tool existed many years prior to the
+        release of emma / beeldnet. By "1st generation" is meant metadata entered into the 
+        predecessor application called Cumulus. Metadata was often incorrectly entered, so
+        a migration script was necessary.
+        
+        At first release of emma / beeldnet, this migration script was used to migrate metadata
+        from the older images.
         
         -title                                      (images_metadata.subject)*
         -keywords                                   (images_keyword.keywords, images_metadata.keywords)
@@ -75,7 +86,9 @@ class Metadata:
         (see exifAll)
         * Unavailable
         
-        Todo: combine this function with exifAll"""
+        Todo: combine this function with exifAll
+        
+        """
         
         # Add a 'keywords' key if there is none
         if not re.compile('^Keywords:', re.IGNORECASE).match(stringToGrep): stringToGrep = 'Keywords: ' + stringToGrep      
@@ -205,7 +218,8 @@ class Metadata:
          returns requested metadata using exiftool (http://www.sno.phy.queensu.ca/~phil/exiftool/)
          """
         if not concat:
-            cmd = ["exiftool", "-P", "-overwrite_original_in_place", attr, stringToWrite, writeToFile]
+            cmd = ["exiftool", "-P", "-overwrite_original_in_place", "%s='%s" % (attr, stringToWrite), writeToFile]
+
         else:
             cmd = ''.join(['exiftool -P -overwrite_original_in_place ', '-', attr, '+="', stringToWrite, '" ', writeToFile])
         proc = subprocess.Popen(cmd,shell=True, stdout=subprocess.PIPE,)
@@ -279,7 +293,7 @@ class Metadata:
         The following tags are extracted:           (corresponding database table fields within parentheses)
         
         -title                                      (images_metadata.subject)
-        -keywords                                   (images_keyword.keywords, images_metadata.keywords)
+        -xmp:keywords                               (images_keyword.keywords, images_metadata.keywords)
         -description                                (images_metadata.description)
         -copyright                                  (images_keyword.cright)
         -instructions                               (images_metadata.instructions)
@@ -322,7 +336,7 @@ class Metadata:
         """
         d = re.compile('(^.+?)(:)(.+$)', re.IGNORECASE)
         cmd = ["exiftool","-m","-S","-f","-E","-documentname","-ManagedFromFilePath","-filetype","-mimetype",
-                "-title","-subject","-keywords","-description","-copyright","-instructions","-xmp:credit",
+                "-title","-subject", "-xmp:keywords", "-description","-copyright","-instructions","-xmp:credit",
                 "-icc_profile:colorspacedata","-creator","-creatortool","-urgency","-captionwriter","-source",
                 "-datetimeoriginal","-city","-province-state","-country","-headline","-location","-author",
                 "-album","-orientation#",fileToCheck]
@@ -335,6 +349,7 @@ class Metadata:
                 rdict[m.group(1).lower()] = m.group(3).strip()
             except Exception, inst:
                 pass
+                        
         
         # post-process rdict: switch subject and keywords if ai and keywords are empty   
         if fileToCheck.split('.').pop() == 'ai':

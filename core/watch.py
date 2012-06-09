@@ -32,7 +32,7 @@ DEPLOYING EMMA
     Override templates & statics locally if you wish.
 
 3.  From within the django project root, run script/load -f, and leave it running. (you will need admin 
-    premissions for this).
+    permissions for this).
     Refer to fix's log at /Library/Logs/[project name]/fix.log to check the progress. Wait for files to 
     be processed before going on to the next step.
     Fix will fix filenames, renaming as needed to comply with workflow policy. And does heaps
@@ -116,6 +116,7 @@ class Watch:
             
             # Todo: sort extensions using os.path.split. This will be less costly and improve code readability.
             # Todo: Look into magic file definition -- API? Speed issues?
+            
             # NOTE: We're going to extract the file type using exiftool for the moment. This is quite costly, but
             # as we're getting a whole heap of metadata anyway, this one bit of extra data won't slow us down much.
             
@@ -868,7 +869,7 @@ class Watch:
                                     except Exception, inst:
                                         logging.error("Error trying to construct an Album from item %s %s" % (image_LNID, inst))
                                                         
-                                                                
+                          
                             
                                 
                                 except Image.DoesNotExist: # No matching image_LNID, so we must be dealing with a completely new file
@@ -1012,6 +1013,10 @@ class Watch:
                                             logging.info( "new Metadata saved %(image)s" % {'image':image_LNID})
                                         except Exception, inst:
                                             logging.error( "Metadata edit error (2) %(inst)s" % {'inst':inst})
+            
+            
+            
+            
             for item in removed_files:
                 if item[(len(item)-4):(len(item)-3)] == "." or item[(len(item)-3):(len(item)-2)] == ".":
                     
