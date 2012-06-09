@@ -45,7 +45,7 @@ class Command(BaseCommand):
                 keywords = keywords.replace('\n', ', ')
                 
                 # use subprocess directly for the write call
-                c = '-xmp:keywords="%s"' % keywords
+                c = '-xmp:keywords=%s' % keywords
                 cmd = ['exiftool', '-P', '-overwrite_original_in_place', c, p]
                 if action:
                     r = subprocess.call(cmd)
