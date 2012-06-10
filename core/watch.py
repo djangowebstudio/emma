@@ -512,14 +512,6 @@ class Watch:
             logging.error( "Error saving %s %s " % (obj, image_LNID))
 
     
-    def get_stats(obj):
-        if sys.platform == 'darwin':
-            return datetime.datetime(obj.st_mtime), datetime.datetime(obj.st_birthtime)
-        else:
-            return datetime.datetime(obj.st_mtime), datetime.datetime(obj.st_ctime)
-            
-    
-    
     def watch_directories (self, paths, func, delay=1.0):
         
         # Create gallery folders if they don't already exist
@@ -570,20 +562,18 @@ class Watch:
                     
                     mtime = remaining_files.get(path)
                     if mtime is not None:
-                        # If we are on darwin, we must use st_birthtime to get
-                        # the true creation date of the file.
                         
                         # Record this file as having been seen
                         del remaining_files[path]
                         # File's mtime has been changed since we last looked at it.
                         if t.st_mtime > mtime:
-                            appendix = path, self.get_stats(t)
+                            appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(t.st_ctime)
                             changed_list.append(appendix)
                     else:
                         # No recorded modification time, so it must be
                         # a brand new file.
                         #today = datetime.datetime.now()
-                        appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(t.st_birthtime)
+                        appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(t.st_ctime)
                         changed_list.append(appendix)
                     # Record current mtime of file.
                     all_files[path] = t.st_mtime
