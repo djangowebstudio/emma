@@ -59,7 +59,7 @@ def folder(request, path='', p=1):
     
     # get page range from settings
     page_range = getattr(settings, 'APP_PAGE_RANGE', range(8, 88, 8))
-    order = 'image__date_modified' if sortpref == 1 else '-image__date_modified'
+    order = 'image__date_created' if sortpref == 1 else '-image__date_created'
     m = Metadata.objects.filter(image__image_real_path__istartswith=path).order_by(order)
     
     page = get_page(request, m, p)
