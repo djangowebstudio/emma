@@ -519,7 +519,9 @@ class Watch(object):
         file creation time (birthtime)
         """
         cmd = [ 'stat' '-f', '%B', path]
-        return subprocess.Popen(cmd).communicate()[0]
+        birthtime = subprocess.Popen(cmd).communicate()[0]
+        
+        return datetime.datetime.fromtimestamp(birthtime)
         
         
             
@@ -572,20 +574,19 @@ class Watch(object):
             
                     
                     mtime = remaining_files.get(path)
-                    ctime = datetime.datetime.fromtimestamp(Watch().get_birthtime(path))
                     if mtime is not None:
                         
                         # Record this file as having been seen
                         del remaining_files[path]
                         # File's mtime has been changed since we last looked at it.
                         if t.st_mtime > mtime:
-                            appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), ctime
+                            appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), Watch().get_birthtime(path)
                             changed_list.append(appendix)
                     else:
                         # No recorded modification time, so it must be
                         # a brand new file.
                         #today = datetime.datetime.now()
-                        appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), ctime
+                        appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), Watch().get_birthtime(path)
                         changed_list.append(appendix)
                     # Record current mtime of file.
                     all_files[path] = t.st_mtime
