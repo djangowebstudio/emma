@@ -580,6 +580,7 @@ class Watch(object):
                         del remaining_files[path]
                         # File's mtime has been changed since we last looked at it.
                         if t.st_mtime > mtime:
+                            print path
                             appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(subprocess.Popen([ 'stat' '-f', '%B', path]).communicate()[0])
                             changed_list.append(appendix)
                     else:
