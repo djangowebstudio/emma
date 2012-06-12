@@ -580,13 +580,13 @@ class Watch(object):
                         del remaining_files[path]
                         # File's mtime has been changed since we last looked at it.
                         if t.st_mtime > mtime:
-                            appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(t.st_mtime)
+                            appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(subprocess.Popen([ 'stat' '-f', '%B', path]).communicate()[0])
                             changed_list.append(appendix)
                     else:
                         # No recorded modification time, so it must be
                         # a brand new file.
                         #today = datetime.datetime.now()
-                        appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(t.st_mtime)
+                        appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(subprocess.Popen([ 'stat' '-f', '%B', path]).communicate()[0])
                         changed_list.append(appendix)
                     # Record current mtime of file.
                     all_files[path] = t.st_mtime
