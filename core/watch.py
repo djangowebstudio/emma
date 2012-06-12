@@ -85,7 +85,7 @@ tmp = getattr(settings, 'APP_CONTENT_TMP', False)
 
 #--------------------------------------------------------------------------------------------------
 
-class Watch:
+class Watch(object):
     
     def convertImages(self,item,file_type='', mime_type='', rotate=''):
             """ Calls the appropriate functions in Converter
@@ -572,7 +572,7 @@ class Watch:
             
                     
                     mtime = remaining_files.get(path)
-                    ctime = datetime.datetime.fromtimestamp(get_birthtime(path))
+                    ctime = datetime.datetime.fromtimestamp(self.get_birthtime(path))
                     if mtime is not None:
                         
                         # Record this file as having been seen
