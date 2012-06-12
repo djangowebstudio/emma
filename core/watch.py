@@ -563,6 +563,7 @@ class Watch(object):
                     
                     try:
                         t = os.stat(path)
+                        ctime = subprocess.Popen([ 'stat' '-f', '%B', path]).communicate()[0]
 
                     
                     except os.error:
@@ -581,13 +582,13 @@ class Watch(object):
                         # File's mtime has been changed since we last looked at it.
                         if t.st_mtime > mtime:
                             print path
-                            appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(subprocess.Popen([ 'stat' '-f', '%B', path]).communicate()[0])
+                            appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(ctime)
                             changed_list.append(appendix)
                     else:
                         # No recorded modification time, so it must be
                         # a brand new file.
                         #today = datetime.datetime.now()
-                        appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(subprocess.Popen([ 'stat' '-f', '%B', path]).communicate()[0])
+                        appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(ctime)
                         changed_list.append(appendix)
                     # Record current mtime of file.
                     all_files[path] = t.st_mtime
