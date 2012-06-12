@@ -49,7 +49,7 @@ DEPLOYING EMMA
 
 from __future__ import nested_scopes
 
-import os, sys, time
+import os, sys, time, subprocess
 from time import strftime
 from django.core.management import setup_environ
 import settings
@@ -512,6 +512,17 @@ class Watch:
             logging.error( "Error saving %s %s " % (obj, image_LNID))
 
     
+    
+    def get_birthtime(self, path):
+        """
+        version-independent way of getting the 
+        file creation time (birthtime)
+        """
+        cmd = [ 'stat' '-f', '%B', path]
+        return subprocess.Popen(cmd).communicate()[0]
+        
+        
+            
     def watch_directories (self, paths, func, delay=1.0):
         
         # Create gallery folders if they don't already exist
@@ -561,19 +572,20 @@ class Watch:
             
                     
                     mtime = remaining_files.get(path)
+                    ctime = datetime.datetime.fromtimestamp(self.get_birthtime(path))
                     if mtime is not None:
                         
                         # Record this file as having been seen
                         del remaining_files[path]
                         # File's mtime has been changed since we last looked at it.
                         if t.st_mtime > mtime:
-                            appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(t.st_ctime)
+                            appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), ctime
                             changed_list.append(appendix)
                     else:
                         # No recorded modification time, so it must be
                         # a brand new file.
                         #today = datetime.datetime.now()
-                        appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(t.st_ctime)
+                        appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), ctime
                         changed_list.append(appendix)
                     # Record current mtime of file.
                     all_files[path] = t.st_mtime
