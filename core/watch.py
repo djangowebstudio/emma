@@ -572,7 +572,7 @@ class Watch(object):
             
                     
                     mtime = remaining_files.get(path)
-                    ctime = datetime.datetime.fromtimestamp(self.get_birthtime(path))
+                    ctime = datetime.datetime.fromtimestamp(Watch().get_birthtime(path))
                     if mtime is not None:
                         
                         # Record this file as having been seen
