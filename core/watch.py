@@ -550,7 +550,6 @@ class Watch(object):
                     
                     try:
                         t = os.stat(path)
-                        ctime = subprocess.Popen([ 'stat' '-f', '%B', path]).communicate()[0]
 
                     
                     except os.error:
