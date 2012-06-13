@@ -512,19 +512,6 @@ class Watch(object):
             logging.error( "Error saving %s %s " % (obj, image_LNID))
 
     
-    
-    def get_birthtime(self, path):
-        """
-        version-independent way of getting the 
-        file creation time (birthtime)
-        """
-        cmd = [ 'stat' '-f', '%B', path]
-        birthtime = subprocess.Popen(cmd).communicate()[0]
-        
-        return datetime.datetime.fromtimestamp(birthtime)
-        
-        
-            
     def watch_directories (self, paths, func, delay=1.0):
         
         # Create gallery folders if they don't already exist
@@ -581,14 +568,13 @@ class Watch(object):
                         del remaining_files[path]
                         # File's mtime has been changed since we last looked at it.
                         if t.st_mtime > mtime:
-                            print path
-                            appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(ctime)
+                            appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(t.st_ctime)
                             changed_list.append(appendix)
                     else:
                         # No recorded modification time, so it must be
                         # a brand new file.
                         #today = datetime.datetime.now()
-                        appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(ctime)
+                        appendix = path, datetime.datetime.fromtimestamp(t.st_mtime), datetime.datetime.fromtimestamp(t.st_ctime)
                         changed_list.append(appendix)
                     # Record current mtime of file.
                     all_files[path] = t.st_mtime
