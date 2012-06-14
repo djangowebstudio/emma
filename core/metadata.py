@@ -4,7 +4,7 @@
 metadata.py
 
 Created by Geert Dekkers on 2008-02-11.
-Copyright (c) 2008, 2009 Geert Dekkers Web Studio. All rights reserved.
+Copyright (c) 2008, 2009 Geert Dekkers Web Studio, 2010, 2011, 2012 Django Web Studio. All rights reserved.
 """
 import string
 import sys
@@ -20,10 +20,47 @@ try:
 except:
     import simplejson as json
 
-class Metadata:
+class Metadata(object):
     
     def __init__(self): pass
         
+    
+    
+    
+    def stat(self, path):
+        """
+        On OSX, st_birthtime is the only file time that accurately 
+        reflects the original creation time of a file. Even
+        st_ctime gets updated once in a while, for example
+        when the metadata is updated.
+        
+        Sadly, st_birthtime is not exposed to python on all OSX versions.
+        Notably not on 10.5, but it is on 10.7 (have not checked 10.6).
+        
+        Other platforms use st_ctime more correctly, but have no st_birthtime.
+        
+        This function is an alternative for os.stat(<path>).st_birthtime.
+        It leaves testing the platform and/or the existence of the st_birthtime 
+        method up to you.
+        
+        Returns a dict containing the response of stat -s <file>.
+        The return value will be something like this:
+        
+        {'st_rdev': '0', 'st_ctime': '1339613207', 'st_mtime': '1339613207', 
+        'st_blocks': '31432', 'st_nlink': '1', 'st_flags': '0', 'st_gid': '20', 
+        'st_blksize': '4096', 'st_dev': '234881026', 'st_size': '16089528', 
+        'st_mode': '0100667', 'st_uid': '501', 'st_birthtime': '1108716743', 
+        'st_ino': '102959153', 'st_atime': '1339613537'}
+        
+        You will need to test for the exact response for your target 
+        platform. 
+        
+        """
+        r = subprocess.Popen(['stat', '-s', path], stdout=subprocess.PIPE).communicate()[0]
+        d = dict([x.split('=') for x in r.rstrip().split(' ')])
+        return d
+    
+    
     def exifGrepForCopyright(self, fileToCheck):
         """      gets metadata from a file
          takes a full path
