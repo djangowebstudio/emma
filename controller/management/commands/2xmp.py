@@ -28,6 +28,7 @@ class Command(BaseCommand):
                 
             make_option('-p', '--path', 
                 dest='path',
+                default=settings.APP_CONTENT_ROOT,
                 help='Enter path'),
             
    
