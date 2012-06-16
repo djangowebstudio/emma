@@ -17,19 +17,16 @@ import subprocess
 import zipfile
 import utes
 import datetime
-from django.core.management import setup_environ
-import settings
-setup_environ(settings)
-from emma.interface.models import *
-import utes
-from emma.core.metadata import *
+from django.conf import settings
+from emma.interface.models import ImageCount
+from emma.core.utes import Utes
+from emma.core.metadata import Metadata
 #--------------------------------------------------------------------------------------------------
 # Logging
 #--------------------------------------------------------------------------------------------------
 import logging
 
-u = utes.Utes()
-u._mkdir(settings.APP_LOGS_ROOT)
+Utes()._mkdir(settings.APP_LOGS_ROOT)
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s %(levelname)-8s %(message)s',
@@ -38,13 +35,22 @@ logging.basicConfig(level=logging.DEBUG,
                     filemode='w')
 #--------------------------------------------------------------------------------------------------
 
-
+exclude_keywords = getattr(settings, 'APP_FIX_EXCLUDEKEYWORDS', None)
+excludes = getattr(settings, 'APP_FIX_EXCLUDES', None)
+fix_bad_chars = getattr(settings, 'APP_FIX_BADCHARACTERS', None)
+content_root = getattr(settings, 'APP_CONTENT_ROOT', '' )
+packages_id = getattr(settings, 'APP_PACKAGES_ID', None )
+packages_root = getattr(settings, 'APP_PACKAGES_ROOT', '')
+static_root = getattr(settings, 'STATIC_ROOT', '')
+fix_keywords = getattr(settings, 'APP_FIX_ADDKEYWORDS', '')
 
 class Fix:
-    def __init__(self): pass
-    def settings(self): return settings # Get the settings for reuse as imported class
+    def __init__(self):
+        u = Utes()
+        m = Metadata()
+        
     def increment(self, input): return input + 1
-    def percent2f_n_bad(self): return re.compile(settings.APP_FIX_BADCHARACTERS) # look for bad chars
+    def percent2f_n_bad(self): return re.compile(fix_bad_chars) # look for bad chars
     def generateFN(self):
         """Gets the last file prefix number"""
         try:
@@ -55,14 +61,13 @@ class Fix:
                     
     def unzip(self):
         """Unzips and converts files according to rules"""
-        ute = utes.Utes()
-        for root, dirs, files in os.walk(settings.APP_CONTENT_ROOT):
+        for root, dirs, files in os.walk(content_root):
             for f in files:
-                c = self.excludes(f, settings.APP_PACKAGES_ID)
+                c = self.excludes(f, packages_id)
                 if True in c:   # the "excludes" function returns a Boolean, ? tuple
                     try:
                         oldpath = os.path.join(root, f)
-                        newpath = os.path.join(settings.APP_PACKAGES_ROOT, f.replace(c[1].split('.')[0],'')) # remove the package identifier
+                        newpath = os.path.join(packages_root, f.replace(c[1].split('.')[0],'')) # remove the package identifier
                         os.rename(oldpath, newpath )    # rename the file
                         os.remove(oldpath) # remove the renamed file
                     except Exception, inst:
@@ -80,13 +85,13 @@ class Fix:
                                 if filename[0:2] != '__':   # exclude dirnames beginning with '__'
                                     if filename[len(filename)-1:len(filename)] == '/':
                                         dirname = os.path.join(root, self.percent2f_n_bad().sub('-',filename))
-                                        ute._mkdir(dirname)
+                                        _mkdir(dirname)
                                         try:
                                             os.chmod(dirname, 0755)
                                         except Exception, inst:
                                             logging.error('Couldn\'t chmod %(f)s %(inst)s' % {'f': dirname, 'inst': inst})
                                     else:
-                                        if False in self.excludes(filename, settings.APP_FIX_EXCLUDES):
+                                        if False in self.excludes(filename, excludes):
                                             fname = os.path.join(root,self.percent2f_n_bad().sub('-',filename))
                                         else:
                                             fname = os.path.join(root,filename)
@@ -109,12 +114,12 @@ class Fix:
     
     def fix(self, delay=60):
         """Calls all other functions in Fix"""
-        logging.info( "Fix calling in for %s..." % settings.APP_CONTENT_ROOT)
+        logging.info( "Fix calling in for %s..." % content_root)
         logging.info( "...checking for zipped files...")
         unzip_results = self.unzip()
         logging.info( "%(results)s" % {'results' : unzip_results})
         logging.info( "...checking files and folders...")
-        for root, dirs, files in os.walk(settings.APP_CONTENT_ROOT):
+        for root, dirs, files in os.walk(content_root):
             self.convertDirs(root,dirs)
             self.convertFiles(root,files)
         logging.info( "...done checking files and folders")
@@ -144,7 +149,7 @@ class Fix:
         """Renames directories if necessary"""
 
         for f in dirs:
-            if False in self.excludes(f, settings.APP_FIX_EXCLUDES):
+            if False in self.excludes(f, excludes):
                 newfile = self.percent2f_n_bad().sub('-', f)                                        # strip the bad chars 
                 newfile = newfile.strip()                                                           # strip the spaces from the directories
                 newfile = newfile.replace(' ', '-')                                                 # replace spaces with hyphens (sometimes fix misses a space)
@@ -176,7 +181,6 @@ class Fix:
     
     def pairFlashComponents(self, flashDict, root, flashComponent, correct=True):
         """ Processes .fla /.swf pairs - renames both, copies the swf to gallery """
-        u = utes.Utes()
         if flashComponent[len(flashComponent)-4:len(flashComponent)] == '.fla':
             
             component_key = self.percent2f_n_bad().sub('-', flashComponent).replace('.fla', '')
@@ -190,8 +194,8 @@ class Fix:
                 oldpath_FLA = os.path.join(root, flashComponent)
                 oldpath_SWF = os.path.join(root, flashComponent.replace('.fla','.swf'))
                 newpath_FLA = os.path.join(root, flashDict[component_key][1])
-                newpath_images_SWF = os.path.join(settings.STATIC_ROOT + '/gallery/images', flashDict[component_key][2])
-                newpath_thumbs_SWF = os.path.join(settings.STATIC_ROOT + '/gallery/thumbs', flashDict[component_key][2])
+                newpath_images_SWF = os.path.join(static_root + '/gallery/images', flashDict[component_key][2])
+                newpath_thumbs_SWF = os.path.join(static_root + '/gallery/thumbs', flashDict[component_key][2])
                 
                 try:
                     os.rename(oldpath_FLA, newpath_FLA)
@@ -201,7 +205,7 @@ class Fix:
                     logging.error('Error renaming %(fla)s %(inst)s' % {'fla': flashComponent, 'inst': inst})
                     
                 try: 
-                    u.pcopy(oldpath_SWF, newpath_thumbs_SWF)  # First copy the swf to the thumbs dir in gallery, set chmod"
+                    pcopy(oldpath_SWF, newpath_thumbs_SWF)  # First copy the swf to the thumbs dir in gallery, set chmod"
                     try: 
                         os.chmod(newpath_thumbs_SWF, 0755)
                     except Exception, inst:
@@ -225,7 +229,7 @@ class Fix:
         # Init Dict for pairFlashComponents()
         flashDict = {}
         for f in files:
-            if False in self.excludes(f, settings.APP_FIX_EXCLUDES):
+            if False in self.excludes(f, excludes):
                 # If the filename starts with five integers, it's probably ok
                 try:
                     i = int(f[0:5])
@@ -234,12 +238,14 @@ class Fix:
                 except: 
                     # Now we can prepare to change the filenames. However, in some cases it would be prudent to capture any existing information, and often
                     # that would be the filename. So the first step is to load some data from the *old* name for later reuse.
-                    keywords =  ','.join([root.replace(settings.APP_CONTENT_ROOT,'').replace('/',',').replace('-', ',').replace('_',','), os.path.splitext(f)[0].replace('-',',').replace('_',',').replace(' ', ',')]) 
+                    keywords =  ','.join([root.replace(content_root,'').replace('/',',').replace('-', ',').replace('_',','), os.path.splitext(f)[0].replace('-',',').replace('_',',').replace(' ', ',')]) 
                     k = keywords[1:len(keywords)] # clip off the leading comma
                     keywords = k.split(',')
-                    for word in keywords:
-                        if len(word) < 2 or word in settings.APP_FIX_EXCLUDEKEYWORDS:
-                            keywords.remove(word)
+                    
+                    if exclude_keywords:
+                        for word in keywords:
+                            if len(word) < 2 or word in exclude_keywords:
+                                keywords.remove(word)
                     keywords = ', '.join(keywords)
                             
                     if f[len(f)-4:len(f)] == '.fla':
@@ -284,9 +290,11 @@ class Fix:
                                 os.rename(oldpath, newpath)
                                 logging.info( "%(f)s changed to %(newfile)s " % {'f': f, 'newfile': newfile})
                                 self.updateImageCount(number)
-                                if 'APP_FIX_ADDKEYWORDS' in dir(settings) and settings.APP_FIX_ADDKEYWORDS:
+                                
+                                if fix_keywords:    
+                                
                                     # Write the saved keywords data
-                                    metadata.Metadata().exifWrite('keywords', keywords, newpath, True) 
+                                    exifWrite('keywords', keywords, newpath, True) 
                                     logging.info("Added %s to %s" % (keywords, newpath))
                                 logging.info( "Count updated to %(number)s" % {'number':number})
                             except Exception, inst:
@@ -323,7 +331,7 @@ class Fix:
             return result
                 
 if __name__ == '__main__':
-    logging.info ("Starting fix() for %(settings)s" % {'settings' : settings.APP_CONTENT_ROOT})
+    logging.info ("Starting fix() for %(settings)s" % {'settings' : content_root})
     
     f = Fix()
     f.fix()
