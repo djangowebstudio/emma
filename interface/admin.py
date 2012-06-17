@@ -30,7 +30,7 @@ admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, FlatPageAdmin)
         
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ['image_LNID', 'image_category']
+    list_display = ['image_LNID', 'image_category', 'date_created', 'date_modified']
     search_fields = ['image_LNID', 'image_category']
     
 admin.site.register(Image, ImageAdmin)
@@ -68,7 +68,8 @@ class MetadataAdmin(admin.ModelAdmin):
     )
     
     
-    list_display = ('thumb','image_LNID','subject','copyright','profile','album', 'headline', 'has_attachment', 'keywords', 'mime_type')
+    list_display = ('thumb','image_LNID','subject','copyright','profile', 
+    'has_attachment', 'keywords', 'mime_type')
     
 
 admin.site.register(Metadata, MetadataAdmin)
