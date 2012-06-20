@@ -388,12 +388,11 @@ class Metadata(object):
                 pass
                         
         
-        # post-process rdict: switch subject and keywords if ai and keywords are empty   
-        if fileToCheck.split('.').pop() == 'ai':
-            if rdict.has_key('keywords'):
-                if rdict['keywords'].strip() == '-':
-                    if rdict.has_key('subject'):
-                        rdict['keywords'] = rdict['subject']
+        # post-process rdict: switch subject and keywords if keywords are empty   
+        if rdict.has_key('keywords'):
+            if not rdict['keywords'] or rdict['keywords'].strip() == '-':
+                if rdict.has_key('subject'):
+                    rdict['keywords'] = rdict['subject']
                 
         # post-process rdict: set copyright to boolean int          
         copyright = rdict['copyright'] if rdict.has_key('copyright') else ''
