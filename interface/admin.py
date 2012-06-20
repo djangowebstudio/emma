@@ -71,6 +71,8 @@ class MetadataAdmin(admin.ModelAdmin):
     list_display = ('thumb','image_LNID','subject','copyright','profile', 
     'has_attachment', 'keywords', 'mime_type')
     
+    list_editable = ('subject', 'copyright', 'keywords')
+    
 
 admin.site.register(Metadata, MetadataAdmin)
 
