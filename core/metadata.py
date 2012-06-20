@@ -20,6 +20,24 @@ try:
 except:
     import simplejson as json
 
+
+#--------------------------------------------------------------------------------------------------
+# Logging
+# A directory will be created the first time watch is run.
+#--------------------------------------------------------------------------------------------------
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s %(levelname)-8s %(message)s',
+                    datefmt='%a, %d %b %Y %H:%M:%S',
+                    filename=os.path.join(settings.APP_LOGS_ROOT, 'metadata.log'),
+                    filemode='w')
+#--------------------------------------------------------------------------------------------------
+# Configuration
+#--------------------------------------------------------------------------------------------------
+
+
+
+
 class Metadata(object):
     
     def __init__(self): pass
@@ -393,6 +411,7 @@ class Metadata(object):
             if not rdict['keywords'] or rdict['keywords'].strip() == '-':
                 if rdict.has_key('subject'):
                     rdict['keywords'] = rdict['subject']
+                    logging.info('keywords and subject switched: subject was: %s' % rdict['subject'])
                 
         # post-process rdict: set copyright to boolean int          
         copyright = rdict['copyright'] if rdict.has_key('copyright') else ''
