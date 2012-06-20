@@ -20,24 +20,6 @@ try:
 except:
     import simplejson as json
 
-
-#--------------------------------------------------------------------------------------------------
-# Logging
-# A directory will be created the first time watch is run.
-#--------------------------------------------------------------------------------------------------
-
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s %(levelname)-8s %(message)s',
-                    datefmt='%a, %d %b %Y %H:%M:%S',
-                    filename=os.path.join(settings.APP_LOGS_ROOT, 'metadata.log'),
-                    filemode='w')
-#--------------------------------------------------------------------------------------------------
-# Configuration
-#--------------------------------------------------------------------------------------------------
-
-
-
-
 class Metadata(object):
     
     def __init__(self): pass
@@ -288,7 +270,7 @@ class Metadata(object):
         A better option would be to leave the _original backup files for a bit and clean them up at night.
          returns requested metadata using exiftool (http://www.sno.phy.queensu.ca/~phil/exiftool/)
         """
-        cmdList = ["exiftool", "-P", "-overwrite_original_in_place",]
+        cmdList = ["exiftool", "-P", "-overwrite_original_in_place",]  
         for a, b in cmdDict.iteritems():
             item = ''.join(['-',unicode(a), '=',unicode(b)])
             cmdList.append(item)
@@ -411,7 +393,6 @@ class Metadata(object):
             if not rdict['keywords'] or rdict['keywords'].strip() == '-':
                 if rdict.has_key('subject'):
                     rdict['keywords'] = rdict['subject']
-                    logging.info('keywords and subject switched: subject was: %s' % rdict['subject'])
                 
         # post-process rdict: set copyright to boolean int          
         copyright = rdict['copyright'] if rdict.has_key('copyright') else ''
