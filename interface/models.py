@@ -301,11 +301,8 @@ class Metadata(models.Model):
                 m.exifWriteAll(cmdDict, path)
                 
             else:
-                if self.image.image_category == 'illustration':
-                    logging.info("%s not super saved because %s" % (self, self.image.image_category))
-                else:
-                    logging.info("Caller was %s so no models.Metadata super save()" % caller)
-        
+
+                logging.info("Caller was %s so no models.Metadata super save()" % caller)
         
         finally:
             del caller
