@@ -15,9 +15,10 @@ import sys, re, os, time
 import unicodedata
 import subprocess
 import zipfile
-import utes
 import datetime
-from django.conf import settings
+from django.core.management import setup_environ
+import settings
+setup_environ(settings)
 from emma.interface.models import ImageCount
 from emma.core.utes import Utes
 from emma.core.metadata import Metadata
@@ -85,7 +86,7 @@ class Fix:
                                 if filename[0:2] != '__':   # exclude dirnames beginning with '__'
                                     if filename[len(filename)-1:len(filename)] == '/':
                                         dirname = os.path.join(root, self.percent2f_n_bad().sub('-',filename))
-                                        _mkdir(dirname)
+                                        Utes()._mkdir(dirname)
                                         try:
                                             os.chmod(dirname, 0755)
                                         except Exception, inst:
@@ -205,7 +206,7 @@ class Fix:
                     logging.error('Error renaming %(fla)s %(inst)s' % {'fla': flashComponent, 'inst': inst})
                     
                 try: 
-                    pcopy(oldpath_SWF, newpath_thumbs_SWF)  # First copy the swf to the thumbs dir in gallery, set chmod"
+                    Utes().pcopy(oldpath_SWF, newpath_thumbs_SWF)  # First copy the swf to the thumbs dir in gallery, set chmod"
                     try: 
                         os.chmod(newpath_thumbs_SWF, 0755)
                     except Exception, inst:
