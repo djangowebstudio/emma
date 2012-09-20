@@ -17,8 +17,9 @@ import md5
 import math, operator
 
 class Compare:
-	def __init__(self):
-		pass
+    def __init__(self):
+        pass
+    
     def is_equal(self, im1, im2):
         """
         Compare two images
@@ -48,7 +49,7 @@ class Compare:
         h2 = Image.open(img_path_2).histogram()
 
         return math.sqrt(reduce(operator.add,
-        	map(lambda a,b: (a-b)**2, h1, h2))/len(h1))
+            map(lambda a,b: (a-b)**2, h1, h2))/len(h1))
 
 
     def histogram_md5(self, im):
@@ -134,9 +135,9 @@ class Compare:
 
 
 class compareTests(unittest.TestCase):
-	def setUp(self):
-		pass
+    def setUp(self):
+        pass
 
 
 if __name__ == '__main__':
-	pass
+    pass
