@@ -54,7 +54,7 @@ from time import strftime
 from django.core.management import setup_environ
 import settings
 setup_environ(settings)
-from emma.interface.models import *
+from emma.interface.models import Image, Keyword, Metadata
 import metadata
 import converter
 import datetime
@@ -605,9 +605,9 @@ class Watch(object):
                 # Only files WITH extensions!
                 if item[(len(item)-5):(len(item)-4)] == "." or item[(len(item)-4):(len(item)-3)] == "." or item[(len(item)-3):(len(item)-2)] == ".": 
                 
-            
-                    
-                    createdate = item_ctime
+                
+                    createdate = datetime.datetime.fromtimestamp(float(m.stat(item)['st_birthtime']))
+                    # createdate = item_ctime
                     modifydate = item_mtime
             
                     

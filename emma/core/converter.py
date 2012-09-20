@@ -15,7 +15,7 @@ formats we want. The imaging capabilities of macosx surpass these packages easil
 
 There are drawbacks, however. One apparent drawback is that CoreGraphics can't be used with Apache running as 64 bit app. 
 And the interface also seems to be a one-off deal, introduced in 10.3 and supposedly supported by Python 2.3 only
-(but it runs happily in 2.5 anyway).
+(but it runs happily in 2.5 anyway). (UPDATE: not true, is still in Apple's 2.7 distro)
 
 Future versions of EMMA must address this issue, possibly by using the Quartz bindings.
 One (easy) way out of this is to use sips (a command line interface to Quartz 2D) through subprocess.

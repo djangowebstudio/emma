@@ -270,7 +270,7 @@ class Metadata(object):
         A better option would be to leave the _original backup files for a bit and clean them up at night.
          returns requested metadata using exiftool (http://www.sno.phy.queensu.ca/~phil/exiftool/)
         """
-        cmdList = ["exiftool", "-P", "-overwrite_original_in_place",]
+        cmdList = ["exiftool", "-P", "-overwrite_original_in_place",]  
         for a, b in cmdDict.iteritems():
             item = ''.join(['-',unicode(a), '=',unicode(b)])
             cmdList.append(item)
@@ -388,12 +388,11 @@ class Metadata(object):
                 pass
                         
         
-        # post-process rdict: switch subject and keywords if ai and keywords are empty   
-        if fileToCheck.split('.').pop() == 'ai':
-            if rdict.has_key('keywords'):
-                if rdict['keywords'].strip() == '-':
-                    if rdict.has_key('subject'):
-                        rdict['keywords'] = rdict['subject']
+        # post-process rdict: switch subject and keywords if keywords are empty   
+        if rdict.has_key('keywords'):
+            if not rdict['keywords'] or rdict['keywords'].strip() == '-':
+                if rdict.has_key('subject'):
+                    rdict['keywords'] = rdict['subject']
                 
         # post-process rdict: set copyright to boolean int          
         copyright = rdict['copyright'] if rdict.has_key('copyright') else ''

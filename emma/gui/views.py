@@ -26,7 +26,7 @@ def index(request, p=1):
     preferences = prefs(request)
     sortpref, page_size = preferences['sortpref'], preferences['page_size']
 
-    order = 'image__date_modified' if sortpref == 1 else '-image__date_modified'
+    order = 'image__date_created' if sortpref == 1 else '-image__date_created'
     m = Metadata.objects.all().order_by(order)
     m = m[:number] if number else m
     page = get_page(request, m, p)    
