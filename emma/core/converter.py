@@ -42,7 +42,7 @@ import mimetypes
 import subprocess
 import utes
 import codecs
-from pyPdf2 import PdfFileWriter, PdfFileReader
+from PyPDF2 import PdfFileWriter, PdfFileReader
 import Image
 #--------------------------------------------------------------------------------------------------
 # Logging (disabled - uncomment to enable logging for this script)
@@ -275,7 +275,7 @@ class Convert:
             return None, None
     
     def get_pdf_dimensions(self, path):
-        """Get pdf dimensions using pyPdf"""
+        """Get pdf dimensions using PyPDF2"""
         try:
             pdf = PdfFileReader(file(path, "rb"))
         except:
@@ -290,7 +290,7 @@ class Convert:
 
 
     def joinpdf(self, input_list, output_file):
-        """Join list of pdfs to multipage using pyPdf."""
+        """Join list of pdfs to multipage using PyPDF2."""
         output = PdfFileWriter()
         for f in input_list:
             input_file = PdfFileReader(file(f, "rb"))
@@ -301,7 +301,7 @@ class Convert:
 
 
     def pdf_get_no_pages(self, input_file):
-        """Return number of pages in a pdf using pyPdf."""
+        """Return number of pages in a pdf using PyPDF2."""
         try:
             pdf_input = PdfFileReader(file(input_file, "rb"))
             return pdf_input.getNumPages()
@@ -309,7 +309,7 @@ class Convert:
             return None
     
     def splitpdf(self, input_file, output_dir):
-        """Split pdf to single-page files using pyPdf"""  
+        """Split pdf to single-page files using PyPDF2"""  
         try:    
             input1 = PdfFileReader(file(input_file, "rb"))
         except Exception, inst:
