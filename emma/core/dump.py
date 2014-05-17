@@ -4,7 +4,8 @@
 dump.py
 
 Created by Geert Dekkers on 2008-06-07.
-Copyright (c) 2008 Geert Dekkers Web Studio. All rights reserved.
+Copyright (c) 2008 Geert Dekkers Web Studio, 2009, 2010, 2011, 2012, 2013 
+Django Web Studio. All rights reserved.
 
 Dumps the app mysql database. Preferably to be triggered by a cron job, or launchd on macosx.
 Could also be triggered by Scheduler on Windows, but we're not using Windows, are we?
@@ -21,9 +22,7 @@ import datetime
 import subprocess
 import tarfile
 import utes
-from django.core.management import setup_environ
-import settings
-setup_environ(settings)
+from django.conf import settings
 
 #--------------------------------------------------------------------------------------------------
 # Logging

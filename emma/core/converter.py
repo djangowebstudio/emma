@@ -42,7 +42,7 @@ import mimetypes
 import subprocess
 import utes
 import codecs
-from pyPdf import PdfFileWriter, PdfFileReader
+from pyPdf2 import PdfFileWriter, PdfFileReader
 import Image
 #--------------------------------------------------------------------------------------------------
 # Logging (disabled - uncomment to enable logging for this script)

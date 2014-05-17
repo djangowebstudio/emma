@@ -14,7 +14,7 @@ import sys
 import os
 import unittest
 import subprocess
-from pyPdf import PdfFileWriter, PdfFileReader
+from pyPdf2 import PdfFileWriter, PdfFileReader
 
 class Command:
     def __init__(self):
