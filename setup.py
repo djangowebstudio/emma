@@ -8,7 +8,7 @@ setup(
     author='Geert Dekkers',
     author_email='geert@djangowebstudio.nl',
     license='BSD',
-    url='https://https://github.com/djangowebstudio/emma',
+    url='https://github.com/djangowebstudio/emma',
     packages=find_packages(exclude=['tests', 'tests.*']),
     platforms='any',
     zip_safe=False,
