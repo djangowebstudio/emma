@@ -1,10 +1,10 @@
+#!/usr/bin/env python
 from setuptools import setup, find_packages
-
 setup(
     name='django_emma',
-    version=1.02,
+    version=1.03,
     description='Image Databank for Django',
-    long_description=open('README.rst').read(),
+    # long_description=open('README.rst').read(),
     author='Geert Dekkers',
     author_email='geert@djangowebstudio.nl',
     license='BSD',

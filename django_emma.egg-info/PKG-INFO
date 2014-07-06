@@ -1,0 +1,19 @@
+Metadata-Version: 1.0
+Name: django-emma
+Version: 1.03
+Summary: Image Databank for Django
+Home-page: https://github.com/djangowebstudio/emma
+Author: Geert Dekkers
+Author-email: geert@djangowebstudio.nl
+License: BSD
+Description: UNKNOWN
+Platform: any
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Multimedia :: Graphics
+Classifier: Framework :: Django
