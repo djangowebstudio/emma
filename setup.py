@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='emma',
+    name='django_emma',
     version=1.02,
     description='Image Databank for Django',
     long_description=open('README.rst').read(),
