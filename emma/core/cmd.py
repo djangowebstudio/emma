@@ -221,7 +221,7 @@ class Command:
         except:
             return None
 
-    def splitpdf(self, input_file, output_dir):
+    def splitpdf(self, input_file, output_dir, suffix_starts_with="_"):
         """Split pdf to single-page files using PyPDF2"""  
         try:    
             input1 = PdfFileReader(file(input_file, "rb"))
@@ -230,7 +230,13 @@ class Command:
         files = []
         for page_number in range(0, input1.getNumPages()):
             page = input1.getPage(page_number)
-            fname = os.path.basename(input_file).replace('.pdf', '_%s.pdf' % (page_number + 1))
+            replacement = '{0}{1}.pdf'.format(
+                suffix_starts_with,
+                (page_number + 1),
+            )
+            fname = os.path.basename(input_file).replace(
+            '.pdf', replacement
+            )
             fpath = os.path.join(output_dir, fname)
             files.append(fpath)
             output = PdfFileWriter()
