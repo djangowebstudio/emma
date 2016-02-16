@@ -20,13 +20,21 @@ class Command:
     def __init__(self):
         pass
         
-    def ffmpeg_simple(self, finput, foutput, dimensions=None, verbose=False):
+    def ffmpeg_simple(self, finput, foutput, dimensions=None, verbose=False, path=None):
         """A simple version of the ffmpeg wrapper. Takes input & output, optionally the height/width."""
+        
+        # Sometimes the executable isn't where we expect it. Then we offer a way for the 
+        # caller to define the path.        
+        if path:
+            executable = os.path.join(path, 'ffmpeg')
+        else:
+            executable = "ffmpeg"
+        
         if dimensions:
             size = 'x'.join(dimensions)
-            cmd = [ 'ffmpeg ', '-i', finput,  '-s', size,  '-y',  '-ar', '11025',  '-b',  '800', foutput]
+            cmd = [ executable, '-i', finput,  '-s', size,  '-y',  '-ar', '11025',  '-b:a',  '800k', foutput]
         else:
-            cmd = [ 'ffmpeg', '-i', finput,  '-y',  '-ar', '11025', foutput]
+            cmd = [ executable, '-i', finput,  '-y',  '-ar', '11025', foutput]
         proc = subprocess.Popen(cmd)      
         verbose = proc.communicate()[0]
 
@@ -41,7 +49,8 @@ class Command:
     
     
 
-    def ffmpeg(self, finput, foutput, size="other", defaultwidth=917, frame=1, format='png', verbose=False):
+    def ffmpeg(self, finput, foutput, size="other", defaultwidth=917, frame=1, 
+                format='png', verbose=False, path=None):
         """ 
         Wrapper for ffmpeg
         ------------------
@@ -78,19 +87,26 @@ class Command:
 
         """
         dimensions = {} # Init a dict to hold dimensions
+        
+        # Sometimes the executable isn't where we expect it. Then we offer a way for the 
+        # caller to define the path.
+        if path:
+            executable = os.path.join(path, 'ffmpeg')
+        else:
+            executable = "ffmpeg"
 
         if size == 'large':
-            cmd = ["ffmpeg","-i", finput, "-y","-ar","11025", "-b", "1400kb", foutput]
+            cmd = [executable,"-i", finput, "-y","-ar","11025", "-b", "1400kb", foutput]
         elif size == 'cropped':
-            cmd = ["ffmpeg","-i",finput,"-y","-fs","100000",foutput]
+            cmd = [executable,"-i",finput,"-y","-fs","100000",foutput]
         elif size == 'tiny' or size == 'small':
             fname = '/'.join([foutput, os.path.splitext(os.path.basename(finput))[0] + ".png"])
-            cmd = ["ffmpeg", "-i", finput, "-y", "-vframes", "1", "-ss", unicode(frame), fname]
+            cmd = [executable, "-i", finput, "-y", "-vframes", "1", "-ss", unicode(frame), fname]
         elif size == 'fullsize':
             fname = '/'.join([foutput, os.path.splitext(os.path.basename(finput))[0] + ".jpg"])
-            cmd = ["ffmpeg", "-i", finput, "-y", "-vframes", "1", "-ss", unicode(frame), fname]
+            cmd = [executable, "-i", finput, "-y", "-vframes", "1", "-ss", unicode(frame), fname]
         else:
-            cmd = ["ffmpeg","-i",finput,"-y","-vframes","180","-an","-s","qqvga",foutput]
+            cmd = [executable,"-i",finput,"-y","-vframes","180","-an","-s","qqvga",foutput]
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
         verbose = proc.communicate()[0]
         if size == 'tiny': self.crop_to_center(fname, foutput,29,29)
